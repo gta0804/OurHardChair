@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author LBW
  */
 @Controller
-@RequestMapping("/login")
 public class LoginRequest {
     private String username;
     private String password;
 
 
     @Autowired
-    public LoginRequest(UserRepositoryImps userRepositoryImps) {
+    public LoginRequest() {
     }
 
 

@@ -1,5 +1,6 @@
 package fudan.se.lab2.service;
 
+import fudan.se.lab2.domain.Authority;
 import fudan.se.lab2.exception.UsernameHasBeenRegisteredException;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.domain.User;
@@ -14,6 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author LBW
@@ -31,7 +35,18 @@ public class AuthService {
 
     public User register(RegisterRequest request) {
         // TODO: Implement the function.
-        return null;
+        if (null != userRepository.findByUsername(request.getUsername())){
+            return null;
+        }else{
+            Set<Authority> set = new HashSet<>();
+            Set<String> nameSet = request.getAuthorities();
+            for (String s : nameSet) {
+                set.add(new Authority(s));
+            }
+            User user = new User(request.getUsername(),request.getPassword(),request.getFullname(),set);
+            userRepository.save(user);
+            return user;
+        }
     }
 
     public String login(String username, String password) {
@@ -42,8 +57,6 @@ public class AuthService {
                 return "success";
             }
         }
-        return "null";
+        return "fail";
     }
-
-
 }

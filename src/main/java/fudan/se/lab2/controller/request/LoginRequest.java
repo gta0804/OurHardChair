@@ -1,22 +1,21 @@
 package fudan.se.lab2.controller.request;
 
-import fudan.se.lab2.repository.UserRepositoryImps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author LBW
  */
 @Controller
+@RequestMapping("/login")
 public class LoginRequest {
     private String username;
     private String password;
 
-    private UserRepositoryImps userRepositoryImps;
 
     @Autowired
     public LoginRequest(UserRepositoryImps userRepositoryImps) {
-        this.userRepositoryImps = userRepositoryImps;
     }
 
 

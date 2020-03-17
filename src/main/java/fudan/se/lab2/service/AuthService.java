@@ -36,7 +36,13 @@ public class AuthService {
 
     public String login(String username, String password) {
         // TODO: Implement the function.
-        return null;
+        Iterable<User> users = userRepository.findAll();
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)){
+                return "success";
+            }
+        }
+        return "null";
     }
 
 

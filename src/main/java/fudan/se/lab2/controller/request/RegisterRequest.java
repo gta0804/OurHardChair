@@ -1,6 +1,5 @@
 package fudan.se.lab2.controller.request;
 
-import fudan.se.lab2.repository.UserRepositoryImps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,11 +14,9 @@ public class RegisterRequest {
     private String password;
     private String fullname;
     private Set<String> authorities;
-    private UserRepositoryImps userRepositoryImps;
 
     @Autowired
-    public RegisterRequest(UserRepositoryImps userRepositoryImps) {
-        this.userRepositoryImps = userRepositoryImps;
+    public RegisterRequest() {
     }
 
     public RegisterRequest(String username, String password, String fullname, Set<String> authorities) {

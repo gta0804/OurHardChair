@@ -11,7 +11,6 @@ import java.util.*;
  * @author LBW
  */
 @Entity
-@Table(name = "user")
 public class User implements UserDetails {
 
     private static final long serialVersionUID = -6140085056226164016L;

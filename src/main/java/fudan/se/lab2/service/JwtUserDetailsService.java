@@ -1,6 +1,5 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,11 +11,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-    private UserRepository userRepository;
 
-    public JwtUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+
+    public JwtUserDetailsService(UserRepository userRepository) { }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

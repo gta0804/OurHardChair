@@ -1,17 +1,26 @@
 package fudan.se.lab2.controller.request;
 
+import fudan.se.lab2.repository.UserRepositoryImps;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import java.util.Set;
 
 /**
  * @author LBW
  */
+@Controller
 public class RegisterRequest {
     private String username;
     private String password;
     private String fullname;
     private Set<String> authorities;
+    private UserRepositoryImps userRepositoryImps;
 
-    public RegisterRequest() {}
+    @Autowired
+    public RegisterRequest(UserRepositoryImps userRepositoryImps) {
+        this.userRepositoryImps = userRepositoryImps;
+    }
 
     public RegisterRequest(String username, String password, String fullname, Set<String> authorities) {
         this.username = username;

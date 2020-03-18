@@ -17,6 +17,8 @@ import java.util.Set;
  */
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired

@@ -18,9 +18,8 @@ public class CorsConfig {
                 //TODO: If you encounter some Cross-Domain problems（跨域问题）, Maybe you can do something here.
                 registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedHeaders("*")
                         .allowCredentials(true)
-                        .allowedMethods("*")
+                        .allowedMethods("GET", "POST", "DELETE", "PUT")
                         .maxAge(3600);
             }
         };

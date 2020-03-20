@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.domain.User;
 import fudan.se.lab2.service.AuthService;
 import fudan.se.lab2.service.JwtUserDetailsService;
 import fudan.se.lab2.controller.request.LoginRequest;
@@ -33,15 +34,17 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         logger.debug("RegistrationForm: " + request.toString());
-
-        return ResponseEntity.ok(authService.register(request));
+        User user = authService.register(request);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         logger.debug("LoginForm: " + request.toString());
-
-        return ResponseEntity.ok(authService.login(request.getUsername(), request.getPassword()));
+        Map<String, String> response = new HashMap<>();
+        String message = authService.login(request.getUsername(), request.getPassword());
+        response.put("message", message);
+        return ResponseEntity.ok(response);
     }
 
     /**

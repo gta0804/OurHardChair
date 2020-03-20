@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class AuthService {
         this.authorityRepository = authorityRepository;
     }
 
-    public User register(RegisterRequest request) {
+    public User register(@RequestBody RegisterRequest request) {
         // TODO: Implement the function.
         if (null != userRepository.findByUsername(request.getUsername())){
             return null;

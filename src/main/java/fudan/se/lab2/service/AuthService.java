@@ -49,7 +49,7 @@ public class AuthService {
         }
     }
 
-    public String login(String username, String password) {
+        public String login(String username, String password) {
         // TODO: Implement the function.
         Iterable<User> users = userRepository.findAll();
         for (User user : users) {

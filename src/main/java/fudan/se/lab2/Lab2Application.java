@@ -47,7 +47,9 @@ public class Lab2Application {
                     User admin = new User(
                             "admin",
                             passwordEncoder.encode("password"),
-                            "libowen",
+                            "libowen@fudan.edu.cn",
+                            "Fudan University",
+                            "China",
                             new HashSet<>(Collections.singletonList(adminAuthority))
                     );
                     userRepository.save(admin);

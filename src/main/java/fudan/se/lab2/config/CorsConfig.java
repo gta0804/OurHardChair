@@ -4,24 +4,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * @author LBW
  */
 @Configuration
-public class CorsConfig {
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                //TODO: If you encounter some Cross-Domain problems（跨域问题）, Maybe you can do something here.
-                registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowCredentials(true)
-                        .allowedMethods("GET", "POST", "DELETE", "PUT")
-                        .maxAge(3600);
-            }
-        };
+public class CorsConfig  extends WebMvcConfigurerAdapter {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        System.out.println("----------------------");
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowCredentials(true)
+                .allowedMethods("GET", "POST", "DELETE", "PUT")
+                .maxAge(3600);
     }
-}
+
+
+    }

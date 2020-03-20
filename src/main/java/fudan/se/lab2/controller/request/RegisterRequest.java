@@ -12,17 +12,21 @@ import java.util.Set;
 public class RegisterRequest {
     private String username;
     private String password;
-    private String fullname;
+    private String email;
+    private String institution;
+    private String country;
     private Set<String> authorities;
 
     @Autowired
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String username, String password, String fullname, Set<String> authorities) {
+    public RegisterRequest(String username, String password, String email,String institution,String country, Set<String> authorities) {
         this.username = username;
         this.password = password;
-        this.fullname = fullname;
+        this.email = email;
+        this.institution=institution;
+        this.country=country;
         this.authorities = authorities;
     }
 
@@ -42,12 +46,28 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public Set<String> getAuthorities() {

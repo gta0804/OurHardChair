@@ -23,17 +23,21 @@ public class User implements UserDetails {
     private String username;
 
     private String password;
-    private String fullname;
+    private String email;
+    private String institution;
+    private String country;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
 
     public User() {}
-    public User(String username, String password, String fullname, Set<Authority> authorities) {
+    public User(String username, String password, String email,String institution,String country, Set<Authority> authorities) {
         this.username = username;
         this.password= password;
-        this.fullname = fullname;
+        this.email = email;
+        this.institution=institution;
+        this.country=country;
         this.authorities = authorities;
     }
 
@@ -88,13 +92,31 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;

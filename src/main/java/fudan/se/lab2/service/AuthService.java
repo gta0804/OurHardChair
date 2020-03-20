@@ -43,7 +43,7 @@ public class AuthService {
             for (String s : nameSet) {
                 set.add(new Authority(s));
             }
-            User user = new User(request.getUsername(),request.getPassword(),request.getFullname(),set);
+            User user = new User(request.getUsername(),request.getPassword(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
             userRepository.save(user);
             return user;
         }

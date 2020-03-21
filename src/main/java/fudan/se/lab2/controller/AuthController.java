@@ -104,9 +104,8 @@ public class AuthController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/ApplyConference")
-    public ResponseEntity<HashMap<String,Object>> applyMeeting(ApplyMeetingRequest request){
-        //TODO:get token
-        String token="";
+    public ResponseEntity<HashMap<String,Object>> applyMeeting(@RequestHeader("Authorization") String rawToken,ApplyMeetingRequest request){
+        String token= rawToken.substring(7);;
         Long id=userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -26,7 +27,8 @@ public class AuthController {
     private AuthService authService;
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
@@ -48,9 +50,14 @@ public class AuthController {
             System.out.println("注册失败，已有该用户");
             return ResponseEntity.ok(map);
         }else {
-            map.put("token",jwtTokenUtil.generateToken(user));
+            String token = jwtTokenUtil.generateToken(user);
+            map.put("token",token);
             System.out.println(jwtTokenUtil.generateToken(user));
-            map.put("message","注册成功");
+            map.put("message","success");
+            map.put("username",user.getUsername());
+            map.put("email",user.getEmail());
+            map.put("institution",user.getInstitution());
+            map.put("country",user.getCountry());
             return ResponseEntity.ok(map);
         }
     }
@@ -68,7 +75,7 @@ public class AuthController {
             map.put("message","用户不存在");
             return ResponseEntity.ok(map);
         }else {
-            if (!userForBase.getPassword().equals(request.getPassword())){
+            if (!passwordEncoder.matches(request.getPassword(),userForBase.getPassword())){
                 map.put("message","密码错误");
                 System.out.println("密码错误");
                 return ResponseEntity.ok(map);
@@ -76,8 +83,12 @@ public class AuthController {
                 String token = jwtTokenUtil.generateToken((User)userForBase);
                 System.out.println("登陆成功");
                 System.out.println(token);
-                map.put("message","登陆成功");
+                map.put("message","success");
                 map.put("token", token);
+                map.put("username",userForBase.getUsername());
+                map.put("email",((User) userForBase).getEmail());
+                map.put("institution",((User) userForBase).getInstitution());
+                map.put("country",((User) userForBase).getCountry());
                 return ResponseEntity.ok(map);
             }
         }

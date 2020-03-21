@@ -8,14 +8,17 @@ import fudan.se.lab2.repository.AuthorityRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.controller.request.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import fudan.se.lab2.security.SecurityConfig;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,14 +28,18 @@ import java.util.Set;
  */
 @Service
 public class AuthService {
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private AuthorityRepository authorityRepository;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
     }
+
 
     public User register(@RequestBody RegisterRequest request) {
         // TODO: Implement the function.
@@ -42,12 +49,8 @@ public class AuthService {
             return null;
         }else{
             System.out.println("注册成功！");
-            Set<Authority> set = new HashSet<>();
-            Set<String> nameSet = request.getAuthorities();
-            for (String s : nameSet) {
-                set.add(new Authority(s));
-            }
-            User user = new User(request.getUsername(),request.getPassword(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
+            String password = passwordEncoder.encode(request.getPassword());
+            User user = new User(request.getUsername(),password,request.getEmail(),request.getInstitution(),request.getCountry(),null);
             userRepository.save(user);
             System.out.println("加入新用户" +user.getUsername() + "成功！");
             return user;
@@ -57,8 +60,9 @@ public class AuthService {
         public String login(String username, String password) {
         // TODO: Implement the function.
         Iterable<User> users = userRepository.findAll();
+
         for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)){
+            if (user.getUsername().equals(username) && passwordEncoder.matches(password,user.getPassword())){
                 return "success";
             }
         }

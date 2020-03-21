@@ -23,7 +23,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
     private JwtUserDetailsService userDetailsService;
+    @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
@@ -37,7 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // TODO: Configure your auth here. Remember to read the JavaDoc carefully.
         auth
                 .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+                .withUser("user").password("password").roles("USER")
+                .and()
+                .withUser("admin")
+                .password("password")
+                .roles("administrator","USER");
     }
 
     @Override
@@ -46,7 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/").permitAll()
                 .antMatchers("/PCMember/**").hasRole("PCMember")
                 .antMatchers("/chair/**").hasRole("chair")
-                .antMatchers("/administrator/**").hasRole("administrator");
+                .antMatchers("/administrator/**").hasRole("administrator")
+                .antMatchers("/login").permitAll()
+                .antMatchers("/welcome").permitAll();
         http.formLogin();
         http.rememberMe();
         // We dont't need CSRF for this project.

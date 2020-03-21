@@ -22,15 +22,17 @@ import java.util.Map;
 /**
  * @author LBW
  */
-@CrossOrigin
+@CrossOrigin()
 @RestController
 public class AuthController {
     @Autowired
     private AuthService authService;
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
@@ -46,8 +48,9 @@ public class AuthController {
         return ResponseEntity.ok(user);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
-    public ResponseEntity<JSONObject> login(@Validated @RequestBody LoginRequest request) throws JSONException {
+    public ResponseEntity<JSONObject> login(@RequestBody LoginRequest request) throws JSONException {
         System.out.println("来了");
         logger.debug("LoginForm: " + request.toString());
         JSONObject jsonObject=new JSONObject();
@@ -55,19 +58,15 @@ public class AuthController {
         System.out.println(userForBase);
         if(userForBase==null){
             jsonObject.put("message","登录失败,用户不存在");
-            String token = " ";
-            jsonObject.put("token", token);
             return ResponseEntity.ok(jsonObject);
         }else {
             if (!userForBase.getPassword().equals(request.getPassword())){
-                String token = " ";
-                jsonObject.put("token", token);
                 jsonObject.put("message","登录失败,密码错误");
                 return ResponseEntity.ok(jsonObject);
             }else {
                 String token = jwtTokenUtil.generateToken((User)userForBase);
                 jsonObject.put("token", token);
-                jsonObject.put("user", userForBase);
+                jsonObject.put("user", (User)userForBase);
                 return ResponseEntity.ok(jsonObject);
             }
         }
@@ -77,6 +76,7 @@ public class AuthController {
     /**
      * This is a function to test your connectivity. (健康测试时，可能会用到它）.
      */
+    @CrossOrigin(origins = "*")
     @PostMapping("/welcome")
     public ResponseEntity<?> welcome() {
         Map<String, String> response = new HashMap<>();

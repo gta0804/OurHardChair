@@ -36,9 +36,12 @@ public class AuthService {
 
     public User register(@RequestBody RegisterRequest request) {
         // TODO: Implement the function.
+        //用户名重复的情况
         if (null != userRepository.findByUsername(request.getUsername())){
+            System.out.println("用户名重复");
             return null;
         }else{
+            System.out.println("注册成功！");
             Set<Authority> set = new HashSet<>();
             Set<String> nameSet = request.getAuthorities();
             for (String s : nameSet) {
@@ -46,6 +49,7 @@ public class AuthService {
             }
             User user = new User(request.getUsername(),request.getPassword(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
             userRepository.save(user);
+            System.out.println("加入新用户" +user.getUsername() + "成功！");
             return user;
         }
     }
@@ -59,5 +63,7 @@ public class AuthService {
             }
         }
             return "fail";
+
+
     }
 }

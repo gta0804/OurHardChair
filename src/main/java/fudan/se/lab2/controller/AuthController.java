@@ -9,11 +9,8 @@ import fudan.se.lab2.controller.request.RegisterRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -40,34 +37,48 @@ public class AuthController {
         this.authService = authService;
     }
 
-
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    @CrossOrigin(origins = "*")
+    @RequestMapping("/register")
+    public ResponseEntity<HashMap<String,Object>> register(@RequestBody RegisterRequest request) {
         logger.debug("RegistrationForm: " + request.toString());
+        HashMap<String,Object> map = new HashMap();
         User user = authService.register(request);
-        return ResponseEntity.ok(user);
+        if (null == user){
+            map.put("message","注册失败，已有该用户");
+            System.out.println("注册失败，已有该用户");
+            return ResponseEntity.ok(map);
+        }else {
+            map.put("token",jwtTokenUtil.generateToken(user));
+            System.out.println(jwtTokenUtil.generateToken(user));
+            map.put("message","注册成功");
+            return ResponseEntity.ok(map);
+        }
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/login")
-    public ResponseEntity<JSONObject> login(@RequestBody LoginRequest request) throws JSONException {
-        System.out.println("来了");
+    public ResponseEntity<HashMap<String,Object>> login(@RequestBody LoginRequest request) {
+        System.out.println("接收到login请求");
         logger.debug("LoginForm: " + request.toString());
-        JSONObject jsonObject=new JSONObject();
+        HashMap<String,Object> map = new HashMap();
         UserDetails userForBase =  jwtUserDetailsService.loadUserByUsername(request.getUsername());
         System.out.println(userForBase);
         if(userForBase==null){
-            jsonObject.put("message","登录失败,用户不存在");
-            return ResponseEntity.ok(jsonObject);
+            System.out.println("用户不存在");
+            map.put("message","用户不存在");
+            return ResponseEntity.ok(map);
         }else {
             if (!userForBase.getPassword().equals(request.getPassword())){
-                jsonObject.put("message","登录失败,密码错误");
-                return ResponseEntity.ok(jsonObject);
+                map.put("message","密码错误");
+                System.out.println("密码错误");
+                return ResponseEntity.ok(map);
             }else {
                 String token = jwtTokenUtil.generateToken((User)userForBase);
-                jsonObject.put("token", token);
-                jsonObject.put("user", (User)userForBase);
-                return ResponseEntity.ok(jsonObject);
+                System.out.println("登陆成功");
+                System.out.println(token);
+                map.put("message","登陆成功");
+                map.put("token", token);
+                return ResponseEntity.ok(map);
             }
         }
     }

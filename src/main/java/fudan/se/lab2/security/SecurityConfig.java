@@ -75,6 +75,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // Hint: Now you can view h2-console page at `http://IP-Address:<port>/h2-console` without authentication.
         web.ignoring().antMatchers("/h2-console/**");
+        web.ignoring().antMatchers("/login");
+        web.ignoring().antMatchers("/welcome");
+        web.ignoring().antMatchers("/register");
     }
 
     @Bean

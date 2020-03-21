@@ -1,6 +1,10 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.ApplyMeetingRequest;
+import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.User;
+import fudan.se.lab2.repository.ApplyMeetingRepository;
+import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.AuthService;
 import fudan.se.lab2.service.JwtUserDetailsService;
@@ -31,6 +35,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    private UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
@@ -91,6 +96,35 @@ public class AuthController {
                 map.put("country",((User) userForBase).getCountry());
                 return ResponseEntity.ok(map);
             }
+        }
+    }
+
+    /*
+        receive meeting application from frontend
+     */
+    @CrossOrigin(origins = "*")
+    @PostMapping("/ApplyConference")
+    public ResponseEntity<HashMap<String,Object>> applyMeeting(ApplyMeetingRequest request){
+        //TODO:get token
+        String token="";
+        Long id=userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        logger.debug("ApplyMeetingForm: " + request.toString());
+        HashMap<String,Object> map = new HashMap();
+        ApplyMeeting applyMeeting=authService.applyMeeting(request,id);
+        if (null == applyMeeting){
+            map.put("message","会议申请失败，已有该会议");
+            return ResponseEntity.ok(map);
+        }else {
+            map.put("token",token);
+            map.put("message","success");
+            map.put("user id",applyMeeting.getApplicantId());
+            map.put("abbreviation",applyMeeting.getAbbreviation());
+            map.put("fullName",applyMeeting.getFullName());
+            map.put("holdingTime",applyMeeting.getHoldingTime());
+            map.put("holdingPlace",applyMeeting.getHoldingPlace());
+            map.put("submissionDeadline",applyMeeting.getSubmissionDeadline());
+            map.put("reviewReleaseDate",applyMeeting.getReviewReleaseDate());
+            return ResponseEntity.ok(map);
         }
     }
 

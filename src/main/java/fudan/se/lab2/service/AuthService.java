@@ -1,7 +1,10 @@
 package fudan.se.lab2.service;
 
+import fudan.se.lab2.controller.request.ApplyMeetingRequest;
+import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Authority;
 import fudan.se.lab2.exception.UsernameHasBeenRegisteredException;
+import fudan.se.lab2.repository.ApplyMeetingRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.AuthorityRepository;
@@ -33,11 +36,14 @@ public class AuthService {
     @Autowired
     private AuthorityRepository authorityRepository;
     @Autowired
+    private ApplyMeetingRepository applyMeetingRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository) {
+    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository, ApplyMeetingRepository applyMeetingRepository) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.applyMeetingRepository=applyMeetingRepository;
     }
 
 
@@ -57,7 +63,7 @@ public class AuthService {
         }
     }
 
-        public String login(String username, String password) {
+    public String login(String username, String password) {
         // TODO: Implement the function.
         Iterable<User> users = userRepository.findAll();
 
@@ -67,7 +73,17 @@ public class AuthService {
             }
         }
             return "fail";
+    }
 
-
+    public ApplyMeeting applyMeeting(ApplyMeetingRequest request, Long id){
+        if(null!=applyMeetingRepository.findByFullName(request.getFullName())){
+            System.out.println("会议全称重复");
+            return null;
+        }
+        else{
+            ApplyMeeting applyMeeting=new ApplyMeeting(id,request.getAbbreviation(),request.getAbbreviation(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate());
+            applyMeetingRepository.save(applyMeeting);
+            return applyMeeting;
+        }
     }
 }

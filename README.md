@@ -1,4 +1,46 @@
 ## 后端更新日志
+
+### _2020.3.21 更新 郭泰安_
+
+1. 实现了会议申请的数据层和业务层
+
+2. token有部分未实现，劳请兄弟们帮我实现一下。
+
+   ​    
+
+   ```
+   /*
+       receive meeting application from frontend
+    */
+   @CrossOrigin(origins = "*")
+   @PostMapping("/ApplyConference")
+   public ResponseEntity<HashMap<String,Object>> applyMeeting(ApplyMeetingRequest request){
+       //TODO:get token
+       String token="";
+       Long id=userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+       logger.debug("ApplyMeetingForm: " + request.toString());
+       HashMap<String,Object> map = new HashMap();
+       ApplyMeeting applyMeeting=authService.applyMeeting(request,id);
+       if (null == applyMeeting){
+           map.put("message","会议申请失败，已有该会议");
+           return ResponseEntity.ok(map);
+       }else {
+           map.put("token",token);
+           map.put("message","success");
+           map.put("user id",applyMeeting.getApplicantId());
+           map.put("abbreviation",applyMeeting.getAbbreviation());
+           map.put("fullName",applyMeeting.getFullName());
+           map.put("holdingTime",applyMeeting.getHoldingTime());
+           map.put("holdingPlace",applyMeeting.getHoldingPlace());
+           map.put("submissionDeadline",applyMeeting.getSubmissionDeadline());
+           map.put("reviewReleaseDate",applyMeeting.getReviewReleaseDate());
+           return ResponseEntity.ok(map);
+       }
+   }
+   ```
+
+
+
 ### 2020.3.21更新 沈征宇
 1. 登录和注册页面不再需要权限
 

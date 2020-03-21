@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import fudan.se.lab2.security.SecurityConfig;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.HashSet;
 import java.util.Set;

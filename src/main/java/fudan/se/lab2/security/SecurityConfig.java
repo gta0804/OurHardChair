@@ -29,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     public SecurityConfig(JwtUserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
@@ -37,26 +39,57 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // TODO: Configure your auth here. Remember to read the JavaDoc carefully.
+        /*
+         * 指定用户认证时，默认从哪里获取认证用户信息
+         */
+        auth.userDetailsService(userDetailsService);
+
         auth
                 .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
-                .and()
-                .withUser("admin")
-                .password("password")
-                .roles("administrator","USER");
+                .withUser("admin").password(passwordEncoder.encode("password")).authorities("administrator","user");
+//                .and()
+//                .withUser("admin")
+//                .password(passwordEncoder.encode("password"))
+//                .roles("ADMIN","USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
-        http.authorizeRequests().antMatchers("/").permitAll()
-                .antMatchers("/PCMember/**").hasRole("PCMember")
-                .antMatchers("/chair/**").hasRole("chair")
-                .antMatchers("/administrator/**").hasRole("administrator")
-                .antMatchers("/login").permitAll()
-                .antMatchers("/welcome").permitAll();
-        http.formLogin();
-        http.rememberMe();
+        /*
+         * 表单登录：使用默认的表单登录页面和登录端点/login进行登录
+         * 退出登录：使用默认的退出登录端点/logout退出登录
+         * 记住我：使用默认的“记住我”功能，把记住用户已登录的Token保存在内存里，记住30分钟
+         * 权限：除了/toHome和/toUser之外的其它请求都要求用户已登录
+         * 注意：Controller中也对URL配置了权限，如果WebSecurityConfig中和Controller中都对某文化URL配置了权限，则取较小的权限
+         */
+        http
+                .formLogin()
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
+                .and()
+                .rememberMe()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/")
+                .hasAuthority("user")
+                .antMatchers("/")
+                .hasAuthority("administrator")
+                .antMatchers("/login","/register")
+                .permitAll()
+                .antMatchers("/toHome", "/toUser")
+                .permitAll();
+
+    //                .antMatchers("/chair/**")
+//                .hasAuthority("chair")
+//                .antMatchers("/administrator/**")
+//                .hasAuthority("administrator")
+//                .antMatchers("/author/**")
+//                .hasAuthority("author")
+//                .antMatchers("/user/**")
+//                .hasAuthority("user");
         // We dont't need CSRF for this project.
         http.csrf().disable()
                 // Make sure we use stateless session; session won't be used to store user's state.

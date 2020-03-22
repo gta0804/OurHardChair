@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
     private UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -107,9 +109,13 @@ public class AuthController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/ApplyConference")
-    public ResponseEntity<HashMap<String,Object>> applyMeeting(@RequestHeader("Authorization") String rawToken,ApplyMeetingRequest request){
-        String token= rawToken.substring(7);;
-        Long id=userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+    public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, ApplyMeetingRequest request){
+        System.out.println("rawToken" + httpServletRequest.getHeader("Authorization"));
+        String token= httpServletRequest.getHeader("Authorization").substring(7);
+        System.out.println("经过处理的token是" + token);
+        System.out.println("找到名字" + jwtTokenUtil.getUsernameFromToken(token));
+        System.out.println("找到Email" + userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getEmail());
+        Long id= userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
         ApplyMeeting applyMeeting=authService.applyMeeting(request,id);

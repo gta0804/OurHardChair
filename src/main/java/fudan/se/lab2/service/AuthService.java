@@ -58,7 +58,8 @@ public class AuthService {
             System.out.println("注册成功！");
             String password = passwordEncoder.encode(request.getPassword());
             HashSet<Authority> set = new HashSet<>();
-            set.add(new Authority("user"));
+            Authority authority = authorityRepository.findByAuthority("user");
+            set.add(authority);
             User user = new User(request.getUsername(),password,request.getEmail(),request.getInstitution(),request.getCountry(),set);
             userRepository.save(user);
             System.out.println("加入新用户" +user.getUsername() + "成功！");

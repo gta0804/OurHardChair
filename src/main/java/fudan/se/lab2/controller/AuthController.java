@@ -63,6 +63,7 @@ public class AuthController {
             map.put("email",user.getEmail());
             map.put("institution",user.getInstitution());
             map.put("country",user.getCountry());
+            map.put("id",user.getId());
             return ResponseEntity.ok(map);
         }
     }
@@ -88,6 +89,7 @@ public class AuthController {
                 String token = jwtTokenUtil.generateToken((User)userForBase);
                 System.out.println("登陆成功");
                 System.out.println(token);
+                map.put("id",((User) userForBase).getId());
                 map.put("message","success");
                 map.put("token", token);
                 map.put("username",userForBase.getUsername());

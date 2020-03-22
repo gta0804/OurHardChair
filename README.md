@@ -1,4 +1,6 @@
 ## 后端更新日志
+### _2020.3.22 更新 沈征宇_
+1. 注册和登录后返回用户ID到前端
 
 ### _2020.3.21 更新 郭泰安_
 
@@ -46,11 +48,34 @@
 1. 登录和注册页面不再需要权限
 
 2. Token完善
+```
+       if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer "))
+             jwtToken = requestTokenHeader.substring(7);
+```
+               
+前端注意请求头必须是 Authorization:Token ${token}的形式
 
 3. 实现登录和注册功能
 
 4. 加密存储密码到数据库
 
+先将转码器注册到主方法里
+```
+   @Bean
+     public PasswordEncoder encoder() {
+         return new BCryptPasswordEncoder();
+     }
+```
+存储的时候转码
+```
+String password = passwordEncoder.encode(request.getPassword());
+```
+登录的时候用match匹配
+```
+            if (user.getUsername().equals(username) && passwordEncoder.matches(password,user.getPassword())){
+                return "success";
+            }
+```
 ### 2020.3.20更新 沈征宇
 1. 在SecurityConfig中配置基于openId的认证方式
 
@@ -101,8 +126,20 @@
 ### 2020.3.19更新 沈征宇
 1. 完善了JwtRequestFilter：过滤JWT请求，验证"Bearer token"格式，校验Token是否正确 
 
-2. 通过addCorsMappings解决跨域问题
+```
+String token = jwtTokenUtil.generateToken(user);
+map.put("token",token);
+return ResponseEntity.ok(map);
+```
 
+2. 通过addCorsMappings解决跨域问题
+```
+registry.addMapping("/**")
+        .allowedOrigins("*")
+        .allowCredentials(true)
+        .allowedMethods("GET", "POST", "DELETE", "PUT")
+        .maxAge(3600);
+```
 3. 完善服务中响应注册的业务逻辑
 
 ### 2020.3.18更新 沈征宇

@@ -76,6 +76,16 @@ public class AuthService {
             return "fail";
     }
 
+    public User getUserByUsername(String username) {
+        Iterable<User> users = userRepository.findAll();
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public ApplyMeeting applyMeeting(ApplyMeetingRequest request, Long id){
         if(null!=applyMeetingRepository.findByFullName(request.getFullName())){
             System.out.println("会议全称重复");

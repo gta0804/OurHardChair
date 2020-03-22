@@ -39,19 +39,21 @@ public class Lab2Application {
             @Override
             public void run(String... args) throws Exception {
                 // Create authorities if not exist.
-                Authority adminAuthority = getOrCreateAuthority("Admin", authorityRepository);
-                Authority contributorAuthority = getOrCreateAuthority("Contributor", authorityRepository);
-                Authority reviewerAuthority = getOrCreateAuthority("Reviewer", authorityRepository);
+                Authority adminAuthority = getOrCreateAuthority("administrator", authorityRepository);
+                Authority userAuthority = getOrCreateAuthority("user", authorityRepository);
 
                 // Create an admin if not exists.
                 if (userRepository.findByUsername("admin") == null) {
+                    HashSet<Authority> set = new HashSet<>();
+                    set.add(adminAuthority);
+                    set.add(userAuthority);
                     User admin = new User(
                             "admin",
                             passwordEncoder.encode("password"),
                             "libowen@fudan.edu.cn",
                             "Fudan University",
                             "China",
-                            new HashSet<>(Collections.singletonList(adminAuthority))
+                            set
                     );
                     userRepository.save(admin);
                 }

@@ -1,15 +1,14 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
+import fudan.se.lab2.controller.request.LoginRequest;
+import fudan.se.lab2.controller.request.RegisterRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.User;
-import fudan.se.lab2.repository.ApplyMeetingRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.AuthService;
 import fudan.se.lab2.service.JwtUserDetailsService;
-import fudan.se.lab2.controller.request.LoginRequest;
-import fudan.se.lab2.controller.request.RegisterRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

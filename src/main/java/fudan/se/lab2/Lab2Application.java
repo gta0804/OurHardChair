@@ -39,14 +39,12 @@ public class Lab2Application {
             @Override
             public void run(String... args) throws Exception {
                 // Create authorities if not exist.
-                Authority adminAuthority = getOrCreateAuthority("administrator", authorityRepository);
-                Authority userAuthority = getOrCreateAuthority("user", authorityRepository);
+                Authority adminAuthority = getOrCreateAuthority("admin","administrator", authorityRepository);
 
                 // Create an admin if not exists.
                 if (userRepository.findByUsername("admin") == null) {
                     HashSet<Authority> set = new HashSet<>();
                     set.add(adminAuthority);
-                    set.add(userAuthority);
                     User admin = new User(
                             "admin",
                             passwordEncoder.encode("password"),
@@ -59,10 +57,10 @@ public class Lab2Application {
                 }
             }
 
-            private Authority getOrCreateAuthority(String authorityText, AuthorityRepository authorityRepository) {
+            private Authority getOrCreateAuthority(String username,String authorityText, AuthorityRepository authorityRepository) {
                 Authority authority = authorityRepository.findByAuthority(authorityText);
                 if (authority == null) {
-                    authority = new Authority(authorityText);
+                    authority = new Authority(username,authorityText);
                     authorityRepository.save(authority);
                 }
                 return authority;

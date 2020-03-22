@@ -1,15 +1,14 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
+import fudan.se.lab2.controller.request.LoginRequest;
+import fudan.se.lab2.controller.request.RegisterRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.User;
-import fudan.se.lab2.repository.ApplyMeetingRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.AuthService;
 import fudan.se.lab2.service.JwtUserDetailsService;
-import fudan.se.lab2.controller.request.LoginRequest;
-import fudan.se.lab2.controller.request.RegisterRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +36,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
     private UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -107,9 +108,13 @@ public class AuthController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/ApplyConference")
-    public ResponseEntity<HashMap<String,Object>> applyMeeting(@RequestHeader("Authorization") String rawToken,ApplyMeetingRequest request){
-        String token= rawToken.substring(7);;
-        Long id=userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+    public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, ApplyMeetingRequest request){
+        System.out.println("rawToken" + httpServletRequest.getHeader("Authorization"));
+        String token= httpServletRequest.getHeader("Authorization").substring(7);
+        System.out.println("经过处理的token是" + token);
+        System.out.println("找到名字" + jwtTokenUtil.getUsernameFromToken(token));
+        System.out.println("找到Email" + userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getEmail());
+        Long id= userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
         ApplyMeeting applyMeeting=authService.applyMeeting(request,id);

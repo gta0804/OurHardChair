@@ -42,11 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*
          * 指定用户认证时，默认从哪里获取认证用户信息
          */
-        auth.userDetailsService(userDetailsService);
+//        auth.userDetailsService(userDetailsService);
 
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder.encode("password")).authorities("administrator","user");
+//        auth.userDetailsService(userDetailsService);
+//
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("admin").password(passwordEncoder.encode("password")).authorities("administrator","user");
 //                .and()
 //                .withUser("admin")
 //                .password(passwordEncoder.encode("password"))
@@ -56,52 +58,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
-        /*
-         * 表单登录：使用默认的表单登录页面和登录端点/login进行登录
-         * 退出登录：使用默认的退出登录端点/logout退出登录
-         * 记住我：使用默认的“记住我”功能，把记住用户已登录的Token保存在内存里，记住30分钟
-         * 权限：除了/toHome和/toUser之外的其它请求都要求用户已登录
-         * 注意：Controller中也对URL配置了权限，如果WebSecurityConfig中和Controller中都对某文化URL配置了权限，则取较小的权限
-         */
-        http
-                .formLogin()
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .rememberMe()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/")
-                .hasAuthority("user")
-                .antMatchers("/")
-                .hasAuthority("administrator")
-                .antMatchers("/login","/register")
-                .permitAll()
-                .antMatchers("/toHome", "/toUser")
-                .permitAll();
-
-    //                .antMatchers("/chair/**")
-//                .hasAuthority("chair")
-//                .antMatchers("/administrator/**")
-//                .hasAuthority("administrator")
-//                .antMatchers("/author/**")
-//                .hasAuthority("author")
-//                .antMatchers("/user/**")
-//                .hasAuthority("user");
-        // We dont't need CSRF for this project.
-        http.csrf().disable()
-                // Make sure we use stateless session; session won't be used to store user's state.
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/welcome").permitAll()
-                .anyRequest().authenticated();
-
-//      Here we use JWT(Json Web Token) to authenticate the user.
-//      You need to write your code in the class 'JwtRequestFilter' to make it works.
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.authorizeRequests()
+//                .antMatchers("/user").hasAnyRole("administrator","user")//个人首页只允许拥有MENBER,SUPER_ADMIN角色的用户访问
+//                .antMatchers("/admin").hasAnyAuthority("administrator")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/")//这里程序默认路径就是登陆页面，允许所有人进行登陆
+//                    .loginProcessingUrl("/login")//登陆提交的处理url
+//                    .failureForwardUrl("/login")//登陆失败进行转发，这里回到登陆页面，参数error可以告知登陆状态
+//                    .defaultSuccessUrl("/user")//登陆成功的url，这里去到个人首页
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout").permitAll()
+//                    .and()
+//                .rememberMe();
+//
+//        // We dont't need CSRF for this project.
+//        http.csrf().disable()
+//                // Make sure we use stateless session; session won't be used to store user's state.
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+////      Here we use JWT(Json Web Token) to authenticate the user.
+////      You need to write your code in the class 'JwtRequestFilter' to make it works.
+//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -111,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/login");
         web.ignoring().antMatchers("/welcome");
         web.ignoring().antMatchers("/register");
+        web.ignoring().antMatchers("/static/**");
     }
 
 //    @Bean

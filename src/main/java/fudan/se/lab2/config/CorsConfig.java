@@ -3,6 +3,7 @@ package fudan.se.lab2.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class CorsConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
@@ -23,6 +25,11 @@ public class CorsConfig {
                         .allowCredentials(true)
                         .allowedMethods("GET", "POST", "DELETE", "PUT")
                         .maxAge(3600);
+            }
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                //此处配置拦截路径
+                registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/login/**","/**/register/**");
             }
         };
     }

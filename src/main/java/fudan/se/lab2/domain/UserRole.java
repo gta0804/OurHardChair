@@ -14,7 +14,10 @@ public class UserRole {
     private Long meetingId;
     private String userRole;
 
-    public UserRole(Long userId,Long meetingId,String userRole){
+    public UserRole() {
+    }
+
+    public UserRole(Long userId, Long meetingId, String userRole){
         this.userId=userId;
         this.meetingId=meetingId;
         this.userRole=userRole;

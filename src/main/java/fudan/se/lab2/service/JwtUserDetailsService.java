@@ -45,7 +45,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User: '" + username + "' not found.");
+            return null;
         } else {
             //封装用户信息和角色信息到SecurityContextHolder全局缓存中
 

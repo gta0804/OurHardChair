@@ -76,9 +76,9 @@ public class AuthController {
         System.out.println("接收到login请求");
         logger.debug("LoginForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
-        UserDetails userForBase =  jwtUserDetailsService.loadUserByUsername(request.getUsername());
-        System.out.println(userForBase);
-        if(userForBase==null){
+
+            UserDetails  userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
+        if(null == userForBase){
             System.out.println("用户不存在");
             map.put("message","用户不存在");
             return ResponseEntity.ok(map);

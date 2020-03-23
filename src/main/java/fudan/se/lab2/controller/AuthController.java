@@ -59,7 +59,7 @@ public class AuthController {
         }else {
             String token = jwtTokenUtil.generateToken(user);
             map.put("token",token);
-            System.out.println(jwtTokenUtil.generateToken(user));
+            System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
             map.put("message","success");
             map.put("username",user.getUsername());
             map.put("email",user.getEmail());
@@ -90,7 +90,7 @@ public class AuthController {
             }else {
                 String token = jwtTokenUtil.generateToken((User)userForBase);
                 System.out.println("登陆成功");
-                System.out.println(token);
+                System.out.println("发放token：" + token);
                 map.put("id",((User) userForBase).getId());
                 map.put("message","success");
                 map.put("token", token);
@@ -107,13 +107,14 @@ public class AuthController {
         receive meeting application from frontend
      */
     @CrossOrigin(origins = "*")
-    @PostMapping("/ApplyConference")
-    public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, ApplyMeetingRequest request){
+    @RequestMapping("/ApplyConference")
+    public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, @RequestBody ApplyMeetingRequest request){
         System.out.println("rawToken" + httpServletRequest.getHeader("Authorization"));
         String token= httpServletRequest.getHeader("Authorization").substring(7);
         System.out.println("经过处理的token是" + token);
         System.out.println("找到名字" + jwtTokenUtil.getUsernameFromToken(token));
         System.out.println("找到Email" + userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getEmail());
+        System.out.println(request.getFullName() + "是本次会议的fullname");
         Long id= userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();

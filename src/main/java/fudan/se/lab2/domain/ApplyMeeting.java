@@ -30,7 +30,7 @@ public class ApplyMeeting {
     }
 
     public Long getApplicantId(){
-        return this.applicantId;
+        return applicantId;
     }
 
     public void setApplicantId(Long applicantId){
@@ -38,7 +38,7 @@ public class ApplyMeeting {
     }
 
     public String getAbbreviation(){
-        return this.abbreviation;
+        return abbreviation;
     }
 
     public void setAbbreviation(String abbreviation){
@@ -46,7 +46,7 @@ public class ApplyMeeting {
     }
 
     public String getFullName(){
-        return this.fullName;
+        return fullName;
     }
 
     public void setFullName(String fullName){
@@ -54,7 +54,7 @@ public class ApplyMeeting {
     }
 
     public String getHoldingTime(){
-        return this.holdingTime;
+        return holdingTime;
     }
 
     public void setHoldingTime(String holdingTime){
@@ -62,7 +62,7 @@ public class ApplyMeeting {
     }
 
     public String getHoldingPlace(){
-        return this.holdingPlace;
+        return holdingPlace;
     }
 
     public void setHoldingPlace(String holdingPlace){
@@ -70,7 +70,7 @@ public class ApplyMeeting {
     }
 
     public String getSubmissionDeadline(){
-        return this.submissionDeadline;
+        return  submissionDeadline;
     }
 
     public void setSubmissionDeadline(String submissionDeadline){
@@ -78,7 +78,7 @@ public class ApplyMeeting {
     }
 
     public String getReviewReleaseDate(){
-        return this.reviewReleaseDate;
+        return  reviewReleaseDate;
     }
 
     public void setReviewReleaseDate(String reviewReleaseDate){

@@ -26,11 +26,6 @@ public class CorsConfig {
                         .allowedMethods("GET", "POST", "DELETE", "PUT")
                         .maxAge(3600);
             }
-            @Override
-            public void addInterceptors(InterceptorRegistry registry) {
-                //此处配置拦截路径
-                registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/login/**","/**/register/**");
-            }
         };
     }
 }

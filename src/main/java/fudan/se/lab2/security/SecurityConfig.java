@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*
          * 指定用户认证时，默认从哪里获取认证用户信息
          */
-//        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService);
 
 //        auth.userDetailsService(userDetailsService);
 //
@@ -58,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
+                http.authorizeRequests().anyRequest().permitAll();
+
 //        http.authorizeRequests()
 //                .antMatchers("/user").hasAnyRole("administrator","user")//个人首页只允许拥有MENBER,SUPER_ADMIN角色的用户访问
 //                .antMatchers("/admin").hasAnyAuthority("administrator")
@@ -75,13 +77,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .and()
 //                .rememberMe();
 //
-//        // We dont't need CSRF for this project.
-//        http.csrf().disable()
-//                // Make sure we use stateless session; session won't be used to store user's state.
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-////      Here we use JWT(Json Web Token) to authenticate the user.
-////      You need to write your code in the class 'JwtRequestFilter' to make it works.
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        // We dont't need CSRF for this project.
+        http.csrf().disable()
+                // Make sure we use stateless session; session won't be used to store user's state.
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//      Here we use JWT(Json Web Token) to authenticate the user.
+//      You need to write your code in the class 'JwtRequestFilter' to make it works.
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -92,6 +94,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/welcome");
         web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/**/ApplyConference/**");
+        web.ignoring().antMatchers("/ApplyConference/**");
+
     }
 
 //    @Bean

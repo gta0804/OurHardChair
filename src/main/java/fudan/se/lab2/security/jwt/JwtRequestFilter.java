@@ -43,6 +43,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             System.out.println("获取到了token请求头，它是" + jwtToken);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                System.out.println(username + "用户状态维护中！");
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {

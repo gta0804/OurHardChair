@@ -1,6 +1,7 @@
 package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
+import fudan.se.lab2.controller.request.ModifyInformationRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Authority;
 import fudan.se.lab2.exception.UsernameHasBeenRegisteredException;
@@ -66,6 +67,21 @@ public class AuthService {
             return user;
         }
     }
+
+//    public User modifyInformation(@RequestBody ModifyInformationRequest request) {
+//        //用户名重复的情况
+//        if (null != userRepository.findByUsername(request.getUsername())){
+//            System.out.println("要修改的用户名重复");
+//            return null;
+//        }else{
+//            System.out.println("修改成功！");
+//            String password = passwordEncoder.encode(request.getPassword());
+//            HashSet<Authority> set = new HashSet<>();
+//            Authority authority = authorityRepository.findByAuthority("user");
+//            set.add(authority);
+//        }
+//        return null;
+//    }
 
     public String login(String username, String password) {
         // TODO: Implement the function.

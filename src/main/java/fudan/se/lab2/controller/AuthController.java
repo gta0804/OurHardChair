@@ -150,6 +150,30 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+//    @CrossOrigin(origins = "*")
+//    @RequestMapping("/modifyInformation")
+//    public ResponseEntity<HashMap<String,Object>> modifyInformation(@RequestBody RegisterRequest request) {
+//        logger.debug("ModifyInformationForm: " + request.toString());
+//        HashMap<String,Object> map = new HashMap();
+//        User user = authService.register(request);
+//        if (null == user){
+//            map.put("message","注册失败，已有该用户");
+//            System.out.println("注册失败，已有该用户");
+//            return ResponseEntity.ok(map);
+//        }else {
+//            String token = jwtTokenUtil.generateToken(user);
+//            map.put("token",token);
+//            System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
+//            map.put("message","success");
+//            map.put("username",user.getUsername());
+//            map.put("email",user.getEmail());
+//            map.put("institution",user.getInstitution());
+//            map.put("country",user.getCountry());
+//            map.put("id",user.getId());
+//            return ResponseEntity.ok(map);
+//        }
+//    }
+
     @CrossOrigin(origins = "*")
     @GetMapping("/getUserDetails")
     public Object getUserDetails(@AuthenticationPrincipal UserDetails userDetails) {

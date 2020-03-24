@@ -21,9 +21,10 @@ public class CorsConfig {
                 //TODO: If you encounter some Cross-Domain problems（跨域问题）, Maybe you can do something here.
                 System.out.println("----------------------");
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
+                        .allowedOrigins("http://localhost","http://114.116.112.8/")
+                        .allowedMethods("*")
+                        .allowedHeaders("*")
                         .allowCredentials(true)
-                        .allowedMethods("GET", "POST", "DELETE", "PUT")
                         .maxAge(3600);
             }
         };

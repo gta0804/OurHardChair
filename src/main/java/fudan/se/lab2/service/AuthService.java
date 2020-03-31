@@ -60,7 +60,7 @@ public class AuthService {
             HashSet<Authority> set = new HashSet<>();
             Authority authority = authorityRepository.findByAuthority("user");
             set.add(authority);
-            User user = new User(request.getUsername(),password,request.getEmail(),request.getInstitution(),request.getCountry(),set);
+            User user = new User(request.getUsername(),password,request.getFullName(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
             userRepository.save(user);
             System.out.println("加入新用户" +user.getUsername() + "成功！");
             return user;

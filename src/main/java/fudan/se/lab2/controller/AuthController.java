@@ -62,6 +62,7 @@ public class AuthController {
             System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
             map.put("message","success");
             map.put("username",user.getUsername());
+            map.put("fullName",user.getFullName());
             map.put("email",user.getEmail());
             map.put("institution",user.getInstitution());
             map.put("country",user.getCountry());
@@ -95,6 +96,7 @@ public class AuthController {
                 map.put("message","success");
                 map.put("token", token);
                 map.put("username",userForBase.getUsername());
+                map.put("fullName",((User) userForBase).getFullName());
                 map.put("email",((User) userForBase).getEmail());
                 map.put("institution",((User) userForBase).getInstitution());
                 map.put("country",((User) userForBase).getCountry());

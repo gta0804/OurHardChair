@@ -20,6 +20,7 @@ public class Conference {
     private String submissionDeadline;
     private String reviewReleaseDate;
     private Integer isOpenSubmission;
+    public Conference(){}
 
     public Conference(Long chairId,String abbreviation,String fullName,String holdingPlace,String holdingTime,String submissionDeadline,String reviewReleaseDate,Integer isOpenSubmission ){
         this.chairId=chairId;

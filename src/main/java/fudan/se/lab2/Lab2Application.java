@@ -48,6 +48,7 @@ public class Lab2Application {
                     User admin = new User(
                             "admin",
                             passwordEncoder.encode("password"),
+                            "libowen",
                             "libowen@fudan.edu.cn",
                             "Fudan University",
                             "China",

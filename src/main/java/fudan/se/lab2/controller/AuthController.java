@@ -3,6 +3,7 @@ package fudan.se.lab2.controller;
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.LoginRequest;
 import fudan.se.lab2.controller.request.RegisterRequest;
+import fudan.se.lab2.controller.request.ApproveConferenceRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.UserRepository;
@@ -62,6 +63,7 @@ public class AuthController {
             System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
             map.put("message","success");
             map.put("username",user.getUsername());
+            map.put("fullName",user.getFullName());
             map.put("email",user.getEmail());
             map.put("institution",user.getInstitution());
             map.put("country",user.getCountry());
@@ -95,6 +97,7 @@ public class AuthController {
                 map.put("message","success");
                 map.put("token", token);
                 map.put("username",userForBase.getUsername());
+                map.put("fullName",((User) userForBase).getFullName());
                 map.put("email",((User) userForBase).getEmail());
                 map.put("institution",((User) userForBase).getInstitution());
                 map.put("country",((User) userForBase).getCountry());
@@ -102,40 +105,6 @@ public class AuthController {
             }
         }
     }
-
-    /*
-        receive meeting application from frontend
-     */
-    @CrossOrigin(origins = "*")
-    @RequestMapping("/ApplyConference")
-    public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, @RequestBody ApplyMeetingRequest request){
-        System.out.println("rawToken" + httpServletRequest.getHeader("Authorization"));
-        String token= httpServletRequest.getHeader("Authorization").substring(7);
-        System.out.println("经过处理的token是" + token);
-        System.out.println("找到名字" + jwtTokenUtil.getUsernameFromToken(token));
-        System.out.println("找到Email" + userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getEmail());
-        System.out.println(request.getFullName() + "是本次会议的fullname");
-        Long id= userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        logger.debug("ApplyMeetingForm: " + request.toString());
-        HashMap<String,Object> map = new HashMap();
-        ApplyMeeting applyMeeting=authService.applyMeeting(request,id);
-        if (null == applyMeeting){
-            map.put("message","会议申请失败，已有该会议");
-            return ResponseEntity.ok(map);
-        }else {
-            map.put("token",token);
-            map.put("message","success");
-            map.put("user id",applyMeeting.getApplicantId());
-            map.put("abbreviation",applyMeeting.getAbbreviation());
-            map.put("fullName",applyMeeting.getFullName());
-            map.put("holdingTime",applyMeeting.getHoldingTime());
-            map.put("holdingPlace",applyMeeting.getHoldingPlace());
-            map.put("submissionDeadline",applyMeeting.getSubmissionDeadline());
-            map.put("reviewReleaseDate",applyMeeting.getReviewReleaseDate());
-            return ResponseEntity.ok(map);
-        }
-    }
-
 
     /**
      * This is a function to test your connectivity. (健康测试时，可能会用到它）.

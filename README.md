@@ -1,4 +1,20 @@
 ## 后端更新日志
+
+### _2020.4.4 更新 郭泰安_
+
+1. 实现了会议审核的数据层和业务层。
+2. 重构了ApplyMeeting数据表，添加了两个新的数据列，删除了UserRole,新建PCMember 和Author。如果之前ApplyMeeting里面存了旧的数据，请到<localhost：8080/h2-console>重构该数据表，并删除UserRole数据表。
+3. 优化了service层和controller层的代码结构。
+
+### _2020.4.3 更新 郭泰安_
+
+1. 添加fullName
+2. 将数据库改为h2
+
+
+
+
+
 ### _2020.3.23更新 沈征宇_
 1. 适配前后端数据传输名称问题，成功修正会议申请
 
@@ -11,7 +27,7 @@
 2. 修复了注册时单位为null的bug。
 3. 修复了不同数据表主键自增耦合的问题。
 4. 新建了UserRole实体类，用于存储会议内用户的角色信息。
-    
+   
 ### _2020.3.22 更新 沈征宇_
 1 注册和登录后返回用户ID到前端
 
@@ -21,7 +37,7 @@
 2 已经测试的条目
    1. 登录，注册
    2. 可以检测注册时的用户名重复
-   
+
 3 更新了数据库默认生成方式
 
 ### _2020.3.21 更新 郭泰安_
@@ -74,7 +90,7 @@
        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer "))
              jwtToken = requestTokenHeader.substring(7);
 ```
-               
+
 前端注意请求头必须是 Authorization:Token ${token}的形式
 
 3. 实现登录和注册功能

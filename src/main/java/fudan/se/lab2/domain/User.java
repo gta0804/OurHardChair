@@ -17,13 +17,14 @@ public class User implements UserDetails {
     private static final long serialVersionUID = -6140085056226164016L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(unique = true)
     private String username;
 
     private String password;
+    private String fullName;
     private String email;
     private String institution;
     private String country;
@@ -33,9 +34,10 @@ public class User implements UserDetails {
 
 
     public User() {}
-    public User(String username, String password, String email,String institution,String country, Set<Authority> authorities) {
+    public User(String username, String password, String fullName, String email,String institution,String country, Set<Authority> authorities) {
         this.username = username;
         this.password= password;
+        this.fullName=fullName;
         this.email = email;
         this.institution=institution;
         this.country=country;
@@ -93,6 +95,10 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getFullName(){return this.fullName;}
+
+    public void setFullName(String fullName){this.fullName=fullName;}
 
     public String getEmail() {
         return email;

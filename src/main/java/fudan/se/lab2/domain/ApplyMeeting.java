@@ -4,10 +4,11 @@ import javax.persistence.*;
 @Entity
 public class ApplyMeeting {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Long applicantId;
+    private Long verifierId;
 
     private String abbreviation;
     @Column(unique = true)
@@ -16,17 +17,20 @@ public class ApplyMeeting {
     private String holdingPlace;
     private String submissionDeadline;
     private String reviewReleaseDate;
+    private Integer reviewStatus;
 
     public ApplyMeeting(){}
 
-    public ApplyMeeting(Long applicantId, String abbreviation, String fullName, String holdingTime, String holdingPlace, String submissionDeadline, String reviewReleaseDate){
+    public ApplyMeeting(Long applicantId,Long verifierId, String abbreviation, String fullName, String holdingTime, String holdingPlace, String submissionDeadline, String reviewReleaseDate,Integer reviewStatus){
         this.applicantId=applicantId;
+        this.verifierId=verifierId;
         this.abbreviation=abbreviation;
         this.fullName=fullName;
         this.holdingTime=holdingTime;
         this.holdingPlace=holdingPlace;
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
+        this.reviewStatus=reviewStatus;
     }
 
     public Long getApplicantId(){
@@ -35,6 +39,14 @@ public class ApplyMeeting {
 
     public void setApplicantId(Long applicantId){
         this.applicantId=applicantId;
+    }
+
+    public Long getVerifierId() {
+        return verifierId;
+    }
+
+    public void setVerifierId(Long verifierId) {
+        this.verifierId = verifierId;
     }
 
     public String getAbbreviation(){
@@ -85,6 +97,11 @@ public class ApplyMeeting {
         this.reviewReleaseDate=reviewReleaseDate;
     }
 
+    public Integer getReviewStatus() {
+        return reviewStatus;
+    }
 
-
+    public void setReviewStatus(Integer reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
 }

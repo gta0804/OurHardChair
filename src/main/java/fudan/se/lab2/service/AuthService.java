@@ -37,14 +37,11 @@ public class AuthService {
     @Autowired
     private AuthorityRepository authorityRepository;
     @Autowired
-    private ApplyMeetingRepository applyMeetingRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository, ApplyMeetingRepository applyMeetingRepository) {
+    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
-        this.applyMeetingRepository=applyMeetingRepository;
     }
 
 
@@ -89,15 +86,5 @@ public class AuthService {
         return null;
     }
 
-    public ApplyMeeting applyMeeting(ApplyMeetingRequest request, Long id){
-        if(null!=applyMeetingRepository.findByFullName(request.getFullName())){
-            System.out.println("会议全称重复");
-            return null;
-        }
-        else{
-            ApplyMeeting applyMeeting=new ApplyMeeting(id,request.getAbbreviation(),request.getAbbreviation(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate());
-            applyMeetingRepository.save(applyMeeting);
-            return applyMeeting;
-        }
-    }
+
 }

@@ -1,5 +1,11 @@
 ## 后端更新日志
 
+### _2020.4.4 更新 郭泰安_
+
+1. 实现了会议审核的数据层和业务层。
+2. 重构了ApplyMeeting数据表，添加了两个新的数据列，删除了UserRole,新建PCMember 和Author。如果之前ApplyMeeting里面存了旧的数据，请到<localhost：8080/h2-console>重构该数据表，并删除UserRole数据表。
+3. 优化了service层和controller层的代码结构。
+
 ### _2020.4.3 更新 郭泰安_
 
 1. 添加fullName

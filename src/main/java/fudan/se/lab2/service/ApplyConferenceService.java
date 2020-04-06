@@ -78,4 +78,9 @@ public class ApplyConferenceService {
         List<Conference> conferences = (List<Conference>) conferenceRepository.findAll();
         return conferences;
     }
+
+    public List<ApplyMeeting>  showAllApplyMeetingById(long id){
+        List<ApplyMeeting> applyMeetings = (List<ApplyMeeting>)applyMeetingRepository.findAllByapplicantId(id);
+        return applyMeetings;
+    }
 }

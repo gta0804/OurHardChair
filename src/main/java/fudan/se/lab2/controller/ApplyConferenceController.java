@@ -3,6 +3,7 @@ package fudan.se.lab2.controller;
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ApproveConferenceRequest;
 import fudan.se.lab2.controller.request.DisproveConferenceRequest;
+import fudan.se.lab2.controller.request.ShowAllConferenceRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
@@ -36,17 +37,28 @@ public class ApplyConferenceController {
     }
 
     /*
+    show all the conferences
+    */
+    @CrossOrigin(origins = "*")
+    @PostMapping("/AllConferences")
+    public ResponseEntity<HashMap<String,Object>> showAllConference(HttpServletRequest httpServletRequest){
+        logger.debug("Show all the conferences");
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> map = new HashMap<>();
+        List<Conference> conferences = applyConferenceService.showAllConference();
+        map.put("message","获取所有会议申请成功");
+        map.put("token",token);
+        map.put("meetings",conferences);
+        return ResponseEntity.ok(map);
+    }
+
+    /*
     receive meeting application from frontend
  */
     @CrossOrigin(origins = "*")
     @RequestMapping("/ApplyConference")
     public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, @RequestBody ApplyMeetingRequest request){
-        System.out.println("rawToken" + httpServletRequest.getHeader("Authorization"));
         String token= httpServletRequest.getHeader("Authorization").substring(7);
-        System.out.println("经过处理的token是" + token);
-        System.out.println("找到名字" + jwtTokenUtil.getUsernameFromToken(token));
-        System.out.println("找到Email" + userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getEmail());
-        System.out.println(request.getFullName() + "是本次会议的fullname");
         Long id= userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();

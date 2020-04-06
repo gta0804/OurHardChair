@@ -38,6 +38,7 @@ public class ApplyConferenceService {
     }
 
     public Conference approveConference(ApproveConferenceRequest request) {
+        System.out.println(request.getFullName());
         ApplyMeeting applyMeeting = applyMeetingRepository.findByFullName(request.getFullName());
         if (applyMeeting == null) {
             //会议申请表中没有此会议

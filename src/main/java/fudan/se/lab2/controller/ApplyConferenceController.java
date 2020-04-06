@@ -98,11 +98,12 @@ public class ApplyConferenceController {
    */
     @CrossOrigin(origins = "*")
     @PostMapping("/ApproveConference")
-    public ResponseEntity<HashMap<String,Object>> approveConference(@RequestBody ApproveConferenceRequest request){
+    public ResponseEntity<HashMap<String,Object>> approveConference(@RequestBody ApproveConferenceRequest request){ ;
+        System.out.println(request.getFullName());
         logger.debug("approve conference"+request.toString());
         HashMap<String,Object> map = new HashMap<>();
         Conference conference = applyConferenceService.approveConference(request);
-        if(null==conference){
+        if(null == conference){
             map.put("message","批准会议申请失败，会议表找不到该会议");
         }
         else{

@@ -72,10 +72,13 @@ public class ApplyConferenceController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/ReviewConference")
-    public ResponseEntity<HashMap<String,Object>> reviewConference(){
+    public ResponseEntity<HashMap<String,Object>> reviewConference(HttpServletRequest httpServletRequest){
+
         logger.debug("reviewConference");
         HashMap<String,Object> map=new HashMap<>();
         List<ApplyMeeting> applyMeetings = applyConferenceService.reviewConference();
+        String token= httpServletRequest.getHeader("Authorization").substring(7);
+
         if(null==applyMeetings){
             map.put("message","拉取待审核会议失败");
         }
@@ -85,6 +88,7 @@ public class ApplyConferenceController {
         else{
             map.put("message","拉取待审核会议成功");
             map.put("meetings",applyMeetings);
+            map.put("token",token);
         }
         return ResponseEntity.ok(map);
 

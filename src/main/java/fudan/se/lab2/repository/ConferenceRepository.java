@@ -7,6 +7,6 @@ import java.util.*;
 @Repository
 public interface ConferenceRepository extends CrudRepository<Conference,Long> {
     Conference findByFullName(String fullName);
-
+    Conference findByid(long id);
     List<Conference> findAllByChairId(Long chairId);
 }

@@ -50,7 +50,6 @@ public class MyRelatedConferenceController {
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair(id);
         //再加载所有申请过的会议
         List<ApplyMeeting> applyMeetings = applyConferenceService.showAllApplyMeetingById(id);
-
         //开始合并
         List<responseConference> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
@@ -71,12 +70,51 @@ public class MyRelatedConferenceController {
                 responseConferences.add(response);
             }
         }
-
         map.put("message","获取所有我主持的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
         return ResponseEntity.ok(map);
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/ConferenceForPCMember")
+    public ResponseEntity<HashMap<String,Object>> showAllConferenceForPCMember(HttpServletRequest httpServletRequest) {
+        logger.debug("Show all the conferences for PC Member");
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        HashMap<String,Object> map = new HashMap<>();
+        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForPCMember(id);
+        List<responseConference> responseConferences = new ArrayList<>();
+        for (Conference conference : conferences) {
+            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");
+            responseConferences.add(response);
+        }
+        map.put("message","获取所有我审稿的会议申请成功");
+        map.put("token",token);
+        map.put("meetings",responseConferences);
+        return ResponseEntity.ok(map);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/ConferenceForAuthor")
+    public ResponseEntity<HashMap<String,Object>> showAllConferenceForAuthor(HttpServletRequest httpServletRequest) {
+        logger.debug("Show all the conferences for Author");
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        HashMap<String,Object> map = new HashMap<>();
+        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForAuthor(id);
+        List<responseConference> responseConferences = new ArrayList<>();
+        for (Conference conference : conferences) {
+            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");
+            responseConferences.add(response);
+        }
+        map.put("message","获取所有我投稿的会议申请成功");
+        map.put("token",token);
+        map.put("meetings",responseConferences);
+        return ResponseEntity.ok(map);
+    }
+
+    //定义返回的回应对象
     public static class responseConference{
         public String fullname;
         public String shortname;

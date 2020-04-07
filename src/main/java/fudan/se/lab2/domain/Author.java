@@ -15,6 +15,8 @@ public class Author {
 
     private Long conferenceId;
 
+    public Author(){}
+
     public Author(Long userId,Long conferenceId){
         this.userId=userId;
         this.conferenceId=conferenceId;

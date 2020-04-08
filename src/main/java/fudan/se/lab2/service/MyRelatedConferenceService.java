@@ -37,7 +37,7 @@ public class MyRelatedConferenceService {
         List<Conference> conferences = new ArrayList<>();
         List<PCMember> myRelated = pcMemberRepository.findAllByUserId(id);
         for (PCMember pcMember : myRelated) {
-            conferences.add(conferenceRepository.findByid(pcMember.getConferenceId()));
+            conferences.add(conferenceRepository.findById((long)pcMember.getConferenceId()));
         }
         return conferences;
     }
@@ -46,7 +46,7 @@ public class MyRelatedConferenceService {
         List<Conference> conferences = new ArrayList<>();
         List<Author> myRelated = authorRepository.findAllByUserId(id);
         for (Author author : myRelated) {
-            conferences.add(conferenceRepository.findByid(author.getConferenceId()));
+            conferences.add(conferenceRepository.findById((long)author.getConferenceId()));
         }
         return conferences;
     }

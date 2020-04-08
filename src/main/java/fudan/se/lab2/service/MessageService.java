@@ -40,7 +40,7 @@ public class MessageService {
      * @return
      */
     public boolean markRead(MarkMessageRequest request){
-        Message messages=messageRepository.findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAAndIsRead
+        Message messages=messageRepository.findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                 (
                         request.getSenderName(),
                         request.getReceiverName(),

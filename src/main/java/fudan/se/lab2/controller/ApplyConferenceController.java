@@ -73,7 +73,6 @@ public class ApplyConferenceController {
             map.put("token",token);
             map.put("message","success");
             map.put("user id",applyMeeting.getApplicantId());
-            map.put("verifier id",applyMeeting.getVerifierId());
             map.put("abbreviation",applyMeeting.getAbbreviation());
             map.put("fullName",applyMeeting.getFullName());
             map.put("holdingTime",applyMeeting.getHoldingTime());

@@ -69,7 +69,7 @@ public class PCMemberService {
 
     public boolean approvePCNumberInvitation(ApprovePCNumberInvitationRequest request){
         Message messageForRequest=messageRepository.
-                findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAAndIsRead
+                findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                         (
                                 request.getReceiverName(),
                                 request.getSenderName(),
@@ -105,7 +105,7 @@ public class PCMemberService {
 
     public boolean disapprovePCNumberInvitation(DisapprovePCNumberInvitationRequest request){
         Message messageForRequest=messageRepository.
-                findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAAndIsRead
+                findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                         (
                                 request.getReceiverName(),
                                 request.getSenderName(),

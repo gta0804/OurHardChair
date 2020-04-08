@@ -22,7 +22,7 @@ class Lab2ApplicationTests {
     void saveAndDelete(){
         ApplyMeeting applyMeeting = new ApplyMeeting();
         applyMeeting.setApplicantId((long)12);
-        applyMeeting.setVerifierId((long)1);
+        applyMeeting.setVerifierId(new Long(1));
         applyMeeting.setAbbreviation("SE");
         applyMeeting.setFullName("软件工程大会");
         applyMeeting.setHoldingPlace("Shanghai");

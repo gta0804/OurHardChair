@@ -44,7 +44,7 @@ public class ApplyConferenceService {
             return null;
         }
         else{
-            ApplyMeeting applyMeeting=new ApplyMeeting(id,new Long(1),request.getAbbreviation(),request.getAbbreviation(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
+            ApplyMeeting applyMeeting=new ApplyMeeting(id,(long)1,request.getAbbreviation(),request.getAbbreviation(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
             applyMeetingRepository.save(applyMeeting);
             return applyMeeting;
         }

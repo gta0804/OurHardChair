@@ -33,6 +33,14 @@ public class ApplyMeeting {
         this.reviewStatus=reviewStatus;
     }
 
+    public Long getVerifierId() {
+        return verifierId;
+    }
+
+    public void setVerifierId(Long verifierId) {
+        this.verifierId = verifierId;
+    }
+
     public Long getApplicantId(){
         return applicantId;
     }
@@ -41,13 +49,6 @@ public class ApplyMeeting {
         this.applicantId=applicantId;
     }
 
-    public Long getVerifierId() {
-        return verifierId;
-    }
-
-    public void setVerifierId(Long verifierId) {
-        this.verifierId = verifierId;
-    }
 
     public String getAbbreviation(){
         return abbreviation;

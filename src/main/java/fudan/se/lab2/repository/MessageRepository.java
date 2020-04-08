@@ -10,5 +10,5 @@ import java.util.List;
 public interface MessageRepository extends CrudRepository<Message,Long> {
     List<Message> findAllByReceiverName(String receiverName);
     Message findAllByReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead(String receiverName,String relatedConferenceName,String messageCategory,Integer isRead);
-    Message findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAAndIsRead(String senderName,String receiverName,String conferenceName,String messageCategory,Integer isRead);
+    Message findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead(String senderName, String receiverName, String conferenceName, String messageCategory, Integer isRead);
 }

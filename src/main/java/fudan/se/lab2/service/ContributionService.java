@@ -22,7 +22,6 @@ public class ContributionService {
 
     private AuthorRepository authorRepository;
 
-
     public String saveContribution(ContributionRequest contributionRequest){
         Article article = articleRepository.findArticleByTitle(contributionRequest.getTitle());
         if (article != null) {

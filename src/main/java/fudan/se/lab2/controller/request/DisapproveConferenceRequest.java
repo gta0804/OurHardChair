@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class DisproveConferenceRequest {
+public class DisapproveConferenceRequest {
     private String fullName;
     @Autowired
-    public DisproveConferenceRequest(){
+    public DisapproveConferenceRequest(){
 
     }
 
-    public DisproveConferenceRequest(String fullName){
+    public DisapproveConferenceRequest(String fullName){
         this.fullName=fullName;
     }
 

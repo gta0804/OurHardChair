@@ -2,17 +2,22 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ApproveConferenceRequest;
-import fudan.se.lab2.controller.request.DisproveConferenceRequest;
+import fudan.se.lab2.controller.request.DisapproveConferenceRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
+import fudan.se.lab2.domain.Message;
+import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.ApplyMeetingRepository;
 import fudan.se.lab2.repository.ConferenceRepository;
+import fudan.se.lab2.repository.MessageRepository;
+import fudan.se.lab2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
 public class ApplyConferenceService {
+    private final String RESPONSE="applyConferenceResponse";
     @Autowired
     private ApplyMeetingRepository applyMeetingRepository;
 
@@ -20,9 +25,17 @@ public class ApplyConferenceService {
     private ConferenceRepository conferenceRepository;
 
     @Autowired
-    public  ApplyConferenceService(ApplyMeetingRepository applyMeetingRepository,ConferenceRepository conferenceRepository){
+    private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @Autowired
+    public  ApplyConferenceService(ApplyMeetingRepository applyMeetingRepository,ConferenceRepository conferenceRepository,UserRepository userRepository,MessageRepository messageRepository){
         this.applyMeetingRepository=applyMeetingRepository;
         this.conferenceRepository=conferenceRepository;
+        this.userRepository=userRepository;
+        this.messageRepository=messageRepository;
     }
 
     public ApplyMeeting applyMeeting(ApplyMeetingRequest request, Long id){
@@ -48,11 +61,20 @@ public class ApplyConferenceService {
             conferenceRepository.save(conference);
             applyMeeting.setReviewStatus(2);
             applyMeetingRepository.save(applyMeeting);
+            User user=userRepository.findById(applyMeeting.getApplicantId()).orElse(null);
+            //错误：没有这个用户
+
+            if(user==null){
+                System.out.println("在生成消息时没有找到用户");
+                return null;
+            }
+            Message message=new Message("admin",user.getUsername(),applyMeeting.getFullName(),"管理员通过了你的会议请求",RESPONSE,1);
+            messageRepository.save(message);
             return conference;
         }
     }
 
-    public String disapproveConference(DisproveConferenceRequest request){
+    public String disapproveConference(DisapproveConferenceRequest request){
         ApplyMeeting applyMeeting = applyMeetingRepository.findByFullName(request.getFullName());
         if (applyMeeting == null) {
             //会议申请表中没有此会议
@@ -60,6 +82,14 @@ public class ApplyConferenceService {
         } else {
             applyMeeting.setReviewStatus(3);
             applyMeetingRepository.save(applyMeeting);
+            User user=userRepository.findById(applyMeeting.getApplicantId()).orElse(null);
+            //错误：没有这个用户
+            if(user==null){
+                System.out.println("在生成消息时没有找到用户");
+                return "error";
+            }
+            Message message=new Message("admin",user.getUsername(),applyMeeting.getFullName(),"管理员拒绝了你的会议请求",RESPONSE,1);
+            messageRepository.save(message);
             return "success";
         }
     }
@@ -80,7 +110,7 @@ public class ApplyConferenceService {
     }
 
     public List<ApplyMeeting>  showAllApplyMeetingById(long id){
-        List<ApplyMeeting> applyMeetings = (List<ApplyMeeting>)applyMeetingRepository.findAllByapplicantId(id);
+        List<ApplyMeeting> applyMeetings = (List<ApplyMeeting>)applyMeetingRepository.findAllByApplicantId(id);
         return applyMeetings;
     }
 }

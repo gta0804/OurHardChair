@@ -83,15 +83,22 @@ public class MyRelatedConferenceController {
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForPCMember(id);
-        List<responseConference> responseConferences = new ArrayList<>();
-        for (Conference conference : conferences) {
-            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");
-            responseConferences.add(response);
+        if(conferences==null){
+            map.put("message","获取所有我审稿的会议申请失败");
+            return ResponseEntity.ok(map);
         }
-        map.put("message","获取所有我审稿的会议申请成功");
-        map.put("token",token);
-        map.put("meetings",responseConferences);
-        return ResponseEntity.ok(map);
+        else{
+            List<responseConference> responseConferences = new ArrayList<>();
+            for (Conference conference : conferences) {
+                responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");
+                responseConferences.add(response);
+            }
+            map.put("message","获取所有我审稿的会议申请成功");
+            map.put("token",token);
+            map.put("meetings",responseConferences);
+            return ResponseEntity.ok(map);
+        }
+
     }
 
     @CrossOrigin(origins = "*")
@@ -102,6 +109,10 @@ public class MyRelatedConferenceController {
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForAuthor(id);
+        if(conferences==null){
+            map.put("message","获取所有我主持的会议申请失败");
+            return ResponseEntity.ok(map);
+        }
         List<responseConference> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
             responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");

@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 @Repository
 public interface PCMemberRepository extends CrudRepository<PCMember,Long> {
+    PCMember findByUserIdAndConferenceId(Long userId,Long conferenceId);
     List<PCMember> findAllByUserId(Long userId);
 }

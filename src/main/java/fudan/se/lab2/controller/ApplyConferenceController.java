@@ -2,8 +2,7 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ApproveConferenceRequest;
-import fudan.se.lab2.controller.request.DisproveConferenceRequest;
-import fudan.se.lab2.controller.request.ShowAllConferenceRequest;
+import fudan.se.lab2.controller.request.DisapproveConferenceRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
@@ -36,9 +35,13 @@ public class ApplyConferenceController {
         this.applyConferenceService=applyConferenceService;
     }
 
-    /*
-    show all the conferences
-    */
+    /**
+     * @Description: 直接展示所有会议，只需要token即可
+     * @Param: [httpServletRequest]
+     * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+     * @Author: Shen Zhengyu
+     * @Date: 2020/4/8
+     **/
     @CrossOrigin(origins = "*")
     @PostMapping("/AllConferences")
     public ResponseEntity<HashMap<String,Object>> showAllConference(HttpServletRequest httpServletRequest){
@@ -94,9 +97,6 @@ public class ApplyConferenceController {
         if(null==applyMeetings){
             map.put("message","拉取待审核会议失败");
         }
-        else if(applyMeetings.size()==0){
-            map.put("message","没有待审核的会议");
-        }
         else{
             map.put("message","拉取待审核会议成功");
             map.put("meetings",applyMeetings);
@@ -110,8 +110,8 @@ public class ApplyConferenceController {
    */
     @CrossOrigin(origins = "*")
     @PostMapping("/ApproveConference")
-    public ResponseEntity<HashMap<String,Object>> approveConference(@RequestBody ApproveConferenceRequest request){ ;
-        System.out.println(request.getFullName());
+    public ResponseEntity<HashMap<String,Object>> approveConference(ApproveConferenceRequest request,HttpServletRequest httpServletRequest){ ;
+        String token= httpServletRequest.getHeader("Authorization").substring(7);
         logger.debug("approve conference"+request.toString());
         HashMap<String,Object> map = new HashMap<>();
         Conference conference = applyConferenceService.approveConference(request);
@@ -119,6 +119,7 @@ public class ApplyConferenceController {
             map.put("message","批准会议申请失败，会议表找不到该会议");
         }
         else{
+            map.put("token",token);
             map.put("message","批准会议成功");
         }
         return ResponseEntity.ok(map);
@@ -129,15 +130,18 @@ public class ApplyConferenceController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/DisapproveConference")
-    public ResponseEntity<HashMap<String,Object>> disapproveConference(@RequestBody DisproveConferenceRequest request){
+    public ResponseEntity<HashMap<String,Object>> disapproveConference(@RequestBody DisapproveConferenceRequest request,HttpServletRequest httpServletRequest){
         logger.debug("disapprove conference"+request.toString());
         HashMap<String,Object> map=new HashMap<>();
         String message=applyConferenceService.disapproveConference(request);
+        String token= httpServletRequest.getHeader("Authorization").substring(7);
         if(message.equals("error")){
-            map.put("message","驳回会议申请失败，会议表找不到该会议");
+            map.put("token",token);
+            map.put("message","驳回会议申请失败");
         }
         else{
             map.put("message","驳回会议申请成功");
+            map.put("token",token);
         }
         return ResponseEntity.ok(map);
     }

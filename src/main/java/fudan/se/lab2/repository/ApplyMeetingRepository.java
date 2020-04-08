@@ -7,6 +7,6 @@ import java.util.*;
 public interface ApplyMeetingRepository extends CrudRepository<ApplyMeeting,Long>{
     ApplyMeeting findByFullName(String fullName);
     List<ApplyMeeting> findAllByReviewStatus(Integer reviewStatus);
-    List<ApplyMeeting> findAllByapplicantId(long applicantId);
+    List<ApplyMeeting> findAllByApplicantId(Long applicantId);
 
 }

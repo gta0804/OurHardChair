@@ -33,6 +33,11 @@ public class Conference {
         this.isOpenSubmission=isOpenSubmission;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+
     public Long getChairId() {
         return chairId;
     }

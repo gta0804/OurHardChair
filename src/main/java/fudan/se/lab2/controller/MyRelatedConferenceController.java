@@ -33,7 +33,6 @@ public class MyRelatedConferenceController {
     private UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(MyRelatedConferenceController.class);
-
     @Autowired
     public MyRelatedConferenceController(MyRelatedConferenceService myRelatedConferenceService){
         this.myRelatedConferenceService = myRelatedConferenceService;

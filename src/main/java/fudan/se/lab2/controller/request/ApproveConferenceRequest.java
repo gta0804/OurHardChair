@@ -13,6 +13,7 @@ public class ApproveConferenceRequest {
     public ApproveConferenceRequest(){
     }
 
+
     public ApproveConferenceRequest(String fullName){
         this.fullName=fullName;
     }

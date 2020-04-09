@@ -54,6 +54,7 @@ public class ApplyConferenceService {
         System.out.println(request.getFullName());
         ApplyMeeting applyMeeting = applyMeetingRepository.findByFullName(request.getFullName());
         if (applyMeeting == null) {
+            System.out.println("会议申请表中没有此会议");
             //会议申请表中没有此会议
             return null;
         } else {

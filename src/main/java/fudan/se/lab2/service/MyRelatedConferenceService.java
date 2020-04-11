@@ -64,6 +64,7 @@ public class MyRelatedConferenceService {
         System.out.println(conference.getFullName());
         
         conference.setIsOpenSubmission(2);
+        conferenceRepository.save(conference);
         return true;
     }
 

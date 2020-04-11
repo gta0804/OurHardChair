@@ -83,8 +83,6 @@ public class ContributionController {
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
     public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        String user = request.getParameter("user");
         logger.debug("Try to upload");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
@@ -98,10 +96,8 @@ public class ContributionController {
                     // 项目在容器中实际发布运行的根路径
                     String realPath = request.getSession().getServletContext().getRealPath("/");
                     // 自定义的文件名称
-                    String trueFileName = user + "_" + fileName;
-
                     // 设置存放图片文件的路径
-                    path = "/workplace/classwork/" + trueFileName;
+                    path = "/workplace/classwork/" + fileName;
                     File dest = new File(path);
                     //判断文件父目录是否存在
                     if (!dest.getParentFile().exists()) {
@@ -110,7 +106,7 @@ public class ContributionController {
 
                     file.transferTo(dest);
                     map.put("message","上传成功");
-                    map.put("存放路径",trueFileName);
+                    map.put("存放路径",fileName);
                     return ResponseEntity.ok(map);
                 } else {
                     map.put("message","上传失败");

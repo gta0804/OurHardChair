@@ -49,6 +49,14 @@ public class SearchResponse {
         this.email = email;
     }
 
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+    }
+
     public Integer getStatus() {
         return status;
     }

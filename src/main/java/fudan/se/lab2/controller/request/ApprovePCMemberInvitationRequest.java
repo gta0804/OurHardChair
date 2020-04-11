@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ApprovePCNumberInvitationRequest {
+public class ApprovePCMemberInvitationRequest {
     private String senderName;
     private String receiverName;
     private String relatedConferenceName;
 
     @Autowired
-    public ApprovePCNumberInvitationRequest(){
+    public ApprovePCMemberInvitationRequest(){
 
     }
 

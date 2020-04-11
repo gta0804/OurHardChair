@@ -17,6 +17,7 @@ public class ApplyMeeting {
     private String holdingPlace;
     private String submissionDeadline;
     private String reviewReleaseDate;
+    //1审核中，2审核通过，3审核未通过
     private Integer reviewStatus;
 
     public ApplyMeeting(){}

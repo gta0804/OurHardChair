@@ -50,7 +50,6 @@ public class ApplyConferenceController {
         String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = applyConferenceService.showAllConference();
-
         List<responseConference1> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
             responseConference1 response = new responseConference1(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
@@ -73,7 +72,7 @@ public class ApplyConferenceController {
         String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
-        ApplyMeeting applyMeeting=applyConferenceService.applyMeeting(request,id);
+        ApplyMeeting applyMeeting = applyConferenceService.applyMeeting(request,id);
         if (null == applyMeeting){
             map.put("message","会议申请失败，已有该会议");
             return ResponseEntity.ok(map);

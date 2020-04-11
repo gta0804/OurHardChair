@@ -44,7 +44,7 @@ public class ApplyConferenceService {
             return null;
         }
         else{
-            ApplyMeeting applyMeeting=new ApplyMeeting(id,(long)1,request.getAbbreviation(),request.getAbbreviation(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
+            ApplyMeeting applyMeeting=new ApplyMeeting(id,(long)1,request.getAbbreviation(),request.getFullName(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
             applyMeetingRepository.save(applyMeeting);
             return applyMeeting;
         }
@@ -60,6 +60,7 @@ public class ApplyConferenceService {
         } else {
             Conference conference = new Conference(applyMeeting.getApplicantId(), applyMeeting.getAbbreviation(), applyMeeting.getFullName(), applyMeeting.getHoldingPlace(), applyMeeting.getHoldingTime(), applyMeeting.getSubmissionDeadline(), applyMeeting.getReviewReleaseDate(), 1);
             conferenceRepository.save(conference);
+            //会议通过，置为2
             applyMeeting.setReviewStatus(2);
             applyMeetingRepository.save(applyMeeting);
             User user=userRepository.findById(applyMeeting.getApplicantId()).orElse(null);

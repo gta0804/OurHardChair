@@ -127,7 +127,7 @@ public class PCMemberService {
         System.out.println("length: "+users.size());
         List<SearchResponse> responses=new ArrayList<>();
         for(User user:users){
-            if(isPCMember(request.getFullName(),user.getUsername())){
+            if(isPCMember(request.getFull_Name(),user.getUsername())){
                 responses.add(new SearchResponse(
                         user.getFullName(),
                         user.getUsername(),
@@ -136,7 +136,7 @@ public class PCMemberService {
                         user.getCountry(),
                         2));
             }
-            else if(!isHandled(request.getFullName(),user.getUsername())){
+            else if(!isHandled(request.getFull_Name(),user.getUsername())){
                 responses.add(new SearchResponse(
                         user.getFullName(),
                         user.getUsername(),

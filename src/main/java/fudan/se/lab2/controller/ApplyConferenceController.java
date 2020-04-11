@@ -140,7 +140,7 @@ public class ApplyConferenceController {
     public ResponseEntity<HashMap<String,Object>> disapproveConference(@RequestBody DisapproveConferenceRequest request,HttpServletRequest httpServletRequest){
         logger.debug("disapprove conference"+request.toString());
         HashMap<String,Object> map=new HashMap<>();
-        String message=applyConferenceService.disapproveConference(request);
+        String message = applyConferenceService.disapproveConference(request);
         String token= httpServletRequest.getHeader("Authorization").substring(7);
         if(message.equals("error")){
             map.put("token",token);

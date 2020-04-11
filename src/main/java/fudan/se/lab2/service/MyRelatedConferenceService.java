@@ -59,4 +59,10 @@ public class MyRelatedConferenceService {
         return conferences;
     }
 
+    public boolean openSubmission(String full_name){
+        Conference conference = conferenceRepository.findByFullName(full_name);
+        conference.setIsOpenSubmission(2);
+        return true;
+    }
+
 }

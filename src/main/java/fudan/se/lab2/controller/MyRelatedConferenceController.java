@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.OpenSubmissionRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -125,6 +127,26 @@ public class MyRelatedConferenceController {
         map.put("message","获取所有我投稿的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
+        return ResponseEntity.ok(map);
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping("/openSubmission")
+    public ResponseEntity<HashMap<String,Object>> openSubmission(HttpServletRequest httpServletRequest, @RequestBody OpenSubmissionRequest openSubmissionRequest) {
+        logger.debug("Open submission");
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
+
+        HashMap<String,Object> map = new HashMap<>();
+        boolean status = myRelatedConferenceService.openSubmission(openSubmissionRequest.getFull_name());
+        if(status){
+            map.put("message","开启成功");
+            return ResponseEntity.ok(map);
+        }else{
+            map.put("message","开启失败");
+        }
+        map.put("token",token);
+        map.put("chairName",chairName);
         return ResponseEntity.ok(map);
     }
 

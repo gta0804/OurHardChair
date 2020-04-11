@@ -164,7 +164,7 @@ public class ApplyConferenceController {
         public String chair_name;
         public Integer is_open_submission;
         responseConference1(Long conference_id,String full_name,String short_name,String place,String start_date,String deadline_date,String release_date,Integer status,String chair_name,Integer is_open_submission){
-            this.conference_id=conference_id;
+            this.conference_id = conference_id;
             this.full_name = full_name;
             this.short_name = short_name;
             this.place = place;

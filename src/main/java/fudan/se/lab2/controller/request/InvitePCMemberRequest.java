@@ -18,7 +18,7 @@ public class InvitePCMemberRequest {
 
 
     public InvitePCMemberRequest(List<String> users, String fullName){
-        this.fullName =fullName;
+        this.fullName=fullName;
         this.users=users;
     }
 

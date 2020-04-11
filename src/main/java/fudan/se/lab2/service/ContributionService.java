@@ -20,10 +20,12 @@ public class ContributionService {
     @Autowired
     private ArticleRepository articleRepository;
 
+    @Autowired
     private AuthorRepository authorRepository;
 
     public String saveContribution(ContributionRequest contributionRequest){
         Article article = articleRepository.findArticleByTitle(contributionRequest.getTitle());
+
         if (article != null) {
             return "duplicate contribution";
         } else {
@@ -36,11 +38,12 @@ public class ContributionService {
 
             Article article1 = new Article(contributionRequest.getConferenceID(),contributionRequest.getAuthorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract());
             articleRepository.save(article1);
+            System.out.println(contributionRequest.getAuthorID());
+            System.out.println(contributionRequest.getConferenceID());
+
             Author author = new Author(contributionRequest.getAuthorID(),contributionRequest.getConferenceID());
             authorRepository.save(author);
             return "successful contribution";
         }
-
     }
-
 }

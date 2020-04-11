@@ -98,16 +98,9 @@ public class ContributionController {
                     // 自定义的文件名称
                     // 设置存放图片文件的路径
                     path = "/workplace/classwork/" + fileName;
-                    File dest = new File(path);
-                    //判断文件父目录是否存在
-                    if (!dest.getParentFile().getParentFile().exists()) {
-                        dest.getParentFile().getParentFile().mkdir();
-                    }
-                    if (!dest.getParentFile().exists()) {
-                        dest.getParentFile().mkdir();
-                    }
-
-                    file.transferTo(dest);
+                    mkdirAndFile(path);
+//                    File dest = new File(path);
+//                    file.transferTo(dest);
                     map.put("message","上传成功");
                     map.put("存放路径",fileName);
                     return ResponseEntity.ok(map);
@@ -122,6 +115,47 @@ public class ContributionController {
         }
         return ResponseEntity.ok(map);
     }
+    public static void mkdirs(String path) {
+        //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
+        File f;
+        try {
+            f = new File(path);
+            if (!f.exists()) {
+                boolean i = f.mkdirs();
+                if (i) {
+                    System.out.println("成功");
+                } else {
+                    System.out.println("层级文件夹创建失败！");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void mkdirAndFile(String path) {
+        //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
+        File f;
+        try {
+            f = new File(path);
+            if (!f.exists()) {
+                boolean i = f.getParentFile().mkdirs();
+                if (i) {
+                    System.out.println("层级文件夹创建成功！");
+                } else {
+                    System.out.println("层级文件夹创建失败！");
+                }
+            }
+            boolean b = f.createNewFile();
+            if (b) {
+                System.out.println("文件创建成功！");
+            } else {
+                System.out.println("文件创建失败！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     }
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 public class ContributionRequest {
     private Long conferenceID;
 
-    private Long AuthorID;
+    private Long authorID;
 
     private String filename;
 
@@ -25,9 +25,9 @@ public class ContributionRequest {
 
     }
 
-    public ContributionRequest(Long conferenceID,Long AuthorID,String filename,String title,String articleAbstract){
+    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract){
         this.conferenceID = conferenceID;
-        this.AuthorID = AuthorID;
+        this.authorID = authorID;
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
@@ -42,11 +42,11 @@ public class ContributionRequest {
     }
 
     public Long getAuthorID() {
-        return AuthorID;
+        return authorID;
     }
 
     public void setAuthorID(Long authorID) {
-        AuthorID = authorID;
+        this.authorID = authorID;
     }
 
     public String getFilename() {

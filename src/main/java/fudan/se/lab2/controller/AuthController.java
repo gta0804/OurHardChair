@@ -92,7 +92,7 @@ public class AuthController {
                 String token = jwtTokenUtil.generateToken((User)userForBase);
                 System.out.println("登陆成功");
                 System.out.println("发放token：" + token);
-                map.put("id",((User) userForBase).getId());
+                map.put("id",((User) userForBase).getId().intValue());
                 map.put("message","success");
                 map.put("token", token);
                 map.put("username",userForBase.getUsername());

@@ -8,8 +8,14 @@ public class SearchUserRequest {
     private String search_key;
     private String full_name;
 
+
     @Autowired
     public SearchUserRequest(){}
+
+    public SearchUserRequest(String search_key,String full_name){
+        this.search_key=search_key;
+        this.full_name=full_name;
+    }
 
     public String getSearch_key() {
         return search_key;
@@ -19,11 +25,11 @@ public class SearchUserRequest {
         this.search_key = search_key;
     }
 
-    public String getFullName() {
+    public String getFull_Name() {
         return full_name;
     }
 
-    public void setFullName(String full_name) {
+    public void setFull_name(String full_name) {
         this.full_name = full_name;
     }
 }

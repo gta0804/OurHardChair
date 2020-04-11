@@ -9,7 +9,7 @@ import java.util.*;
  */
 @Controller
 public class InvitePCMemberRequest {
-    private String full_name;
+    private String fullName;
     private List<String> users;
     @Autowired
     public InvitePCMemberRequest(){
@@ -17,17 +17,17 @@ public class InvitePCMemberRequest {
     }
 
 
-    public InvitePCMemberRequest(List<String> users, String full_name){
-        this.full_name=full_name;
+    public InvitePCMemberRequest(List<String> users, String fullName){
+        this.fullName =fullName;
         this.users=users;
     }
 
     public String getFullName() {
-        return full_name;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-        this.full_name = fullName;
+        this.fullName = fullName;
     }
 
     public List<String> getUsers() {

@@ -45,7 +45,7 @@ public class PCMemberService {
             Long chairId=conferenceRepository.findByFullName(request.getFullName()).getChairId();
             User chair=userRepository.findById(chairId).orElse(null);
             Message messageToSave=new Message
-                    (userName,chair.getUsername(),request.getFullName(),"用户"+userName+"发来一个加入"+request.getFullName()+"的申请",REQUEST,1);
+                    (chair.getUsername(),userName,request.getFullName(),"用户"+userName+"发来一个加入"+request.getFullName()+"的申请",REQUEST,1);
             messageList.add(messageToSave);
         }
         messageRepository.saveAll(messageList);

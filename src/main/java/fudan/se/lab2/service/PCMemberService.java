@@ -23,8 +23,8 @@ public class PCMemberService {
     private ConferenceRepository conferenceRepository;
     private UserRepository userRepository;
     private MessageRepository messageRepository;
-    private final String REQUEST="PCNumberInvitationRequest";
-    private final String RESPONSE="PCNumberInvitationResponse";
+    private final String REQUEST="PCMemberInvitationRequest";
+    private final String RESPONSE="PCMemberInvitationResponse";
 
     @Autowired
     public PCMemberService(PCMemberRepository pcMemberRepository, ConferenceRepository conferenceRepository, UserRepository userRepository, MessageRepository messageRepository){

@@ -100,6 +100,9 @@ public class ContributionController {
                     path = "/workplace/classwork/" + fileName;
                     File dest = new File(path);
                     //判断文件父目录是否存在
+                    if (!dest.getParentFile().getParentFile().exists()) {
+                        dest.getParentFile().getParentFile().mkdir();
+                    }
                     if (!dest.getParentFile().exists()) {
                         dest.getParentFile().mkdir();
                     }
@@ -118,7 +121,7 @@ public class ContributionController {
             map.put("message","上传失败");
         }
         return ResponseEntity.ok(map);
-
     }
+
     }
 

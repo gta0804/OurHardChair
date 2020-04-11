@@ -36,8 +36,10 @@ public class ContributionController {
     @Autowired
     ContributionService contributionService;
 
+    @Autowired
     UserRepository userRepository;
 
+    @Autowired
     JwtTokenUtil jwtTokenUtil;
 
     @Autowired

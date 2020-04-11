@@ -47,11 +47,18 @@ public class ApplyConferenceController {
     public ResponseEntity<HashMap<String,Object>> showAllConference(HttpServletRequest httpServletRequest){
         logger.debug("Show all the conferences");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = applyConferenceService.showAllConference();
+
+        List<responseConference1> responseConferences = new ArrayList<>();
+        for (Conference conference : conferences) {
+            responseConference1 response = new responseConference1(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
+            responseConferences.add(response);
+        }
         map.put("message","获取所有会议申请成功");
         map.put("token",token);
-        map.put("meetings",conferences);
+        map.put("meetings",responseConferences);
         return ResponseEntity.ok(map);
     }
 
@@ -146,6 +153,27 @@ public class ApplyConferenceController {
         }
         return ResponseEntity.ok(map);
     }
-
+    public static class responseConference1{
+        public String full_name;
+        public String short_name;
+        public String place;
+        public String start_date;
+        public String deadline_date;
+        public String release_date;
+        public Integer status;
+        public String chair_name;
+        public Integer is_open_submission;
+        responseConference1(String full_name,String short_name,String place,String start_date,String deadline_date,String release_date,Integer status,String chair_name,Integer is_open_submission){
+            this.full_name = full_name;
+            this.short_name = short_name;
+            this.place = place;
+            this.start_date = start_date;
+            this.deadline_date = deadline_date;
+            this.release_date = release_date;
+            this.status = status;
+            this.chair_name = chair_name;
+            this.is_open_submission = is_open_submission;
+        }
+    }
 
 }

@@ -53,17 +53,17 @@ public class MyRelatedConferenceController {
         //开始合并
         List<responseConference> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过",chairName,conference.getIsOpenSubmission());
+            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
             responseConferences.add(response);
         }
         for (ApplyMeeting applyMeeting : applyMeetings) {
-            String status;
+            Integer status;
             if (applyMeeting.getReviewStatus() == 3)
             {
-                status = "未通过";
+                status = (Integer)3;
             }
             else{
-                status = "审核中";
+                status = (Integer)1;
             }
             if (applyMeeting.getReviewStatus() != 2){
                 responseConference response = new responseConference(applyMeeting.getFullName(),applyMeeting.getAbbreviation(),applyMeeting.getHoldingPlace(),applyMeeting.getHoldingTime(),applyMeeting.getSubmissionDeadline(),applyMeeting.getReviewReleaseDate(),status,chairName,(Integer)1);
@@ -92,7 +92,7 @@ public class MyRelatedConferenceController {
         else{
             List<responseConference> responseConferences = new ArrayList<>();
             for (Conference conference : conferences) {
-                responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过",chairName,conference.getIsOpenSubmission());
+                responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
                 responseConferences.add(response);
             }
             map.put("message","获取所有我审稿的会议申请成功");
@@ -119,7 +119,7 @@ public class MyRelatedConferenceController {
         }
         List<responseConference> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过",chairName,conference.getIsOpenSubmission());
+            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
             responseConferences.add(response);
         }
         map.put("message","获取所有我投稿的会议申请成功");
@@ -136,10 +136,10 @@ public class MyRelatedConferenceController {
         public String start_date;
         public String deadline_date;
         public String release_date;
-        public String status;
+        public Integer status;
         public String chair_name;
         public Integer is_open_submission;
-        responseConference(String full_name,String short_name,String place,String start_date,String deadline_date,String release_date,String status,String chair_name,Integer is_open_submission){
+        responseConference(String full_name,String short_name,String place,String start_date,String deadline_date,String release_date,Integer status,String chair_name,Integer is_open_submission){
             this.full_name = full_name;
             this.short_name = short_name;
             this.place = place;

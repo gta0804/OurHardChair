@@ -58,7 +58,7 @@ public class ContributionController {
         logger.debug("Try to submit article");
         HashMap<String, Object> map = new HashMap();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+//        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         String status = contributionService.saveContribution(contributionRequest);
         if (status.equals("duplicate contribution")) {
             map.put("message", "重复投稿（标题名重复）");
@@ -92,7 +92,7 @@ public class ContributionController {
             String path = null;
             String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()) : null;
             if (type != null) {
-                if ("DOCX".equals(type.toUpperCase()) || "DOC".equals(type.toUpperCase()) || "PDF".equals(type.toUpperCase())) {
+                if ("PDF".equals(type.toUpperCase())) {
                     // 项目在容器中实际发布运行的根路径
                     String realPath = request.getSession().getServletContext().getRealPath("/");
                     // 自定义的文件名称

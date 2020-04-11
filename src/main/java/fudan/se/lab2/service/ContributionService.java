@@ -27,6 +27,13 @@ public class ContributionService {
         if (article != null) {
             return "duplicate contribution";
         } else {
+            System.out.println(contributionRequest.getAuthorID());
+            System.out.println(contributionRequest.getConferenceID());
+            System.out.println(contributionRequest.getTitle());
+            System.out.println(contributionRequest.getArticleAbstract());
+            System.out.println(contributionRequest.getFilename());
+            System.out.println("contributionRequest.getFilename()");
+
             Article article1 = new Article(contributionRequest.getConferenceID(),contributionRequest.getAuthorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract());
             articleRepository.save(article1);
             Author author = new Author(contributionRequest.getAuthorID(),contributionRequest.getConferenceID());

@@ -153,16 +153,16 @@ public class ApplyConferenceController {
         return ResponseEntity.ok(map);
     }
     public static class responseConference1{
-        private Long conference_id;
-        private String full_name;
-        private String short_name;
-        private String place;
-        private String start_date;
-        private String deadline_date;
-        private String release_date;
-        private Integer status;
-        private String chair_name;
-        private Integer is_open_submission;
+        public Long conference_id;
+        public String full_name;
+        public String short_name;
+        public String place;
+        public String start_date;
+        public String deadline_date;
+        public String release_date;
+        public Integer status;
+        public String chair_name;
+        public Integer is_open_submission;
         responseConference1(Long conference_id,String full_name,String short_name,String place,String start_date,String deadline_date,String release_date,Integer status,String chair_name,Integer is_open_submission){
             this.conference_id=conference_id;
             this.full_name = full_name;

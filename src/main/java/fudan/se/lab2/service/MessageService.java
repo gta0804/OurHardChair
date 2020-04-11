@@ -47,11 +47,13 @@ public class MessageService {
                         request.getRelatedConferenceName(),
                         request.getMessageCategory(),
                                 1);
+
         if(messages==null){
             return false;
         }
         else{
             messages.setIsRead(2);
+            messageRepository.save(messages);
             return true;
         }
     }

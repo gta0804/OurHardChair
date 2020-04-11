@@ -45,7 +45,7 @@ public class MyRelatedConferenceController {
         //首先加载所有已申请的会议
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair(id);
         //再加载所有申请过的会议
@@ -82,7 +82,7 @@ public class MyRelatedConferenceController {
         logger.debug("Show all the conferences for PC Member");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForPCMember(id);
         if(conferences==null){
@@ -109,7 +109,7 @@ public class MyRelatedConferenceController {
         logger.debug("Show all the conferences for Author");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
 
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForAuthor(id);

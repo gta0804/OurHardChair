@@ -87,7 +87,9 @@ public class ContributionController {
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
+        System.out.println("进入了uploadfa那个发");
         if (!file.isEmpty()) {
+            System.out.println("feikong");
             String fileName = file.getOriginalFilename();
             String path = null;
             String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()) : null;
@@ -97,20 +99,25 @@ public class ContributionController {
                     String realPath = request.getSession().getServletContext().getRealPath("/");
                     // 自定义的文件名称
                     // 设置存放图片文件的路径
-                    path = "/workplace/classwork/" + fileName;
+                    path = "/workplace/classwork" + fileName;
+                    System.out.println(path);
+                    System.out.println("hhh");
                     mkdirAndFile(path);
-//                    File dest = new File(path);
-//                    file.transferTo(dest);
+                    File dest = new File(path);
+                    file.transferTo(dest);
                     map.put("message","上传成功");
                     map.put("存放路径",fileName);
                     return ResponseEntity.ok(map);
                 } else {
+                    System.out.println("不是pdf");
                     map.put("message","上传失败");
                 }
             } else {
+                System.out.println("type是null");
                 map.put("message","上传失败");
             }
         } else {
+            System.out.println("没收到file");
             map.put("message","上传失败");
         }
         return ResponseEntity.ok(map);

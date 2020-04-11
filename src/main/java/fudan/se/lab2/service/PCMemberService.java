@@ -45,7 +45,7 @@ public class PCMemberService {
             Long chairId=conferenceRepository.findByFullName(request.getFullName()).getChairId();
             User chair=userRepository.findById(chairId).orElse(null);
             Message messageToSave=new Message
-                    (chair.getUsername(),userName,request.getFullName(),"用户"+userName+"发来一个加入"+request.getFullName()+"的申请",REQUEST,1);
+                    (chair.getUsername(),userName,request.getFullName(),"用户"+chair.getUsername()+"发来一个加入"+request.getFullName()+"的申请",REQUEST,1);
             messageList.add(messageToSave);
         }
         messageRepository.saveAll(messageList);
@@ -127,7 +127,10 @@ public class PCMemberService {
         System.out.println("length: "+users.size());
         List<SearchResponse> responses=new ArrayList<>();
         for(User user:users){
-            if(isPCMember(request.getFull_Name(),user.getUsername())){
+            if(isAdminOrUser(request.getFull_Name(),user.getUsername())){
+                continue;
+            }
+            else if(isPCMember(request.getFull_Name(),user.getUsername())){
                 responses.add(new SearchResponse(
                         user.getFullName(),
                         user.getUsername(),
@@ -156,6 +159,19 @@ public class PCMemberService {
             }
         }
         return responses;
+    }
+
+    public boolean isAdminOrUser(String conferenceName,String username) {
+        if (username.equals("admin")) {
+            return true;
+        }
+        Conference conference = conferenceRepository.findByFullName(conferenceName);
+        User user = userRepository.findById(conference.getChairId()).orElse(null);
+
+        if (username.equals(user.getUsername())) {
+            return true;
+        }
+        return false;
     }
 
     public boolean isPCMember(String conferenceName,String username){

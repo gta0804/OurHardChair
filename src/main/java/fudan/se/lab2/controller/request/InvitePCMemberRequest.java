@@ -8,26 +8,26 @@ import java.util.*;
  * @description : 接收PCNumberRequest请求
  */
 @Controller
-public class InvitePCNumberRequest {
-    private String fullName;
+public class InvitePCMemberRequest {
+    private String full_name;
     private List<String> users;
     @Autowired
-    public InvitePCNumberRequest(){
+    public InvitePCMemberRequest(){
 
     }
 
 
-    public InvitePCNumberRequest(String fullName,List<String> users){
-        this.fullName=fullName;
+    public InvitePCMemberRequest(List<String> users, String full_name){
+        this.full_name=full_name;
         this.users=users;
     }
 
     public String getFullName() {
-        return fullName;
+        return full_name;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.full_name = fullName;
     }
 
     public List<String> getUsers() {

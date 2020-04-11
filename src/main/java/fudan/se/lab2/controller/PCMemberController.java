@@ -40,11 +40,11 @@ public class PCMemberController {
         String result=pcMemberService.invitePCNumber(request);
         if(result.equals("success")){
             map.put("message",result);
+            map.put("token",token);
             return ResponseEntity.ok(map);
         }
         else{
-            map.put("message","success");
-            map.put("token",token);
+            map.put("message","error");
             return ResponseEntity.ok(map);
         }
     }

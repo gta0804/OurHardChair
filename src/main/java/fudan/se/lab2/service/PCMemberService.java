@@ -63,6 +63,10 @@ public class PCMemberService {
                                 REQUEST,
                                 1
                         );
+        System.out.println(request.getSenderName());
+        System.out.println(request.getReceiverName());
+        System.out.println(request.getRelatedConferenceName());
+
         if(messageForRequest==null){
             return false;
         }

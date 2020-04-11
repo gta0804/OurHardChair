@@ -70,7 +70,7 @@ public class PCMemberService {
         if(messageForRequest==null){
             return false;
         }
-        Long userId=userRepository.findByUsername(request.getReceiverName()).getId();
+        Long userId=userRepository.findByUsername(request.getSenderName()).getId();
         Long conferenceId=conferenceRepository.findByFullName(request.getRelatedConferenceName()).getId();
         if(userId==null||conferenceId==null){
             return false;

@@ -63,6 +63,7 @@ public class ApplyConferenceController {
     public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, @RequestBody ApplyMeetingRequest request){
         String token= httpServletRequest.getHeader("Authorization").substring(7);
         Long id= userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
         ApplyMeeting applyMeeting=applyConferenceService.applyMeeting(request,id);
@@ -73,8 +74,8 @@ public class ApplyConferenceController {
             map.put("token",token);
             map.put("message","success");
             map.put("user id",applyMeeting.getApplicantId());
-            map.put("abbreviation",applyMeeting.getAbbreviation());
-            map.put("fullName",applyMeeting.getFullName());
+            map.put("short_name",applyMeeting.getAbbreviation());
+            map.put("full_name",applyMeeting.getFullName());
             map.put("holdingTime",applyMeeting.getHoldingTime());
             map.put("holdingPlace",applyMeeting.getHoldingPlace());
             map.put("submissionDeadline",applyMeeting.getSubmissionDeadline());

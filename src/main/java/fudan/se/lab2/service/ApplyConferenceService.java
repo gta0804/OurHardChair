@@ -17,7 +17,7 @@ import java.util.*;
 
 @Service
 public class ApplyConferenceService {
-    private final String RESPONSE="applyConferenceResponse";
+    private final String RESPONSE="ApplyConferenceResponse";
     @Autowired
     private ApplyMeetingRepository applyMeetingRepository;
 

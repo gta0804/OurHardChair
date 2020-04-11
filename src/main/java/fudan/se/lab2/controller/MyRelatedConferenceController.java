@@ -45,6 +45,7 @@ public class MyRelatedConferenceController {
         //首先加载所有已申请的会议
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair(id);
         //再加载所有申请过的会议
@@ -52,7 +53,7 @@ public class MyRelatedConferenceController {
         //开始合并
         List<responseConference> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");
+            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过",chairName,conference.getIsOpenSubmission());
             responseConferences.add(response);
         }
         for (ApplyMeeting applyMeeting : applyMeetings) {
@@ -65,7 +66,7 @@ public class MyRelatedConferenceController {
                 status = "审核中";
             }
             if (applyMeeting.getReviewStatus() != 2){
-                responseConference response = new responseConference(applyMeeting.getFullName(),applyMeeting.getAbbreviation(),applyMeeting.getHoldingPlace(),applyMeeting.getHoldingTime(),applyMeeting.getSubmissionDeadline(),applyMeeting.getReviewReleaseDate(),status);
+                responseConference response = new responseConference(applyMeeting.getFullName(),applyMeeting.getAbbreviation(),applyMeeting.getHoldingPlace(),applyMeeting.getHoldingTime(),applyMeeting.getSubmissionDeadline(),applyMeeting.getReviewReleaseDate(),status,chairName,(Integer)1);
                 responseConferences.add(response);
             }
         }
@@ -81,6 +82,7 @@ public class MyRelatedConferenceController {
         logger.debug("Show all the conferences for PC Member");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForPCMember(id);
         if(conferences==null){
@@ -90,7 +92,7 @@ public class MyRelatedConferenceController {
         else{
             List<responseConference> responseConferences = new ArrayList<>();
             for (Conference conference : conferences) {
-                responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");
+                responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过",chairName,conference.getIsOpenSubmission());
                 responseConferences.add(response);
             }
             map.put("message","获取所有我审稿的会议申请成功");
@@ -107,6 +109,8 @@ public class MyRelatedConferenceController {
         logger.debug("Show all the conferences for Author");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
+        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
+
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForAuthor(id);
         if(conferences==null){
@@ -115,7 +119,7 @@ public class MyRelatedConferenceController {
         }
         List<responseConference> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过");
+            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),"已通过",chairName,conference.getIsOpenSubmission());
             responseConferences.add(response);
         }
         map.put("message","获取所有我投稿的会议申请成功");
@@ -126,21 +130,25 @@ public class MyRelatedConferenceController {
 
     //定义返回的回应对象
     public static class responseConference{
-        public String fullname;
-        public String shortname;
+        public String full_name;
+        public String short_name;
         public String place;
         public String start_date;
         public String deadline_date;
         public String release_date;
         public String status;
-        responseConference(String fullname,String shortname,String place,String start_date,String deadline_date,String release_date,String status){
-            this.fullname = fullname;
-            this.shortname = shortname;
+        public String chair_name;
+        public Integer is_open_submission;
+        responseConference(String full_name,String short_name,String place,String start_date,String deadline_date,String release_date,String status,String chair_name,Integer is_open_submission){
+            this.full_name = full_name;
+            this.short_name = short_name;
             this.place = place;
             this.start_date = start_date;
             this.deadline_date = deadline_date;
             this.release_date = release_date;
             this.status = status;
+            this.chair_name = chair_name;
+            this.is_open_submission = is_open_submission;
         }
     }
 }

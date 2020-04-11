@@ -90,6 +90,8 @@ public class PCMemberController {
     @PostMapping("/search")
     public ResponseEntity<HashMap<String,Object>>search(@RequestBody SearchUserRequest request,HttpServletRequest httpServletRequest){
         logger.debug("searching people"+request.toString());
+        System.out.println("search key: "+request.getSearch_key());
+        System.out.println("fullName: "+request.getFullName());
         HashMap<String,Object> map=new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         List<SearchResponse> responses=pcMemberService.search(request);

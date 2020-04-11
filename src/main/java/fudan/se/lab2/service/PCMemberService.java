@@ -123,7 +123,8 @@ public class PCMemberService {
 
 
     public List<SearchResponse> search(SearchUserRequest request){
-        List<User> users=userRepository.findAllByFullNameContaining(request.getSearchKey());
+        List<User> users=userRepository.findAllByFullNameContaining(request.getSearch_key());
+        System.out.println("length: "+users.size());
         List<SearchResponse> responses=new ArrayList<>();
         for(User user:users){
             if(isPCMember(request.getFullName(),user.getUsername())){

@@ -5,18 +5,18 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class SearchUserRequest {
-    private String searchKey;
+    private String search_key;
     private String full_name;
 
     @Autowired
     public SearchUserRequest(){}
 
-    public String getSearchKey() {
-        return searchKey;
+    public String getSearch_key() {
+        return search_key;
     }
 
-    public void setSearchKey(String searchKey) {
-        this.searchKey = searchKey;
+    public void setSearch_key(String search_key) {
+        this.search_key = search_key;
     }
 
     public String getFullName() {

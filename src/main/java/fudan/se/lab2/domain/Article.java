@@ -19,7 +19,8 @@ public class Article {
 
     private Long conferenceID;
 
-    private Long AuthorID;
+    private Long authorID;
+
 
     private String filename;
 
@@ -28,7 +29,7 @@ public class Article {
     private String articleAbstract;
 
     //0未通过 1待审核 2已通过
-    private Integer status;
+    private Long status;
 
     public Article() {
     }
@@ -40,21 +41,21 @@ public class Article {
     * @Author: Shen Zhengyu
     * @Date: 2020/4/8
     */
-    public Article(Long conferenceID,Long AuthorID,String filename,String title,String articleAbstract)
+    public Article(Long conferenceID,Long authorID,String filename,String title,String articleAbstract)
     {
         this.conferenceID = conferenceID;
-        this.AuthorID = AuthorID;
+        this.authorID = authorID;
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
-        this.status = 1;
+        this.status = (long)1;
     }
 
-    public Integer getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 
@@ -75,11 +76,11 @@ public class Article {
     }
 
     public Long getAuthorID() {
-        return AuthorID;
+        return authorID;
     }
 
     public void setAuthorID(Long authorID) {
-        AuthorID = authorID;
+        authorID = authorID;
     }
 
     public String getFilename() {

@@ -60,7 +60,6 @@ public class ContributionController {
         logger.debug("Try to submit article");
         HashMap<String, Object> map = new HashMap();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-//        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         String status = contributionService.saveContribution(contributionRequest);
         if (status.equals("duplicate contribution")) {
             map.put("message", "重复投稿（标题名重复）");
@@ -91,10 +90,9 @@ public class ContributionController {
         map.put("token", token);
         System.out.println("进入了uploadfa那个发");
         if (!file.isEmpty()) {
-            System.out.println("feikong");
             String fileName = file.getOriginalFilename();
             String path = null;
-            String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()) : null;
+            String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".") + 1) : null;
             if (type != null) {
                 if ("PDF".equals(type.toUpperCase())) {
                     // 项目在容器中实际发布运行的根路径
@@ -103,28 +101,28 @@ public class ContributionController {
                     // 设置存放图片文件的路径
                     path = "/workplace/classwork" + fileName;
                     System.out.println(path);
-                    System.out.println("hhh");
                     mkdirAndFile(path);
                     File dest = new File(path);
                     file.transferTo(dest);
-                    map.put("message","上传成功");
-                    map.put("存放路径",fileName);
+                    map.put("message", "上传成功");
+                    map.put("存放路径", fileName);
                     return ResponseEntity.ok(map);
                 } else {
                     System.out.println("不是pdf");
-                    map.put("message","上传失败");
+                    map.put("message", "上传失败");
                 }
             } else {
                 System.out.println("type是null");
-                map.put("message","上传失败");
+                map.put("message", "上传失败");
             }
         } else {
             System.out.println("没收到file");
-            map.put("message","上传失败");
+            map.put("message", "上传失败");
         }
         return ResponseEntity.ok(map);
     }
-    public static void mkdirs(String path) {
+
+    public void mkdirs(String path) {
         //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
         File f;
         try {
@@ -138,10 +136,12 @@ public class ContributionController {
                 }
             }
         } catch (Exception e) {
+            logger.error("error:" + e.getMessage() + e);
             e.printStackTrace();
         }
     }
-    public static void mkdirAndFile(String path) {
+
+    public void mkdirAndFile(String path) {
         //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
         File f;
         try {
@@ -161,10 +161,9 @@ public class ContributionController {
                 System.out.println("文件创建失败！");
             }
         } catch (Exception e) {
+            logger.error("error:" + e.getMessage() + e);
             e.printStackTrace();
         }
     }
-
-
-    }
+}
 

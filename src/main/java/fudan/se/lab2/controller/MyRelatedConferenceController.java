@@ -1,6 +1,7 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.OpenSubmissionRequest;
+import fudan.se.lab2.controller.response.RelatedConferenceResponse;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
@@ -53,9 +54,9 @@ public class MyRelatedConferenceController {
         //再加载所有申请过的会议
         List<ApplyMeeting> applyMeetings = applyConferenceService.showAllApplyMeetingById(id);
         //开始合并
-        List<responseConference> responseConferences = new ArrayList<>();
+        List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
+            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
             responseConferences.add(response);
         }
         for (ApplyMeeting applyMeeting : applyMeetings) {
@@ -68,7 +69,7 @@ public class MyRelatedConferenceController {
                 status = (Integer)1;
             }
             if (applyMeeting.getReviewStatus() != 2){
-                responseConference response = new responseConference(applyMeeting.getFullName(),applyMeeting.getAbbreviation(),applyMeeting.getHoldingPlace(),applyMeeting.getHoldingTime(),applyMeeting.getSubmissionDeadline(),applyMeeting.getReviewReleaseDate(),status,chairName,(Integer)1);
+                RelatedConferenceResponse response = new RelatedConferenceResponse(applyMeeting.getFullName(),applyMeeting.getAbbreviation(),applyMeeting.getHoldingPlace(),applyMeeting.getHoldingTime(),applyMeeting.getSubmissionDeadline(),applyMeeting.getReviewReleaseDate(),status,chairName,(Integer)1);
                 responseConferences.add(response);
             }
         }
@@ -92,9 +93,9 @@ public class MyRelatedConferenceController {
             return ResponseEntity.ok(map);
         }
         else{
-            List<responseConference> responseConferences = new ArrayList<>();
+            List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
             for (Conference conference : conferences) {
-                responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
+                RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
                 responseConferences.add(response);
             }
             map.put("message","获取所有我审稿的会议申请成功");
@@ -119,9 +120,9 @@ public class MyRelatedConferenceController {
             map.put("message","获取所有我主持的会议申请失败");
             return ResponseEntity.ok(map);
         }
-        List<responseConference> responseConferences = new ArrayList<>();
+        List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            responseConference response = new responseConference(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
+            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
             responseConferences.add(response);
         }
         map.put("message","获取所有我投稿的会议申请成功");
@@ -134,7 +135,6 @@ public class MyRelatedConferenceController {
     public ResponseEntity<HashMap<String,Object>> openSubmission(HttpServletRequest httpServletRequest, @RequestBody OpenSubmissionRequest openSubmissionRequest) {
         logger.debug("Open submission");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
         String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
 
         HashMap<String,Object> map = new HashMap<>();
@@ -151,26 +151,5 @@ public class MyRelatedConferenceController {
     }
 
     //定义返回的回应对象
-    public static class responseConference{
-        public String full_name;
-        public String short_name;
-        public String place;
-        public String start_date;
-        public String deadline_date;
-        public String release_date;
-        public Integer status;
-        public String chair_name;
-        public Integer is_open_submission;
-        responseConference(String full_name,String short_name,String place,String start_date,String deadline_date,String release_date,Integer status,String chair_name,Integer is_open_submission){
-            this.full_name = full_name;
-            this.short_name = short_name;
-            this.place = place;
-            this.start_date = start_date;
-            this.deadline_date = deadline_date;
-            this.release_date = release_date;
-            this.status = status;
-            this.chair_name = chair_name;
-            this.is_open_submission = is_open_submission;
-        }
-    }
+
 }

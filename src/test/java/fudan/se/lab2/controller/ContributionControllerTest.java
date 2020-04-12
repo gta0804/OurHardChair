@@ -1,16 +1,19 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ContributionRequest;
+import fudan.se.lab2.controller.request.ShowSubmissionRequest;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +22,9 @@ class ContributionControllerTest {
 
     @Autowired
     ContributionController contributionController;
+
+    @Autowired
+    MyRelatedConferenceController myRelatedConferenceController;
     private MockHttpServletRequest request;
 
     String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4NjY4MDYzMCwiZXhwIjoxNTg2Njk4NjMwfQ.laMZ1U8mDn53ig9AG4sw23XKMasthIqCd0YDnfV9K9GTICGprAdthhhYj0RZqmMjb09iGd5-OsznQRudUJBmKw";
@@ -55,7 +61,17 @@ class ContributionControllerTest {
         } catch (IOException e) {
 
         }
+    }
 
+    @Test
+    void showSubmission(){
+        request = new MockHttpServletRequest();
+        request.setCharacterEncoding("UTF-8");
+        request.addHeader("Authorization", token);
+        ShowSubmissionRequest showSubmissionRequest=new ShowSubmissionRequest();
+        showSubmissionRequest.setUsername("username");
+        ResponseEntity<HashMap<String,Object>> responseEntity=myRelatedConferenceController.showMySubmission(showSubmissionRequest,request);
+        Assert.isTrue(responseEntity.getBody().get("message").equals("success"));
     }
 
 }

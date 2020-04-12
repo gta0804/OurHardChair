@@ -129,6 +129,9 @@ public class PCMemberService {
         List<User> users=userRepository.findAllByFullNameContaining(request.getSearch_key());
         System.out.println("length: "+users.size());
         List<SearchResponse> responses=new ArrayList<>();
+        if(conferenceRepository.findByFullName(request.getFull_Name())==null){
+            return null;
+        }
         for(User user:users){
             if(isAdminOrUser(request.getFull_Name(),user.getUsername())){
             }

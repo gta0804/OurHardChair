@@ -5,9 +5,9 @@ public class ShowSubmissionResponse {
     private String filename;
     private String title;
     private String articleAbstract;
-    private Integer status;
+    private Long status;
 
-    public ShowSubmissionResponse(String conferenceName,String filename,String title,String articleAbstract,Integer status){
+    public ShowSubmissionResponse(String conferenceName,String filename,String title,String articleAbstract,Long status){
         this.conferenceName=conferenceName;
         this.filename=filename;
         this.title=title;
@@ -47,11 +47,11 @@ public class ShowSubmissionResponse {
         this.articleAbstract = articleAbstract;
     }
 
-    public Integer getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 }

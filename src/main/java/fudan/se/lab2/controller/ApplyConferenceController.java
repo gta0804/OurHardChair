@@ -5,6 +5,7 @@ import fudan.se.lab2.controller.request.ReviewConferenceRequest;
 import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
+import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.ApplyConferenceService;
@@ -52,8 +53,12 @@ public class ApplyConferenceController {
         List<Conference> conferences = applyConferenceService.showAllConference();
         List<AllConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            AllConferenceResponse response = new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
-            responseConferences.add(response);
+            User user=userRepository.findById(conference.getChairId()).orElse(null);
+            if(user!=null){
+                AllConferenceResponse response = new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,user.getUsername(),conference.getIsOpenSubmission());
+                responseConferences.add(response);
+            }
+
         }
         map.put("message","获取所有会议申请成功");
         map.put("token",token);

@@ -22,6 +22,7 @@ public class ConferenceTest {
     void searchNonexistConference(){
         Conference conference = conferenceRepository.findByFullName("ffffffffffffffffffff");
         Assert.isNull(conference);
+
     }
 
     @Test

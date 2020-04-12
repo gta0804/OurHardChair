@@ -19,7 +19,7 @@ public class Article {
 
     private Long conferenceID;
 
-    private Long AuthorID;
+    private Long authorID;
 
     private String filename;
 
@@ -40,10 +40,10 @@ public class Article {
     * @Author: Shen Zhengyu
     * @Date: 2020/4/8
     */
-    public Article(Long conferenceID,Long AuthorID,String filename,String title,String articleAbstract)
+    public Article(Long conferenceID,Long authorID,String filename,String title,String articleAbstract)
     {
         this.conferenceID = conferenceID;
-        this.AuthorID = AuthorID;
+        this.authorID = authorID;
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
@@ -75,11 +75,11 @@ public class Article {
     }
 
     public Long getAuthorID() {
-        return AuthorID;
+        return authorID;
     }
 
     public void setAuthorID(Long authorID) {
-        AuthorID = authorID;
+        authorID = authorID;
     }
 
     public String getFilename() {

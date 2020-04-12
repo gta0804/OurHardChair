@@ -1,7 +1,6 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.controller.request.ApprovePCMemberInvitationRequest;
-import fudan.se.lab2.controller.request.DisapprovePCMemberInvitationRequest;
+import fudan.se.lab2.controller.request.HandlePCMemberInvitationRequest;
 import fudan.se.lab2.controller.request.InvitePCMemberRequest;
 import fudan.se.lab2.controller.request.SearchUserRequest;
 import fudan.se.lab2.controller.response.SearchResponse;
@@ -52,7 +51,7 @@ public class PCMemberService {
         return "success";
     }
 
-    public boolean approvePCNumberInvitation(ApprovePCMemberInvitationRequest request){
+    public boolean approvePCNumberInvitation(HandlePCMemberInvitationRequest request){
         Message messageForRequest=messageRepository.
                 findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                         (
@@ -93,7 +92,7 @@ public class PCMemberService {
         return true;
     }
 
-    public boolean disapprovePCNumberInvitation(DisapprovePCMemberInvitationRequest request){
+    public boolean disapprovePCNumberInvitation(HandlePCMemberInvitationRequest request){
         Message messageForRequest=messageRepository.
                 findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                         (

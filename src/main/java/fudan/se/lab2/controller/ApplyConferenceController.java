@@ -1,8 +1,7 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
-import fudan.se.lab2.controller.request.ApproveConferenceRequest;
-import fudan.se.lab2.controller.request.DisapproveConferenceRequest;
+import fudan.se.lab2.controller.request.ReviewConferenceRequest;
 import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
@@ -48,7 +47,7 @@ public class ApplyConferenceController {
     public ResponseEntity<HashMap<String,Object>> showAllConference(HttpServletRequest httpServletRequest){
         logger.debug("Show all the conferences");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
+        String chairName = jwtTokenUtil.getUsernameFromToken(token);
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = applyConferenceService.showAllConference();
         List<AllConferenceResponse> responseConferences = new ArrayList<>();
@@ -117,7 +116,7 @@ public class ApplyConferenceController {
    */
     @CrossOrigin(origins = "*")
     @PostMapping("/ApproveConference")
-    public ResponseEntity<HashMap<String,Object>> approveConference(@RequestBody ApproveConferenceRequest request,HttpServletRequest httpServletRequest){ ;
+    public ResponseEntity<HashMap<String,Object>> approveConference(@RequestBody ReviewConferenceRequest request, HttpServletRequest httpServletRequest){ ;
         String token= httpServletRequest.getHeader("Authorization").substring(7);
         logger.debug("approve conference"+request.toString());
         HashMap<String,Object> map = new HashMap<>();
@@ -138,7 +137,7 @@ public class ApplyConferenceController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/DisapproveConference")
-    public ResponseEntity<HashMap<String,Object>> disapproveConference(@RequestBody DisapproveConferenceRequest request,HttpServletRequest httpServletRequest){
+    public ResponseEntity<HashMap<String,Object>> disapproveConference(@RequestBody ReviewConferenceRequest request,HttpServletRequest httpServletRequest){
         logger.debug("disapprove conference"+request.toString());
         HashMap<String,Object> map=new HashMap<>();
         String message = applyConferenceService.disapproveConference(request);

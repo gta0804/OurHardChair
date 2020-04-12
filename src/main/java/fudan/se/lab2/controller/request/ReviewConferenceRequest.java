@@ -5,16 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ApproveConferenceRequest {
+public class ReviewConferenceRequest {
     //The fullName of the conference
     private String fullName;
 
     @Autowired
-    public ApproveConferenceRequest(){
+    public ReviewConferenceRequest(){
     }
 
 
-    public ApproveConferenceRequest(String fullName){
+    public ReviewConferenceRequest(String fullName){
         this.fullName=fullName;
     }
 

@@ -9,9 +9,9 @@ public class AllConferenceResponse {
     private String deadline_date;
     private String release_date;
     private Integer status;
-    private String chair_name;
+    private String chair_username;
     private Integer is_open_submission;
-    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_name, Integer is_open_submission){
+    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission){
         this.conference_id = conference_id;
         this.full_name = full_name;
         this.short_name = short_name;
@@ -20,7 +20,7 @@ public class AllConferenceResponse {
         this.deadline_date = deadline_date;
         this.release_date = release_date;
         this.status = status;
-        this.chair_name = chair_name;
+        this.chair_username = chair_username;
         this.is_open_submission = is_open_submission;
     }
 
@@ -96,11 +96,11 @@ public class AllConferenceResponse {
         this.is_open_submission = is_open_submission;
     }
 
-    public String getChair_name() {
-        return chair_name;
+    public String getChair_username() {
+        return chair_username;
     }
 
-    public void setChair_name(String chair_name) {
-        this.chair_name = chair_name;
+    public void setChair_username(String chair_name) {
+        this.chair_username = chair_name;
     }
 }

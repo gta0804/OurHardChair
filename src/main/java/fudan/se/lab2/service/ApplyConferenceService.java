@@ -1,8 +1,7 @@
 package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
-import fudan.se.lab2.controller.request.ApproveConferenceRequest;
-import fudan.se.lab2.controller.request.DisapproveConferenceRequest;
+import fudan.se.lab2.controller.request.ReviewConferenceRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.domain.Message;
@@ -50,7 +49,7 @@ public class ApplyConferenceService {
         }
     }
 
-    public Conference approveConference(ApproveConferenceRequest request) {
+    public Conference approveConference(ReviewConferenceRequest request) {
         System.out.println(request.getFullName());
         ApplyMeeting applyMeeting = applyMeetingRepository.findByFullName(request.getFullName());
         if (applyMeeting == null) {
@@ -76,7 +75,7 @@ public class ApplyConferenceService {
         }
     }
 
-    public String disapproveConference(DisapproveConferenceRequest request){
+    public String disapproveConference(ReviewConferenceRequest request){
         ApplyMeeting applyMeeting = applyMeetingRepository.findByFullName(request.getFullName());
         if (applyMeeting == null) {
             //会议申请表中没有此会议

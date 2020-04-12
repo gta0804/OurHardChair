@@ -92,7 +92,7 @@ public class ContributionController {
         if (!file.isEmpty()) {
             String fileName = file.getOriginalFilename();
             String path = null;
-            String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".") + 1) : null;
+            String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf('.') + 1) : null;
             if (type != null) {
                 if ("PDF".equals(type.toUpperCase())) {
                     // 项目在容器中实际发布运行的根路径

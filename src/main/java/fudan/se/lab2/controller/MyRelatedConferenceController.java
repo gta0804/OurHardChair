@@ -1,7 +1,9 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.OpenSubmissionRequest;
+import fudan.se.lab2.controller.request.ShowSubmissionRequest;
 import fudan.se.lab2.controller.response.RelatedConferenceResponse;
+import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
@@ -133,7 +135,7 @@ public class MyRelatedConferenceController {
     @CrossOrigin(origins = "*")
     @PostMapping("/openSubmission")
     public ResponseEntity<HashMap<String,Object>> openSubmission(HttpServletRequest httpServletRequest, @RequestBody OpenSubmissionRequest openSubmissionRequest) {
-        logger.debug("Open submission");
+        logger.debug("Open submission: "+ openSubmissionRequest.toString());
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
 
@@ -150,6 +152,17 @@ public class MyRelatedConferenceController {
         return ResponseEntity.ok(map);
     }
 
-    //定义返回的回应对象
+    @CrossOrigin("*")
+    @PostMapping("/showMySubmission")
+    public ResponseEntity<HashMap<String,Object>> showMySubmission(@RequestBody ShowSubmissionRequest request,HttpServletRequest httpServletRequest){
+        logger.debug("showMySubmission: "+request.toString());
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> map=new HashMap<>();
+        List<ShowSubmissionResponse> responses=myRelatedConferenceService.showSubmission(request);
+        map.put("message","success");
+        map.put("token",token);
+        map.put("submissions",responses);
+        return ResponseEntity.ok(map);
+    }
 
 }

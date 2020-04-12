@@ -1,17 +1,13 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.domain.Author;
-import fudan.se.lab2.domain.Conference;
-import fudan.se.lab2.domain.PCMember;
-import fudan.se.lab2.repository.AuthorRepository;
-import fudan.se.lab2.repository.AuthorityRepository;
-import fudan.se.lab2.repository.ConferenceRepository;
-import fudan.se.lab2.repository.PCMemberRepository;
+import fudan.se.lab2.controller.request.ShowSubmissionRequest;
+import fudan.se.lab2.controller.response.ShowSubmissionResponse;
+import fudan.se.lab2.domain.*;
+import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MyRelatedConferenceService {
@@ -23,6 +19,13 @@ public class MyRelatedConferenceService {
 
     @Autowired
     private AuthorRepository authorRepository;
+
+    @Autowired
+    private ArticleRepository articleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Conference> showAllConferenceForChair(long id){
         List<Conference> conferences = conferenceRepository.findAllByChairId(id);
         return conferences;
@@ -66,6 +69,20 @@ public class MyRelatedConferenceService {
         conference.setIsOpenSubmission(2);
         conferenceRepository.save(conference);
         return true;
+    }
+
+    public List<ShowSubmissionResponse> showSubmission(ShowSubmissionRequest request){
+        User user=userRepository.findByUsername(request.getUsername());
+        List<Article> articles=articleRepository.findByAuthorID(user.getId());
+        List<ShowSubmissionResponse> responses=new LinkedList<>();
+        for(Article article:articles){
+            Conference conference=conferenceRepository.findById(article.getConferenceID()).orElse(null);
+            if(conference!=null){
+                String name=conference.getFullName();
+                responses.add(new ShowSubmissionResponse(name,article.getFilename(),article.getTitle(),article.getArticleAbstract(),article.getStatus()));
+            }
+        }
+        return responses;
     }
 
 }

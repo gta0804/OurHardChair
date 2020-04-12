@@ -28,7 +28,7 @@ public class Article {
     private String articleAbstract;
 
     //0未通过 1待审核 2已通过
-    private Long status;
+    private Integer status;
 
     public Article() {
     }
@@ -47,14 +47,14 @@ public class Article {
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
-        this.status = (long)1;
+        this.status = 1;
     }
 
-    public Long getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

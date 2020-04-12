@@ -137,7 +137,6 @@ public class ContributionController {
             }
         } catch (Exception e) {
             logger.error("error:" + e.getMessage() + e);
-            e.printStackTrace();
         }
     }
 
@@ -162,7 +161,6 @@ public class ContributionController {
             }
         } catch (Exception e) {
             logger.error("error:" + e.getMessage() + e);
-            e.printStackTrace();
         }
     }
 }

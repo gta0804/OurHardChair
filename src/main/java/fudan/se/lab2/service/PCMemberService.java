@@ -132,7 +132,6 @@ public class PCMemberService {
         List<SearchResponse> responses=new ArrayList<>();
         for(User user:users){
             if(isAdminOrUser(request.getFull_Name(),user.getUsername())){
-                continue;
             }
             else if(isPCMember(request.getFull_Name(),user.getUsername())){
                 responses.add(new SearchResponse(
@@ -171,21 +170,17 @@ public class PCMemberService {
         }
         Conference conference = conferenceRepository.findByFullName(conferenceName);
         User user = userRepository.findById(conference.getChairId()).orElse(null);
-
-        if (username.equals(user.getUsername())) {
-            return true;
+        if(user==null){
+            return false;
         }
-        return false;
+        return username.equals(user.getUsername());
     }
 
     public boolean isPCMember(String conferenceName,String username){
         User user=userRepository.findByUsername(username);
         Conference conference=conferenceRepository.findByFullName(conferenceName);
         PCMember pcMember=pcMemberRepository.findByUserIdAndConferenceId(user.getId(),conference.getId());
-        if(pcMember!=null){
-            return true;
-        }
-        return false;
+        return pcMember!=null;
     }
 
     public boolean isHandled(String conferenceName,String username){
@@ -196,10 +191,6 @@ public class PCMemberService {
                                 conferenceName,
                                 REQUEST,
                                 1);
-        if(message==null){
-            return true;
-        }
-        return false;
+        return message==null;
     }
-
 }

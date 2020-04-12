@@ -88,7 +88,14 @@ public class ContributionController {
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
-        System.out.println("进入了uploadfa那个发");
+        if (null == file){
+            map.put("message", "上传失败");
+            return ResponseEntity.ok(map);
+        }
+        if (file.isEmpty()){
+                map.put("message", "上传失败");
+            return ResponseEntity.ok(map);
+        }
         if (!file.isEmpty()) {
             String fileName = file.getOriginalFilename();
             String path = null;
@@ -115,30 +122,27 @@ public class ContributionController {
                 System.out.println("type是null");
                 map.put("message", "上传失败");
             }
-        } else {
-            System.out.println("没收到file");
-            map.put("message", "上传失败");
         }
         return ResponseEntity.ok(map);
     }
 
-    public void mkdirs(String path) {
-        //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
-        File f;
-        try {
-            f = new File(path);
-            if (!f.exists()) {
-                boolean i = f.mkdirs();
-                if (i) {
-                    System.out.println("成功");
-                } else {
-                    System.out.println("层级文件夹创建失败！");
-                }
-            }
-        } catch (Exception e) {
-            logger.error("error:" + e.getMessage() + e);
-        }
-    }
+//    public void mkdirs(String path) {
+//        //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
+//        File f;
+//        try {
+//            f = new File(path);
+//            if (!f.exists()) {
+//                boolean i = f.mkdirs();
+//                if (i) {
+//                    System.out.println("成功");
+//                } else {
+//                    System.out.println("层级文件夹创建失败！");
+//                }
+//            }
+//        } catch (Exception e) {
+//            logger.error("error:" + e.getMessage() + e);
+//        }
+//    }
 
     public void mkdirAndFile(String path) {
         //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖

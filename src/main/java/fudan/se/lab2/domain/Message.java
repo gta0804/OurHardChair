@@ -21,7 +21,15 @@ public class Message {
     public Message() {
     }
 
-    public Message( String senderName,String receiverName, String relatedConferenceName, String message, String messageCategory,Integer isRead){
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Message(String senderName, String receiverName, String relatedConferenceName, String message, String messageCategory, Integer isRead){
         this.receiverName = receiverName;
         this.senderName=senderName;
         this.relatedConferenceName=relatedConferenceName;

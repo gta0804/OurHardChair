@@ -8,47 +8,18 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class MarkMessageRequest {
-    private String senderName;
-    private String receiverName;
-    private String relatedConferenceName;
-    private String messageCategory;
+    private Long id;
 
     @Autowired
     public MarkMessageRequest(){
 
     }
 
-    public String getSenderName() {
-        return senderName;
+    public Long getId() {
+        return id;
     }
 
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-
-    public String getMessageCategory() {
-        return messageCategory;
-    }
-
-
-    public void setMessageCategory(String messageCategory) {
-        this.messageCategory = messageCategory;
-    }
-
-    public String getRelatedConferenceName() {
-        return relatedConferenceName;
-    }
-
-    public void setRelatedConferenceName(String relatedConferenceName) {
-        this.relatedConferenceName = relatedConferenceName;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

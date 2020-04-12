@@ -55,7 +55,7 @@ public class ApplyConferenceController {
         for (Conference conference : conferences) {
             User user=userRepository.findById(conference.getChairId()).orElse(null);
             if(user!=null){
-                AllConferenceResponse response = new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,user.getUsername(),conference.getIsOpenSubmission());
+                AllConferenceResponse response = new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),2,user.getUsername(),conference.getIsOpenSubmission());
                 responseConferences.add(response);
             }
 

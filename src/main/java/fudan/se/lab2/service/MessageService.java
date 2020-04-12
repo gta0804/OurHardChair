@@ -40,14 +40,7 @@ public class MessageService {
      * @return
      */
     public boolean markRead(MarkMessageRequest request){
-        Message messages=messageRepository.findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
-                (
-                        request.getSenderName(),
-                        request.getReceiverName(),
-                        request.getRelatedConferenceName(),
-                        request.getMessageCategory(),
-                                1);
-
+        Message messages=messageRepository.findById(request.getId()).orElse(null);
         if(messages==null){
             return false;
         }

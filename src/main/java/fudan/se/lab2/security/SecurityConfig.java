@@ -77,8 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .and()
 //                .rememberMe();
 //
-        http.authorizeRequests()
-                .anyRequest().permitAll();
         // We dont't need CSRF for this project.
         http.csrf().disable()
                 // Make sure we use stateless session; session won't be used to store user's state.

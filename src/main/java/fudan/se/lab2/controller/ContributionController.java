@@ -106,7 +106,7 @@ public class ContributionController {
                     String realPath = request.getSession().getServletContext().getRealPath("/");
                     // 自定义的文件名称
                     // 设置存放图片文件的路径
-                    path = "/workplace/classwork" + fileName;
+                    path = "/workplace/upload/" + fileName;
                     System.out.println(path);
                     mkdirAndFile(path);
                     File dest = new File(path);

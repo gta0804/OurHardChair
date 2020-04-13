@@ -79,7 +79,7 @@ public class Article {
     }
 
     public void setAuthorID(Long authorID) {
-        authorID = authorID;
+        this.authorID = authorID;
     }
 
     public String getFilename() {

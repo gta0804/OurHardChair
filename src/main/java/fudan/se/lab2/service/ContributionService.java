@@ -2,6 +2,7 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.ContributionRequest;
 import fudan.se.lab2.controller.request.ReviewArticleRequest;
+import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.domain.Author;
@@ -69,4 +70,24 @@ public class ContributionService {
         hashMap.put("message","预览失败，没有找到改文件");
         return hashMap;
     }
+
+
+//    public HashMap<String,Object> showContributionModification(ShowContributionModificationRequest showContributionModificationRequest){
+//        List<Article> articles = articleRepository.findArticleByTitle(showContributionModificationRequest.getTitle());
+//        HashMap<String,Object> hashMap = new HashMap<>();
+//        for (Article article : articles) {
+//            if (article.getConferenceID().equals(showContributionModificationRequest.getConferenceID())){
+//                hashMap.put("message","success");
+//                hashMap.put("title",article.getTitle());
+//                hashMap.put("articleAbstract",article.getArticleAbstract());
+//                hashMap.put("fileName",article.getFilename());
+//
+//                hashMap.put("authors",article);
+//                return hashMap;
+//            }
+//        }
+//        hashMap.put("message","预览失败，没有找到改文件");
+//        return hashMap;
+//    }
+
 }

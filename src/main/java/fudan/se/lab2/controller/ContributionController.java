@@ -3,6 +3,7 @@ package fudan.se.lab2.controller;
 import fudan.se.lab2.controller.request.ContributionRequest;
 import fudan.se.lab2.controller.request.RegisterRequest;
 import fudan.se.lab2.controller.request.ReviewArticleRequest;
+import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -139,6 +140,16 @@ public class ContributionController {
         logger.debug("Try to review article...");
         String token = request.getHeader("Authorization").substring(7);
         HashMap<String,Object> message = contributionService.reviewArticle(reviewArticleRequest);
+        message.put("token",token);
+        return ResponseEntity.ok(message);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/showContributionModification")
+    public ResponseEntity<HashMap<String, Object>> showContributionModification(HttpServletRequest request, @RequestBody ShowContributionModificationRequest showContributionModificationRequest) throws IOException {
+        logger.debug("Try to show contribution modification...");
+        String token = request.getHeader("Authorization").substring(7);
+        HashMap<String,Object> message = contributionService.showContributionModification(showContributionModificationRequest);
         message.put("token",token);
         return ResponseEntity.ok(message);
     }

@@ -8,4 +8,5 @@ import java.util.*;
 public interface ConferenceRepository extends CrudRepository<Conference,Long> {
     Conference findByFullName(String fullName);
     List<Conference> findAllByChairId(Long chairId);
+    Optional<Conference> findById(Long id);
 }

@@ -6,11 +6,15 @@ import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
 import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.domain.Author;
+import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.AuthorRepository;
+import fudan.se.lab2.repository.ConferenceRepository;
+import fudan.se.lab2.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +32,12 @@ public class ContributionService {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private TopicRepository topicRepository;
+
+    @Autowired
+    private ConferenceRepository conferenceRepository;
+
     public String saveContribution(ContributionRequest contributionRequest){
         List<Article> articles = articleRepository.findArticleByTitle(contributionRequest.getTitle());
         for (Article article : articles) {
@@ -41,7 +51,7 @@ public class ContributionService {
                 System.out.println(contributionRequest.getFilename());
                 System.out.println("contributionRequest.getFilename()");
 
-                Article article1 = new Article(contributionRequest.getConferenceID(),contributionRequest.getAuthorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract());
+                Article article1 = new Article(contributionRequest.getConferenceID(),contributionRequest.getAuthorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),contributionRequest.getWriters());
                 articleRepository.save(article1);
                 System.out.println(contributionRequest.getAuthorID());
                 System.out.println(contributionRequest.getConferenceID());
@@ -59,11 +69,15 @@ public class ContributionService {
         HashMap<String,Object> hashMap = new HashMap<>();
         for (Article article : articles) {
             if (article.getConferenceID().equals(reviewArticleRequest.getConferenceID())){
+                String conferenceFullName = (conferenceRepository.findById(article.getConferenceID())).get().getFullName();
+                String topics = (topicRepository.findByFullName(conferenceFullName)).getTopics();
+                String[] topic = topics.split("\\|\\|");
                 hashMap.put("message","预览成功");
                 hashMap.put("title",article.getTitle());
                 hashMap.put("articleAbstract",article.getArticleAbstract());
                 hashMap.put("articlePath","/workplace/upload/"+article.getFilename());
                 hashMap.put("status",article.getStatus().toString());
+                hashMap.put("topics",topic);
                 return hashMap;
             }
         }
@@ -72,22 +86,22 @@ public class ContributionService {
     }
 
 
-//    public HashMap<String,Object> showContributionModification(ShowContributionModificationRequest showContributionModificationRequest){
-//        List<Article> articles = articleRepository.findArticleByTitle(showContributionModificationRequest.getTitle());
-//        HashMap<String,Object> hashMap = new HashMap<>();
-//        for (Article article : articles) {
-//            if (article.getConferenceID().equals(showContributionModificationRequest.getConferenceID())){
-//                hashMap.put("message","success");
-//                hashMap.put("title",article.getTitle());
-//                hashMap.put("articleAbstract",article.getArticleAbstract());
-//                hashMap.put("fileName",article.getFilename());
-//
-//                hashMap.put("authors",article);
-//                return hashMap;
-//            }
-//        }
-//        hashMap.put("message","预览失败，没有找到改文件");
-//        return hashMap;
-//    }
+    public HashMap<String,Object> showContributionModification(ShowContributionModificationRequest showContributionModificationRequest){
+        List<Article> articles = articleRepository.findArticleByTitle(showContributionModificationRequest.getTitle());
+        HashMap<String,Object> hashMap = new HashMap<>();
+        for (Article article : articles) {
+            if (article.getConferenceID().equals(showContributionModificationRequest.getConferenceID())){
+                hashMap.put("message","success");
+                hashMap.put("title",article.getTitle());
+                hashMap.put("articleAbstract",article.getArticleAbstract());
+                hashMap.put("fileName",article.getFilename());
+                hashMap.put("authorID",article.getAuthorID());
+                hashMap.put("writers",article.getWriters());
+                return hashMap;
+            }
+        }
+        hashMap.put("message","预览失败");
+        return hashMap;
+    }
 
 }

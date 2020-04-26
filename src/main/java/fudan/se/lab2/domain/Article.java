@@ -1,9 +1,8 @@
 package fudan.se.lab2.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * @program: lab2
@@ -27,6 +26,8 @@ public class Article {
 
     private String articleAbstract;
 
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Writer> writers = new ArrayList<>();
     //0未通过 1待审核 2已通过
     private Long status;
 
@@ -40,7 +41,7 @@ public class Article {
     * @Author: Shen Zhengyu
     * @Date: 2020/4/8
     */
-    public Article(Long conferenceID,Long authorID,String filename,String title,String articleAbstract)
+    public Article(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,ArrayList<Writer> writers)
     {
         this.conferenceID = conferenceID;
         this.authorID = authorID;
@@ -48,6 +49,7 @@ public class Article {
         this.title = title;
         this.articleAbstract = articleAbstract;
         this.status = (long)1;
+        this.writers = writers;
     }
 
     public Long getStatus() {
@@ -104,5 +106,13 @@ public class Article {
 
     public void setArticleAbstract(String articleAbstract) {
         this.articleAbstract = articleAbstract;
+    }
+
+    public List<Writer> getWriters() {
+        return writers;
+    }
+
+    public void setWriters(List<Writer> writers) {
+        this.writers = writers;
     }
 }

@@ -1,7 +1,10 @@
 package fudan.se.lab2.controller.request;
 
+import fudan.se.lab2.domain.Writer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.util.ArrayList;
 
 /**
  * @program: lab2
@@ -20,17 +23,20 @@ public class ContributionRequest {
     private String title;
 
     private String articleAbstract;
+
+    private ArrayList<Writer> writers;
     @Autowired
     public ContributionRequest(){
 
     }
 
-    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract){
+    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,ArrayList<Writer> writers){
         this.conferenceID = conferenceID;
         this.authorID = authorID;
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
+        this.writers = writers;
     }
 
     public Long getConferenceID() {
@@ -71,5 +77,13 @@ public class ContributionRequest {
 
     public void setArticleAbstract(String articleAbstract) {
         this.articleAbstract = articleAbstract;
+    }
+
+    public ArrayList<Writer> getWriters() {
+        return writers;
+    }
+
+    public void setWriters(ArrayList<Writer> writers) {
+        this.writers = writers;
     }
 }

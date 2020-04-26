@@ -2,6 +2,7 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ContributionRequest;
 import fudan.se.lab2.controller.request.RegisterRequest;
+import fudan.se.lab2.controller.request.ReviewArticleRequest;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -84,7 +85,7 @@ public class ContributionController {
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
     public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-        logger.debug("Try to upload");
+        logger.debug("Try to upload...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
@@ -107,7 +108,6 @@ public class ContributionController {
                     // 自定义的文件名称
                     // 设置存放图片文件的路径
                     path = "/workplace/upload/" + fileName;
-                    System.out.println(path);
                     mkdirAndFile(path);
                     File dest = new File(path);
                     file.transferTo(dest);
@@ -115,7 +115,7 @@ public class ContributionController {
                     map.put("存放路径", fileName);
                     return ResponseEntity.ok(map);
                 } else {
-                    System.out.println("不是pdf");
+                    map.put("error","格式并非pdf");
                     map.put("message", "上传失败");
                 }
             } else {
@@ -126,25 +126,27 @@ public class ContributionController {
         return ResponseEntity.ok(map);
     }
 
-//    public void mkdirs(String path) {
-//        //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
-//        File f;
-//        try {
-//            f = new File(path);
-//            if (!f.exists()) {
-//                boolean i = f.mkdirs();
-//                if (i) {
-//                    System.out.println("成功");
-//                } else {
-//                    System.out.println("层级文件夹创建失败！");
-//                }
-//            }
-//        } catch (Exception e) {
-//            logger.error("error:" + e.getMessage() + e);
-//        }
-//    }
+    /**
+    * @Description: 查看稿件的信息
+    * @Param: [path]
+    * @return: void
+    * @Author: Shen Zhengyu
+    * @Date: 2020/4/26
+    */
+    @CrossOrigin(origins = "*")
+    @PostMapping("/reviewArticle")
+    public ResponseEntity<HashMap<String, Object>> reviewArticle(HttpServletRequest request, @RequestBody ReviewArticleRequest reviewArticleRequest) throws IOException {
+        logger.debug("Try to review article...");
+        String token = request.getHeader("Authorization").substring(7);
+        HashMap<String,Object> message = contributionService.reviewArticle(reviewArticleRequest);
+        message.put("token",token);
+        return ResponseEntity.ok(message);
+    }
 
-    public void mkdirAndFile(String path) {
+
+
+
+        public void mkdirAndFile(String path) {
         //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖
         File f;
         try {

@@ -72,5 +72,6 @@ public class Lab2Application {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
 

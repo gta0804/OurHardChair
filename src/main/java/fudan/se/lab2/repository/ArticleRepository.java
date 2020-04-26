@@ -8,7 +8,8 @@ import java.util.*;
 
 @Repository
 public interface ArticleRepository extends CrudRepository<Article,Long> {
-    Article findArticleByTitle(String title);
+    //考虑到可能有标题相同的文章，要用ConferenceID区分
+    List<Article> findArticleByTitle(String title);
     List<Article> findByAuthorID(long AuthorID);
 
 }

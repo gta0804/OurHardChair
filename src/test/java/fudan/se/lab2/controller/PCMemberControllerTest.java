@@ -30,7 +30,7 @@ public class PCMemberControllerTest {
     @Test
     void search(){
         Date date=new Date();
-        Conference conference =new Conference((long)1,date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1,new ArrayList<Topic>());
+        Conference conference =new Conference((long)1,date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1);
         conferenceRepository.save(conference);
         request = new MockHttpServletRequest();
         request.setCharacterEncoding("UTF-8");

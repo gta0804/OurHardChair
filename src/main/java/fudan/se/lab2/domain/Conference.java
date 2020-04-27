@@ -22,12 +22,13 @@ public class Conference {
     private String submissionDeadline;
     private String reviewReleaseDate;
     private Integer isOpenSubmission;
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private List<Topic> topics;
+    private Integer reviewStatus;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "conference")
+    private Set<Topic> topics=new HashSet<>();
 
     public Conference(){}
 
-    public Conference(Long chairId, String abbreviation, String fullName, String holdingPlace, String holdingTime, String submissionDeadline, String reviewReleaseDate, Integer isOpenSubmission, ArrayList<Topic> topics){
+    public Conference(Long chairId, String abbreviation, String fullName, String holdingPlace, String holdingTime, String submissionDeadline, String reviewReleaseDate, Integer isOpenSubmission){
         this.chairId=chairId;
         this.abbreviation=abbreviation;
         this.fullName=fullName;
@@ -36,7 +37,7 @@ public class Conference {
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
         this.isOpenSubmission=isOpenSubmission;
-        this.topics = topics;
+        this.reviewStatus=1;
     }
 
     public Long getId() {
@@ -108,11 +109,19 @@ public class Conference {
         this.isOpenSubmission = isOpenSubmission;
     }
 
-    public ArrayList<Topic> getTopics() {
-        return (ArrayList<Topic>)topics;
+    public Integer getReviewStatus() {
+        return reviewStatus;
     }
 
-    public void setTopics(ArrayList<Topic> topics) {
+    public void setReviewStatus(Integer reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
+
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
         this.topics = topics;
     }
 }

@@ -4,7 +4,6 @@ import fudan.se.lab2.controller.request.OpenSubmissionRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
 import fudan.se.lab2.controller.response.RelatedConferenceResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
-import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -54,26 +53,11 @@ public class MyRelatedConferenceController {
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair(id);
         //再加载所有申请过的会议
-        List<ApplyMeeting> applyMeetings = applyConferenceService.showAllApplyMeetingById(id);
         //开始合并
         List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
+            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission());
             responseConferences.add(response);
-        }
-        for (ApplyMeeting applyMeeting : applyMeetings) {
-            Integer status;
-            if (applyMeeting.getReviewStatus() == 3)
-            {
-                status = (Integer)3;
-            }
-            else{
-                status = (Integer)1;
-            }
-            if (applyMeeting.getReviewStatus() != 2){
-                RelatedConferenceResponse response = new RelatedConferenceResponse(applyMeeting.getFullName(),applyMeeting.getAbbreviation(),applyMeeting.getHoldingPlace(),applyMeeting.getHoldingTime(),applyMeeting.getSubmissionDeadline(),applyMeeting.getReviewReleaseDate(),status,chairName,(Integer)1);
-                responseConferences.add(response);
-            }
         }
         map.put("message","获取所有我主持的会议申请成功");
         map.put("token",token);

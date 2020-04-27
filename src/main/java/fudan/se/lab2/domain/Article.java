@@ -1,7 +1,6 @@
 package fudan.se.lab2.domain;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -18,7 +17,7 @@ public class Article {
 
     private Long conferenceID;
 
-    private Long authorID;
+    private Long contributorID;
 
     private String filename;
 
@@ -41,10 +40,10 @@ public class Article {
     * @Author: Shen Zhengyu
     * @Date: 2020/4/8
     */
-    public Article(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,ArrayList<Writer> writers)
+    public Article(Long conferenceID,Long contributorID,String filename,String title,String articleAbstract,ArrayList<Writer> writers)
     {
         this.conferenceID = conferenceID;
-        this.authorID = authorID;
+        this.contributorID = contributorID;
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
@@ -76,12 +75,12 @@ public class Article {
         this.conferenceID = conferenceID;
     }
 
-    public Long getAuthorID() {
-        return authorID;
+    public Long getContributorID() {
+        return contributorID;
     }
 
-    public void setAuthorID(Long authorID) {
-        this.authorID = authorID;
+    public void setContributorID(Long authorID) {
+        this.contributorID = authorID;
     }
 
     public String getFilename() {

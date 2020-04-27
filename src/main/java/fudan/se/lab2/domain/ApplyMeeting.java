@@ -1,6 +1,11 @@
 package fudan.se.lab2.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 public class ApplyMeeting {
     @Id
@@ -19,10 +24,13 @@ public class ApplyMeeting {
     private String reviewReleaseDate;
     //1审核中，2审核通过，3审核未通过
     private Integer reviewStatus;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Topic> topics;
+
 
     public ApplyMeeting(){}
 
-    public ApplyMeeting(Long applicantId,Long verifierId, String abbreviation, String fullName, String holdingTime, String holdingPlace, String submissionDeadline, String reviewReleaseDate,Integer reviewStatus){
+    public ApplyMeeting(Long applicantId,Long verifierId, String abbreviation, String fullName, String holdingTime, String holdingPlace, String submissionDeadline, String reviewReleaseDate,Integer reviewStatus,List<Topic> topics){
         this.applicantId=applicantId;
         this.verifierId=verifierId;
         this.abbreviation=abbreviation;
@@ -32,6 +40,7 @@ public class ApplyMeeting {
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
         this.reviewStatus=reviewStatus;
+        this.topics = topics;
     }
 
     public Long getVerifierId() {
@@ -105,5 +114,14 @@ public class ApplyMeeting {
 
     public void setReviewStatus(Integer reviewStatus) {
         this.reviewStatus = reviewStatus;
+    }
+
+    public ArrayList<Topic> getTopics() {
+
+        return (ArrayList<Topic>)topics;
+    }
+
+    public void setTopics(ArrayList<Topic> topics) {
+        this.topics = topics;
     }
 }

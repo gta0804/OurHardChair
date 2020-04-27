@@ -1,14 +1,13 @@
 package fudan.se.lab2.repository;
 
-import fudan.se.lab2.domain.Author;
-import org.springframework.beans.factory.annotation.Autowired;
+import fudan.se.lab2.domain.Contributor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-public interface AuthorRepository extends CrudRepository<Author,Long> {
+public interface AuthorRepository extends CrudRepository<Contributor,Long> {
 
-    List<Author> findAllByUserId(Long userId);
+    List<Contributor> findAllByUserId(Long userId);
 }

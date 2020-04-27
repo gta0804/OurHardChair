@@ -1,9 +1,11 @@
 package fudan.se.lab2.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Conference {
@@ -20,9 +22,12 @@ public class Conference {
     private String submissionDeadline;
     private String reviewReleaseDate;
     private Integer isOpenSubmission;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Topic> topics;
+
     public Conference(){}
 
-    public Conference(Long chairId,String abbreviation,String fullName,String holdingPlace,String holdingTime,String submissionDeadline,String reviewReleaseDate,Integer isOpenSubmission ){
+    public Conference(Long chairId, String abbreviation, String fullName, String holdingPlace, String holdingTime, String submissionDeadline, String reviewReleaseDate, Integer isOpenSubmission, ArrayList<Topic> topics){
         this.chairId=chairId;
         this.abbreviation=abbreviation;
         this.fullName=fullName;
@@ -31,6 +36,7 @@ public class Conference {
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
         this.isOpenSubmission=isOpenSubmission;
+        this.topics = topics;
     }
 
     public Long getId() {
@@ -100,5 +106,13 @@ public class Conference {
 
     public void setIsOpenSubmission(Integer isOpenSubmission) {
         this.isOpenSubmission = isOpenSubmission;
+    }
+
+    public ArrayList<Topic> getTopics() {
+        return (ArrayList<Topic>)topics;
+    }
+
+    public void setTopics(ArrayList<Topic> topics) {
+        this.topics = topics;
     }
 }

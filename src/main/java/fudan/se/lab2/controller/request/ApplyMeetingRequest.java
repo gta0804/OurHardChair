@@ -3,6 +3,10 @@ package fudan.se.lab2.controller.request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Controller
 public class ApplyMeetingRequest {
     //This variable holds the conference name for short
@@ -13,19 +17,20 @@ public class ApplyMeetingRequest {
     private String holdingPlace;
     private String submissionDeadline;
     private String reviewReleaseDate;
-
+    private ArrayList<String> topics;
     @Autowired
     public ApplyMeetingRequest(){
 
     }
 
-    public ApplyMeetingRequest(String abbreviation,String fullName, String holdingTime,String holdingPlace,String submissionDeadline,String reviewReleaseDate){
+    public ApplyMeetingRequest(String abbreviation,String fullName, String holdingTime,String holdingPlace,String submissionDeadline,String reviewReleaseDate,ArrayList<String> topics){
         this.abbreviation=abbreviation;
         this.fullName=fullName;
         this.holdingTime=holdingTime;
         this.holdingPlace=holdingPlace;
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
+        this.topics = topics;
     }
 
     public String getAbbreviation(){
@@ -73,5 +78,13 @@ public class ApplyMeetingRequest {
 
     public void setReviewReleaseDate(String reviewReleaseDate){
         this.reviewReleaseDate=reviewReleaseDate;
+    }
+
+    public ArrayList<String> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(ArrayList<String> topics) {
+        this.topics = topics;
     }
 }

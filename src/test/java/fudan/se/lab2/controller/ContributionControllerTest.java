@@ -8,15 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ContributionControllerTest {
 
@@ -43,7 +39,7 @@ class ContributionControllerTest {
         request.addHeader("Authorization", token);
         ContributionRequest contributionRequest = new ContributionRequest();
         contributionRequest.setArticleAbstract("123");
-        contributionRequest.setAuthorID((long)2);
+        contributionRequest.setContributorID((long)2);
         contributionRequest.setConferenceID((long)1);
         contributionRequest.setFilename("1.pdf");
         contributionRequest.setTitle((new Date()).toString() + Math.random());

@@ -17,7 +17,7 @@ public class Writer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String fullName;
+    private String writerName;
     private String email;
     private String institution;
     private String country;
@@ -25,8 +25,8 @@ public class Writer {
     public Writer(){
 
     }
-    public Writer(String fullName, String email, String institution, String country) {
-        this.fullName = fullName;
+    public Writer(String writerName, String email, String institution, String country) {
+        this.writerName = writerName;
         this.email = email;
         this.institution = institution;
         this.country = country;

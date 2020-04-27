@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Author {
+public class Contributor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,9 +15,9 @@ public class Author {
 
     private Long conferenceId;
 
-    public Author(){}
+    public Contributor(){}
 
-    public Author(Long userId,Long conferenceId){
+    public Contributor(Long userId, Long conferenceId){
         this.userId=userId;
         this.conferenceId=conferenceId;
     }

@@ -3,20 +3,14 @@ package fudan.se.lab2.service;
 import fudan.se.lab2.controller.request.ContributionRequest;
 import fudan.se.lab2.controller.request.ReviewArticleRequest;
 import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
-import fudan.se.lab2.domain.ApplyMeeting;
-import fudan.se.lab2.domain.Article;
-import fudan.se.lab2.domain.Author;
-import fudan.se.lab2.domain.Conference;
+import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.AuthorRepository;
 import fudan.se.lab2.repository.ConferenceRepository;
-import fudan.se.lab2.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @program: lab2
@@ -32,8 +26,6 @@ public class ContributionService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    @Autowired
-    private TopicRepository topicRepository;
 
     @Autowired
     private ConferenceRepository conferenceRepository;
@@ -44,20 +36,19 @@ public class ContributionService {
             if (article.getConferenceID().equals(contributionRequest.getConferenceID())){
                 return "duplicate contribution";
             } else {
-                System.out.println(contributionRequest.getAuthorID());
+                System.out.println(contributionRequest.getContributorID());
                 System.out.println(contributionRequest.getConferenceID());
                 System.out.println(contributionRequest.getTitle());
                 System.out.println(contributionRequest.getArticleAbstract());
                 System.out.println(contributionRequest.getFilename());
                 System.out.println("contributionRequest.getFilename()");
-
-                Article article1 = new Article(contributionRequest.getConferenceID(),contributionRequest.getAuthorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),contributionRequest.getWriters());
+                Article article1 = new Article(contributionRequest.getConferenceID(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),contributionRequest.getWriters());
                 articleRepository.save(article1);
-                System.out.println(contributionRequest.getAuthorID());
+                System.out.println(contributionRequest.getContributorID());
                 System.out.println(contributionRequest.getConferenceID());
 
-                Author author = new Author(contributionRequest.getAuthorID(),contributionRequest.getConferenceID());
-                authorRepository.save(author);
+                Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConferenceID());
+                authorRepository.save(contributor);
                 return "successful contribution";
             }
         }
@@ -70,14 +61,17 @@ public class ContributionService {
         for (Article article : articles) {
             if (article.getConferenceID().equals(reviewArticleRequest.getConferenceID())){
                 String conferenceFullName = (conferenceRepository.findById(article.getConferenceID())).get().getFullName();
-                String topics = (topicRepository.findByFullName(conferenceFullName)).getTopics();
-                String[] topic = topics.split("\\|\\|");
+                ArrayList<Topic> topics = conferenceRepository.findByFullName(conferenceFullName).getTopics();
+                ArrayList<String> topicStrings = new ArrayList<>();
+                for (Topic topic : topics) {
+                    topicStrings.add(topic.getTopic());
+                }
                 hashMap.put("message","预览成功");
                 hashMap.put("title",article.getTitle());
                 hashMap.put("articleAbstract",article.getArticleAbstract());
                 hashMap.put("articlePath","/workplace/upload/"+article.getFilename());
                 hashMap.put("status",article.getStatus().toString());
-                hashMap.put("topics",topic);
+                hashMap.put("topics",topicStrings);
                 return hashMap;
             }
         }
@@ -95,7 +89,7 @@ public class ContributionService {
                 hashMap.put("title",article.getTitle());
                 hashMap.put("articleAbstract",article.getArticleAbstract());
                 hashMap.put("fileName",article.getFilename());
-                hashMap.put("authorID",article.getAuthorID());
+                hashMap.put("authorID",article.getContributorID());
                 hashMap.put("writers",article.getWriters());
                 return hashMap;
             }

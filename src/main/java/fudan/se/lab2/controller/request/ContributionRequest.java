@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ContributionRequest {
     private Long conferenceID;
 
-    private Long authorID;
+    private Long contributorID;
 
     private String filename;
 
@@ -32,7 +32,7 @@ public class ContributionRequest {
 
     public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,ArrayList<Writer> writers){
         this.conferenceID = conferenceID;
-        this.authorID = authorID;
+        this.contributorID = authorID;
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
@@ -47,12 +47,12 @@ public class ContributionRequest {
         this.conferenceID = conferenceID;
     }
 
-    public Long getAuthorID() {
-        return authorID;
+    public Long getContributorID() {
+        return contributorID;
     }
 
-    public void setAuthorID(Long authorID) {
-        this.authorID = authorID;
+    public void setContributorID(Long contributorID) {
+        this.contributorID = contributorID;
     }
 
     public String getFilename() {

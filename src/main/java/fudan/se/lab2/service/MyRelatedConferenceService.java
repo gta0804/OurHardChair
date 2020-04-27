@@ -51,9 +51,9 @@ public class MyRelatedConferenceService {
 
     public List<Conference> showAllConferenceForAuthor(long id){
         List<Conference> conferences = new ArrayList<>();
-        List<Author> myRelated = authorRepository.findAllByUserId(id);
-        for (Author author : myRelated) {
-            Conference conference=conferenceRepository.findById(author.getConferenceId()).orElse(null);
+        List<Contributor> myRelated = authorRepository.findAllByUserId(id);
+        for (Contributor contributor : myRelated) {
+            Conference conference=conferenceRepository.findById(contributor.getConferenceId()).orElse(null);
             if(conference==null){
                 return null;
             }

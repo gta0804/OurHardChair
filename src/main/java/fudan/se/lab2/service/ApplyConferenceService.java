@@ -2,10 +2,7 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
-import fudan.se.lab2.domain.ApplyMeeting;
-import fudan.se.lab2.domain.Conference;
-import fudan.se.lab2.domain.Message;
-import fudan.se.lab2.domain.User;
+import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.ApplyMeetingRepository;
 import fudan.se.lab2.repository.ConferenceRepository;
 import fudan.se.lab2.repository.MessageRepository;
@@ -43,7 +40,11 @@ public class ApplyConferenceService {
             return null;
         }
         else{
-            ApplyMeeting applyMeeting=new ApplyMeeting(id,(long)1,request.getAbbreviation(),request.getFullName(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
+            List<Topic> topics = new ArrayList<>();
+            for (String topic : request.getTopics()) {
+                topics.add(new Topic(topic));
+            }
+            ApplyMeeting applyMeeting=new ApplyMeeting(id,(long)1,request.getAbbreviation(),request.getFullName(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1,topics);
             applyMeetingRepository.save(applyMeeting);
             return applyMeeting;
         }
@@ -57,7 +58,8 @@ public class ApplyConferenceService {
             //会议申请表中没有此会议
             return null;
         } else {
-            Conference conference = new Conference(applyMeeting.getApplicantId(), applyMeeting.getAbbreviation(), applyMeeting.getFullName(), applyMeeting.getHoldingPlace(), applyMeeting.getHoldingTime(), applyMeeting.getSubmissionDeadline(), applyMeeting.getReviewReleaseDate(), 1);
+
+            Conference conference = new Conference(applyMeeting.getApplicantId(), applyMeeting.getAbbreviation(), applyMeeting.getFullName(), applyMeeting.getHoldingPlace(), applyMeeting.getHoldingTime(), applyMeeting.getSubmissionDeadline(), applyMeeting.getReviewReleaseDate(), 1,applyMeeting.getTopics());
             conferenceRepository.save(conference);
             //会议通过，置为2
             applyMeeting.setReviewStatus(2);
@@ -105,13 +107,13 @@ public class ApplyConferenceService {
         }
     }
 
-    public List<Conference>  showAllConference(){
-        List<Conference> conferences = (List<Conference>) conferenceRepository.findAll();
+    public ArrayList<Conference>  showAllConference(){
+        ArrayList<Conference> conferences = (ArrayList<Conference>) conferenceRepository.findAll();
         return conferences;
     }
 
-    public List<ApplyMeeting>  showAllApplyMeetingById(long id){
-        List<ApplyMeeting> applyMeetings = (List<ApplyMeeting>)applyMeetingRepository.findAllByApplicantId(id);
+    public ArrayList<ApplyMeeting>  showAllApplyMeetingById(long id){
+        ArrayList<ApplyMeeting> applyMeetings = (ArrayList<ApplyMeeting>)applyMeetingRepository.findAllByApplicantId(id);
         return applyMeetings;
     }
 }

@@ -73,7 +73,7 @@ public class MyRelatedConferenceService {
 
     public List<ShowSubmissionResponse> showSubmission(ShowSubmissionRequest request){
         User user=userRepository.findByUsername(request.getUsername());
-        List<Article> articles=articleRepository.findByAuthorID(user.getId());
+        List<Article> articles=articleRepository.findByContributorID(user.getId());
         List<ShowSubmissionResponse> responses=new LinkedList<>();
         for(Article article:articles){
             Conference conference=conferenceRepository.findById(article.getConferenceID()).orElse(null);

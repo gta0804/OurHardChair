@@ -5,6 +5,7 @@ import fudan.se.lab2.controller.response.RelatedConferenceResponse;
 import fudan.se.lab2.controller.response.SearchResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.Conference;
+import fudan.se.lab2.domain.Topic;
 import fudan.se.lab2.repository.ConferenceRepository;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ public class PCMemberControllerTest {
     @Test
     void search(){
         Date date=new Date();
-        Conference conference =new Conference((long)1,date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1);
+        Conference conference =new Conference((long)1,date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1,new ArrayList<Topic>());
         conferenceRepository.save(conference);
         request = new MockHttpServletRequest();
         request.setCharacterEncoding("UTF-8");

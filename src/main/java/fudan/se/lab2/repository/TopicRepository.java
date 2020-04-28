@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TopicRepository extends CrudRepository<Topic,Long> {
-    Topic findByFullName(String fullName);
+    Topic findByTopic(String topic);
+
 }

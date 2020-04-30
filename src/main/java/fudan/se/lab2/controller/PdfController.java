@@ -43,7 +43,6 @@ public class PdfController {
                     }
                 } catch (IOException e) {
                     logger.debug("失败");
-                    e.printStackTrace();
                 }
             }
         }

@@ -25,7 +25,7 @@ public class PdfController {
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
     public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response) {
         //PDF文件地址
-        File file = new File("/workplace/upload/"+request.getParameter("pdf"));
+        File file = new File("/workplace/upload/classworklecture000001.pdf");
         if (file.exists()) {
             byte[] data = null;
             FileInputStream input=null;

@@ -28,7 +28,9 @@ public class PdfController {
         //PDF文件地址
         logger.info("文件名:" + fileName);
                 //"src/main/resources/pdf/2002260.pdf"
+//        File file = new File("/workplace/upload/" +fileName);
         File file = new File("/workplace/upload/" +fileName);
+
         logger.info(file.toString());
         if (file.exists()) {
             byte[] data = null;

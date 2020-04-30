@@ -1,5 +1,7 @@
 package fudan.se.lab2.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,8 @@ import java.io.IOException;
  **/
 @Controller
 public class PdfController {
+    Logger logger = LoggerFactory.getLogger(PdfController.class);
+
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
     public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response) {
         //PDF文件地址
@@ -28,7 +32,7 @@ public class PdfController {
             try {
                 input= new FileInputStream(file);
                 data = new byte[input.available()];
-                input.read(data);
+                int btes = input.read(data);
                 response.getOutputStream().write(data);
             } catch (Exception e) {
                 System.out.println("pdf文件处理异常：" + e);
@@ -38,6 +42,7 @@ public class PdfController {
                         input.close();
                     }
                 } catch (IOException e) {
+                    logger.debug("失败");
                     e.printStackTrace();
                 }
             }

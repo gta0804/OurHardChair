@@ -1,10 +1,10 @@
 package fudan.se.lab2.controller;
 
+import org.hibernate.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +18,18 @@ import java.io.IOException;
  * @author: Shen Zhengyu
  * @create: 2020-04-30 17:03
  **/
+@CrossOrigin()
 @Controller
 public class PdfController {
     Logger logger = LoggerFactory.getLogger(PdfController.class);
 
-    @RequestMapping(value = "/preview", method = RequestMethod.GET)
-    public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/preview/{fileName}", method = RequestMethod.GET)
+    public void pdfStreamHandler(@PathVariable String fileName, HttpServletRequest request, HttpServletResponse response) {
         //PDF文件地址
-        String str = request.getHeader("asdas").equals("asdad")?"asda":null;
-        File file = new File("/workplace/upload/classworklecture000001.pdf"+null);
+        logger.info("文件名:" + fileName);
+                //"src/main/resources/pdf/2002260.pdf"
+        File file = new File("/workplace/upload/" +fileName);
+        logger.info(file.toString());
         if (file.exists()) {
             byte[] data = null;
             FileInputStream input=null;

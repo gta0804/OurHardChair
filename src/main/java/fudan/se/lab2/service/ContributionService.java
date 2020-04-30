@@ -61,7 +61,7 @@ public class ContributionService {
         for (Article article : articles) {
             if (article.getConferenceID().equals(reviewArticleRequest.getConferenceID())){
                 String conferenceFullName = (conferenceRepository.findById(article.getConferenceID())).get().getFullName();
-                ArrayList<Topic> topics = conferenceRepository.findByFullName(conferenceFullName).getTopics();
+                Set<Topic> topics = conferenceRepository.findByFullName(conferenceFullName).getTopics();
                 ArrayList<String> topicStrings = new ArrayList<>();
                 for (Topic topic : topics) {
                     topicStrings.add(topic.getTopic());

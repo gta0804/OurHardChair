@@ -1,32 +1,16 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.controller.request.ApplyMeetingRequest;
-import fudan.se.lab2.controller.request.ModifyInformationRequest;
-import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Authority;
-import fudan.se.lab2.exception.UsernameHasBeenRegisteredException;
-import fudan.se.lab2.repository.ApplyMeetingRepository;
-import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.AuthorityRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.controller.request.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import fudan.se.lab2.security.SecurityConfig;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author LBW

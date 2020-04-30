@@ -5,6 +5,7 @@ import fudan.se.lab2.controller.response.RelatedConferenceResponse;
 import fudan.se.lab2.controller.response.SearchResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.Conference;
+import fudan.se.lab2.domain.Topic;
 import fudan.se.lab2.repository.ConferenceRepository;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;

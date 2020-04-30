@@ -2,25 +2,15 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
-import fudan.se.lab2.controller.request.ReviewConferenceRequest;
-import fudan.se.lab2.domain.ApplyMeeting;
 import io.jsonwebtoken.lang.Assert;
-import org.aspectj.bridge.IMessage;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.AssertTrue;
 import java.util.Date;
 import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ApplyConferenceControllerTest {

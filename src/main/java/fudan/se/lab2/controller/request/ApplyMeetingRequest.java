@@ -2,10 +2,7 @@ package fudan.se.lab2.controller.request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class ApplyMeetingRequest {
@@ -17,13 +14,13 @@ public class ApplyMeetingRequest {
     private String holdingPlace;
     private String submissionDeadline;
     private String reviewReleaseDate;
-    private ArrayList<String> topics;
+    private Set<String> topics;
     @Autowired
     public ApplyMeetingRequest(){
 
     }
 
-    public ApplyMeetingRequest(String abbreviation,String fullName, String holdingTime,String holdingPlace,String submissionDeadline,String reviewReleaseDate,ArrayList<String> topics){
+    public ApplyMeetingRequest(String abbreviation,String fullName, String holdingTime,String holdingPlace,String submissionDeadline,String reviewReleaseDate,Set<String> topics){
         this.abbreviation=abbreviation;
         this.fullName=fullName;
         this.holdingTime=holdingTime;
@@ -80,11 +77,11 @@ public class ApplyMeetingRequest {
         this.reviewReleaseDate=reviewReleaseDate;
     }
 
-    public ArrayList<String> getTopics() {
+    public Set<String> getTopics() {
         return topics;
     }
 
-    public void setTopics(ArrayList<String> topics) {
+    public void setTopics(Set<String> topics) {
         this.topics = topics;
     }
 }

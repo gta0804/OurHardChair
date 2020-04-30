@@ -3,7 +3,6 @@ package fudan.se.lab2.controller;
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
 import fudan.se.lab2.controller.response.AllConferenceResponse;
-import fudan.se.lab2.domain.ApplyMeeting;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.UserRepository;
@@ -48,7 +47,6 @@ public class ApplyConferenceController {
     public ResponseEntity<HashMap<String,Object>> showAllConference(HttpServletRequest httpServletRequest){
         logger.debug("Show all the conferences");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        String chairName = jwtTokenUtil.getUsernameFromToken(token);
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = applyConferenceService.showAllConference();
         List<AllConferenceResponse> responseConferences = new ArrayList<>();
@@ -77,21 +75,21 @@ public class ApplyConferenceController {
         String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
-        ApplyMeeting applyMeeting = applyConferenceService.applyMeeting(request,id);
-        if (null == applyMeeting){
+        Conference conference = applyConferenceService.applyMeeting(request,id);
+        if (null == conference){
             map.put("message","会议申请失败，已有该会议");
             return ResponseEntity.ok(map);
         }else {
             map.put("token",token);
             map.put("message","success");
-            map.put("user id",applyMeeting.getApplicantId());
-            map.put("short_name",applyMeeting.getAbbreviation());
-            map.put("full_name",applyMeeting.getFullName());
-            map.put("holdingTime",applyMeeting.getHoldingTime());
-            map.put("holdingPlace",applyMeeting.getHoldingPlace());
-            map.put("submissionDeadline",applyMeeting.getSubmissionDeadline());
-            map.put("reviewReleaseDate",applyMeeting.getReviewReleaseDate());
-            map.put("reviewStatus",applyMeeting.getReviewStatus());
+            map.put("user id",conference.getChairId());
+            map.put("short_name",conference.getAbbreviation());
+            map.put("full_name",conference.getFullName());
+            map.put("holdingTime",conference.getHoldingTime());
+            map.put("holdingPlace",conference.getHoldingPlace());
+            map.put("submissionDeadline",conference.getSubmissionDeadline());
+            map.put("reviewReleaseDate",conference.getReviewReleaseDate());
+            map.put("reviewStatus",conference.getReviewStatus());
             return ResponseEntity.ok(map);
         }
     }
@@ -102,15 +100,15 @@ public class ApplyConferenceController {
 
         logger.debug("reviewConference");
         HashMap<String,Object> map=new HashMap<>();
-        List<ApplyMeeting> applyMeetings = applyConferenceService.reviewConference();
+        List<Conference> conferences = applyConferenceService.reviewConference();
         String token= httpServletRequest.getHeader("Authorization").substring(7);
 
-        if(null==applyMeetings){
+        if(null==conferences){
             map.put("message","拉取待审核会议失败");
         }
         else{
             map.put("message","拉取待审核会议成功");
-            map.put("meetings",applyMeetings);
+            map.put("meetings",conferences);
             map.put("token",token);
         }
         return ResponseEntity.ok(map);

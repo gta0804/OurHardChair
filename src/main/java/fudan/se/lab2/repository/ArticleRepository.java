@@ -12,4 +12,5 @@ public interface ArticleRepository extends CrudRepository<Article,Long> {
     List<Article> findArticleByTitle(String title);
     List<Article> findByContributorID(long ContributorID);
 
+
 }

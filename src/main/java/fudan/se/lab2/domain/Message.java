@@ -31,11 +31,11 @@ public class Message {
 
     public Message(String senderName, String receiverName, String relatedConferenceName, String message, String messageCategory, Integer isRead){
         this.receiverName = receiverName;
-        this.senderName=senderName;
-        this.relatedConferenceName=relatedConferenceName;
+        this.senderName = senderName;
+        this.relatedConferenceName = relatedConferenceName;
         this.message = message;
-        this.messageCategory=messageCategory;
-        this.isRead=isRead;
+        this.messageCategory = messageCategory;
+        this.isRead = isRead;
     }
 
     public String getSenderName() {

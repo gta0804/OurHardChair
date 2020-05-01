@@ -62,6 +62,7 @@ public class ContributionController {
         logger.debug("Try to submit article");
         HashMap<String, Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
+        long conferenceID = contributionRequest.getConferenceID();
         String status = contributionService.contribute(contributionRequest);
         if (status.equals("duplicate contribution")) {
             map.put("message", "重复投稿（标题名重复）");
@@ -69,6 +70,7 @@ public class ContributionController {
         } else if (status.equals("successful contribution")) {
             map.put("message", "投稿成功");
             map.put("token", token);
+            map.put("id",conferenceID);
         } else {
             map.put("message", "未知错误");
             map.put("token", token);
@@ -85,7 +87,7 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,@RequestParam(value="conferenceID", required = false) long conferenceID) throws IOException {
         logger.debug("Try to upload...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
@@ -108,7 +110,7 @@ public class ContributionController {
                     String realPath = request.getSession().getServletContext().getRealPath("/");
                     // 自定义的文件名称
                     // 设置存放图片文件的路径
-                    path = "/workplace/upload/" + fileName;
+                    path = "/workplace/upload/" + conferenceID + "/" + fileName;
                     mkdirAndFile(path);
                     File dest = new File(path);
                     file.transferTo(dest);

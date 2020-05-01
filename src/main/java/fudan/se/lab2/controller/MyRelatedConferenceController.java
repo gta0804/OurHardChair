@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,15 +49,13 @@ public class MyRelatedConferenceController {
         logger.debug("Show all the conferences for chair");
         //首先加载所有已申请的会议
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
         HashMap<String,Object> map = new HashMap<>();
-        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair(id);
+        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair();
         //再加载所有申请过的会议
         //开始合并
         List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission());
+            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
             responseConferences.add(response);
         }
         map.put("message","获取所有我主持的会议申请成功");
@@ -70,10 +69,8 @@ public class MyRelatedConferenceController {
     public ResponseEntity<HashMap<String,Object>> showAllConferenceForPCMember(HttpServletRequest httpServletRequest) {
         logger.debug("Show all the conferences for PC Member");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
         HashMap<String,Object> map = new HashMap<>();
-        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForPCMember(id);
+        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForPCMember();
         if(conferences==null){
             map.put("message","获取所有我审稿的会议申请失败");
             return ResponseEntity.ok(map);
@@ -81,7 +78,7 @@ public class MyRelatedConferenceController {
         else{
             List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
             for (Conference conference : conferences) {
-                RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
+                RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
                 responseConferences.add(response);
             }
             map.put("message","获取所有我审稿的会议申请成功");
@@ -97,18 +94,15 @@ public class MyRelatedConferenceController {
     public ResponseEntity<HashMap<String,Object>> showAllConferenceForAuthor(HttpServletRequest httpServletRequest) {
         logger.debug("Show all the conferences for Author");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        Long id = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getFullName();
-
         HashMap<String,Object> map = new HashMap<>();
-        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForAuthor(id);
+        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForAuthor();
         if(conferences==null){
             map.put("message","获取所有我主持的会议申请失败");
             return ResponseEntity.ok(map);
         }
         List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,chairName,conference.getIsOpenSubmission());
+            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
             responseConferences.add(response);
         }
         map.put("message","获取所有我投稿的会议申请成功");

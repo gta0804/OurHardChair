@@ -1,6 +1,7 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.MarkMessageRequest;
+import fudan.se.lab2.controller.response.AllMessageResponse;
 import fudan.se.lab2.domain.Message;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -35,7 +36,7 @@ public class MessageController {
         logger.debug("gettingAllMessages");
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         String userName=jwtTokenUtil.getUsernameFromToken(token);
-        List<Message> messages=messageService.getAllMessage(userName);
+        List<AllMessageResponse> messages=messageService.getAllMessage(userName);
         HashMap<String,Object> map=new HashMap<>();
         map.put("token",token);
         map.put("messages",messages);

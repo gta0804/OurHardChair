@@ -60,9 +60,9 @@ public class ContributionController {
     @PostMapping("/contribute")
     public ResponseEntity<HashMap<String, Object>> contribute(HttpServletRequest httpServletRequest, @RequestBody ContributionRequest contributionRequest) {
         logger.debug("Try to submit article");
-        HashMap<String, Object> map = new HashMap();
+        HashMap<String, Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        String status = contributionService.saveContribution(contributionRequest);
+        String status = contributionService.contribute(contributionRequest);
         if (status.equals("duplicate contribution")) {
             map.put("message", "重复投稿（标题名重复）");
             map.put("token", token);

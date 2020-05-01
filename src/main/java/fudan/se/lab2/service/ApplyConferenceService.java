@@ -24,6 +24,8 @@ public class ApplyConferenceService {
     @Autowired
     private TopicRepository topicRepository;
 
+    @Autowired PCMemberRepository pcMemberRepository;
+
     @Autowired
     public  ApplyConferenceService(ConferenceRepository conferenceRepository,UserRepository userRepository,MessageRepository messageRepository){
         this.conferenceRepository=conferenceRepository;
@@ -36,7 +38,7 @@ public class ApplyConferenceService {
             System.out.println("会议全称重复");
             return null;
         }
-        Conference conference=new Conference(id,request.getAbbreviation(),request.getFullName(),request.getHoldingTime(),request.getHoldingPlace(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
+        Conference conference=new Conference(id,request.getAbbreviation(),request.getFullName(),request.getHoldingPlace(),request.getHoldingTime(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
         Set<Topic> topics = new HashSet<>();
         for (String topicName : request.getTopics()) {
             Topic topic=topicRepository.findByTopic(topicName);
@@ -47,7 +49,6 @@ public class ApplyConferenceService {
             Set<Conference> conferences=topic.getConference();
             conferences.add(conference);
             topic.setConference(conferences);
-            topicRepository.save(topic);
         }
         conference.setTopics(topics);
         conferenceRepository.save(conference);
@@ -70,14 +71,17 @@ public class ApplyConferenceService {
             System.out.println("在生成消息时没有找到用户");
             return null;
         }
+
+
         //保存消息
         Message message=new Message("admin",user.getUsername(),conference.getFullName(),"管理员通过了你的会议请求",RESPONSE,1);
         messageRepository.save(message);
-        for(Topic topic:conference.getTopics()){
-            if(topicRepository.findByTopic(topic.getTopic())==null){
-                return null;
-            }
-        }
+
+        //使chair成为PCMember
+        PCMember pcMember=new PCMember(user.getId(),conference.getId());
+        pcMember.setTopics(conference.getTopics());
+        pcMemberRepository.save(pcMember);
+
         return conference;
     }
 

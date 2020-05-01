@@ -5,6 +5,7 @@ import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -26,7 +27,9 @@ public class MyRelatedConferenceService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Conference> showAllConferenceForChair(long id){
+    public List<Conference> showAllConferenceForChair(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long id=userRepository.findByUsername(username).getId();
         List<Conference> conferences = conferenceRepository.findAllByChairId(id);
         return conferences;
     }
@@ -36,7 +39,9 @@ public class MyRelatedConferenceService {
         return conferences;
     }
 
-    public List<Conference> showAllConferenceForPCMember(long id){
+    public List<Conference> showAllConferenceForPCMember(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long id=userRepository.findByUsername(username).getId();
         List<Conference> conferences = new ArrayList<>();
         List<PCMember> myRelated = pcMemberRepository.findAllByUserId(id);
         for (PCMember pcMember : myRelated) {
@@ -49,7 +54,9 @@ public class MyRelatedConferenceService {
         return conferences;
     }
 
-    public List<Conference> showAllConferenceForAuthor(long id){
+    public List<Conference> showAllConferenceForAuthor(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long id=userRepository.findByUsername(username).getId();
         List<Conference> conferences = new ArrayList<>();
         List<Contributor> myRelated = authorRepository.findAllByUserId(id);
         for (Contributor contributor : myRelated) {

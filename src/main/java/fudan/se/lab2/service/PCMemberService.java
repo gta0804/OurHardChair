@@ -1,17 +1,12 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.controller.request.HandlePCMemberInvitationRequest;
+import fudan.se.lab2.controller.request.ApprovePCMemberInvitationRequest;
+import fudan.se.lab2.controller.request.DisapprovePCMemberInvitationRequest;
 import fudan.se.lab2.controller.request.InvitePCMemberRequest;
 import fudan.se.lab2.controller.request.SearchUserRequest;
 import fudan.se.lab2.controller.response.SearchResponse;
-import fudan.se.lab2.domain.Conference;
-import fudan.se.lab2.domain.Message;
-import fudan.se.lab2.domain.PCMember;
-import fudan.se.lab2.domain.User;
-import fudan.se.lab2.repository.ConferenceRepository;
-import fudan.se.lab2.repository.MessageRepository;
-import fudan.se.lab2.repository.PCMemberRepository;
-import fudan.se.lab2.repository.UserRepository;
+import fudan.se.lab2.domain.*;
+import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -22,6 +17,8 @@ public class PCMemberService {
     private ConferenceRepository conferenceRepository;
     private UserRepository userRepository;
     private MessageRepository messageRepository;
+    @Autowired
+    private TopicRepository topicRepository;
     private final String REQUEST="PCMemberInvitationRequest";
     private final String RESPONSE="PCMemberInvitationResponse";
 
@@ -51,7 +48,7 @@ public class PCMemberService {
         return "success";
     }
 
-    public boolean approvePCNumberInvitation(HandlePCMemberInvitationRequest request){
+    public boolean approvePCNumberInvitation(ApprovePCMemberInvitationRequest request){
         Message messageForRequest=messageRepository.
                 findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                         (
@@ -62,10 +59,6 @@ public class PCMemberService {
                                 REQUEST,
                                 1
                         );
-        System.out.println(request.getSenderName());
-        System.out.println(request.getReceiverName());
-        System.out.println(request.getRelatedConferenceName());
-
         if(messageForRequest==null){
             return false;
         }
@@ -74,8 +67,20 @@ public class PCMemberService {
         if(userId==null||conferenceId==null){
             return false;
         }
+
+        //加入为PCMember
         PCMember pcMember=new PCMember(userId,conferenceId);
+        Set<Topic> topics=new HashSet<>();
+        for(String topicName:request.getTopics()){
+            Topic topic=topicRepository.findByTopic(topicName);
+            if(topic==null){
+                return false;
+            }
+            topics.add(topic);
+        }
+        pcMember.setTopics(topics);
         pcMemberRepository.save(pcMember);
+
         //删除请求
         messageRepository.delete(messageForRequest);
         //新建响应
@@ -86,13 +91,12 @@ public class PCMemberService {
                 "你的PCNumber邀请已经被"+request.getSenderName()+"接受",
                 RESPONSE,
                 1
-
         );
         messageRepository.save(messageForResponse);
         return true;
     }
 
-    public boolean disapprovePCNumberInvitation(HandlePCMemberInvitationRequest request){
+    public boolean disapprovePCNumberInvitation(DisapprovePCMemberInvitationRequest request){
         Message messageForRequest=messageRepository.
                 findBySenderNameAndReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                         (

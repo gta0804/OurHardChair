@@ -1,5 +1,9 @@
 package fudan.se.lab2.controller.response;
 
+import fudan.se.lab2.domain.Topic;
+
+import java.util.*;
+
 public class AllConferenceResponse {
     private Long conference_id;
     private String full_name;
@@ -11,7 +15,9 @@ public class AllConferenceResponse {
     private Integer status;
     private String chair_username;
     private Integer is_open_submission;
-    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission){
+    private Set<Topic> topics;
+
+    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission,Set<Topic> topics){
         this.conference_id = conference_id;
         this.full_name = full_name;
         this.short_name = short_name;
@@ -22,6 +28,7 @@ public class AllConferenceResponse {
         this.status = status;
         this.chair_username = chair_username;
         this.is_open_submission = is_open_submission;
+        this.topics=topics;
     }
 
     public Long getConference_id() {
@@ -102,5 +109,13 @@ public class AllConferenceResponse {
 
     public void setChair_username(String chair_name) {
         this.chair_username = chair_name;
+    }
+
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
     }
 }

@@ -11,7 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +39,8 @@ public class AuthController {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
@@ -53,19 +59,23 @@ public class AuthController {
             map.put("message","注册失败，已有该用户");
             System.out.println("注册失败，已有该用户");
             return ResponseEntity.ok(map);
-        }else {
-            String token = jwtTokenUtil.generateToken(user);
-            map.put("token",token);
-            System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
-            map.put("message","success");
-            map.put("username",user.getUsername());
-            map.put("fullName",user.getFullName());
-            map.put("email",user.getEmail());
-            map.put("institution",user.getInstitution());
-            map.put("country",user.getCountry());
-            map.put("id",user.getId());
-            return ResponseEntity.ok(map);
         }
+        UserDetails userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
+        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
+                userForBase.getAuthorities());
+        final Authentication authentication = authenticationManager.authenticate(userToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtTokenUtil.generateToken(user);
+        map.put("token",token);
+        System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
+        map.put("message","success");
+        map.put("username",user.getUsername());
+        map.put("fullName",user.getFullName());
+        map.put("email",user.getEmail());
+        map.put("institution",user.getInstitution());
+        map.put("country",user.getCountry());
+        map.put("id",user.getId());
+        return ResponseEntity.ok(map);
     }
 
     @CrossOrigin(origins = "*")
@@ -76,29 +86,27 @@ public class AuthController {
         HashMap<String,Object> map = new HashMap();
         UserDetails  userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
         if(null == userForBase){
-            System.out.println("用户不存在");
             map.put("message","用户不存在");
             return ResponseEntity.ok(map);
-        }else {
-            if (!passwordEncoder.matches(request.getPassword(),userForBase.getPassword())){
-                map.put("message","密码错误");
-                System.out.println("密码错误");
-                return ResponseEntity.ok(map);
-            }else {
-                String token = jwtTokenUtil.generateToken((User)userForBase);
-                System.out.println("登陆成功");
-                System.out.println("发放token：" + token);
-                map.put("id",((User) userForBase).getId().intValue());
-                map.put("message","success");
-                map.put("token", token);
-                map.put("username",userForBase.getUsername());
-                map.put("fullName",((User) userForBase).getFullName());
-                map.put("email",((User) userForBase).getEmail());
-                map.put("institution",((User) userForBase).getInstitution());
-                map.put("country",((User) userForBase).getCountry());
-                return ResponseEntity.ok(map);
-            }
         }
+        if (!passwordEncoder.matches(request.getPassword(),userForBase.getPassword())){
+            map.put("message","密码错误");
+            return ResponseEntity.ok(map);
+        }
+        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
+                userForBase.getAuthorities());
+        final Authentication authentication = authenticationManager.authenticate(userToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtTokenUtil.generateToken((User)userForBase);
+        map.put("id",((User) userForBase).getId().intValue());
+        map.put("message","success");
+        map.put("token", token);
+        map.put("username",userForBase.getUsername());
+        map.put("fullName",((User) userForBase).getFullName());
+        map.put("email",((User) userForBase).getEmail());
+        map.put("institution",((User) userForBase).getInstitution());
+        map.put("country",((User) userForBase).getCountry());
+        return ResponseEntity.ok(map);
     }
 
     /**

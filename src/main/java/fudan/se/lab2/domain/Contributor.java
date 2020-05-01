@@ -1,9 +1,9 @@
 package fudan.se.lab2.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Contributor {
@@ -14,6 +14,8 @@ public class Contributor {
     private Long userId;
 
     private Long conferenceId;
+
+
 
     public Contributor(){}
 
@@ -36,5 +38,10 @@ public class Contributor {
 
     public void setConferenceId(Long conferenceId) {
         this.conferenceId = conferenceId;
+    }
+
+
+    public Long getId() {
+        return id;
     }
 }

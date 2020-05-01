@@ -1,5 +1,7 @@
 package fudan.se.lab2.domain;
 
+import fudan.se.lab2.controller.request.componment.WriterRequest;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -25,8 +27,11 @@ public class Article {
 
     private String articleAbstract;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Writer> writers = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Topic> topics=new HashSet<>();
     //0未通过 1待审核 2已通过
     private Long status;
 
@@ -40,7 +45,7 @@ public class Article {
     * @Author: Shen Zhengyu
     * @Date: 2020/4/8
     */
-    public Article(Long conferenceID,Long contributorID,String filename,String title,String articleAbstract,ArrayList<Writer> writers)
+    public Article(Long conferenceID,Long contributorID,String filename,String title,String articleAbstract,List<Writer> writers)
     {
         this.conferenceID = conferenceID;
         this.contributorID = contributorID;
@@ -113,5 +118,13 @@ public class Article {
 
     public void setWriters(List<Writer> writers) {
         this.writers = writers;
+    }
+
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
     }
 }

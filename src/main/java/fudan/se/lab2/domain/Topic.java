@@ -24,6 +24,9 @@ public class Topic {
     @ManyToMany(cascade =CascadeType.ALL)
     private Set<PCMember> pcMembers=new HashSet<>();
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Article> articles=new HashSet<>();
+
     public Topic(){}
     
     public Topic(String topics) {
@@ -56,5 +59,13 @@ public class Topic {
 
     public void setPcMembers(Set<PCMember> pcMembers) {
         this.pcMembers = pcMembers;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 }

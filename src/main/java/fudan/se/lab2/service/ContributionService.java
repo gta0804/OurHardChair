@@ -3,10 +3,12 @@ package fudan.se.lab2.service;
 import fudan.se.lab2.controller.request.ContributionRequest;
 import fudan.se.lab2.controller.request.ReviewArticleRequest;
 import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
+import fudan.se.lab2.controller.request.componment.WriterRequest;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.AuthorRepository;
 import fudan.se.lab2.repository.ConferenceRepository;
+import fudan.se.lab2.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,29 +32,53 @@ public class ContributionService {
     @Autowired
     private ConferenceRepository conferenceRepository;
 
-    public String saveContribution(ContributionRequest contributionRequest){
-        List<Article> articles = articleRepository.findArticleByTitle(contributionRequest.getTitle());
-        for (Article article : articles) {
-            if (article.getConferenceID().equals(contributionRequest.getConferenceID())){
-                return "duplicate contribution";
-            } else {
-                System.out.println(contributionRequest.getContributorID());
-                System.out.println(contributionRequest.getConferenceID());
-                System.out.println(contributionRequest.getTitle());
-                System.out.println(contributionRequest.getArticleAbstract());
-                System.out.println(contributionRequest.getFilename());
-                System.out.println("contributionRequest.getFilename()");
-                Article article1 = new Article(contributionRequest.getConferenceID(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),contributionRequest.getWriters());
-                articleRepository.save(article1);
-                System.out.println(contributionRequest.getContributorID());
-                System.out.println(contributionRequest.getConferenceID());
+    @Autowired
+    private TopicRepository topicRepository;
 
-                Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConferenceID());
-                authorRepository.save(contributor);
-                return "successful contribution";
-            }
+    public String contribute(ContributionRequest contributionRequest){
+        List<Article> articles = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
+        if (articles!=null){
+            return "duplicate contribution";
         }
-        return "unsuccessful contribution";
+        saveContribution(contributionRequest);
+        return"successful contribution";
+    }
+
+    public String modify(ContributionRequest contributionRequest){
+        List<Article> articles = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
+        if (articles==null){
+            return "NOT FOUND";
+        }
+        if(articles.size()>1){
+            return"duplicate contribution";
+        }
+        String result=saveContribution(contributionRequest);
+        if(result.equals("error")){
+            return "error";
+        }
+        return"successful contribution";
+    }
+
+    public String saveContribution(ContributionRequest contributionRequest){
+            List<Writer> writers=new ArrayList<>();
+            for(WriterRequest writerRequest:contributionRequest.getWriters()){
+                writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
+            }
+            Article article = new Article(contributionRequest.getConferenceID(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),writers);
+            Set<Topic> topics=new HashSet<>();
+            for(String topicName:contributionRequest.getTopics()){
+                Topic topic=topicRepository.findByTopic(topicName);
+                if(topic==null){
+                    return "error";
+                }
+                topics.add(topic);
+            }
+            article.setTopics(topics);
+            articleRepository.save(article);
+
+            Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConferenceID());
+            authorRepository.save(contributor);
+            return "successful contribution";
     }
 
     public HashMap<String,Object> reviewArticle(ReviewArticleRequest reviewArticleRequest){
@@ -91,6 +117,11 @@ public class ContributionService {
                 hashMap.put("fileName",article.getFilename());
                 hashMap.put("authorID",article.getContributorID());
                 hashMap.put("writers",article.getWriters());
+                List<String> topicNames=new ArrayList<>();
+                for(Topic topic:article.getTopics()){
+                    topicNames.add(topic.getTopic());
+                }
+                hashMap.put("topics",topicNames);
                 return hashMap;
             }
         }

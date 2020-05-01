@@ -43,4 +43,8 @@ public class PCMember {
     public void setTopics(Set<Topic> topics) {
         this.topics = topics;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

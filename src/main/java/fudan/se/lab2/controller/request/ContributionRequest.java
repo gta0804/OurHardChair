@@ -27,18 +27,21 @@ public class ContributionRequest {
 
 
     private List<WriterRequest> writers;
+
+    private List<String> topics;
     @Autowired
     public ContributionRequest(){
 
     }
 
-    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,List<WriterRequest> writers){
+    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,List<WriterRequest> writers,List<String> topics){
         this.conferenceID = conferenceID;
         this.contributorID = authorID;
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
         this.writers = writers;
+        this.topics=topics;
     }
 
     public Long getConferenceID() {
@@ -87,6 +90,14 @@ public class ContributionRequest {
 
     public void setWriters(List<WriterRequest> writers) {
         this.writers = writers;
+    }
+
+    public List<String> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<String> topics) {
+        this.topics = topics;
     }
 }
 

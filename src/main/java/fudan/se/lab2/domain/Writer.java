@@ -3,6 +3,7 @@ package fudan.se.lab2.domain;
 import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
+import java.util.*;
 
 /**
  * @program: lab2
@@ -21,7 +22,8 @@ public class Writer {
     private String institution;
     private String country;
 
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Article> articles=new HashSet<>();
 
     public Writer(){
 
@@ -31,5 +33,49 @@ public class Writer {
         this.email = email;
         this.institution = institution;
         this.country = country;
+    }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

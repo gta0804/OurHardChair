@@ -6,6 +6,11 @@ import fudan.se.lab2.repository.AuthorityRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.controller.request.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +28,7 @@ public class AuthService {
     private AuthorityRepository authorityRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
@@ -36,17 +42,16 @@ public class AuthService {
         if (null != userRepository.findByUsername(request.getUsername())){
             System.out.println("用户名重复");
             return null;
-        }else{
-            System.out.println("注册成功！");
-            String password = passwordEncoder.encode(request.getPassword());
-            HashSet<Authority> set = new HashSet<>();
-            Authority authority = authorityRepository.findByAuthority("user");
-            set.add(authority);
-            User user = new User(request.getUsername(),password,request.getFullName(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
-            userRepository.save(user);
-            System.out.println("加入新用户" +user.getUsername() + "成功！");
-            return user;
         }
+        System.out.println("注册成功！");
+        String password = passwordEncoder.encode(request.getPassword());
+        HashSet<Authority> set = new HashSet<>();
+        Authority authority = authorityRepository.findByAuthority("user");
+        set.add(authority);
+        User user = new User(request.getUsername(),password,request.getFullName(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
+        userRepository.save(user);
+        return user;
+
     }
 
 //    public User modifyInformation(@RequestBody ModifyInformationRequest request) {

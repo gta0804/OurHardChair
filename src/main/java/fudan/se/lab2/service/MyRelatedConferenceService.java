@@ -56,6 +56,7 @@ public class MyRelatedConferenceService {
 
     public List<Conference> showAllConferenceForAuthor(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username);
         Long id=userRepository.findByUsername(username).getId();
         List<Conference> conferences = new ArrayList<>();
         List<Contributor> myRelated = authorRepository.findAllByUserId(id);

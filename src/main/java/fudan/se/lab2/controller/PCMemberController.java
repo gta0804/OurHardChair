@@ -1,6 +1,7 @@
 package fudan.se.lab2.controller;
 
-import fudan.se.lab2.controller.request.HandlePCMemberInvitationRequest;
+import fudan.se.lab2.controller.request.ApprovePCMemberInvitationRequest;
+import fudan.se.lab2.controller.request.DisapprovePCMemberInvitationRequest;
 import fudan.se.lab2.controller.request.InvitePCMemberRequest;
 import fudan.se.lab2.controller.request.SearchUserRequest;
 import fudan.se.lab2.controller.response.SearchResponse;
@@ -50,7 +51,7 @@ public class PCMemberController {
 
     @CrossOrigin("*")
     @PostMapping("/approvePCMemberInvitation")
-    public ResponseEntity<HashMap<String,Object>> approvePCMember(@RequestBody HandlePCMemberInvitationRequest request, HttpServletRequest httpServletRequest){
+    public ResponseEntity<HashMap<String,Object>> approvePCMember(@RequestBody ApprovePCMemberInvitationRequest request, HttpServletRequest httpServletRequest){
         logger.debug("approve PCMember "+request.toString());
         HashMap<String,Object> map=new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -69,7 +70,7 @@ public class PCMemberController {
 
     @CrossOrigin("*")
     @PostMapping("/disapprovePCMemberInvitation")
-    public ResponseEntity<HashMap<String,Object>> disapprovePCMember(@RequestBody HandlePCMemberInvitationRequest request, HttpServletRequest httpServletRequest){
+    public ResponseEntity<HashMap<String,Object>> disapprovePCMember(@RequestBody DisapprovePCMemberInvitationRequest request, HttpServletRequest httpServletRequest){
         logger.debug("disapprove PCMember "+request.toString());
         HashMap<String,Object> map=new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -89,8 +90,6 @@ public class PCMemberController {
     @PostMapping("/search")
     public ResponseEntity<HashMap<String,Object>>search(@RequestBody SearchUserRequest request,HttpServletRequest httpServletRequest){
         logger.debug("searching people"+request.toString());
-        System.out.println("search key: "+request.getSearch_key());
-        System.out.println("fullName: "+request.getFull_Name());
         HashMap<String,Object> map=new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         List<SearchResponse> responses=pcMemberService.search(request);

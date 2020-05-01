@@ -21,6 +21,9 @@ public class Topic {
     @JsonIgnore
     private Set<Conference> conference=new HashSet<>();
 
+    @ManyToMany(cascade =CascadeType.ALL)
+    private Set<PCMember> pcMembers=new HashSet<>();
+
     public Topic(){}
     
     public Topic(String topics) {
@@ -45,5 +48,13 @@ public class Topic {
 
     public void setConference(Set<Conference> conference) {
         this.conference = conference;
+    }
+
+    public Set<PCMember> getPcMembers() {
+        return pcMembers;
+    }
+
+    public void setPcMembers(Set<PCMember> pcMembers) {
+        this.pcMembers = pcMembers;
     }
 }

@@ -1,9 +1,7 @@
 package fudan.se.lab2.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class PCMember {
@@ -12,7 +10,8 @@ public class PCMember {
     private Long id;
     private Long userId;
     private Long  conferenceId;
-
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Set<Topic> topics=new HashSet<>();
     public PCMember() {
     }
 
@@ -37,4 +36,11 @@ public class PCMember {
         this.conferenceId = conferenceId;
     }
 
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
+    }
 }

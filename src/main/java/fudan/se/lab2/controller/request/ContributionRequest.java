@@ -1,10 +1,11 @@
 package fudan.se.lab2.controller.request;
 
+import fudan.se.lab2.controller.request.componment.WriterRequest;
 import fudan.se.lab2.domain.Writer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * @program: lab2
@@ -24,13 +25,14 @@ public class ContributionRequest {
 
     private String articleAbstract;
 
-    private ArrayList<Writer> writers;
+
+    private List<WriterRequest> writers;
     @Autowired
     public ContributionRequest(){
 
     }
 
-    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,ArrayList<Writer> writers){
+    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,List<WriterRequest> writers){
         this.conferenceID = conferenceID;
         this.contributorID = authorID;
         this.filename = filename;
@@ -79,11 +81,12 @@ public class ContributionRequest {
         this.articleAbstract = articleAbstract;
     }
 
-    public ArrayList<Writer> getWriters() {
+    public List<WriterRequest> getWriters() {
         return writers;
     }
 
-    public void setWriters(ArrayList<Writer> writers) {
+    public void setWriters(List<WriterRequest> writers) {
         this.writers = writers;
     }
 }
+

@@ -1,9 +1,8 @@
 package fudan.se.lab2.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.engine.internal.Cascade;
+
+import javax.persistence.*;
 
 /**
  * @program: lab2
@@ -21,6 +20,8 @@ public class Writer {
     private String email;
     private String institution;
     private String country;
+
+
 
     public Writer(){
 

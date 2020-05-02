@@ -1,8 +1,10 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.repository.ArticleRepository;
 import org.hibernate.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +25,13 @@ import java.io.IOException;
 public class PdfController {
     Logger logger = LoggerFactory.getLogger(PdfController.class);
 
-    @RequestMapping(value = "/preview/{conferenceID}/{fileName}", method = RequestMethod.GET)
-    public void pdfStreamHandler(@PathVariable("conferenceID") Long conferenceID,@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) {
+    @Autowired
+    ArticleRepository articleRepository;
+
+    @RequestMapping(value = "/preview/{conferenceID}/{title}", method = RequestMethod.GET)
+    public void pdfStreamHandler(@PathVariable("conferenceID") Long conferenceID,@PathVariable("title") String title, HttpServletRequest request, HttpServletResponse response) {
         //PDF文件地址
+        String fileName = articleRepository.findByTitleAndConferenceID(title,conferenceID).getFilename();
         logger.info("文件名:" + fileName);
                 //"src/main/resources/pdf/2002260.pdf"
 //        File file = new File("/workplace/upload/" +fileName);

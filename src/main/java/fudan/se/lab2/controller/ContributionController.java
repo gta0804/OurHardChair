@@ -84,7 +84,7 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestBody UploadRequest uploadRequest) throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestBody UploadRequest uploadRequest) {
         logger.debug("Try to upload...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
@@ -122,7 +122,11 @@ public class ContributionController {
                     path = sb.toString();
                     mkdirAndFile(path);
                     File dest = new File(path);
-                    file.transferTo(dest);
+                    try {
+                        file.transferTo(dest);
+                    }catch (Exception e){
+                        logger.debug(e.getMessage());
+                    }
                     map.put("message", "上传成功");
                     map.put("存放路径", fileName);
                     return ResponseEntity.ok(map);

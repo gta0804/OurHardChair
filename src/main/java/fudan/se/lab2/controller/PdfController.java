@@ -35,8 +35,16 @@ public class PdfController {
         logger.info("文件名:" + fileName);
                 //"src/main/resources/pdf/2002260.pdf"
 //        File file = new File("/workplace/upload/" +fileName);
-        String pathName = null == conferenceID?"/workplace/upload/unknownConferenceID/" + fileName:"/workplace/upload/" + conferenceID + "/" + fileName;
-        File file = new File(pathName);
+        StringBuilder sb = new StringBuilder("/workplace/upload/");
+        if (null == conferenceID){
+            sb.append("unknownConferenceID/");
+        }else{
+            sb.append(conferenceID);
+            sb.append("/");
+        }
+        sb.append(fileName);
+
+        File file = new File(sb.toString());
         if (file.exists()) {
             byte[] data = null;
             FileInputStream input=null;

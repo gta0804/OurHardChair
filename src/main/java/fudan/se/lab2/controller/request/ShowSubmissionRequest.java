@@ -9,6 +9,10 @@ public class ShowSubmissionRequest {
     @Autowired
     public ShowSubmissionRequest(){}
 
+    public ShowSubmissionRequest(String username) {
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
     }

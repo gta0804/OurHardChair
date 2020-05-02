@@ -1,9 +1,6 @@
 package fudan.se.lab2.controller;
 
-import fudan.se.lab2.controller.request.ContributionRequest;
-import fudan.se.lab2.controller.request.RegisterRequest;
-import fudan.se.lab2.controller.request.ReviewArticleRequest;
-import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
+import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -87,12 +84,13 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,@RequestParam(value="conferenceID", required = false) Long conferenceID) throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestBody UploadRequest uploadRequest) throws IOException {
         logger.debug("Try to upload...");
-        System.out.println(conferenceID);
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
+        MultipartFile file = uploadRequest.getFile();
+        Long conferenceID = uploadRequest.getConferenceID();
         if (null == file){
             map.put("message", "上传失败");
             return ResponseEntity.ok(map);
@@ -112,11 +110,16 @@ public class ContributionController {
                     // 自定义的文件名称
                     // 设置存放图片文件的路径
                     //获取到了就传到对应参数的文件夹，获取不到就unknownConferenceID
+                    StringBuilder sb = new StringBuilder("/workplace/upload/");
+
                     if (null == conferenceID) {
-                        path = "/workplace/upload/unknownConferenceID/" + fileName;
+                        sb.append("unknownConferenceID/");
                     }else {
-                        path = "/workplace/upload/" + conferenceID + "/" + fileName;
+                        sb.append(conferenceID);
+                        sb.append("/");
                     }
+                    sb.append(fileName);
+                    path = sb.toString();
                     mkdirAndFile(path);
                     File dest = new File(path);
                     file.transferTo(dest);

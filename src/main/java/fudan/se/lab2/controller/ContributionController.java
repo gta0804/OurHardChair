@@ -84,27 +84,23 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestBody UploadRequest uploadRequest) {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestBody UploadRequest uploadRequest)throws IOException {
         logger.debug("Try to upload...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
         MultipartFile file = uploadRequest.getFile();
         Long conferenceID = uploadRequest.getConferenceID();
-        if (null == file){
+        if (null == file ||file.isEmpty()){
             map.put("message", "上传失败");
             return ResponseEntity.ok(map);
         }
-        if (file.isEmpty()){
-                map.put("message", "上传失败");
-            return ResponseEntity.ok(map);
-        }
-        if (!file.isEmpty()) {
+        else {
             String fileName = file.getOriginalFilename();
             String path = null;
             String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf('.') + 1) : null;
-            if (type != null) {
-                if ("PDF".equals(type.toUpperCase())) {
+//            if (type != null) {
+//                if ("PDF".equals(type.toUpperCase())) {
                     // 项目在容器中实际发布运行的根路径
                     String realPath = request.getSession().getServletContext().getRealPath("/");
                     // 自定义的文件名称
@@ -122,24 +118,19 @@ public class ContributionController {
                     path = sb.toString();
                     mkdirAndFile(path);
                     File dest = new File(path);
-                    try {
-                        file.transferTo(dest);
-                    }catch (Exception e){
-                        logger.debug(e.getMessage());
-                    }
+                    file.transferTo(dest);
                     map.put("message", "上传成功");
                     map.put("存放路径", fileName);
                     return ResponseEntity.ok(map);
-                } else {
-                    map.put("error","格式并非pdf");
-                    map.put("message", "上传失败");
-                }
-            } else {
-                System.out.println("type是null");
-                map.put("message", "上传失败");
-            }
+//                } else {
+//                    map.put("error","格式并非pdf");
+//                    map.put("message", "上传失败");
+//                }
+//            } else {
+//                System.out.println("type是null");
+//                map.put("message", "上传失败");
+//            }
         }
-        return ResponseEntity.ok(map);
     }
 
     /**

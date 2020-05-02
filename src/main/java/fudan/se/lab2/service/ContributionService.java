@@ -36,8 +36,8 @@ public class ContributionService {
     private TopicRepository topicRepository;
 
     public String contribute(ContributionRequest contributionRequest){
-        List<Article> articles = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
-        if (articles!=null){
+       Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
+        if (article!=null){
             return "duplicate contribution";
         }
         saveContribution(contributionRequest);
@@ -45,12 +45,9 @@ public class ContributionService {
     }
 
     public String modify(ContributionRequest contributionRequest){
-        List<Article> articles = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
-        if (articles==null){
+        Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
+        if (article == null){
             return "NOT FOUND";
-        }
-        if(articles.size()>1){
-            return"duplicate contribution";
         }
         String result=saveContribution(contributionRequest);
         if(result.equals("error")){

@@ -84,13 +84,11 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestBody UploadRequest uploadRequest)throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conferenceID") Long conferenceID)throws IOException {
         logger.debug("Try to upload...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
-        MultipartFile file = uploadRequest.getFile();
-        Long conferenceID = uploadRequest.getConferenceID();
         if (null == file ||file.isEmpty()){
             map.put("message", "上传失败");
             return ResponseEntity.ok(map);

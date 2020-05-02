@@ -29,7 +29,7 @@ public class MyRelatedConferenceService {
 
     public List<Conference> showAllConferenceForChair(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Long id=userRepository.findByUsername(username).getId();
+        Long id = userRepository.findByUsername(username).getId();
         List<Conference> conferences = conferenceRepository.findAllByChairId(id);
         return conferences;
     }

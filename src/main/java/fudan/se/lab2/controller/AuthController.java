@@ -61,10 +61,10 @@ public class AuthController {
             return ResponseEntity.ok(map);
         }
         UserDetails userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
-//        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
-//                userForBase.getAuthorities());
-//        final Authentication authentication = authenticationManager.authenticate(userToken);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
+                userForBase.getAuthorities());
+        final Authentication authentication = authenticationManager.authenticate(userToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenUtil.generateToken(user);
         map.put("token",token);
         System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));

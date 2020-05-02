@@ -3,12 +3,10 @@ package fudan.se.lab2.service;
 import fudan.se.lab2.controller.request.ContributionRequest;
 import fudan.se.lab2.controller.request.ReviewArticleRequest;
 import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
+import fudan.se.lab2.controller.request.SubmitReviewResultRequest;
 import fudan.se.lab2.controller.request.componment.WriterRequest;
 import fudan.se.lab2.domain.*;
-import fudan.se.lab2.repository.ArticleRepository;
-import fudan.se.lab2.repository.AuthorRepository;
-import fudan.se.lab2.repository.ConferenceRepository;
-import fudan.se.lab2.repository.TopicRepository;
+import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +32,12 @@ public class ContributionService {
 
     @Autowired
     private TopicRepository topicRepository;
+
+    @Autowired
+    private EvaluationRepository evaluationRepository;
+
+    @Autowired
+    private ResultRepository resultRepository;
 
     public String contribute(ContributionRequest contributionRequest){
        Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
@@ -125,5 +129,34 @@ public class ContributionService {
         hashMap.put("message","预览失败");
         return hashMap;
     }
+
+    /**
+    * @Description: 添加新平均
+    * @Param: [submitReviewResultRequest]
+    * @return: java.lang.String
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/2
+    */
+
+    public String submitReviewResult(SubmitReviewResultRequest submitReviewResultRequest){
+        Article article = articleRepository.findByTitleAndConferenceID(submitReviewResultRequest.getTitle(),submitReviewResultRequest.getConferenceID());
+        if (article == null){
+            return "NOT FOUND";
+        }
+        Evaluation evaluation = new Evaluation(submitReviewResultRequest.getUserId(),submitReviewResultRequest.getScore(),submitReviewResultRequest.getComment(),submitReviewResultRequest.getConfidence());
+        evaluationRepository.save(evaluation);
+        Result result = resultRepository.findResultByConferenceIDAndTitle(submitReviewResultRequest.getConferenceID(),submitReviewResultRequest.getTitle());
+        if(null == result){
+            Set<Evaluation> evaluations = new HashSet<>();
+            evaluations.add(evaluation);
+            resultRepository.save(new Result(submitReviewResultRequest.getConferenceID(),submitReviewResultRequest.getTitle(),evaluations));
+        }else{
+            Set<Evaluation> evaluations = result.getEvaluations();
+            evaluations.add(evaluation);
+            resultRepository.save(result);
+        }
+        return"successful contribution";
+    }
+
 
 }

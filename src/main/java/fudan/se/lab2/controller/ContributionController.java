@@ -147,7 +147,24 @@ public class ContributionController {
         message.put("token",token);
         return ResponseEntity.ok(message);
     }
-
+    /**
+    * @Description: 提交审稿信息
+    * @Param: [request, showContributionModificationRequest]
+    * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/2
+    */
+    @CrossOrigin(origins = "*")
+    @PostMapping("/submitReviewResult")
+    public ResponseEntity<HashMap<String, Object>> submitReviewResult(HttpServletRequest request, @RequestBody SubmitReviewResultRequest submitReviewResultRequest){
+        logger.debug("Try to submit review result...");
+        HashMap<String, Object> answer = new HashMap<>();
+        String token = request.getHeader("Authorization").substring(7);
+        String message = contributionService.submitReviewResult(submitReviewResultRequest);
+        answer.put("token",token);
+        answer.put("message",message);
+        return ResponseEntity.ok(answer);
+    }
     @CrossOrigin(origins = "*")
     @PostMapping("/showContributionModification")
     public ResponseEntity<HashMap<String, Object>> showContributionModification(HttpServletRequest request, @RequestBody ShowContributionModificationRequest showContributionModificationRequest) throws IOException {

@@ -23,15 +23,14 @@ import java.io.IOException;
 public class PdfController {
     Logger logger = LoggerFactory.getLogger(PdfController.class);
 
-    @RequestMapping(value = "/preview/{fileName}", method = RequestMethod.GET)
-    public void pdfStreamHandler(@PathVariable String fileName, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/preview/{conferenceID}/{fileName}", method = RequestMethod.GET)
+    public void pdfStreamHandler(@PathVariable("conferenceID") Long conferenceID,@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) {
         //PDF文件地址
         logger.info("文件名:" + fileName);
                 //"src/main/resources/pdf/2002260.pdf"
 //        File file = new File("/workplace/upload/" +fileName);
-        File file = new File("/workplace/upload/" +fileName);
-
-        logger.info(file.toString());
+        String pathName = null == conferenceID?"/workplace/upload/unknownConferenceID/" + fileName:"/workplace/upload/" + conferenceID + "/" + fileName;
+        File file = new File(pathName);
         if (file.exists()) {
             byte[] data = null;
             FileInputStream input=null;

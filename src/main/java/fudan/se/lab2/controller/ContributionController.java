@@ -87,8 +87,9 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,@RequestParam(value="conferenceID", required = false) long conferenceID) throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,@RequestParam(value="conferenceID", required = false) Long conferenceID) throws IOException {
         logger.debug("Try to upload...");
+        System.out.println(conferenceID);
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
@@ -110,7 +111,12 @@ public class ContributionController {
                     String realPath = request.getSession().getServletContext().getRealPath("/");
                     // 自定义的文件名称
                     // 设置存放图片文件的路径
-                    path = "/workplace/upload/" + conferenceID + "/" + fileName;
+                    //获取到了就传到对应参数的文件夹，获取不到就unknownConferenceID
+                    if (null == conferenceID) {
+                        path = "/workplace/upload/unknownConferenceID/" + fileName;
+                    }else {
+                        path = "/workplace/upload/" + conferenceID + "/" + fileName;
+                    }
                     mkdirAndFile(path);
                     File dest = new File(path);
                     file.transferTo(dest);

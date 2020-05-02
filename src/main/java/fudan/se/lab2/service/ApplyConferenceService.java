@@ -79,7 +79,8 @@ public class ApplyConferenceService {
 
         //使chair成为PCMember
         PCMember pcMember=new PCMember(user.getId(),conference.getId());
-        pcMember.setTopics(conference.getTopics());
+        Set<Topic> topics = new HashSet<>(conference.getTopics());
+        pcMember.setTopics(topics);
         pcMemberRepository.save(pcMember);
 
         return conference;

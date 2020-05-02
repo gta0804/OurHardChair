@@ -52,11 +52,11 @@ class ContributionControllerTest {
         request = new MockHttpServletRequest();
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization", token);
-        try {
-            Assert.isTrue(contributionController.upload(request,null).getBody().get("message").equals("上传失败"));
-        } catch (IOException e) {
-
-        }
+//        try {
+//            Assert.isTrue(contributionController.upload(request,null).getBody().get("message").equals("上传失败"));
+//        } catch (IOException e) {
+//
+//        }
     }
 
     @Test

@@ -1,9 +1,6 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.controller.request.ContributionRequest;
-import fudan.se.lab2.controller.request.ReviewArticleRequest;
-import fudan.se.lab2.controller.request.ShowContributionModificationRequest;
-import fudan.se.lab2.controller.request.SubmitReviewResultRequest;
+import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.controller.request.componment.WriterRequest;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
@@ -131,12 +128,41 @@ public class ContributionService {
     }
 
     /**
-    * @Description: 添加新平均
-    * @Param: [submitReviewResultRequest]
-    * @return: java.lang.String
+    * @Description: 修改投稿
+    * @Param:
+    * @return:
     * @Author: Shen Zhengyu
-    * @Date: 2020/5/2
+    * @Date: 2020/5/4
     */
+    public HashMap<String,Object> modifyContribution(ModifyContributionRequest modifyContributionRequest) {
+        HashMap<String,Object> hashMap = new HashMap<>();
+        Article article = articleRepository.findByTitleAndConferenceID(modifyContributionRequest.getOriginalTitle(),modifyContributionRequest.getConferenceID());
+        if (null == article){
+             hashMap.put("message","没有该文章");
+            return hashMap;
+        }
+        article.setArticleAbstract(modifyContributionRequest.getArticleAbstract());
+        article.setTitle(modifyContributionRequest.getTitle());
+        Set<Topic> topics = new HashSet<>();
+        for (String topic : modifyContributionRequest.getTopics()) {
+            topics.add(new Topic(topic));
+        }
+        article.setTopics(topics);
+
+        article.setWriters(writerRequestToWriter(modifyContributionRequest.getWriters()));
+        articleRepository.save(article);
+        hashMap.put("message","修改成功");
+        return hashMap;
+    }
+
+
+        /**
+        * @Description: 添加新平均
+        * @Param: [submitReviewResultRequest]
+        * @return: java.lang.String
+        * @Author: Shen Zhengyu
+        * @Date: 2020/5/2
+        */
 
     public String submitReviewResult(SubmitReviewResultRequest submitReviewResultRequest){
         Article article = articleRepository.findByTitleAndConferenceID(submitReviewResultRequest.getTitle(),submitReviewResultRequest.getConferenceID());
@@ -158,5 +184,14 @@ public class ContributionService {
         return"successful contribution";
     }
 
+    private ArrayList<Writer> writerRequestToWriter(List<WriterRequest> writerRequests){
+        ArrayList<Writer> writers = new ArrayList<>();
+        for (WriterRequest writerRequest : writerRequests) {
+
+            Writer writer = new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry());
+        writers.add(writer);
+        }
+        return writers;
+    }
 
 }

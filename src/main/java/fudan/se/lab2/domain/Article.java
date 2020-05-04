@@ -32,6 +32,9 @@ public class Article {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Topic> topics=new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<PCMember> pcMembers=new HashSet<>();
     //0未通过 1待审核 2已通过
     private Long status;
 
@@ -126,5 +129,13 @@ public class Article {
 
     public void setTopics(Set<Topic> topics) {
         this.topics = topics;
+    }
+
+    public Set<PCMember> getPcMembers() {
+        return pcMembers;
+    }
+
+    public void setPcMembers(Set<PCMember> pcMembers) {
+        this.pcMembers = pcMembers;
     }
 }

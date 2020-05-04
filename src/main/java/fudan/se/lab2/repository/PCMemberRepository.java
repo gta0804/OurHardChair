@@ -9,4 +9,5 @@ import java.util.*;
 public interface PCMemberRepository extends CrudRepository<PCMember,Long> {
     PCMember findByUserIdAndConferenceId(Long userId,Long conferenceId);
     List<PCMember> findAllByUserId(Long userId);
+    List<PCMember> findAllByConferenceId(Long conferenceId);
 }

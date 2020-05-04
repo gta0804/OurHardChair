@@ -10,8 +10,13 @@ public class PCMember {
     private Long id;
     private Long userId;
     private Long  conferenceId;
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Topic> topics=new HashSet<>();
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    private Set<Article> articles;
+
+
     public PCMember() {
     }
 
@@ -46,5 +51,13 @@ public class PCMember {
 
     public Long getId() {
         return id;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
     }
 }

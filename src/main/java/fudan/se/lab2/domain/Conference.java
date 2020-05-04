@@ -21,7 +21,7 @@ public class Conference {
     private String holdingTime;
     private String submissionDeadline;
     private String reviewReleaseDate;
-    private Integer isOpenSubmission;
+    private Integer status;
     private Integer reviewStatus;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "conference")
     private Set<Topic> topics=new HashSet<>();
@@ -36,7 +36,7 @@ public class Conference {
         this.holdingTime=holdingTime;
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
-        this.isOpenSubmission=isOpenSubmission;
+        this.status=isOpenSubmission;
         this.reviewStatus=1;
     }
 
@@ -101,12 +101,13 @@ public class Conference {
         this.reviewReleaseDate = reviewReleaseDate;
     }
 
-    public Integer getIsOpenSubmission() {
-        return isOpenSubmission;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setIsOpenSubmission(Integer isOpenSubmission) {
-        this.isOpenSubmission = isOpenSubmission;
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getReviewStatus() {

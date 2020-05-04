@@ -40,11 +40,11 @@ public class PCMemberControllerTest {
 //        searchUserRequest.setFull_name(date.toString());
 //        searchUserRequest.setSearch_key("tyghinjk");
 //        SearchResponse searchResponse=new SearchResponse(date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1);
-//        Assert.isTrue(searchResponse.getStatus()==1);
+//        Assert.isTrue(searchResponse.getReviewStatus()==1);
 //        ShowSubmissionResponse showSubmissionResponse=new ShowSubmissionResponse(date.toString(),date.toString(),date.toString(),date.toString(),(long)1);
-//        Assert.isTrue(showSubmissionResponse.getStatus()==(long)1);
+//        Assert.isTrue(showSubmissionResponse.getReviewStatus()==(long)1);
 //        RelatedConferenceResponse relatedConferenceResponse=new RelatedConferenceResponse(date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1,date.toString(),1);
-//        Assert.isTrue(relatedConferenceResponse.getStatus()==1);
+//        Assert.isTrue(relatedConferenceResponse.getReviewStatus()==1);
 //        ResponseEntity<HashMap<String,Object>> responseEntity=pcMemberController.search(searchUserRequest,request);
 //        Assert.isTrue(responseEntity.getBody().get("message").equals("success"));
 //        conferenceRepository.delete(conference);

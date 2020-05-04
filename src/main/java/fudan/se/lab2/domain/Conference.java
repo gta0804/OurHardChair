@@ -36,7 +36,13 @@ public class Conference {
         this.holdingTime=holdingTime;
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
+        //1：审核通过，但尚未开启投稿
+        //2：开始投稿
+        //3：截稿，开始发布submissionDeadline
+        //4：评审结果发布reviewReleaseDate
+        //5：会议开始holdingTime
         this.isOpenSubmission=isOpenSubmission;
+        //记录会议审核状态
         this.reviewStatus=1;
     }
 

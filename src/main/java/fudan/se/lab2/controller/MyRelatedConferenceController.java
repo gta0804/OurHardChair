@@ -9,6 +9,7 @@ import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.ApplyConferenceService;
 import fudan.se.lab2.service.MyRelatedConferenceService;
+import fudan.se.lab2.service.UpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ import java.util.List;
 public class MyRelatedConferenceController {
     @Autowired
     private MyRelatedConferenceService myRelatedConferenceService;
+
+    @Autowired
+    private UpdateService updateService;
 
     @Autowired
     private ApplyConferenceService applyConferenceService;
@@ -58,6 +62,7 @@ public class MyRelatedConferenceController {
             RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
             responseConferences.add(response);
         }
+        updateService.update(logger);
         map.put("message","获取所有我主持的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
@@ -84,6 +89,7 @@ public class MyRelatedConferenceController {
             map.put("message","获取所有我审稿的会议申请成功");
             map.put("token",token);
             map.put("meetings",responseConferences);
+            updateService.update(logger);
             return ResponseEntity.ok(map);
         }
 
@@ -108,6 +114,7 @@ public class MyRelatedConferenceController {
         map.put("message","获取所有我投稿的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
+        updateService.update(logger);
         return ResponseEntity.ok(map);
     }
     @CrossOrigin(origins = "*")
@@ -127,6 +134,7 @@ public class MyRelatedConferenceController {
         }
         map.put("token",token);
         map.put("chairName",chairName);
+        updateService.update(logger);
         return ResponseEntity.ok(map);
     }
 
@@ -140,6 +148,7 @@ public class MyRelatedConferenceController {
         map.put("message","success");
         map.put("token",token);
         map.put("submissions",responses);
+        updateService.update(logger);
         return ResponseEntity.ok(map);
     }
 

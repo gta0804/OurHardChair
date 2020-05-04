@@ -5,6 +5,7 @@ import fudan.se.lab2.domain.Topic;
 import java.util.*;
 
 public  class RelatedConferenceResponse {
+    public Long conferenceId;
     private String full_name;
     private String short_name;
     private String place;
@@ -15,7 +16,8 @@ public  class RelatedConferenceResponse {
     private String chair_name;
     private Integer is_open_submission;
     private Set<Topic> topics;
-    public RelatedConferenceResponse(String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_name, Integer is_open_submission,Set<Topic> topics){
+    public RelatedConferenceResponse(Long conferenceId,String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_name, Integer is_open_submission,Set<Topic> topics){
+        this.conferenceId = conferenceId;
         this.full_name = full_name;
         this.short_name = short_name;
         this.place = place;

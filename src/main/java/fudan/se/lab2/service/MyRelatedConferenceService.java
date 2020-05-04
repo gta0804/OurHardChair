@@ -95,6 +95,15 @@ public class MyRelatedConferenceService {
         return responses;
     }
 
+    public String getChairName(Long id){
+        User user=userRepository.findById(id).orElse(null);
+        if(user==null){
+            return null;
+        }
+        return user.getUsername();
+
+    }
+
     public String openManuscriptReview(OpenManuscriptReviewRequest request){
         Long conferenceId=request.getConferenceId();
         if(conferenceId==null){

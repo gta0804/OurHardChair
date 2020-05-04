@@ -26,9 +26,9 @@ public  class RelatedConferenceResponse {
         this.start_date = start_date;
         this.deadline_date = deadline_date;
         this.release_date = release_date;
-        this.status = this.status;
+        this.status = status;
         this.chair_name = chair_name;
-        this.is_open_submission = status;
+        this.is_open_submission = is_open_submission;
         this.topics=topics;
     }
 

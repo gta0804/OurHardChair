@@ -17,7 +17,7 @@ public class AllConferenceResponse {
     private Integer is_open_submission;
     private Set<Topic> topics;
 
-    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer reviewStatus, String chair_username, Integer status,Set<Topic> topics){
+    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission,Set<Topic> topics){
         this.conference_id = conference_id;
         this.full_name = full_name;
         this.short_name = short_name;
@@ -25,9 +25,9 @@ public class AllConferenceResponse {
         this.start_date = start_date;
         this.deadline_date = deadline_date;
         this.release_date = release_date;
-        this.status = reviewStatus;
+        this.status = status;
         this.chair_username = chair_username;
-        this.is_open_submission = status;
+        this.is_open_submission = is_open_submission;
         this.topics=topics;
     }
 

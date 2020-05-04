@@ -12,9 +12,9 @@ public class AllConferenceResponse {
     private String start_date;
     private String deadline_date;
     private String release_date;
-    private Integer reviewStatus;
-    private String chair_username;
     private Integer status;
+    private String chair_username;
+    private Integer is_open_submission;
     private Set<Topic> topics;
 
     public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer reviewStatus, String chair_username, Integer status,Set<Topic> topics){
@@ -25,9 +25,9 @@ public class AllConferenceResponse {
         this.start_date = start_date;
         this.deadline_date = deadline_date;
         this.release_date = release_date;
-        this.reviewStatus = reviewStatus;
+        this.status = reviewStatus;
         this.chair_username = chair_username;
-        this.status = status;
+        this.is_open_submission = status;
         this.topics=topics;
     }
 
@@ -87,20 +87,20 @@ public class AllConferenceResponse {
         this.release_date = release_date;
     }
 
-    public Integer getReviewStatus() {
-        return reviewStatus;
-    }
-
-    public void setReviewStatus(Integer reviewStatus) {
-        this.reviewStatus = reviewStatus;
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getIs_open_submission() {
+        return is_open_submission;
+    }
+
+    public void setIs_open_submission(Integer is_open_submission) {
+        this.is_open_submission = is_open_submission;
     }
 
     public String getChair_username() {

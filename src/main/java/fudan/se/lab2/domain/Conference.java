@@ -1,10 +1,7 @@
 package fudan.se.lab2.domain;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,7 +18,7 @@ public class Conference {
     private String holdingTime;
     private String submissionDeadline;
     private String reviewReleaseDate;
-    private Integer status;
+    private Integer isOpenSubmission;
     private Integer reviewStatus;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "conference")
     private Set<Topic> topics=new HashSet<>();
@@ -36,7 +33,14 @@ public class Conference {
         this.holdingTime=holdingTime;
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
-        this.status=isOpenSubmission;
+        this.isOpenSubmission =isOpenSubmission;
+        //1：审核通过，但尚未开启投稿
+        //2：开始投稿
+        //3：截稿，开始发布submissionDeadline
+        //4：评审结果发布reviewReleaseDate
+        //5：会议开始holdingTime
+        this.isOpenSubmission=isOpenSubmission;
+        //记录会议审核状态
         this.reviewStatus=1;
     }
 
@@ -101,13 +105,13 @@ public class Conference {
         this.reviewReleaseDate = reviewReleaseDate;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getIsOpenSubmission() {
+        return isOpenSubmission;
     }
 
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setIsOpenSubmission(Integer isOpenSubmission) {
+        this.isOpenSubmission = isOpenSubmission;
     }
 
     public Integer getReviewStatus() {

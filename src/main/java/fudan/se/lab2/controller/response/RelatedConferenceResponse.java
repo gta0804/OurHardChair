@@ -5,26 +5,30 @@ import fudan.se.lab2.domain.Topic;
 import java.util.*;
 
 public  class RelatedConferenceResponse {
+    public Long conferenceId;
     private String full_name;
     private String short_name;
     private String place;
     private String start_date;
     private String deadline_date;
     private String release_date;
-    private Integer reviewStatus;
-    private String chair_name;
     private Integer status;
+    private String chair_name;
+    private Integer is_open_submission;
     private Set<Topic> topics;
-    public RelatedConferenceResponse(String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer reviewStatus, String chair_name, Integer status,Set<Topic> topics){
+
+
+    public RelatedConferenceResponse(Long conferenceId,String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_name, Integer is_open_submission,Set<Topic> topics){
+        this.conferenceId = conferenceId;
         this.full_name = full_name;
         this.short_name = short_name;
         this.place = place;
         this.start_date = start_date;
         this.deadline_date = deadline_date;
         this.release_date = release_date;
-        this.reviewStatus = reviewStatus;
+        this.status = this.status;
         this.chair_name = chair_name;
-        this.status = status;
+        this.is_open_submission = status;
         this.topics=topics;
     }
 
@@ -60,12 +64,12 @@ public  class RelatedConferenceResponse {
         this.start_date = start_date;
     }
 
-    public Integer getReviewStatus() {
-        return reviewStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setReviewStatus(Integer reviewStatus) {
-        this.reviewStatus = reviewStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public void setRelease_date(String release_date) {
@@ -92,12 +96,12 @@ public  class RelatedConferenceResponse {
         this.chair_name = chair_name;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getIs_open_submission() {
+        return is_open_submission;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setIs_open_submission(Integer is_open_submission) {
+        this.is_open_submission = is_open_submission;
     }
 
     public Set<Topic> getTopics() {

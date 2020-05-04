@@ -76,7 +76,7 @@ public class MyRelatedConferenceService {
 
     public boolean openSubmission(String full_name){
         Conference conference = conferenceRepository.findByFullName(full_name);
-        conference.setStatus(2);
+        conference.setIsOpenSubmission(2);
         conferenceRepository.save(conference);
         return true;
     }
@@ -112,7 +112,7 @@ public class MyRelatedConferenceService {
         if(pcMembersForConference.size()<2){
             return "PCMember数量少于2个，您不能开启投稿";
         }
-        conference.setStatus(3);
+        conference.setIsOpenSubmission(3);
         conferenceRepository.save(conference);
 
         List<Article> articles=articleRepository.findByConferenceID(conferenceId);

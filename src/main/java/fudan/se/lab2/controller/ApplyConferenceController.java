@@ -8,6 +8,7 @@ import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.ApplyConferenceService;
+import fudan.se.lab2.service.UpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class ApplyConferenceController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+            private UpdateService updateService;
     Logger logger = LoggerFactory.getLogger(ApplyConferenceController.class);
 
     @Autowired
@@ -61,6 +64,7 @@ public class ApplyConferenceController {
         map.put("message","获取所有会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
+        updateService.update(logger);
         return ResponseEntity.ok(map);
     }
 
@@ -76,6 +80,7 @@ public class ApplyConferenceController {
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
         Conference conference = applyConferenceService.applyMeeting(request,id);
+        updateService.update(logger);
         if (null == conference){
             map.put("message","会议申请失败，已有该会议");
             return ResponseEntity.ok(map);
@@ -97,11 +102,11 @@ public class ApplyConferenceController {
     @CrossOrigin(origins = "*")
     @PostMapping("/ReviewConference")
     public ResponseEntity<HashMap<String,Object>> reviewConference(HttpServletRequest httpServletRequest){
-
         logger.debug("reviewConference");
         HashMap<String,Object> map=new HashMap<>();
         List<Conference> conferences = applyConferenceService.reviewConference();
         String token= httpServletRequest.getHeader("Authorization").substring(7);
+        updateService.update(logger);
 
         if(null==conferences){
             map.put("message","拉取待审核会议失败");

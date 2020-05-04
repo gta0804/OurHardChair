@@ -56,7 +56,7 @@ public class MyRelatedConferenceController {
         //开始合并
         List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),SecurityContextHolder.getContext().getAuthentication().getName(),conference.getStatus(),conference.getTopics());
+            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
             responseConferences.add(response);
         }
         map.put("message","获取所有我主持的会议申请成功");
@@ -79,7 +79,7 @@ public class MyRelatedConferenceController {
         else{
             List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
             for (Conference conference : conferences) {
-                RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,SecurityContextHolder.getContext().getAuthentication().getName(),conference.getStatus(),conference.getTopics());
+                RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
                 responseConferences.add(response);
             }
             map.put("message","获取所有我审稿的会议申请成功");
@@ -103,7 +103,7 @@ public class MyRelatedConferenceController {
         }
         List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
         for (Conference conference : conferences) {
-            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,SecurityContextHolder.getContext().getAuthentication().getName(),conference.getStatus(),conference.getTopics());
+            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),(Integer)2,SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
             responseConferences.add(response);
         }
         map.put("message","获取所有我投稿的会议申请成功");

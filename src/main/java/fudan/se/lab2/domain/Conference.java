@@ -1,10 +1,7 @@
 package fudan.se.lab2.domain;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,6 +33,7 @@ public class Conference {
         this.holdingTime=holdingTime;
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
+        this.isOpenSubmission =isOpenSubmission;
         //1：审核通过，但尚未开启投稿
         //2：开始投稿
         //3：截稿，开始发布submissionDeadline
@@ -110,6 +108,7 @@ public class Conference {
     public Integer getIsOpenSubmission() {
         return isOpenSubmission;
     }
+
 
     public void setIsOpenSubmission(Integer isOpenSubmission) {
         this.isOpenSubmission = isOpenSubmission;

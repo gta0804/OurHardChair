@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.OpenSubmissionRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
 import fudan.se.lab2.controller.response.RelatedConferenceResponse;
@@ -141,6 +142,18 @@ public class MyRelatedConferenceController {
         map.put("token",token);
         map.put("submissions",responses);
         return ResponseEntity.ok(map);
+    }
+
+    @CrossOrigin("*")
+    @PostMapping("/openManuscriptReview")
+    public ResponseEntity<HashMap<String,Object>> openManuscriptReview(@RequestBody OpenManuscriptReviewRequest request){
+        logger.debug("openManuscriptReview"+request.toString());
+
+        HashMap<String,Object> map=new HashMap<>();
+        String message=myRelatedConferenceService.openManuscriptReview(request);
+        map.put("message",message);
+        return ResponseEntity.ok(map);
+
     }
 
 

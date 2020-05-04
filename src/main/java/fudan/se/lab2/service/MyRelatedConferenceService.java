@@ -122,8 +122,8 @@ public class MyRelatedConferenceService {
             }
         }
         else{
-            for(Article article:articles){
-                allocateAll(article,pcMembersForConference);
+            for(Article article:articles) {
+                allocateAll(article, pcMembersForConference);
             }
         }
         return "开启投稿成功";
@@ -158,7 +158,28 @@ public class MyRelatedConferenceService {
     }
 
     private void allocateAll(Article article,List<PCMember> pCMembers){
-        
+        List<PCMember> temp=new LinkedList<>(pCMembers);
+        int minimumNumber=pCMembers.get(0).getArticles().size();
+
+        for(int i=0;i<3;i++){
+            for(PCMember pcMember:pCMembers){
+                if(pcMember.getArticles().size()<minimumNumber){
+                    minimumNumber=pcMember.getArticles().size();
+                }
+            }
+            List<PCMember> feasiblePCMembers=new LinkedList<>();
+            for(PCMember pcMember:temp){
+                if(pcMember.getArticles().size()<=minimumNumber){
+                    feasiblePCMembers.add(pcMember);
+                }
+            }
+            int pcMemberSelectedIndex=new Random().nextInt()%feasiblePCMembers.size();
+            PCMember pcMemberSelected=feasiblePCMembers.get(pcMemberSelectedIndex);
+            Set<Article> articles=pcMemberSelected.getArticles();
+            articles.add(article);
+            pcMemberRepository.save(pcMemberSelected);
+            temp.remove(pcMemberSelected);
+        }
     }
 
     private boolean isMatch(Article article,PCMember pcMember){

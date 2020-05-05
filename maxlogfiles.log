@@ -760,3 +760,11 @@ java.lang.NullPointerException: null
 2020-05-05 11:59:41.228  WARN 18400 --- [http-nio-8080-exec-9] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-05-05 11:59:41.248  WARN 18400 --- [http-nio-8080-exec-8] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-05-05 11:59:41.248  WARN 18400 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-05 11:59:48.028  WARN 18400 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-05 12:00:58.062 DEBUG 18400 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/AllConferences", parameters={}
+2020-05-05 12:00:58.063 DEBUG 18400 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.ApplyConferenceController#showAllConference(HttpServletRequest)
+2020-05-05 12:00:58.100 DEBUG 18400 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-05 12:00:58.100 DEBUG 18400 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.controller.response.AllConferenceResponse@2b19484f, fudan.se.lab2.controlle (truncated)...]
+2020-05-05 12:00:58.112 DEBUG 18400 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-05-05 12:06:10.088  WARN 18400 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m7s258ms589µs400ns).
+2020-05-05 14:43:23.028  WARN 18400 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h37m12s945ms533µs200ns).

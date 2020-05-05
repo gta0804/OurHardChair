@@ -135,8 +135,13 @@ public class ContributionService {
         article.setArticleAbstract(modifyContributionRequest.getArticleAbstract());
         article.setTitle(modifyContributionRequest.getTitle());
         Set<Topic> topics = new HashSet<>();
-        for (String topic : modifyContributionRequest.getTopics()) {
-            topics.add(new Topic(topic));
+        for (String topicName : modifyContributionRequest.getTopics()) {
+            Topic topic=topicRepository.findByTopic(topicName);
+            if(topic==null){
+                hashMap.put("message","修改失败");
+                return hashMap;
+            }
+            topics.add(topic);
         }
         article.setTopics(topics);
 

@@ -52,15 +52,7 @@ public class ApplyConferenceController {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> map = new HashMap<>();
         List<Conference> conferences = applyConferenceService.showAllConference();
-        List<AllConferenceResponse> responseConferences = new ArrayList<>();
-        for (Conference conference : conferences) {
-            User user=userRepository.findById(conference.getChairId()).orElse(null);
-            if(user!=null){
-                AllConferenceResponse response = new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),2,user.getUsername(),conference.getIsOpenSubmission(),conference.getTopics());
-                responseConferences.add(response);
-            }
-
-        }
+        List<AllConferenceResponse> responseConferences =applyConferenceService.getResponses(conferences);
         map.put("message","获取所有会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);

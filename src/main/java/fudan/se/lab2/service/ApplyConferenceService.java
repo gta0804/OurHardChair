@@ -2,6 +2,7 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
+import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,11 @@ public class ApplyConferenceService {
         //使chair成为PCMember
         PCMember pcMember=new PCMember(user.getId(),conference.getId());
         Set<Topic> topics = new HashSet<>(conference.getTopics());
+        for(Topic topic:topics){
+            Set<PCMember> pcMembers=topic.getPcMembers();
+            pcMembers.add(pcMember);
+            topic.setPcMembers(pcMembers);
+        }
         pcMember.setTopics(topics);
         pcMemberRepository.save(pcMember);
 
@@ -117,6 +123,27 @@ public class ApplyConferenceService {
     public List<Conference>  showAllConference(){
         List<Conference> conferences =  conferenceRepository.findAllByReviewStatus(2);
         return conferences;
+    }
+
+    private String getChairName(long id){
+        User user=userRepository.findById(id).orElse(null);
+        if(user==null){
+            return null;
+        }
+        return user.getUsername();
+    }
+
+    public List<AllConferenceResponse> getResponses(List<Conference> conferences){
+        List<AllConferenceResponse> responses=new LinkedList<>();
+        for(Conference conference:conferences){
+            List<String> topicNames=new LinkedList<>();
+            for(Topic topic:conference.getTopics()){
+                topicNames.add(topic.getTopic());
+            }
+            String chairName=getChairName(conference.getChairId());
+            responses.add(new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission(),topicNames));
+        }
+        return responses;
     }
 
 }

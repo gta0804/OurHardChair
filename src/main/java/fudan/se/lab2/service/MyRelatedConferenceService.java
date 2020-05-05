@@ -2,6 +2,7 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
+import fudan.se.lab2.controller.response.RelatedConferenceResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
@@ -38,10 +39,6 @@ public class MyRelatedConferenceService {
         return conferences;
     }
 
-    public List<Conference> showAllConference(){
-        List<Conference> conferences = (List<Conference>) conferenceRepository.findAll();
-        return conferences;
-    }
 
     public List<Conference> showAllConferenceForPCMember(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -104,6 +101,19 @@ public class MyRelatedConferenceService {
 
     }
 
+    public List<RelatedConferenceResponse> getResponses(List<Conference> conferences){
+        List<RelatedConferenceResponse> responses=new LinkedList<>();
+        for(Conference conference: conferences){
+            List<String> topicNames=new LinkedList<>();
+            for(Topic topic:conference.getTopics()){
+                topicNames.add(topic.getTopic());
+            }
+            String chairName=getChairName(conference.getChairId());
+            responses.add(new RelatedConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission(),topicNames));
+        }
+        return responses;
+    }
+
     public String openManuscriptReview(OpenManuscriptReviewRequest request){
         Long conferenceId=request.getConferenceId();
         if(conferenceId==null){
@@ -153,10 +163,7 @@ public class MyRelatedConferenceService {
         }
         else if(matchingPCMembers.size()==3){
             for(PCMember matchingPCMember:matchingPCMembers){
-                Set<Article> articles=matchingPCMember.getArticles();
-                articles.add(article);
-                matchingPCMember.setArticles(articles);
-                articleRepository.save(article);
+                saveAllocation(matchingPCMember,article);
             }
         }
         else{
@@ -182,12 +189,10 @@ public class MyRelatedConferenceService {
                     feasiblePCMembers.add(pcMember);
                 }
             }
-            int pcMemberSelectedIndex=new Random().nextInt()%feasiblePCMembers.size();
-            PCMember pcMemberSelected=feasiblePCMembers.get(pcMemberSelectedIndex);
-            Set<Article> articles=pcMemberSelected.getArticles();
-            articles.add(article);
-            pcMemberRepository.save(pcMemberSelected);
-            temp.remove(pcMemberSelected);
+            int pcMemberSelectedIndex=(new Random().nextInt())%feasiblePCMembers.size();
+            PCMember matchingPCMember=feasiblePCMembers.get(pcMemberSelectedIndex);
+            saveAllocation(matchingPCMember,article);
+            temp.remove(matchingPCMember);
         }
     }
 
@@ -204,11 +209,25 @@ public class MyRelatedConferenceService {
         return false;
     }
 
+    private void saveAllocation(PCMember pcMember,Article article){
+        Set<Article> articles=pcMember.getArticles();
+        Set<PCMember> articlePCMembers=article.getPcMembers();
+        articlePCMembers.add(pcMember);
+        articles.add(article);
+        article.setPcMembers(articlePCMembers);
+        pcMember.setArticles(articles);
+        articleRepository.save(article);
+    }
+
     private void saveAllocations(int[] random,List<PCMember> pcMembers,Article article){
         for(int i=0;i<random.length;i++){
-            Set<Article> articles=pcMembers.get(random[i]).getArticles();
+            PCMember pcMember=pcMembers.get(random[i]);
+            Set<Article> articles=pcMember.getArticles();
+            Set<PCMember> articlePCMembers=article.getPcMembers();
             articles.add(article);
-            pcMembers.get(random[i]).setArticles(articles);
+            articlePCMembers.add(pcMember);
+            pcMember.setArticles(articles);
+            article.setPcMembers(articlePCMembers);
             articleRepository.save(article);
         }
     }

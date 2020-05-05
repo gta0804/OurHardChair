@@ -54,11 +54,7 @@ public class MyRelatedConferenceController {
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair();
         //再加载所有申请过的会议
         //开始合并
-        List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
-        for (Conference conference : conferences) {
-            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),SecurityContextHolder.getContext().getAuthentication().getName(),conference.getIsOpenSubmission(),conference.getTopics());
-            responseConferences.add(response);
-        }
+        List<RelatedConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
         map.put("message","获取所有我主持的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
@@ -77,12 +73,7 @@ public class MyRelatedConferenceController {
             return ResponseEntity.ok(map);
         }
         else{
-            List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
-            for (Conference conference : conferences) {
-                String chairName=myRelatedConferenceService.getChairName(conference.getChairId());
-                RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),2,chairName,conference.getIsOpenSubmission(),conference.getTopics());
-                responseConferences.add(response);
-            }
+            List<RelatedConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
             map.put("message","获取所有我审稿的会议申请成功");
             map.put("token",token);
             map.put("meetings",responseConferences);
@@ -102,12 +93,7 @@ public class MyRelatedConferenceController {
             map.put("message","获取所有我主持的会议申请失败");
             return ResponseEntity.ok(map);
         }
-        List<RelatedConferenceResponse> responseConferences = new ArrayList<>();
-        for (Conference conference : conferences) {
-            String chairName=myRelatedConferenceService.getChairName(conference.getChairId());
-            RelatedConferenceResponse response = new RelatedConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),2,chairName,conference.getIsOpenSubmission(),conference.getTopics());
-            responseConferences.add(response);
-        }
+        List<RelatedConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
         map.put("message","获取所有我投稿的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);

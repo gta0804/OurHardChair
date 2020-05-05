@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 @Service
@@ -240,7 +241,7 @@ public class MyRelatedConferenceService {
         }
 
         int[] result = new int[n];
-        Random rd = new Random();
+        SecureRandom rd=new SecureRandom();
         int index ;
         int len=source.length;
         for (int i = 0; i < result.length; i++) {

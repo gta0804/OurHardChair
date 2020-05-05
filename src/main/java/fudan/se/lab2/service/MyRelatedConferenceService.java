@@ -234,7 +234,7 @@ public class MyRelatedConferenceService {
 
     private static int[] getRandomNumbers(int max,int n){
         //初始化给定范围的待选数组
-        int[] source = new int[max+1];
+        int[] source = new int[max];
         for (int i = 0; i < source.length; i++){
             source[i] = i;
         }

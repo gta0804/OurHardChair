@@ -15,9 +15,18 @@ public class AllConferenceResponse {
     private Integer status;
     private String chair_username;
     private Integer is_open_submission;
+    private Integer can_release;
     private List<String> topics;
 
-    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission,List<String> topics){
+    public Integer getCan_release() {
+        return can_release;
+    }
+
+    public void setCan_release(Integer can_release) {
+        this.can_release = can_release;
+    }
+
+    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission, List<String> topics){
         this.conference_id = conference_id;
         this.full_name = full_name;
         this.short_name = short_name;

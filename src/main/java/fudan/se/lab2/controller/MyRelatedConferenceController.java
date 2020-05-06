@@ -4,6 +4,7 @@ import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.OpenSubmissionRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
 import fudan.se.lab2.controller.response.AllConferenceResponse;
+import fudan.se.lab2.controller.response.ConferenceForChairResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
@@ -75,10 +76,10 @@ public class MyRelatedConferenceController {
         //首先加载所有已申请的会议
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> map = new HashMap<>();
-        List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair();
+        List<ConferenceForChairResponse> conferences = myRelatedConferenceService.showAllConferenceForChair();
         //再加载所有申请过的会议
         //开始合并
-        List<AllConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
+        List<AllConferenceResponse> responseConferences = myRelatedConferenceService.getResponses2(conferences);
         map.put("message","获取所有我主持的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);

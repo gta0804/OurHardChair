@@ -3,6 +3,7 @@ package fudan.se.lab2.service;
 import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
 import fudan.se.lab2.controller.response.AllConferenceResponse;
+import fudan.se.lab2.controller.response.ConferenceForChairResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
@@ -33,11 +34,26 @@ public class MyRelatedConferenceService {
     @Autowired
     private TopicRepository topicRepository;
 
-    public List<Conference> showAllConferenceForChair(){
+    public List<ConferenceForChairResponse> showAllConferenceForChair(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Long id = userRepository.findByUsername(username).getId();
         List<Conference> conferences = conferenceRepository.findAllByChairId(id);
-        return conferences;
+        List<ConferenceForChairResponse> conferenceForChairResponses = new ArrayList<>();
+        for (Conference conference : conferences) {
+            ConferenceForChairResponse conferenceForChairResponse = new ConferenceForChairResponse();
+            conferenceForChairResponse.setConference(conference);
+            List<Article> articles = articleRepository.findByConferenceID(conference.getId());
+            int flag =1;
+            for (Article article : articles) {
+                if (article.getStatus() == 0){
+                    flag = 0;
+                    break;
+                }
+            }
+            conferenceForChairResponse.setCanRelease(flag);
+            conferenceForChairResponses.add(conferenceForChairResponse);
+        }
+        return conferenceForChairResponses;
     }
 
 
@@ -107,6 +123,22 @@ public class MyRelatedConferenceService {
 
     }
 
+    public List<AllConferenceResponse> getResponses2(List<ConferenceForChairResponse> conferences){
+        List<AllConferenceResponse> responses=new LinkedList<>();
+        for(ConferenceForChairResponse conferenceForChairResponse: conferences){
+            Conference conference = conferenceForChairResponse.getConference();
+            List<String> topicNames=new LinkedList<>();
+            for(Topic topic:conference.getTopics()){
+                topicNames.add(topic.getTopic());
+            }
+            String chairName=getChairName(conference.getChairId());
+            AllConferenceResponse allConferenceResponse = new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission(),topicNames);
+            allConferenceResponse.setCan_release(conferenceForChairResponse.getCanRelease());
+            responses.add(allConferenceResponse);
+        }
+        return responses;
+    }
+
     public List<AllConferenceResponse> getResponses(List<Conference> conferences){
         List<AllConferenceResponse> responses=new LinkedList<>();
         for(Conference conference: conferences){
@@ -118,6 +150,18 @@ public class MyRelatedConferenceService {
             responses.add(new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission(),topicNames));
         }
         return responses;
+    }
+
+    public String releaseReviewResult(long conference_id,long userId){
+        Conference conference = conferenceRepository.findById(conference_id).orElse(null);
+        if (conference.getChairId() == (userId)){
+            conference.setReviewStatus(Math.max(conference.getReviewStatus(),4));
+            return "开启成功";
+        }
+        else{
+            return "开启失败";
+
+        }
     }
 
     public String openManuscriptReview(OpenManuscriptReviewRequest request){
@@ -259,5 +303,7 @@ public class MyRelatedConferenceService {
         }
         return result;
     }
+
+
 
 }

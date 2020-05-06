@@ -16,6 +16,8 @@ public class PCMember {
     @ManyToMany(cascade=CascadeType.ALL)
     private Set<Article> articles;
 
+    @ManyToMany(cascade=CascadeType.ALL)
+    private Set<Article> articlesHaveReviewed;
 
     public PCMember() {
     }
@@ -59,5 +61,13 @@ public class PCMember {
 
     public Set<Article> getArticles() {
         return articles;
+    }
+
+    public Set<Article> getArticlesHaveReviewed() {
+        return articlesHaveReviewed;
+    }
+
+    public void setArticlesHaveReviewed(Set<Article> articlesHaveReviewed) {
+        this.articlesHaveReviewed = articlesHaveReviewed;
     }
 }

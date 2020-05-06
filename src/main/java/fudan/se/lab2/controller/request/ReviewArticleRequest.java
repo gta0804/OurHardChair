@@ -11,32 +11,32 @@ import org.springframework.stereotype.Controller;
  **/
 @Controller
 public class ReviewArticleRequest {
-    private Long conferenceID;
-    private String title;
+    private Long conference_id;
+    private Long userId;
 
     @Autowired
     public ReviewArticleRequest(){
 
     }
 
-    public ReviewArticleRequest(Long conferenceID, String title) {
-        this.conferenceID = conferenceID;
-        this.title = title;
+    public ReviewArticleRequest(Long conference_id, Long userId) {
+        this.conference_id = conference_id;
+        this.userId = userId;
     }
 
-    public Long getConferenceID() {
-        return conferenceID;
+    public Long getConference_id() {
+        return conference_id;
     }
 
-    public void setConferenceID(Long conferenceID) {
-        this.conferenceID = conferenceID;
+    public void setConference_id(Long conference_id) {
+        this.conference_id = conference_id;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

@@ -35,9 +35,10 @@ public class Article {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<PCMember> pcMembers=new HashSet<>();
-    //0未通过 1待审核 2已通过
+    //0暂时无法发布 1已经可以发布
     private Long status;
 
+    private Integer howManyPeopleHaveReviewed;
     public Article() {
     }
 
@@ -57,6 +58,7 @@ public class Article {
         this.articleAbstract = articleAbstract;
         this.status = (long)1;
         this.writers = writers;
+        this.howManyPeopleHaveReviewed = 0;
     }
 
     public Long getStatus() {
@@ -137,5 +139,13 @@ public class Article {
 
     public void setPcMembers(Set<PCMember> pcMembers) {
         this.pcMembers = pcMembers;
+    }
+
+    public Integer getHowManyPeopleHaveReviewed() {
+        return howManyPeopleHaveReviewed;
+    }
+
+    public void setHowManyPeopleHaveReviewed(Integer howManyPeopleHaveReviewed) {
+        this.howManyPeopleHaveReviewed = howManyPeopleHaveReviewed;
     }
 }

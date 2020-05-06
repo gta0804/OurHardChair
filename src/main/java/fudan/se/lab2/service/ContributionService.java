@@ -2,6 +2,7 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.controller.request.componment.WriterRequest;
+import fudan.se.lab2.controller.response.ArticleForPCMemberResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class ContributionService {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private PCMemberRepository pcMemberRepository;
 
     @Autowired
     private ConferenceRepository conferenceRepository;
@@ -79,27 +82,45 @@ public class ContributionService {
             return "successful contribution";
     }
 
+    /**
+    * @Description: 思路：查找一个PCMember所有的分配到的稿件
+    * @Param: [reviewArticleRequest]
+    * @return: java.util.HashMap<java.lang.String,java.lang.Object>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/6
+    */
+
     public HashMap<String,Object> reviewArticle(ReviewArticleRequest reviewArticleRequest){
-        List<Article> articles = articleRepository.findArticleByTitle(reviewArticleRequest.getTitle());
-        HashMap<String,Object> hashMap = new HashMap<>();
-        for (Article article : articles) {
-            if (article.getConferenceID().equals(reviewArticleRequest.getConferenceID())){
-                String conferenceFullName = (conferenceRepository.findById(article.getConferenceID())).get().getFullName();
-                Set<Topic> topics = conferenceRepository.findByFullName(conferenceFullName).getTopics();
-                ArrayList<String> topicStrings = new ArrayList<>();
-                for (Topic topic : topics) {
-                    topicStrings.add(topic.getTopic());
+        PCMember pcMember = pcMemberRepository.findByUserIdAndConferenceId(reviewArticleRequest.getUserId(),reviewArticleRequest.getConference_id());
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if (null != pcMember) {
+            Set<Topic> topicSet = pcMember.getTopics();
+            Set<Article> articleSet = pcMember.getArticles();
+
+            List<Topic> topics = new ArrayList<>(topicSet);
+            hashMap.put("message","请求成功");
+            hashMap.put("topics",topics);
+            Set<Article> articlesHaveReviewed = pcMember.getArticlesHaveReviewed();
+            List<ArticleForPCMemberResponse> articleForPCMemberResponses = new ArrayList<>();
+            for (Article article : articleSet) {
+                ArticleForPCMemberResponse articleForPCMemberResponse = new ArticleForPCMemberResponse();
+                articleForPCMemberResponse.setArticleAbstract(article.getArticleAbstract());
+                articleForPCMemberResponse.setWriters(article.getWriters());
+                for (Article article1 : articlesHaveReviewed) {
+                    if (article1.getConferenceID().equals(reviewArticleRequest.getConference_id()) && article1.getTitle().equals(article.getTitle())){
+                        //已经审稿
+                        articleForPCMemberResponse.setStatus(1);
+                    }else{
+                        articleForPCMemberResponse.setStatus(0);
+                    }
                 }
-                hashMap.put("message","预览成功");
-                hashMap.put("title",article.getTitle());
-                hashMap.put("articleAbstract",article.getArticleAbstract());
-                hashMap.put("articlePath","/workplace/upload/"+article.getFilename());
-                hashMap.put("status",article.getStatus().toString());
-                hashMap.put("topics",topicStrings);
-                return hashMap;
+                articleForPCMemberResponse.setTitle(article.getTitle());
+                articleForPCMemberResponses.add(articleForPCMemberResponse);
             }
+            hashMap.put("articles",articleForPCMemberResponses);
+        }else{
+            hashMap.put("message","请求失败");
         }
-        hashMap.put("message","预览失败，没有找到改文件");
         return hashMap;
     }
 
@@ -165,22 +186,37 @@ public class ContributionService {
         */
 
     public String submitReviewResult(SubmitReviewResultRequest submitReviewResultRequest){
-        Article article = articleRepository.findByTitleAndConferenceID(submitReviewResultRequest.getTitle(),submitReviewResultRequest.getConferenceID());
+        //单人的评价
+        Article article = articleRepository.findByTitleAndConferenceID(submitReviewResultRequest.getTitle(),submitReviewResultRequest.getConference_id());
         if (article == null){
             return "NOT FOUND";
         }
         Evaluation evaluation = new Evaluation(submitReviewResultRequest.getUserId(),submitReviewResultRequest.getScore(),submitReviewResultRequest.getComment(),submitReviewResultRequest.getConfidence());
         evaluationRepository.save(evaluation);
-        Result result = resultRepository.findResultByConferenceIDAndTitle(submitReviewResultRequest.getConferenceID(),submitReviewResultRequest.getTitle());
+
+
+        //总评价
+        Result result = resultRepository.findResultByConferenceIDAndTitle(submitReviewResultRequest.getConference_id(),submitReviewResultRequest.getTitle());
         if(null == result){
             Set<Evaluation> evaluations = new HashSet<>();
             evaluations.add(evaluation);
-            resultRepository.save(new Result(submitReviewResultRequest.getConferenceID(),submitReviewResultRequest.getTitle(),evaluations));
+            resultRepository.save(new Result(submitReviewResultRequest.getConference_id(),submitReviewResultRequest.getTitle(),evaluations));
         }else{
             Set<Evaluation> evaluations = result.getEvaluations();
             evaluations.add(evaluation);
             resultRepository.save(result);
         }
+        PCMember pcMember = pcMemberRepository.findByUserIdAndConferenceId(submitReviewResultRequest.getUserId(),submitReviewResultRequest.getConference_id());
+        Set<Article> articles = pcMember.getArticlesHaveReviewed();
+        articles.add(article);
+        pcMember.setArticlesHaveReviewed(articles);
+        pcMemberRepository.save(pcMember);
+
+        article.setHowManyPeopleHaveReviewed(article.getHowManyPeopleHaveReviewed()+1);
+        if (article.getHowManyPeopleHaveReviewed() == 3){
+            article.setStatus((long)1);
+        }
+        articleRepository.save(article);
         return"successful contribution";
     }
 

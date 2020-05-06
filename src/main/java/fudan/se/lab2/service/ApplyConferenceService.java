@@ -2,6 +2,7 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
+import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,11 @@ public class ApplyConferenceService {
         //使chair成为PCMember
         PCMember pcMember=new PCMember(user.getId(),conference.getId());
         Set<Topic> topics = new HashSet<>(conference.getTopics());
+        for(Topic topic:topics){
+            Set<PCMember> pcMembers=topic.getPcMembers();
+            pcMembers.add(pcMember);
+            topic.setPcMembers(pcMembers);
+        }
         pcMember.setTopics(topics);
         pcMemberRepository.save(pcMember);
 
@@ -111,11 +117,6 @@ public class ApplyConferenceService {
         if(conferences==null){
             return null;
         }
-        return conferences;
-    }
-
-    public List<Conference>  showAllConference(){
-        List<Conference> conferences =  conferenceRepository.findAllByReviewStatus(2);
         return conferences;
     }
 

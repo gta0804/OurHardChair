@@ -38,35 +38,7 @@ public class ApplyConferenceController {
         this.applyConferenceService=applyConferenceService;
     }
 
-    /**
-     * @Description: 直接展示所有会议，只需要token即可
-     * @Param: [httpServletRequest]
-     * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
-     * @Author: Shen Zhengyu
-     * @Date: 2020/4/8
-     **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/AllConferences")
-    public ResponseEntity<HashMap<String,Object>> showAllConference(HttpServletRequest httpServletRequest){
-        logger.debug("Show all the conferences");
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
-        HashMap<String,Object> map = new HashMap<>();
-        List<Conference> conferences = applyConferenceService.showAllConference();
-        List<AllConferenceResponse> responseConferences = new ArrayList<>();
-        for (Conference conference : conferences) {
-            User user=userRepository.findById(conference.getChairId()).orElse(null);
-            if(user!=null){
-                AllConferenceResponse response = new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),2,user.getUsername(),conference.getIsOpenSubmission(),conference.getTopics());
-                responseConferences.add(response);
-            }
 
-        }
-        map.put("message","获取所有会议申请成功");
-        map.put("token",token);
-        map.put("meetings",responseConferences);
-        updateService.update(logger);
-        return ResponseEntity.ok(map);
-    }
 
     /*
     receive meeting application from frontend

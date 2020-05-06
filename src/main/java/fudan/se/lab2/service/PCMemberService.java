@@ -76,6 +76,9 @@ public class PCMemberService {
             if(topic==null){
                 return false;
             }
+            Set<PCMember> pcMembers=topic.getPcMembers();
+            pcMembers.add(pcMember);
+            topic.setPcMembers(pcMembers);
             topics.add(topic);
         }
         pcMember.setTopics(topics);

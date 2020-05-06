@@ -39,7 +39,6 @@ public class Conference {
         //3：截稿，开始发布submissionDeadline
         //4：评审结果发布reviewReleaseDate
         //5：会议开始holdingTime
-        this.isOpenSubmission=isOpenSubmission;
         //记录会议审核状态
         this.reviewStatus=1;
     }

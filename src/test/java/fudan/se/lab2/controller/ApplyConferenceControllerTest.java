@@ -18,7 +18,10 @@ class ApplyConferenceControllerTest {
     private MockHttpServletRequest request;
 
     @Autowired
-    ApplyConferenceController applyConferenceController;
+    MyRelatedConferenceController myRelatedConferenceController;
+
+    @Autowired
+     ApplyConferenceController applyConferenceController;
 
     String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4NjY4MDYzMCwiZXhwIjoxNTg2Njk4NjMwfQ.laMZ1U8mDn53ig9AG4sw23XKMasthIqCd0YDnfV9K9GTICGprAdthhhYj0RZqmMjb09iGd5-OsznQRudUJBmKw";
 
@@ -34,7 +37,7 @@ class ApplyConferenceControllerTest {
         request = new MockHttpServletRequest();
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization", token);
-        ResponseEntity<HashMap<String, Object>> responseEntity = applyConferenceController.showAllConference(request);
+        ResponseEntity<HashMap<String, Object>> responseEntity = myRelatedConferenceController.showAllConference(request);
         Assert.isTrue(responseEntity.getBody().get("message").equals("获取所有会议申请成功"));
     }
 

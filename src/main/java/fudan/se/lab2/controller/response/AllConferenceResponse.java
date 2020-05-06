@@ -15,9 +15,9 @@ public class AllConferenceResponse {
     private Integer status;
     private String chair_username;
     private Integer is_open_submission;
-    private Set<Topic> topics;
+    private List<String> topics;
 
-    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission,Set<Topic> topics){
+    public AllConferenceResponse(Long conference_id, String full_name, String short_name, String place, String start_date, String deadline_date, String release_date, Integer status, String chair_username, Integer is_open_submission,List<String> topics){
         this.conference_id = conference_id;
         this.full_name = full_name;
         this.short_name = short_name;
@@ -111,11 +111,11 @@ public class AllConferenceResponse {
         this.chair_username = chair_name;
     }
 
-    public Set<Topic> getTopics() {
+    public List<String> getTopics() {
         return topics;
     }
 
-    public void setTopics(Set<Topic> topics) {
+    public void setTopics(List<String> topics) {
         this.topics = topics;
     }
 }

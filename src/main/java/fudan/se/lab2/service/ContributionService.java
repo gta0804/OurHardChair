@@ -48,38 +48,29 @@ public class ContributionService {
         return"successful contribution";
     }
 
-    public String modify(ContributionRequest contributionRequest){
-        Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
-        if (article == null){
-            return "NOT FOUND";
+    private String saveContribution(ContributionRequest contributionRequest){
+        List<Writer> writers=new ArrayList<>();
+        for(WriterRequest writerRequest:contributionRequest.getWriters()){
+            writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
         }
-        String result=saveContribution(contributionRequest);
-        if(result.equals("error")){
-            return "error";
+        Article article = new Article(contributionRequest.getConferenceID(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),writers);
+        Set<Topic> topics=new HashSet<>();
+        for(String topicName:contributionRequest.getTopics()){
+            Topic topic=topicRepository.findByTopic(topicName);
+            if(topic==null){
+                return "error";
+            }
+            Set<Article> articles=topic.getArticles();
+            articles.add(article);
+            topic.setArticles(articles);
+            topics.add(topic);
         }
-        return"successful contribution";
-    }
+        article.setTopics(topics);
+        articleRepository.save(article);
 
-    public String saveContribution(ContributionRequest contributionRequest){
-            List<Writer> writers=new ArrayList<>();
-            for(WriterRequest writerRequest:contributionRequest.getWriters()){
-                writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
-            }
-            Article article = new Article(contributionRequest.getConferenceID(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),writers);
-            Set<Topic> topics=new HashSet<>();
-            for(String topicName:contributionRequest.getTopics()){
-                Topic topic=topicRepository.findByTopic(topicName);
-                if(topic==null){
-                    return "error";
-                }
-                topics.add(topic);
-            }
-            article.setTopics(topics);
-            articleRepository.save(article);
-
-            Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConferenceID());
-            authorRepository.save(contributor);
-            return "successful contribution";
+        Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConferenceID());
+        authorRepository.save(contributor);
+        return "successful contribution";
     }
 
     /**
@@ -165,8 +156,13 @@ public class ContributionService {
         article.setArticleAbstract(modifyContributionRequest.getArticleAbstract());
         article.setTitle(modifyContributionRequest.getTitle());
         Set<Topic> topics = new HashSet<>();
-        for (String topic : modifyContributionRequest.getTopics()) {
-            topics.add(new Topic(topic));
+        for (String topicName : modifyContributionRequest.getTopics()) {
+            Topic topic=topicRepository.findByTopic(topicName);
+            if(topic==null){
+                hashMap.put("message","修改失败");
+                return hashMap;
+            }
+            topics.add(topic);
         }
         article.setTopics(topics);
 

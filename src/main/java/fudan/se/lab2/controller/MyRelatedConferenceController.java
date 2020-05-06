@@ -3,25 +3,24 @@ package fudan.se.lab2.controller;
 import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.OpenSubmissionRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
-import fudan.se.lab2.controller.response.RelatedConferenceResponse;
+import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.ApplyConferenceService;
 import fudan.se.lab2.service.MyRelatedConferenceService;
+import fudan.se.lab2.service.UpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,10 +37,35 @@ public class MyRelatedConferenceController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UpdateService updateService;
+
     Logger logger = LoggerFactory.getLogger(MyRelatedConferenceController.class);
     @Autowired
     public MyRelatedConferenceController(MyRelatedConferenceService myRelatedConferenceService){
         this.myRelatedConferenceService = myRelatedConferenceService;
+    }
+
+    /**
+     * @Description: 直接展示所有会议，只需要token即可
+     * @Param: [httpServletRequest]
+     * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+     * @Author: Shen Zhengyu
+     * @Date: 2020/4/8
+     **/
+    @CrossOrigin(origins = "*")
+    @PostMapping("/AllConferences")
+    public ResponseEntity<HashMap<String,Object>> showAllConference(HttpServletRequest httpServletRequest){
+        logger.debug("Show all the conferences");
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> map = new HashMap<>();
+        List<Conference> conferences = myRelatedConferenceService.showAllConference();
+        List<AllConferenceResponse> responseConferences =myRelatedConferenceService.getResponses(conferences);
+        map.put("message","获取所有会议申请成功");
+        map.put("token",token);
+        map.put("meetings",responseConferences);
+        updateService.update(logger);
+        return ResponseEntity.ok(map);
     }
 
     @CrossOrigin(origins = "*")
@@ -54,7 +78,7 @@ public class MyRelatedConferenceController {
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForChair();
         //再加载所有申请过的会议
         //开始合并
-        List<RelatedConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
+        List<AllConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
         map.put("message","获取所有我主持的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
@@ -73,7 +97,7 @@ public class MyRelatedConferenceController {
             return ResponseEntity.ok(map);
         }
         else{
-            List<RelatedConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
+            List<AllConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
             map.put("message","获取所有我审稿的会议申请成功");
             map.put("token",token);
             map.put("meetings",responseConferences);
@@ -93,7 +117,7 @@ public class MyRelatedConferenceController {
             map.put("message","获取所有我主持的会议申请失败");
             return ResponseEntity.ok(map);
         }
-        List<RelatedConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
+        List<AllConferenceResponse> responseConferences = myRelatedConferenceService.getResponses(conferences);
         map.put("message","获取所有我投稿的会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);

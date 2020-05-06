@@ -1,19 +1,9 @@
 package fudan.se.lab2.controller;
 
-import fudan.se.lab2.controller.request.SearchUserRequest;
-import fudan.se.lab2.controller.response.RelatedConferenceResponse;
-import fudan.se.lab2.controller.response.SearchResponse;
-import fudan.se.lab2.controller.response.ShowSubmissionResponse;
-import fudan.se.lab2.domain.Conference;
-import fudan.se.lab2.domain.Topic;
 import fudan.se.lab2.repository.ConferenceRepository;
-import io.jsonwebtoken.lang.Assert;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
-import java.util.*;
 
 //import javax.xml.ws.Response;
 

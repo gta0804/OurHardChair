@@ -2,7 +2,7 @@ package fudan.se.lab2.service;
 
 import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
-import fudan.se.lab2.controller.response.RelatedConferenceResponse;
+import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
@@ -93,7 +93,12 @@ public class MyRelatedConferenceService {
         return responses;
     }
 
-    public String getChairName(Long id){
+    public List<Conference>  showAllConference(){
+        List<Conference> conferences =  conferenceRepository.findAllByReviewStatus(2);
+        return conferences;
+    }
+
+    private String getChairName(Long id){
         User user=userRepository.findById(id).orElse(null);
         if(user==null){
             return null;
@@ -102,15 +107,15 @@ public class MyRelatedConferenceService {
 
     }
 
-    public List<RelatedConferenceResponse> getResponses(List<Conference> conferences){
-        List<RelatedConferenceResponse> responses=new LinkedList<>();
+    public List<AllConferenceResponse> getResponses(List<Conference> conferences){
+        List<AllConferenceResponse> responses=new LinkedList<>();
         for(Conference conference: conferences){
             List<String> topicNames=new LinkedList<>();
             for(Topic topic:conference.getTopics()){
                 topicNames.add(topic.getTopic());
             }
             String chairName=getChairName(conference.getChairId());
-            responses.add(new RelatedConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission(),topicNames));
+            responses.add(new AllConferenceResponse(conference.getId(),conference.getFullName(),conference.getAbbreviation(),conference.getHoldingPlace(),conference.getHoldingTime(),conference.getSubmissionDeadline(),conference.getReviewReleaseDate(),conference.getReviewStatus(),chairName,conference.getIsOpenSubmission(),topicNames));
         }
         return responses;
     }

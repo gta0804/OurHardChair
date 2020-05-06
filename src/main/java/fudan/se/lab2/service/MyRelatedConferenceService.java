@@ -165,7 +165,7 @@ public class MyRelatedConferenceService {
     }
 
     public String openManuscriptReview(OpenManuscriptReviewRequest request){
-        Long conferenceId=request.getConferenceId();
+        Long conferenceId=request.getConference_id();
         if(conferenceId==null){
             return "请求错误";
         }

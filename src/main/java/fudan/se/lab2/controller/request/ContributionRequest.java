@@ -1,7 +1,6 @@
 package fudan.se.lab2.controller.request;
 
 import fudan.se.lab2.controller.request.componment.WriterRequest;
-import fudan.se.lab2.domain.Writer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,7 +14,7 @@ import java.util.*;
  **/
 @Controller
 public class ContributionRequest {
-    private Long conferenceID;
+    private Long conference_id;
 
     private Long contributorID;
 
@@ -34,8 +33,8 @@ public class ContributionRequest {
 
     }
 
-    public ContributionRequest(Long conferenceID,Long authorID,String filename,String title,String articleAbstract,List<WriterRequest> writers,List<String> topics){
-        this.conferenceID = conferenceID;
+    public ContributionRequest(Long conference_id, Long authorID, String filename, String title, String articleAbstract, List<WriterRequest> writers, List<String> topics){
+        this.conference_id = conference_id;
         this.contributorID = authorID;
         this.filename = filename;
         this.title = title;
@@ -44,12 +43,12 @@ public class ContributionRequest {
         this.topics=topics;
     }
 
-    public Long getConferenceID() {
-        return conferenceID;
+    public Long getConference_id() {
+        return conference_id;
     }
 
-    public void setConferenceID(Long conferenceID) {
-        this.conferenceID = conferenceID;
+    public void setConference_id(Long conference_id) {
+        this.conference_id = conference_id;
     }
 
     public Long getContributorID() {

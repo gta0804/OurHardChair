@@ -40,7 +40,7 @@ public class ContributionService {
     private ResultRepository resultRepository;
 
     public String contribute(ContributionRequest contributionRequest){
-       Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConferenceID());
+       Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConference_id());
         if (article!=null){
             return "duplicate contribution";
         }
@@ -53,7 +53,7 @@ public class ContributionService {
         for(WriterRequest writerRequest:contributionRequest.getWriters()){
             writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
         }
-        Article article = new Article(contributionRequest.getConferenceID(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),writers);
+        Article article = new Article(contributionRequest.getConference_id(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),writers);
         Set<Topic> topics=new HashSet<>();
         for(String topicName:contributionRequest.getTopics()){
             Topic topic=topicRepository.findByTopic(topicName);
@@ -68,7 +68,7 @@ public class ContributionService {
         article.setTopics(topics);
         articleRepository.save(article);
 
-        Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConferenceID());
+        Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConference_id());
         authorRepository.save(contributor);
         return "successful contribution";
     }
@@ -120,7 +120,7 @@ public class ContributionService {
         List<Article> articles = articleRepository.findArticleByTitle(showContributionModificationRequest.getTitle());
         HashMap<String,Object> hashMap = new HashMap<>();
         for (Article article : articles) {
-            if (article.getConferenceID().equals(showContributionModificationRequest.getConferenceID())){
+            if (article.getConferenceID().equals(showContributionModificationRequest.getConference_id())){
                 hashMap.put("message","success");
                 hashMap.put("title",article.getTitle());
                 hashMap.put("articleAbstract",article.getArticleAbstract());
@@ -148,7 +148,7 @@ public class ContributionService {
     */
     public HashMap<String,Object> modifyContribution(ModifyContributionRequest modifyContributionRequest) {
         HashMap<String,Object> hashMap = new HashMap<>();
-        Article article = articleRepository.findByTitleAndConferenceID(modifyContributionRequest.getOriginalTitle(),modifyContributionRequest.getConferenceID());
+        Article article = articleRepository.findByTitleAndConferenceID(modifyContributionRequest.getOriginalTitle(),modifyContributionRequest.getConference_id());
         if (null == article){
              hashMap.put("message","没有该文章");
             return hashMap;

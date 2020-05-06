@@ -11,23 +11,23 @@ import org.springframework.stereotype.Controller;
  **/
 @Controller
 public class ShowContributionModificationRequest {
-    private Long conferenceID;
+    private Long conference_id;
     private String title;
     @Autowired
     public ShowContributionModificationRequest(){
 
     }
-    public ShowContributionModificationRequest(Long conferenceID, String title) {
-        this.conferenceID = conferenceID;
+    public ShowContributionModificationRequest(Long conference_id, String title) {
+        this.conference_id = conference_id;
         this.title = title;
     }
 
-    public Long getConferenceID() {
-        return conferenceID;
+    public Long getConference_id() {
+        return conference_id;
     }
 
-    public void setConferenceID(Long conferenceID) {
-        this.conferenceID = conferenceID;
+    public void setConference_id(Long conference_id) {
+        this.conference_id = conference_id;
     }
 
     public String getTitle() {

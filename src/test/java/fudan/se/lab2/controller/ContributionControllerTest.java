@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -40,7 +39,7 @@ class ContributionControllerTest {
         ContributionRequest contributionRequest = new ContributionRequest();
         contributionRequest.setArticleAbstract("123");
         contributionRequest.setContributorID((long)2);
-        contributionRequest.setConferenceID((long)1);
+        contributionRequest.setConference_id((long)1);
         contributionRequest.setFilename("1.pdf");
         contributionRequest.setTitle((new Date()).toString() + Math.random());
         Assert.isTrue(contributionController.contribute(request,contributionRequest).getBody().get("message").equals("投稿成功"));

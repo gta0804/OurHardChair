@@ -2,7 +2,6 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.domain.Article;
-import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -11,16 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @program: lab2
@@ -64,7 +60,7 @@ public class ContributionController {
         logger.debug("Try to submit article");
         HashMap<String, Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        long conferenceID = contributionRequest.getConferenceID();
+        long conferenceID = contributionRequest.getConference_id();
         String status = contributionService.contribute(contributionRequest);
         if (status.equals("duplicate contribution")) {
             map.put("message", "重复投稿（标题名重复）");

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class OpenManuscriptReviewRequest {
-    private Long conferenceId;
+    private Long conference_id;
     private Integer allocationStrategy;
 
     @Autowired
@@ -13,12 +13,12 @@ public class OpenManuscriptReviewRequest {
 
     }
 
-    public Long getConferenceId() {
-        return conferenceId;
+    public Long getConference_id() {
+        return conference_id;
     }
 
-    public void setConferenceId(Long conferenceId) {
-        this.conferenceId = conferenceId;
+    public void setConference_id(Long conference_id) {
+        this.conference_id = conference_id;
     }
 
     public Integer getAllocationStrategy() {

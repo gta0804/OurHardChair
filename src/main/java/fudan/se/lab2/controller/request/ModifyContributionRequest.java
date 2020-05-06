@@ -17,7 +17,7 @@ import java.util.Set;
 public class ModifyContributionRequest {
     private String originalTitle;
 
-    private Long conferenceID;
+    private Long conference_id;
 
 
     private String title;
@@ -34,9 +34,9 @@ public class ModifyContributionRequest {
 
     }
 
-    public ModifyContributionRequest(String originalTitle, Long conferenceID, String title, String articleAbstract, List<WriterRequest> writers, Set<String> topics) {
+    public ModifyContributionRequest(String originalTitle, Long conference_id, String title, String articleAbstract, List<WriterRequest> writers, Set<String> topics) {
         this.originalTitle = originalTitle;
-        this.conferenceID = conferenceID;
+        this.conference_id = conference_id;
         this.title = title;
         this.articleAbstract = articleAbstract;
         this.writers = writers;
@@ -51,12 +51,12 @@ public class ModifyContributionRequest {
         this.originalTitle = originalTitle;
     }
 
-    public Long getConferenceID() {
-        return conferenceID;
+    public Long getConference_id() {
+        return conference_id;
     }
 
-    public void setConferenceID(Long conferenceID) {
-        this.conferenceID = conferenceID;
+    public void setConference_id(Long conference_id) {
+        this.conference_id = conference_id;
     }
 
     public String getTitle() {

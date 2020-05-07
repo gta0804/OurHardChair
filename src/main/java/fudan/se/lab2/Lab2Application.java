@@ -42,7 +42,7 @@ public class Lab2Application {
             public void run(String... args) throws Exception {
                 // Create authorities if not exist.
                 Authority adminAuthority = getOrCreateAuthority("admin","administrator", authorityRepository);
-                Authority userAuthority = getOrCreateAuthority("user","users",authorityRepository);
+                Authority userAuthority = getOrCreateAuthority("superuser","user",authorityRepository);
                 // Create an admin if not exists.
                 if (userRepository.findByUsername("admin") == null) {
                     HashSet<Authority> set = new HashSet<>();

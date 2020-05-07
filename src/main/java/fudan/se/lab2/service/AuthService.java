@@ -46,13 +46,22 @@ public class AuthService {
         System.out.println("注册成功！");
         String password = passwordEncoder.encode(request.getPassword());
         HashSet<Authority> set = new HashSet<>();
-        Authority authority = authorityRepository.findByAuthority("user");
+        Authority authority = getOrCreateAuthority(request.getUsername(),"user",authorityRepository);
         set.add(authority);
         User user = new User(request.getUsername(),password,request.getFullName(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
         userRepository.save(user);
         return user;
 
     }
+    private Authority getOrCreateAuthority(String username,String authorityText, AuthorityRepository authorityRepository) {
+        Authority authority = authorityRepository.findByAuthority(authorityText);
+        if (authority == null) {
+            authority = new Authority(username,authorityText);
+            authorityRepository.save(authority);
+        }
+        return authority;
+    }
+
 
 //    public User modifyInformation(@RequestBody ModifyInformationRequest request) {
 //        //用户名重复的情况

@@ -56,7 +56,7 @@ public class Article {
         this.filename = filename;
         this.title = title;
         this.articleAbstract = articleAbstract;
-        this.status = (long)1;
+        this.status = (long)0;
         this.writers = writers;
         this.howManyPeopleHaveReviewed = 0;
     }

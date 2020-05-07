@@ -2,6 +2,7 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.LoginRequest;
 import fudan.se.lab2.controller.request.RegisterRequest;
+import fudan.se.lab2.domain.Authority;
 import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -15,12 +16,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -61,13 +65,19 @@ public class AuthController {
             return ResponseEntity.ok(map);
         }
         UserDetails userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
-        UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
-                userForBase.getAuthorities());
-        final Authentication authentication = authenticationManager.authenticate(userToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtTokenUtil.generateToken(user);
-        map.put("token",token);
-        System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
+            Collection<SimpleGrantedAuthority> authorities = new HashSet<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            if (null != userForBase.getAuthorities()){
+                authorities = (Collection<SimpleGrantedAuthority>) userForBase.getAuthorities();
+            }
+            UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
+                    authorities);
+            final Authentication authentication = authenticationManager.authenticate(userToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtTokenUtil.generateToken(user);
+
+            map.put("token", token);
+            System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
         map.put("message","success");
         map.put("username",user.getUsername());
         map.put("fullName",user.getFullName());

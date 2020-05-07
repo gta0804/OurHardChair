@@ -261,3 +261,336 @@
 2020-05-06 22:37:02.914  WARN 17732 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-05-06 22:37:02.915  WARN 17732 --- [http-nio-8080-exec-6] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-05-06 23:44:05.478  WARN 17732 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m36s333ms238µs900ns).
+2020-05-07 17:08:45.386 DEBUG 1948 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-05-07 17:08:45.428  INFO 1948 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2077 ms
+2020-05-07 17:08:51.384  WARN 1948 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-07 17:08:51.715 DEBUG 1948 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-07 17:08:51.755 DEBUG 1948 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 33 mappings in 'requestMappingHandlerMapping'
+2020-05-07 17:08:51.776 DEBUG 1948 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-07 17:08:51.784 DEBUG 1948 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-07 17:11:50.239  INFO 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-07 17:11:50.240 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-05-07 17:11:50.244 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-05-07 17:11:50.245  INFO 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-05-07 17:11:50.252  WARN 1948 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:11:50.254 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:11:50.258 DEBUG 1948 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:11:50.367 DEBUG 1948 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@27adb8d2]
+2020-05-07 17:11:50.465 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Failed to complete request: java.lang.IllegalArgumentException: Authorities collection cannot contain any null elements
+2020-05-07 17:11:50.472 ERROR 1948 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Authorities collection cannot contain any null elements] with root cause
+
+java.lang.IllegalArgumentException: Authorities collection cannot contain any null elements
+	at org.springframework.security.authentication.AbstractAuthenticationToken.<init>(AbstractAuthenticationToken.java:65) ~[spring-security-core-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.security.authentication.UsernamePasswordAuthenticationToken.<init>(UsernamePasswordAuthenticationToken.java:73) ~[spring-security-core-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at fudan.se.lab2.controller.AuthController.register(AuthController.java:74) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at fudan.se.lab2.security.jwt.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:73) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209) ~[spring-security-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1639) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2020-05-07 17:11:50.515 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for POST "/error", parameters={}
+2020-05-07 17:11:50.516 DEBUG 1948 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-05-07 17:11:50.525 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:11:50.525 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu May 07 17:11:50 CST 2020, status=500, error=Internal Server Error, message=Authoritie (truncated)...]
+2020-05-07 17:11:50.539 DEBUG 1948 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 500
+2020-05-07 17:12:28.245  WARN 1948 --- [http-nio-8080-exec-2] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:12:28.245 DEBUG 1948 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:12:28.245 DEBUG 1948 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:12:28.246 DEBUG 1948 --- [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@41532d0e]
+2020-05-07 17:12:28.255 DEBUG 1948 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:12:28.255 DEBUG 1948 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{message=注册失败，已有该用户}]
+2020-05-07 17:12:28.256 DEBUG 1948 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-05-07 17:12:39.401  WARN 1948 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:12:39.402 DEBUG 1948 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:12:39.402 DEBUG 1948 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:12:39.403 DEBUG 1948 --- [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@349d6ce3]
+2020-05-07 17:12:39.491 DEBUG 1948 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Failed to complete request: java.lang.IllegalArgumentException: Authorities collection cannot contain any null elements
+2020-05-07 17:12:39.491 ERROR 1948 --- [http-nio-8080-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Authorities collection cannot contain any null elements] with root cause
+
+java.lang.IllegalArgumentException: Authorities collection cannot contain any null elements
+	at org.springframework.security.authentication.AbstractAuthenticationToken.<init>(AbstractAuthenticationToken.java:65) ~[spring-security-core-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.security.authentication.UsernamePasswordAuthenticationToken.<init>(UsernamePasswordAuthenticationToken.java:73) ~[spring-security-core-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at fudan.se.lab2.controller.AuthController.register(AuthController.java:74) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at fudan.se.lab2.security.jwt.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:73) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209) ~[spring-security-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1639) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2020-05-07 17:12:39.492 DEBUG 1948 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for POST "/error", parameters={}
+2020-05-07 17:12:39.493 DEBUG 1948 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-05-07 17:12:39.493 DEBUG 1948 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:12:39.494 DEBUG 1948 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu May 07 17:12:39 CST 2020, status=500, error=Internal Server Error, message=Authoritie (truncated)...]
+2020-05-07 17:12:39.496 DEBUG 1948 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 500
+2020-05-07 17:13:42.536 DEBUG 5512 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-05-07 17:13:42.538  INFO 5512 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1165 ms
+2020-05-07 17:13:48.000  WARN 5512 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-07 17:13:48.228 DEBUG 5512 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-07 17:13:48.265 DEBUG 5512 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 33 mappings in 'requestMappingHandlerMapping'
+2020-05-07 17:13:48.282 DEBUG 5512 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-07 17:13:48.289 DEBUG 5512 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-07 17:13:58.882  INFO 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-07 17:13:58.883 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-05-07 17:13:58.888 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-05-07 17:13:58.888  INFO 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-05-07 17:13:58.895  WARN 5512 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:13:58.896 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:13:58.898 DEBUG 5512 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:13:58.950 DEBUG 5512 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@3b890b08]
+2020-05-07 17:13:59.068 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Failed to complete request: java.lang.NullPointerException
+2020-05-07 17:13:59.074 ERROR 5512 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+
+java.lang.NullPointerException: null
+	at fudan.se.lab2.controller.AuthController.register(AuthController.java:76) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at fudan.se.lab2.security.jwt.JwtRequestFilter.doFilterInternal(JwtRequestFilter.java:73) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209) ~[spring-security-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.2.2.RELEASE.jar:5.2.2.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1639) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2020-05-07 17:13:59.082 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for POST "/error", parameters={}
+2020-05-07 17:13:59.083 DEBUG 5512 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-05-07 17:13:59.092 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:13:59.092 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu May 07 17:13:59 CST 2020, status=500, error=Internal Server Error, message=No message (truncated)...]
+2020-05-07 17:13:59.108 DEBUG 5512 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 500
+2020-05-07 17:15:07.460  WARN 5512 --- [http-nio-8080-exec-2] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:07.464  WARN 5512 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:07.490  WARN 5512 --- [http-nio-8080-exec-4] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:07.501  WARN 5512 --- [http-nio-8080-exec-5] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:07.518  WARN 5512 --- [http-nio-8080-exec-6] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:07.596  WARN 5512 --- [http-nio-8080-exec-7] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:07.597 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2020-05-07 17:15:07.598 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-05-07 17:15:07.600 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2020-05-07 17:15:07.601 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2020-05-07 17:15:07.601 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2020-05-07 17:15:07.602 DEBUG 5512 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2020-05-07 17:15:07.602 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [image/webp, image/apng, image/*, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:15:07.603 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu May 07 17:15:07 CST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
+2020-05-07 17:15:07.605 DEBUG 5512 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2020-05-07 17:15:20.817  WARN 5512 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.832  WARN 5512 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.835  WARN 5512 --- [http-nio-8080-exec-2] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.841  WARN 5512 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.844  WARN 5512 --- [http-nio-8080-exec-4] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.846  WARN 5512 --- [http-nio-8080-exec-5] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.867  WARN 5512 --- [http-nio-8080-exec-6] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.868  WARN 5512 --- [http-nio-8080-exec-7] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.884  WARN 5512 --- [http-nio-8080-exec-8] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.886  WARN 5512 --- [http-nio-8080-exec-9] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.886  WARN 5512 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.897  WARN 5512 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.905  WARN 5512 --- [http-nio-8080-exec-2] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.905  WARN 5512 --- [http-nio-8080-exec-4] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.906  WARN 5512 --- [http-nio-8080-exec-5] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.922  WARN 5512 --- [http-nio-8080-exec-7] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.923  WARN 5512 --- [http-nio-8080-exec-6] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.947  WARN 5512 --- [http-nio-8080-exec-8] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.947  WARN 5512 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.994  WARN 5512 --- [http-nio-8080-exec-9] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:20.994  WARN 5512 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.000  WARN 5512 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.000  WARN 5512 --- [http-nio-8080-exec-2] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.006  WARN 5512 --- [http-nio-8080-exec-4] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.008  WARN 5512 --- [http-nio-8080-exec-5] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.013  WARN 5512 --- [http-nio-8080-exec-6] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.014  WARN 5512 --- [http-nio-8080-exec-7] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.018  WARN 5512 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.022  WARN 5512 --- [http-nio-8080-exec-8] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.028  WARN 5512 --- [http-nio-8080-exec-9] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.029  WARN 5512 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:21.034  WARN 5512 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:30.411  WARN 5512 --- [http-nio-8080-exec-7] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:30.433  WARN 5512 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:30.434  WARN 5512 --- [http-nio-8080-exec-8] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:55.132 DEBUG 20048 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-05-07 17:15:55.133  INFO 20048 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1113 ms
+2020-05-07 17:16:00.563  WARN 20048 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-07 17:16:00.810 DEBUG 20048 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-07 17:16:00.848 DEBUG 20048 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 33 mappings in 'requestMappingHandlerMapping'
+2020-05-07 17:16:00.866 DEBUG 20048 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-07 17:16:00.873 DEBUG 20048 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-07 17:16:36.087  INFO 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-07 17:16:36.089 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-05-07 17:16:36.094 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-05-07 17:16:36.094  INFO 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-05-07 17:16:36.101  WARN 20048 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:16:36.102 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:16:36.104 DEBUG 20048 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:16:36.162 DEBUG 20048 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@2d0698b6]
+2020-05-07 17:16:36.176 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:16:36.176 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{message=注册失败，已有该用户}]
+2020-05-07 17:16:36.186 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-05-07 17:16:38.683  WARN 20048 --- [http-nio-8080-exec-2] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:16:38.683 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:16:38.683 DEBUG 20048 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:16:38.684 DEBUG 20048 --- [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@668b8301]
+2020-05-07 17:16:39.366 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:16:39.366 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{institution=asd, country=United States, fullName=沈振衣, id=798, message=success, email=asdasd@qq.com, (truncated)...]
+2020-05-07 17:16:39.368 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

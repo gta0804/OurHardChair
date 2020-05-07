@@ -569,3 +569,28 @@ java.lang.NullPointerException: null
 2020-05-07 17:15:30.411  WARN 5512 --- [http-nio-8080-exec-7] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-05-07 17:15:30.433  WARN 5512 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-05-07 17:15:30.434  WARN 5512 --- [http-nio-8080-exec-8] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:15:55.132 DEBUG 20048 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-05-07 17:15:55.133  INFO 20048 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1113 ms
+2020-05-07 17:16:00.563  WARN 20048 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-07 17:16:00.810 DEBUG 20048 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-07 17:16:00.848 DEBUG 20048 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 33 mappings in 'requestMappingHandlerMapping'
+2020-05-07 17:16:00.866 DEBUG 20048 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-07 17:16:00.873 DEBUG 20048 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-07 17:16:36.087  INFO 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-07 17:16:36.089 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-05-07 17:16:36.094 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-05-07 17:16:36.094  INFO 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-05-07 17:16:36.101  WARN 20048 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:16:36.102 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:16:36.104 DEBUG 20048 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:16:36.162 DEBUG 20048 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@2d0698b6]
+2020-05-07 17:16:36.176 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:16:36.176 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{message=注册失败，已有该用户}]
+2020-05-07 17:16:36.186 DEBUG 20048 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-05-07 17:16:38.683  WARN 20048 --- [http-nio-8080-exec-2] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-05-07 17:16:38.683 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-05-07 17:16:38.683 DEBUG 20048 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-05-07 17:16:38.684 DEBUG 20048 --- [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@668b8301]
+2020-05-07 17:16:39.366 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-07 17:16:39.366 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{institution=asd, country=United States, fullName=沈振衣, id=798, message=success, email=asdasd@qq.com, (truncated)...]
+2020-05-07 17:16:39.368 DEBUG 20048 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

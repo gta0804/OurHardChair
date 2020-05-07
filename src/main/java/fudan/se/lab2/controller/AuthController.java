@@ -70,9 +70,13 @@ public class AuthController {
         UserDetails userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
         HashSet<Authority> set = new HashSet<>();
 
-        set.add(authorityRepository.findByUsername("user"));
-            UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
-                    set);
+        set.add(authorityRepository.findByAuthority("user"));
+        System.out.println(set);
+        for (Authority authority : set) {
+            System.out.println(authority.getUsername());
+            System.out.println(authority.getAuthority());
+        }
+            UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(), set);
             final Authentication authentication = authenticationManager.authenticate(userToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtTokenUtil.generateToken(user);

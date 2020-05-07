@@ -135,11 +135,10 @@ public class MyRelatedConferenceController {
         boolean status = myRelatedConferenceService.openSubmission(openSubmissionRequest.getFull_name());
         if(status){
             map.put("message","开启成功");
-            return ResponseEntity.ok(map);
+            map.put("token",token);
         }else{
             map.put("message","开启失败");
         }
-        map.put("token",token);
         map.put("chairName",chairName);
         return ResponseEntity.ok(map);
     }
@@ -159,11 +158,14 @@ public class MyRelatedConferenceController {
 
     @CrossOrigin("*")
     @PostMapping("/openManuscriptReview")
-    public ResponseEntity<HashMap<String,Object>> openManuscriptReview(@RequestBody OpenManuscriptReviewRequest request){
+    public ResponseEntity<HashMap<String,Object>> openManuscriptReview(HttpServletRequest httpServletRequest,@RequestBody OpenManuscriptReviewRequest request){
         logger.debug("openManuscriptReview"+request.toString());
-
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> map=new HashMap<>();
         String message=myRelatedConferenceService.openManuscriptReview(request);
+        if(message.equals("开启投稿成功")){
+            map.put("token",token);
+        }
         map.put("message",message);
         return ResponseEntity.ok(map);
 

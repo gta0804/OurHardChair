@@ -13,17 +13,17 @@ import org.springframework.stereotype.Controller;
 public class SubmitReviewResultRequest {
     private Long conference_id;
     private Long userId;
-    private String title;
+    private Long articleId;
     private Integer score;
     private String comment;
     private Integer confidence;
 
     @Autowired
     public SubmitReviewResultRequest(){}
-    public SubmitReviewResultRequest(Long conference_id, Long userId, String title, Integer score, String comment, Integer confidence) {
+    public SubmitReviewResultRequest(Long conference_id, Long userId, Long articleId, Integer score, String comment, Integer confidence) {
         this.conference_id = conference_id;
         this.userId = userId;
-        this.title = title;
+        this.articleId = articleId;
         this.score = score;
         this.comment = comment;
         this.confidence = confidence;
@@ -45,12 +45,12 @@ public class SubmitReviewResultRequest {
         this.userId = userId;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getArticleId() {
+        return articleId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 
     public Integer getScore() {

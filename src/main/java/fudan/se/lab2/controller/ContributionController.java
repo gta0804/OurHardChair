@@ -58,21 +58,11 @@ public class ContributionController {
     @PostMapping("/contribute")
     public ResponseEntity<HashMap<String, Object>> contribute(HttpServletRequest httpServletRequest, @RequestBody ContributionRequest contributionRequest) {
         logger.debug("Try to submit article");
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map;
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         long conferenceID = contributionRequest.getConference_id();
-        String status = contributionService.contribute(contributionRequest);
-        if (status.equals("duplicate contribution")) {
-            map.put("message", "重复投稿（标题名重复）");
-            map.put("token", token);
-        } else if (status.equals("successful contribution")) {
-            map.put("message", "投稿成功");
-            map.put("token", token);
-            map.put("id",conferenceID);
-        } else {
-            map.put("message", "未知错误");
-            map.put("token", token);
-        }
+        map = contributionService.contribute(contributionRequest);
+        map.put("token",token);
         return ResponseEntity.ok(map);
     }
 
@@ -125,7 +115,7 @@ public class ContributionController {
     }
     @CrossOrigin(origins = "*")
     @PostMapping("/update")
-    public ResponseEntity<HashMap<String, Object>> update(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conferenceID") Long conferenceID,@RequestParam("title") String title)throws IOException {
+    public ResponseEntity<HashMap<String, Object>> update(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conferenceID") Long conferenceID,@RequestParam("articleId") Long articleId)throws IOException {
         logger.debug("Try to update...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
@@ -158,12 +148,13 @@ public class ContributionController {
             mkdirAndFile(path);
             File dest = new File(path);
             file.transferTo(dest);
-            Article article = articleRepository.findByTitleAndConferenceID(title,conferenceID);
-            article.setFilename(fileName);
-            articleRepository.save(article);
-            map.put("message", "重新上传成功");
-            map.put("存放路径", fileName);
-
+            Article article = articleRepository.findById(articleId).orElse(null);
+            if (null != article) {
+                article.setFilename(fileName);
+                articleRepository.save(article);
+                map.put("message", "重新上传成功");
+                map.put("存放路径", fileName);
+            }
             return ResponseEntity.ok(map);
         }
     }

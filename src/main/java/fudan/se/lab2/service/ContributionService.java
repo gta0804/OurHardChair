@@ -7,6 +7,7 @@ import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -39,17 +40,20 @@ public class ContributionService {
     @Autowired
     private ResultRepository resultRepository;
 
-    public String contribute(ContributionRequest contributionRequest){
+    public HashMap<String,Object> contribute(ContributionRequest contributionRequest){
        Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConference_id());
-        if (article!=null){
-            return "duplicate contribution";
+        HashMap<String,Object> hashMap = new HashMap<>();
+       if (article!=null){
+           hashMap.put("message","重复投稿");
+           return  hashMap;
         }
-        saveContribution(contributionRequest);
-        return"successful contribution";
+
+        return saveContribution(contributionRequest);
     }
 
-    private String saveContribution(ContributionRequest contributionRequest){
+    private HashMap<String,Object> saveContribution(ContributionRequest contributionRequest){
         List<Writer> writers=new ArrayList<>();
+        HashMap<String,Object> hashMap = new HashMap<>();
         for(WriterRequest writerRequest:contributionRequest.getWriters()){
             writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
         }
@@ -58,7 +62,8 @@ public class ContributionService {
         for(String topicName:contributionRequest.getTopics()){
             Topic topic=topicRepository.findByTopic(topicName);
             if(topic==null){
-                return "error";
+                hashMap.put("message","投稿失败");
+                return hashMap;
             }
             Set<Article> articles=topic.getArticles();
             articles.add(article);
@@ -70,7 +75,9 @@ public class ContributionService {
 
         Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConference_id());
         authorRepository.save(contributor);
-        return "successful contribution";
+        hashMap.put("message","投稿成功");
+        hashMap.put("articleId",article.getId());
+        return hashMap;
     }
 
     /**
@@ -105,6 +112,7 @@ public class ContributionService {
                         articleForPCMemberResponse.setStatus(0);
                     }
                 }
+                articleForPCMemberResponse.setArticleId(article.getId());
                 articleForPCMemberResponse.setTitle(article.getTitle());
                 articleForPCMemberResponses.add(articleForPCMemberResponse);
             }
@@ -127,6 +135,7 @@ public class ContributionService {
                 hashMap.put("fileName",article.getFilename());
                 hashMap.put("authorID",article.getContributorID());
                 hashMap.put("writers",article.getWriters());
+                hashMap.put("articleId",article.getId());
                 List<String> topicNames=new ArrayList<>();
                 for(Topic topic:article.getTopics()){
                     topicNames.add(topic.getTopic());
@@ -183,7 +192,7 @@ public class ContributionService {
 
     public String submitReviewResult(SubmitReviewResultRequest submitReviewResultRequest){
         //单人的评价
-        Article article = articleRepository.findByTitleAndConferenceID(submitReviewResultRequest.getTitle(),submitReviewResultRequest.getConference_id());
+        Article article = articleRepository.findById(submitReviewResultRequest.getArticleId()).orElse(null);
         if (article == null){
             return "NOT FOUND";
         }
@@ -192,11 +201,11 @@ public class ContributionService {
 
 
         //总评价
-        Result result = resultRepository.findResultByConferenceIDAndTitle(submitReviewResultRequest.getConference_id(),submitReviewResultRequest.getTitle());
+        Result result = resultRepository.findByArticleIDAndConferenceID(submitReviewResultRequest.getArticleId(),submitReviewResultRequest.getConference_id());
         if(null == result){
             Set<Evaluation> evaluations = new HashSet<>();
             evaluations.add(evaluation);
-            resultRepository.save(new Result(submitReviewResultRequest.getConference_id(),submitReviewResultRequest.getTitle(),evaluations));
+            resultRepository.save(new Result(submitReviewResultRequest.getConference_id(),submitReviewResultRequest.getArticleId(),evaluations));
         }else{
             Set<Evaluation> evaluations = result.getEvaluations();
             evaluations.add(evaluation);
@@ -216,7 +225,33 @@ public class ContributionService {
         return"successful contribution";
     }
 
-    private ArrayList<Writer> writerRequestToWriter(List<WriterRequest> writerRequests){
+    /**
+    * @Description: 作为作者，查看自己投稿所获得的评价
+    * @Param: [conference_id, userId]
+    * @return: java.util.HashMap<java.lang.String,java.lang.Object>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/7
+    */
+    public HashMap<String,Object> viewReviewResult(@RequestParam("conference_id") Long conference_id,@RequestParam("userId") Long userId) {
+        //一个作者可能参与了多个会议，投了多次稿件
+        //首先获得所有它参与过的投稿
+        HashMap<String,Object> hashMap = new HashMap<>();
+        Set<Result> results = new HashSet<>();
+        List<Article> articles = articleRepository.findByContributorIDAndConferenceID(userId,conference_id);
+        for (Article article : articles) {
+            Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),article.getConferenceID());
+            results.add(result);
+        }
+        hashMap.put("results",results);
+        hashMap.put("message","请求成功");
+        return hashMap;
+    }
+
+
+
+
+
+        private ArrayList<Writer> writerRequestToWriter(List<WriterRequest> writerRequests){
         ArrayList<Writer> writers = new ArrayList<>();
         for (WriterRequest writerRequest : writerRequests) {
 

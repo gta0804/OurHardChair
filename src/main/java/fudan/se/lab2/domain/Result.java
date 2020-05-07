@@ -3,8 +3,6 @@ package fudan.se.lab2.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,20 +17,22 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long conferenceID;
-    private String title;
+    public Long conferenceID;
+    public Long articleID;
     @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Evaluation> evaluations;
 
     public Result(){}
-    public Result(Long conferenceID, String title, Set<Evaluation> evaluations) {
+    public Result(Long conferenceID, Long articleID, Set<Evaluation> evaluations) {
         this.conferenceID = conferenceID;
-        this.title = title;
+        this.articleID = articleID;
         this.evaluations = evaluations;
     }
 
     public Set<Evaluation> getEvaluations() {
         return evaluations;
     }
+
+
 }

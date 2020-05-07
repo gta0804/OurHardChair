@@ -11,6 +11,7 @@ import java.util.List;
  * @create: 2020-05-06 13:11
  **/
 public class ArticleForPCMemberResponse {
+    private Long articleId;
     private String title;
     private String articleAbstract;
     private List<Writer> writers;
@@ -54,5 +55,13 @@ public class ArticleForPCMemberResponse {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Long getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 }

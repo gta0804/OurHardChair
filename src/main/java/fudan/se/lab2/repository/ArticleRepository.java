@@ -10,8 +10,8 @@ import java.util.*;
 public interface ArticleRepository extends CrudRepository<Article,Long> {
     //考虑到可能有标题相同的文章，要用ConferenceID区分
     List<Article> findArticleByTitle(String title);
-    List<Article> findByContributorID(long ContributorID);
+    List<Article> findByContributorID(Long ContributorID);
     Article findByTitleAndConferenceID(String title,Long conferenceId);
     List<Article> findByConferenceID(Long conferenceID);
-
+    List<Article> findByContributorIDAndConferenceID(Long ContributorID,Long ConferenceID);
 }

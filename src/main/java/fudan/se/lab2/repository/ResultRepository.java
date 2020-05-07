@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResultRepository extends CrudRepository<Result,Long> {
-    Result findResultByConferenceIDAndTitle(Long ConferenceID,String Title);
+        Result findByArticleIDAndConferenceID(Long articleID,Long conferenceID);
 }

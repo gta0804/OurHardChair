@@ -29,4 +29,44 @@ public class Evaluation {
         this.comment = comment;
         this.confidence = confidence;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getPCMemberID() {
+        return PCMemberID;
+    }
+
+    public void setPCMemberID(Long PCMemberID) {
+        this.PCMemberID = PCMemberID;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Integer getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(Integer confidence) {
+        this.confidence = confidence;
+    }
 }

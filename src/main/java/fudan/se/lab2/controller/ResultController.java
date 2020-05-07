@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.service.ContributionService;
 import fudan.se.lab2.service.MyRelatedConferenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +29,29 @@ public class ResultController {
 
     @Autowired
     MyRelatedConferenceService myRelatedConferenceService;
+
+    @Autowired
+    ContributionService contributionService;
+
+
     @CrossOrigin("*")
     @PostMapping("/releaseReviewResult")
     public ResponseEntity<HashMap<String, Object>> releaseReviewResult(@RequestParam("conference_id") Long conference_id,@RequestParam("userId") Long userId,HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
         String result = myRelatedConferenceService.releaseReviewResult(conference_id,userId);
+        hashMap.put("token",token);
         hashMap.put("message",result);
         return ResponseEntity.ok(hashMap);
     }
 
-}
+    @CrossOrigin("*")
+    @PostMapping("/viewReviewResult")
+    public ResponseEntity<HashMap<String, Object>> viewReviewResult(@RequestParam("conference_id") Long conference_id,@RequestParam("userId") Long userId,HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> hashMap = contributionService.viewReviewResult(conference_id,userId);
+        hashMap.put("token",token);
+        return ResponseEntity.ok(hashMap);
+    }
+
+    }

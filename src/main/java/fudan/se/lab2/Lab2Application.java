@@ -58,6 +58,20 @@ public class Lab2Application {
                     );
                     userRepository.save(admin);
                 }
+                if (userRepository.findByUsername("superuser") == null) {
+                    HashSet<Authority> set = new HashSet<>();
+                    set.add(userAuthority);
+                    User superUser = new User(
+                            "superuser",
+                            passwordEncoder.encode("password"),
+                            "superuser",
+                            "superuser@fudan.edu.cn",
+                            "Fudan University",
+                            "China",
+                            set
+                    );
+                    userRepository.save(superUser);
+                }
             }
 
             private Authority getOrCreateAuthority(String username,String authorityText, AuthorityRepository authorityRepository) {

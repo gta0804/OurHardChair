@@ -69,6 +69,7 @@ public class AuthController {
         }
         UserDetails userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
         HashSet<Authority> set = new HashSet<>();
+
         set.add(authorityRepository.findByUsername("user"));
             UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
                     set);

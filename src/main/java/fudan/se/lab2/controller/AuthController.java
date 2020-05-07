@@ -4,6 +4,8 @@ import fudan.se.lab2.controller.request.LoginRequest;
 import fudan.se.lab2.controller.request.RegisterRequest;
 import fudan.se.lab2.domain.Authority;
 import fudan.se.lab2.domain.User;
+import fudan.se.lab2.repository.AuthorRepository;
+import fudan.se.lab2.repository.AuthorityRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.AuthService;
@@ -45,7 +47,8 @@ public class AuthController {
     private UserRepository userRepository;
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    @Autowired
+            private AuthorityRepository authorityRepository;
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
@@ -65,13 +68,10 @@ public class AuthController {
             return ResponseEntity.ok(map);
         }
         UserDetails userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
-            Collection<SimpleGrantedAuthority> authorities = new HashSet<>();
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            if (null != userForBase.getAuthorities()){
-                authorities = (Collection<SimpleGrantedAuthority>) userForBase.getAuthorities();
-            }
+        HashSet<Authority> set = new HashSet<>();
+        set.add(authorityRepository.findByUsername("user"));
             UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(),
-                    authorities);
+                    set);
             final Authentication authentication = authenticationManager.authenticate(userToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtTokenUtil.generateToken(user);

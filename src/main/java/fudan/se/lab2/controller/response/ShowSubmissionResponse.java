@@ -1,11 +1,19 @@
 package fudan.se.lab2.controller.response;
 
+import fudan.se.lab2.domain.Topic;
+import fudan.se.lab2.domain.Writer;
+
+import java.util.List;
+import java.util.Set;
+
 public class ShowSubmissionResponse {
     private String conferenceName;
     private String filename;
     private String title;
     private String articleAbstract;
     private Long status;
+    private Set<Topic> topics;
+    private List<Writer> writers;
 
     public ShowSubmissionResponse(String conferenceName,String filename,String title,String articleAbstract,Long status){
         this.conferenceName=conferenceName;
@@ -53,5 +61,21 @@ public class ShowSubmissionResponse {
 
     public void setStatus(Long status) {
         this.status = status;
+    }
+
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
+    }
+
+    public List<Writer> getWriters() {
+        return writers;
+    }
+
+    public void setWriters(List<Writer> writers) {
+        this.writers = writers;
     }
 }

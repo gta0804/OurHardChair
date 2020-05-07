@@ -103,7 +103,10 @@ public class MyRelatedConferenceService {
             Conference conference=conferenceRepository.findById(article.getConferenceID()).orElse(null);
             if(conference!=null){
                 String name=conference.getFullName();
-                responses.add(new ShowSubmissionResponse(name,article.getFilename(),article.getTitle(),article.getArticleAbstract(),article.getStatus()));
+                ShowSubmissionResponse showSubmissionResponse = new ShowSubmissionResponse(name,article.getFilename(),article.getTitle(),article.getArticleAbstract(),article.getStatus());
+                showSubmissionResponse.setTopics(article.getTopics());
+                showSubmissionResponse.setWriters(article.getWriters());
+                responses.add(showSubmissionResponse);
             }
         }
         return responses;

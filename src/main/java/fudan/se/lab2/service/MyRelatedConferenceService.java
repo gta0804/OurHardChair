@@ -104,7 +104,13 @@ public class MyRelatedConferenceService {
             if(conference!=null){
                 String name=conference.getFullName();
                 ShowSubmissionResponse showSubmissionResponse = new ShowSubmissionResponse(name,article.getFilename(),article.getTitle(),article.getArticleAbstract(),article.getStatus());
-                showSubmissionResponse.setTopics(article.getTopics());
+                Set<Topic> topicsRaw = article.getTopics();
+                Set<String> topics = new HashSet<>();
+
+                for (Topic topic : topicsRaw) {
+                    topics.add(topic.getTopic());
+                }
+                showSubmissionResponse.setTopics(topics);
                 showSubmissionResponse.setWriters(article.getWriters());
                 responses.add(showSubmissionResponse);
             }

@@ -12,7 +12,7 @@ public class ShowSubmissionResponse {
     private String title;
     private String articleAbstract;
     private Long status;
-    private Set<Topic> topics;
+    private Set<String> topics;
     private List<Writer> writers;
 
     public ShowSubmissionResponse(String conferenceName,String filename,String title,String articleAbstract,Long status){
@@ -63,11 +63,11 @@ public class ShowSubmissionResponse {
         this.status = status;
     }
 
-    public Set<Topic> getTopics() {
+    public Set<String> getTopics() {
         return topics;
     }
 
-    public void setTopics(Set<Topic> topics) {
+    public void setTopics(Set<String> topics) {
         this.topics = topics;
     }
 

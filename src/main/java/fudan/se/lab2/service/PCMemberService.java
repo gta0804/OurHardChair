@@ -88,7 +88,7 @@ public class PCMemberService {
                 request.getSenderName(),
                 request.getReceiverName(),
                 request.getRelatedConferenceName(),
-                "你的PCNumber邀请已经被"+request.getSenderName()+"接受",
+                "你的PCMember邀请已经被"+request.getSenderName()+"接受",
                 RESPONSE,
                 1
         );
@@ -117,7 +117,7 @@ public class PCMemberService {
                 request.getSenderName(),
                 request.getReceiverName(),
                 request.getRelatedConferenceName(),
-                "你的PCNumber邀请已经被"+request.getSenderName()+"拒绝",
+                "你的PCMember邀请已经被"+request.getSenderName()+"拒绝",
                 RESPONSE,
                 1
 

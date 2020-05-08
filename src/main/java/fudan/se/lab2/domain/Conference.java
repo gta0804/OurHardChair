@@ -20,7 +20,7 @@ public class Conference {
     private String reviewReleaseDate;
     private Integer isOpenSubmission;
     private Integer reviewStatus;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "conference")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Topic> topics=new HashSet<>();
 
     public Conference(){}

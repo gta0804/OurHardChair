@@ -47,9 +47,6 @@ public class ApplyConferenceService {
                 topic=new Topic(topicName);
             }
             topics.add(topic);
-            Set<Conference> conferences=topic.getConference();
-            conferences.add(conference);
-            topic.setConference(conferences);
         }
         conference.setTopics(topics);
         conferenceRepository.save(conference);
@@ -81,11 +78,6 @@ public class ApplyConferenceService {
         //使chair成为PCMember
         PCMember pcMember=new PCMember(user.getId(),conference.getId());
         Set<Topic> topics = new HashSet<>(conference.getTopics());
-        for(Topic topic:topics){
-            Set<PCMember> pcMembers=topic.getPcMembers();
-            pcMembers.add(pcMember);
-            topic.setPcMembers(pcMembers);
-        }
         pcMember.setTopics(topics);
         pcMemberRepository.save(pcMember);
 
@@ -112,12 +104,11 @@ public class ApplyConferenceService {
         }
     }
 
-    public List<Conference>  reviewConference(){
-        List<Conference> conferences=conferenceRepository.findAllByReviewStatus(1);
-        if(conferences==null){
-            return null;
+    public void  reviewConference(List<Conference> conferences){
+        List<Conference> temp=conferenceRepository.findAllByReviewStatus(1);
+        for(Conference conference:temp){
+            conferences.add(conference);
         }
-        return conferences;
     }
 
 }

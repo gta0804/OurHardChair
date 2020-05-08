@@ -76,7 +76,8 @@ public class ApplyConferenceController {
     public ResponseEntity<HashMap<String,Object>> reviewConference(HttpServletRequest httpServletRequest){
         logger.debug("reviewConference");
         HashMap<String,Object> map=new HashMap<>();
-        List<Conference> conferences = applyConferenceService.reviewConference();
+        List<Conference> conferences=new LinkedList<>();
+        applyConferenceService.reviewConference(conferences);
         String token= httpServletRequest.getHeader("Authorization").substring(7);
         updateService.update(logger);
 

@@ -145,20 +145,6 @@ public class ContributionService {
     }
 
 
-    public HashMap<String,Object> showContributionModification(ShowContributionModificationRequest showContributionModificationRequest){
-        String username= SecurityContextHolder.getContext().getAuthentication().getName();
-        User user=userRepository.findByUsername(username);
-        List<Article> articles = articleRepository.findByContributorIDAndConferenceID(user.getId(),showContributionModificationRequest.getConference_id());
-
-        HashMap<String,Object> hashMap = new HashMap<>();
-        if(articles==null){
-            hashMap.put("message","预览失败");
-            return hashMap;
-        }
-        hashMap.put("articles",articles);
-        return hashMap;
-    }
-
     /**
     * @Description: 修改投稿
     * @Param:

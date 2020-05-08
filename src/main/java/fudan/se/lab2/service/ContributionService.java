@@ -3,6 +3,7 @@ package fudan.se.lab2.service;
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.controller.request.componment.WriterRequest;
 import fudan.se.lab2.controller.response.ArticleForPCMemberResponse;
+import fudan.se.lab2.controller.response.ResultResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,13 +242,14 @@ public class ContributionService {
         //一个作者可能参与了多个会议，投了多次稿件
         //首先获得所有它参与过的投稿
         HashMap<String,Object> hashMap = new HashMap<>();
-        Set<Result> results = new HashSet<>();
+        Set<ResultResponse> resultResponses = new HashSet<>();
         List<Article> articles = articleRepository.findByContributorIDAndConferenceID(userId,conference_id);
         for (Article article : articles) {
             Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),article.getConferenceID());
-            results.add(result);
+            ResultResponse resultResponse = new ResultResponse(article,result);
+            resultResponses.add(resultResponse);
         }
-        hashMap.put("results",results);
+        hashMap.put("resultResponses",resultResponses);
         hashMap.put("message","请求成功");
         return hashMap;
     }

@@ -17,8 +17,8 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Long conferenceID;
-    public Long articleID;
+    private Long conferenceID;
+    private Long articleID;
     @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Evaluation> evaluations;
@@ -34,5 +34,19 @@ public class Result {
         return evaluations;
     }
 
+    public Long getConferenceID() {
+        return conferenceID;
+    }
 
+    public void setConferenceID(Long conferenceID) {
+        this.conferenceID = conferenceID;
+    }
+
+    public Long getArticleID() {
+        return articleID;
+    }
+
+    public void setArticleID(Long articleID) {
+        this.articleID = articleID;
+    }
 }

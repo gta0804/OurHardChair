@@ -193,7 +193,7 @@ public class ContributionController {
         return ResponseEntity.ok(answer);
     }
     @CrossOrigin(origins = "*")
-    @PostMapping("/allManuscriptInConference")
+    @PostMapping("/showMySubmission")
     public ResponseEntity<HashMap<String, Object>> showContributionModification(HttpServletRequest request, @RequestBody ShowContributionModificationRequest showContributionModificationRequest) throws IOException {
         logger.debug("Try to show contribution modification...");
         String token = request.getHeader("Authorization").substring(7);

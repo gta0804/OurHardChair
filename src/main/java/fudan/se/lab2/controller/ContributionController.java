@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.repository.ArticleRepository;
@@ -96,7 +97,6 @@ public class ContributionController {
                     // 设置存放图片文件的路径
                     //获取到了就传到对应参数的文件夹，获取不到就unknownConferenceID
                     StringBuilder sb = new StringBuilder("/workplace/upload/");
-
                     if (null == conferenceID) {
                         sb.append("unknownConferenceID/");
                     }else {
@@ -105,6 +105,7 @@ public class ContributionController {
                     }
                     sb.append(fileName);
                     path = sb.toString();
+            System.out.println(path);
                     mkdirAndFile(path);
                     File dest = new File(path);
                     file.transferTo(dest);
@@ -191,15 +192,6 @@ public class ContributionController {
         answer.put("token",token);
         answer.put("message",message);
         return ResponseEntity.ok(answer);
-    }
-    @CrossOrigin(origins = "*")
-    @PostMapping("/showContributionModification")
-    public ResponseEntity<HashMap<String, Object>> showContributionModification(HttpServletRequest request, @RequestBody ShowContributionModificationRequest showContributionModificationRequest) throws IOException {
-        logger.debug("Try to show contribution modification...");
-        String token = request.getHeader("Authorization").substring(7);
-        HashMap<String,Object> message = contributionService.showContributionModification(showContributionModificationRequest);
-        message.put("token",token);
-        return ResponseEntity.ok(message);
     }
     @CrossOrigin(origins = "*")
     @PostMapping("/modifyContribution")

@@ -78,8 +78,12 @@ public class MyRelatedConferenceService {
         Long id=userRepository.findByUsername(username).getId();
         List<Conference> conferences = new ArrayList<>();
         List<Contributor> myRelated = authorRepository.findAllByUserId(id);
-        for (Contributor contributor : myRelated) {
-            Conference conference=conferenceRepository.findById(contributor.getConferenceId()).orElse(null);
+        Set<Long> conferenceIDList=new HashSet<>();
+        for(Contributor contributor : myRelated){
+            conferenceIDList.add(contributor.getConferenceId());
+        }
+        for (Long conferenceId: conferenceIDList) {
+            Conference conference=conferenceRepository.findById(conferenceId).orElse(null);
             if(conference==null){
                 return null;
             }
@@ -96,8 +100,9 @@ public class MyRelatedConferenceService {
     }
 
     public List<ShowSubmissionResponse> showSubmission(ShowSubmissionRequest request){
-        User user=userRepository.findByUsername(request.getUsername());
-        List<Article> articles=articleRepository.findByContributorID(user.getId());
+        String username=SecurityContextHolder.getContext().getAuthentication().getName();
+        User user=userRepository.findByUsername(username);
+        List<Article> articles=articleRepository.findByContributorIDAndConferenceID(user.getId(),request.getConference_id());
         List<ShowSubmissionResponse> responses=new LinkedList<>();
         for(Article article:articles){
             Conference conference=conferenceRepository.findById(article.getConferenceID()).orElse(null);

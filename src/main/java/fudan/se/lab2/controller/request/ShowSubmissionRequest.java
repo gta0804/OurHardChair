@@ -5,19 +5,15 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class ShowSubmissionRequest {
-    private String username;
+    private Long conference_id;
     @Autowired
     public ShowSubmissionRequest(){}
 
-    public ShowSubmissionRequest(String username) {
-        this.username = username;
+    public Long getConference_id() {
+        return conference_id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setConference_id(Long conference_id) {
+        this.conference_id = conference_id;
     }
 }

@@ -6,6 +6,7 @@ import fudan.se.lab2.controller.response.ArticleForPCMemberResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,6 +20,8 @@ import java.util.*;
  **/
 @Service
 public class ContributionService {
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -40,6 +43,9 @@ public class ContributionService {
     @Autowired
     private ResultRepository resultRepository;
 
+    @Autowired
+    private WriterRepository writerRepository;
+
     public HashMap<String,Object> contribute(ContributionRequest contributionRequest){
        Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConference_id());
         HashMap<String,Object> hashMap = new HashMap<>();
@@ -55,9 +61,24 @@ public class ContributionService {
         List<Writer> writers=new ArrayList<>();
         HashMap<String,Object> hashMap = new HashMap<>();
         for(WriterRequest writerRequest:contributionRequest.getWriters()){
-            writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
+            Writer writer=writerRepository.findByWriterNameAndEmail(writerRequest.getWriterName(),writerRequest.getEmail());
+            if(writer==null){
+                writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
+            }
+            else{
+                writers.add(writer);
+            }
+        }
+        for(int i=0;i<writers.size();i++){
+            for(int j=i+1;j<writers.size();j++){
+                if(writers.get(i).equals(writers.get(j))){
+                    hashMap.put("message","填写了重复作者");
+                    return hashMap;
+                }
+            }
         }
         Article article = new Article(contributionRequest.getConference_id(),contributionRequest.getContributorID(),contributionRequest.getFilename(),contributionRequest.getTitle(),contributionRequest.getArticleAbstract(),writers);
+
         Set<Topic> topics=new HashSet<>();
         for(String topicName:contributionRequest.getTopics()){
             Topic topic=topicRepository.findByTopic(topicName);
@@ -124,30 +145,6 @@ public class ContributionService {
     }
 
 
-    public HashMap<String,Object> showContributionModification(ShowContributionModificationRequest showContributionModificationRequest){
-        List<Article> articles = articleRepository.findArticleByTitle(showContributionModificationRequest.getTitle());
-        HashMap<String,Object> hashMap = new HashMap<>();
-        for (Article article : articles) {
-            if (article.getConferenceID().equals(showContributionModificationRequest.getConference_id())){
-                hashMap.put("message","success");
-                hashMap.put("title",article.getTitle());
-                hashMap.put("articleAbstract",article.getArticleAbstract());
-                hashMap.put("fileName",article.getFilename());
-                hashMap.put("authorID",article.getContributorID());
-                hashMap.put("writers",article.getWriters());
-                hashMap.put("articleId",article.getId());
-                List<String> topicNames=new ArrayList<>();
-                for(Topic topic:article.getTopics()){
-                    topicNames.add(topic.getTopic());
-                }
-                hashMap.put("topics",topicNames);
-                return hashMap;
-            }
-        }
-        hashMap.put("message","预览失败");
-        return hashMap;
-    }
-
     /**
     * @Description: 修改投稿
     * @Param:
@@ -174,8 +171,19 @@ public class ContributionService {
             topics.add(topic);
         }
         article.setTopics(topics);
-
-        article.setWriters(writerRequestToWriter(modifyContributionRequest.getWriters()));
+        List<Writer> writers=new LinkedList<>();
+        for(WriterRequest writerRequest:modifyContributionRequest.getWriters()){
+            Writer writer=writerRepository.findByWriterNameAndEmail(writerRequest.getWriterName(),writerRequest.getEmail());
+            if(writer==null){
+                writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
+            }
+            else{
+                writer.setInstitution(writerRequest.getInstitution());
+                writer.setCountry(writerRequest.getCountry());
+                writers.add(writer);
+            }
+        }
+        article.setWriters(writers);
         articleRepository.save(article);
         hashMap.put("message","修改成功");
         return hashMap;
@@ -245,20 +253,6 @@ public class ContributionService {
         hashMap.put("results",results);
         hashMap.put("message","请求成功");
         return hashMap;
-    }
-
-
-
-
-
-        private ArrayList<Writer> writerRequestToWriter(List<WriterRequest> writerRequests){
-        ArrayList<Writer> writers = new ArrayList<>();
-        for (WriterRequest writerRequest : writerRequests) {
-
-            Writer writer = new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry());
-        writers.add(writer);
-        }
-        return writers;
     }
 
 }

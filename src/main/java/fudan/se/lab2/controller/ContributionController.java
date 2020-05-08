@@ -194,15 +194,6 @@ public class ContributionController {
         return ResponseEntity.ok(answer);
     }
     @CrossOrigin(origins = "*")
-    @PostMapping("/showContributionModification")
-    public ResponseEntity<HashMap<String, Object>> showContributionModification(HttpServletRequest request, @RequestBody ShowContributionModificationRequest showContributionModificationRequest) throws IOException {
-        logger.debug("Try to show contribution modification...");
-        String token = request.getHeader("Authorization").substring(7);
-        HashMap<String,Object> message = contributionService.showContributionModification(showContributionModificationRequest);
-        message.put("token",token);
-        return ResponseEntity.ok(message);
-    }
-    @CrossOrigin(origins = "*")
     @PostMapping("/modifyContribution")
     public ResponseEntity<HashMap<String, Object>> modifyContribution(HttpServletRequest request, @RequestBody ModifyContributionRequest modifyContributionRequest) throws IOException {
         logger.debug("Try to modify contribution...");

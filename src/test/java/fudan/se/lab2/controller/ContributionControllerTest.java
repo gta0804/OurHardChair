@@ -64,7 +64,7 @@ class ContributionControllerTest {
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization", token);
         ShowSubmissionRequest showSubmissionRequest=new ShowSubmissionRequest();
-        showSubmissionRequest.setUsername("admin");
+        showSubmissionRequest.setConference_id((long)2);
         ResponseEntity<HashMap<String,Object>> responseEntity=myRelatedConferenceController.showMySubmission(showSubmissionRequest,request);
         Assert.isTrue(responseEntity.getBody().get("message").equals("success"));
     }

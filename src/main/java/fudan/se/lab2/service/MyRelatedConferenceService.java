@@ -195,6 +195,9 @@ public class MyRelatedConferenceService {
         if(pcMembersForConference.size()<2){
             return "PCMember数量少于2个，您不能开启投稿";
         }
+        if(conference.getIsOpenSubmission()==3){
+            return "审稿已经开启";
+        }
         conference.setIsOpenSubmission(3);
         conferenceRepository.save(conference);
 
@@ -206,7 +209,7 @@ public class MyRelatedConferenceService {
         }
         else{
             for(Article article:articles) {
-                allocateAll(article, pcMembersForConference);
+                allocateAll(article, request);
             }
         }
         return "开启投稿成功";
@@ -237,12 +240,14 @@ public class MyRelatedConferenceService {
 
     }
 
-    private void allocateAll(Article article,List<PCMember> pCMembers){
+    private void allocateAll(Article article,OpenManuscriptReviewRequest request){
+        List<PCMember> pCMembers=pcMemberRepository.findAllByConferenceId(request.getConference_id());
         List<PCMember> temp=new LinkedList<>(pCMembers);
-        int minimumNumber=pCMembers.get(0).getArticles().size();
+        int minimumNumber=0;
 
         for(int i=0;i<3;i++){
             for(PCMember pcMember:pCMembers){
+                minimumNumber=pCMembers.get(0).getArticles().size();
                 if(pcMember.getArticles().size()<minimumNumber){
                     minimumNumber=pcMember.getArticles().size();
                 }
@@ -253,7 +258,7 @@ public class MyRelatedConferenceService {
                     feasiblePCMembers.add(pcMember);
                 }
             }
-            int pcMemberSelectedIndex=(new Random().nextInt())%feasiblePCMembers.size();
+            int pcMemberSelectedIndex=Math.abs((new Random().nextInt()))%feasiblePCMembers.size();
             PCMember matchingPCMember=feasiblePCMembers.get(pcMemberSelectedIndex);
             saveAllocation(matchingPCMember,article);
             temp.remove(matchingPCMember);

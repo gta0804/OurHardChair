@@ -86,9 +86,6 @@ public class ContributionService {
                 hashMap.put("message","投稿失败");
                 return hashMap;
             }
-            Set<Article> articles=topic.getArticles();
-            articles.add(article);
-            topic.setArticles(articles);
             topics.add(topic);
         }
         article.setTopics(topics);

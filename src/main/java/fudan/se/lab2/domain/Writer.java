@@ -78,4 +78,14 @@ public class Writer {
     public Long getId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if(!(object instanceof Writer)){
+            return false;
+        }
+        Writer writer=(Writer) object;
+        return writer.getWriterName().equals(this.getWriterName())&&
+                writer.getEmail().equals(this.getEmail());
+    }
 }

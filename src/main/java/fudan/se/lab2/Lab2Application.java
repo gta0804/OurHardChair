@@ -44,9 +44,6 @@ public class Lab2Application {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                Conference conference = conferenceRepository.findByFullName("nfush");
-                conference.setIsOpenSubmission(2);
-                conferenceRepository.save(conference);
                 // Create authorities if not exist.
                 Authority adminAuthority = getOrCreateAuthority("admin","administrator", authorityRepository);
                 Authority userAuthority = getOrCreateAuthority("superuser","user",authorityRepository);

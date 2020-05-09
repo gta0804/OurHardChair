@@ -20,7 +20,6 @@ public class Result {
     private Long conferenceID;
     private Long articleID;
     @OneToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<Evaluation> evaluations;
 
     public Result(){}

@@ -73,8 +73,7 @@ class ApplyConferenceControllerTest {
     */
     @Test
     void applyMeeting() {
-        Conference conference=conferenceRepository.findByFullName("hhh");
-        Assert.isNull(conference);
+
         String token;
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("admin");
@@ -85,7 +84,7 @@ class ApplyConferenceControllerTest {
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization","Bearer "+token);
         ApplyMeetingRequest applyMeetingRequest = new ApplyMeetingRequest();
-        applyMeetingRequest.setFullName("hhh");
+        applyMeetingRequest.setFullName(date.toString());
         applyMeetingRequest.setHoldingTime((date).toString());
         applyMeetingRequest.setSubmissionDeadline((date).toString());
         applyMeetingRequest.setAbbreviation((date).toString());
@@ -94,10 +93,12 @@ class ApplyConferenceControllerTest {
         topics.add(new Date().toString());
         applyMeetingRequest.setTopics(topics);
         ResponseEntity<HashMap<String, Object>> responseEntity = applyConferenceController.applyMeeting(request,applyMeetingRequest);
+        System.out.println("message: " +responseEntity.getBody().get("message"));
         Assert.isTrue(responseEntity.getBody().get("message").equals("success"));
         ResponseEntity<HashMap<String, Object>> responseEntity1 = applyConferenceController.applyMeeting(request,applyMeetingRequest);
         Assert.isTrue(responseEntity1.getBody().get("message").equals("会议申请失败，已有该会议"));
-        conference=conferenceRepository.findByFullName("hhh");
+        Conference conference=conferenceRepository.findByFullName(date.toString());
+
         conferenceRepository.delete(conference);
     }
 

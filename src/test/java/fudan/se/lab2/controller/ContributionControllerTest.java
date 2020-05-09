@@ -61,7 +61,7 @@ class ContributionControllerTest {
         writerRequests.add(writerRequest);
         contributionRequest.setWriters(writerRequests);
         List<String> topics=new LinkedList<>();
-        topics.add(new Date().toString());
+        topics.add(new Date().toString()+"mathabc");
         contributionRequest.setTopics(topics);
         Assert.isTrue(contributionController.contribute(request,contributionRequest).getBody().get("message").equals("投稿失败"));
     }

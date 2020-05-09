@@ -33,10 +33,10 @@ public class ResultController {
 
     @CrossOrigin("*")
     @PostMapping("/releaseReviewResult")
-    public ResponseEntity<HashMap<String, Object>> releaseReviewResult(@RequestParam("conference_id") Long conference_id,HttpServletRequest httpServletRequest) {
+    public ResponseEntity<HashMap<String, Object>> releaseReviewResult(HttpServletRequest httpServletRequest,@RequestParam("conference_id") Long conferenceID) {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
-        String result = myRelatedConferenceService.releaseReviewResult(conference_id);
+        String result = myRelatedConferenceService.releaseReviewResult(conferenceID);
         hashMap.put("token",token);
         hashMap.put("message",result);
         return ResponseEntity.ok(hashMap);
@@ -44,9 +44,9 @@ public class ResultController {
 
     @CrossOrigin("*")
     @PostMapping("/viewReviewResult")
-    public ResponseEntity<HashMap<String, Object>> viewReviewResult(@RequestParam("conference_id") Long conference_id,@RequestParam("userId") Long userId,HttpServletRequest httpServletRequest) {
+    public ResponseEntity<HashMap<String, Object>> viewReviewResult(HttpServletRequest httpServletRequest,@RequestParam("conference_id") Long conferenceID,@RequestParam("userId") Long userId) {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        HashMap<String,Object> hashMap = contributionService.viewReviewResult(conference_id,userId);
+        HashMap<String,Object> hashMap = contributionService.viewReviewResult(conferenceID,userId);
         hashMap.put("token",token);
         return ResponseEntity.ok(hashMap);
     }

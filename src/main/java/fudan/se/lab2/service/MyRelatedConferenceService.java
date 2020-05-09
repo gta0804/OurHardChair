@@ -167,7 +167,7 @@ public class MyRelatedConferenceService {
         return responses;
     }
 
-    public String releaseReviewResult(long conference_id){
+    public String releaseReviewResult(Long conference_id){
         Conference conference = conferenceRepository.findById(conference_id).orElse(null);
         if(null != conference) {
             conference.setReviewStatus(Math.max(conference.getReviewStatus(), 4));

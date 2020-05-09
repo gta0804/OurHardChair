@@ -242,6 +242,10 @@ public class ContributionService {
         HashMap<String,Object> hashMap = new HashMap<>();
         Set<Result> results = new HashSet<>();
         List<Article> articles = articleRepository.findByContributorIDAndConferenceID(userId,conference_id);
+        if(articles==null){
+            hashMap.put("message","error");
+            return hashMap;
+        }
         for (Article article : articles) {
             Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),article.getConferenceID());
             results.add(result);

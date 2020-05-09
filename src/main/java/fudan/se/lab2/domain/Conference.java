@@ -13,6 +13,8 @@ public class Conference {
     private Long chairId;
 
     private String abbreviation;
+
+    @Column(unique = true)
     private String fullName;
     private String holdingPlace;
     private String holdingTime;

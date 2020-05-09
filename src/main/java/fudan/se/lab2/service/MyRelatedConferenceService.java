@@ -169,7 +169,14 @@ public class MyRelatedConferenceService {
 
     public String releaseReviewResult(Long conference_id){
         Conference conference = conferenceRepository.findById(conference_id).orElse(null);
+
         if(null != conference) {
+            List<Article> articles = articleRepository.findByConferenceID(conference.getId());
+            for (Article article : articles) {
+                if (!article.getHowManyPeopleHaveReviewed().equals(3)){
+                    return "开启失败，有稿件未审完";
+                };
+            }
             conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 4));
             conferenceRepository.save(conference);
             return "开启成功";

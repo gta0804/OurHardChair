@@ -42,8 +42,7 @@ public class Conference {
         //4：评审结果发布reviewReleaseDate
         //5：会议开始holdingTime
         //记录会议审核状态
-        this.reviewStatus = 2;//1刚提交和2通过了3是没通过
-
+        this.reviewStatus = 1;//1刚提交和2通过了3是没通过
     }
 
     public Long getId() {

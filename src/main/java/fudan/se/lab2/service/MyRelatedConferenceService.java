@@ -170,7 +170,7 @@ public class MyRelatedConferenceService {
     public String releaseReviewResult(Long conference_id){
         Conference conference = conferenceRepository.findById(conference_id).orElse(null);
         if(null != conference) {
-            conference.setReviewStatus(Math.max(conference.getReviewStatus(), 4));
+            conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 4));
             conferenceRepository.save(conference);
             return "开启成功";
         }else {

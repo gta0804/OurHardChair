@@ -1,6 +1,7 @@
 package fudan.se.lab2.controller.response;
 
 import fudan.se.lab2.domain.Conference;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -13,6 +14,12 @@ import java.util.List;
 public class ConferenceForChairResponse {
     private Conference conference;
     private Integer canRelease;
+
+    public ConferenceForChairResponse(){}
+    public ConferenceForChairResponse(Conference conference, Integer canRelease) {
+        this.conference = conference;
+        this.canRelease = canRelease;
+    }
 
     public Conference getConference() {
         return conference;

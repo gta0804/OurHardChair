@@ -125,7 +125,14 @@ public class MyRelatedConferenceService {
     }
 
     public List<Conference>  showAllConference(){
-        List<Conference> conferences =  conferenceRepository.findAllByReviewStatus(2);
+        List<Conference> conferences2 =  conferenceRepository.findAllByReviewStatus(2);
+        List<Conference> conferences3 =  conferenceRepository.findAllByReviewStatus(3);
+        List<Conference> conferences4 =  conferenceRepository.findAllByReviewStatus(4);
+        List<Conference> conferences5 =  conferenceRepository.findAllByReviewStatus(5);
+        List<Conference> conferences = new ArrayList<>(conferences2);
+        conferences.addAll(conferences3);
+        conferences.addAll(conferences4);
+        conferences.addAll(conferences5);
         return conferences;
     }
 

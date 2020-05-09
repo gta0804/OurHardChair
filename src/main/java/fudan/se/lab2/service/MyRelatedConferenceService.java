@@ -259,7 +259,7 @@ public class MyRelatedConferenceService {
                     feasiblePCMembers.add(pcMember);
                 }
             }
-            int pcMemberSelectedIndex=Math.abs((new Random().nextInt()))%feasiblePCMembers.size();
+            int pcMemberSelectedIndex=(new Random().nextInt())%feasiblePCMembers.size();
             PCMember matchingPCMember=feasiblePCMembers.get(pcMemberSelectedIndex);
             saveAllocation(matchingPCMember,article);
             temp.remove(matchingPCMember);

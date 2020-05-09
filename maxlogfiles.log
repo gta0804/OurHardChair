@@ -11641,3 +11641,24 @@ java.lang.ArithmeticException: / by zero
 2020-05-08 20:51:03.074 DEBUG 20616 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-05-08 20:51:03.075 DEBUG 20616 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{submissions=[fudan.se.lab2.controller.response.ShowSubmissionResponse@42ee5831], message=success, t (truncated)...]
 2020-05-08 20:51:03.079 DEBUG 20616 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-05-09 18:13:06.294  INFO 13856 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-09 18:13:06.297 DEBUG 13856 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-05-09 18:13:06.320 DEBUG 13856 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-05-09 18:13:06.320  INFO 13856 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed initialization in 23 ms
+2020-05-09 18:13:07.584 DEBUG 13856 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/mailCenter", parameters={}
+2020-05-09 18:13:07.584 DEBUG 13856 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForChair", parameters={}
+2020-05-09 18:13:07.590 DEBUG 13856 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MessageController#openMailCenter(HttpServletRequest)
+2020-05-09 18:13:07.590 DEBUG 13856 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForChair(HttpServletRequest)
+2020-05-09 18:13:07.696 DEBUG 13856 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-09 18:13:07.697 DEBUG 13856 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.controller.response.AllConferenceResponse@680a5ad], message=获取所有我主持的会议申请成功, (truncated)...]
+2020-05-09 18:13:07.697 DEBUG 13856 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-09 18:13:07.697 DEBUG 13856 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{messages=[], token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QiIsImlhdCI6MTU4OTAwNTUxMCwiZXhwIjoxNTg5MDI (truncated)...]
+2020-05-09 18:13:07.724 DEBUG 13856 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-05-09 18:13:07.788 DEBUG 13856 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-05-09 18:13:55.089 DEBUG 17732 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-05-09 18:13:55.095  INFO 17732 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3602 ms
+2020-05-09 18:14:02.401  WARN 17732 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-09 18:14:02.919 DEBUG 17732 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-09 18:14:02.991 DEBUG 17732 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-09 18:14:03.018 DEBUG 17732 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-09 18:14:03.034 DEBUG 17732 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice

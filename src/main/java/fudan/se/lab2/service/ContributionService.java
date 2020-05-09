@@ -53,6 +53,7 @@ public class ContributionService {
            hashMap.put("message","重复投稿");
            return  hashMap;
         }
+       hashMap.put("message","投稿成功");
 
         return saveContribution(contributionRequest);
     }

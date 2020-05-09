@@ -63,7 +63,9 @@ public class ContributionController {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         long conferenceID = contributionRequest.getConference_id();
         map = contributionService.contribute(contributionRequest);
-        map.put("token",token);
+        if (!map.get("message").equals("重复投稿")){
+            map.put("token",token);
+        }
         return ResponseEntity.ok(map);
     }
 

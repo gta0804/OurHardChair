@@ -18,22 +18,12 @@ import java.util.Date;
 
 @SpringBootTest
 public class PCMemberControllerTest {
-<<<<<<< HEAD
-//    @Autowired
-//    PCMemberController pcMemberController;
-//    String token="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4NjY4MDYzMCwiZXhwIjoxNTg2Njk4NjMwfQ.laMZ1U8mDn53ig9AG4sw23XKMasthIqCd0YDnfV9K9GTICGprAdthhhYj0RZqmMjb09iGd5-OsznQRudUJBmKw";
-//    private MockHttpServletRequest request;
-//
-//    @Autowired
-//    private ConferenceRepository conferenceRepository;
-=======
     @Autowired
     PCMemberController pcMemberController;
     private MockHttpServletRequest request;
 
     @Autowired
     private ConferenceRepository conferenceRepository;
->>>>>>> 8a95fedf54cbfb724dda41d01ad28b77ff7da3b7
 
     @Autowired
     private AuthController authController;

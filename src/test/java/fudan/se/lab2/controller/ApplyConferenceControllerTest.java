@@ -4,18 +4,10 @@ import fudan.se.lab2.Lab2Application;
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.LoginRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
-<<<<<<< HEAD
-import fudan.se.lab2.domain.Authority;
-import fudan.se.lab2.domain.User;
-import fudan.se.lab2.repository.AuthorityRepository;
-import fudan.se.lab2.repository.UserRepository;
-import fudan.se.lab2.security.jwt.JwtTokenUtil;
-=======
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.domain.Topic;
 import fudan.se.lab2.repository.ConferenceRepository;
 import fudan.se.lab2.repository.TopicRepository;
->>>>>>> 8a95fedf54cbfb724dda41d01ad28b77ff7da3b7
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +33,6 @@ class ApplyConferenceControllerTest {
      ApplyConferenceController applyConferenceController;
 
     @Autowired
-<<<<<<< HEAD
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-            private AuthorityRepository authorityRepository;
-
-
-    String token= "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4ODk5OTk0NiwiZXhwIjoxNTg5MDE3OTQ2fQ.5lwt5mWjuFX-OjB1mkeJFsFWYvuFIiBNhw7TfM_Us9R3TCmVLsAzlwBtQW8DqiurO9_uGXwQK3aRCO7gzatyPQ";
-
-//    String token = jwtTokenUtil.generateToken(user);
-=======
     private ConferenceRepository conferenceRepository;
 
     @Autowired
@@ -59,7 +41,6 @@ class ApplyConferenceControllerTest {
     @Autowired
     private TopicRepository topicRepository;
 
->>>>>>> 8a95fedf54cbfb724dda41d01ad28b77ff7da3b7
 
     /**
     * @Description: 测试获取全部会议是否成功

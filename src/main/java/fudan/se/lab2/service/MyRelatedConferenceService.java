@@ -63,7 +63,7 @@ public class MyRelatedConferenceService {
         List<Conference> conferences = new ArrayList<>();
         List<PCMember> myRelated = pcMemberRepository.findAllByUserId(id);
         for (PCMember pcMember : myRelated) {
-            Conference conference=conferenceRepository.findById(pcMember.getConferenceId()).orElse(null);
+            Conference conference = conferenceRepository.findById(pcMember.getConferenceId()).orElse(null);
             if(conference==null){
                 return null;
             }

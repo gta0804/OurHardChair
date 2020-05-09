@@ -219,8 +219,9 @@ public class ContributionService {
         }
         PCMember pcMember = pcMemberRepository.findByUserIdAndConferenceId(submitReviewResultRequest.getUserId(),submitReviewResultRequest.getConference_id());
         Set<Article> articles = pcMember.getArticlesHaveReviewed();
-        articles.add(article);
-        pcMember.setArticlesHaveReviewed(articles);
+        Set<Article> articlesToUpdate = new HashSet<>(articles);
+        articlesToUpdate.add(article);
+        pcMember.setArticlesHaveReviewed(articlesToUpdate);
         pcMemberRepository.save(pcMember);
 
         article.setHowManyPeopleHaveReviewed(article.getHowManyPeopleHaveReviewed()+1);

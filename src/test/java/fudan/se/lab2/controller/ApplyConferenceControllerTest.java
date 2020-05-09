@@ -4,6 +4,7 @@ import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
 import fudan.se.lab2.domain.Authority;
 import fudan.se.lab2.domain.User;
+import fudan.se.lab2.repository.AuthorityRepository;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import io.jsonwebtoken.lang.Assert;
@@ -32,15 +33,13 @@ class ApplyConferenceControllerTest {
      ApplyConferenceController applyConferenceController;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+            private AuthorityRepository authorityRepository;
 
-    Set<Authority> hashset = new HashSet<>();
 
-    public ApplyConferenceControllerTest(String token) {
-        this.token = token;
-    }
+    String token= "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4ODk5OTk0NiwiZXhwIjoxNTg5MDE3OTQ2fQ.5lwt5mWjuFX-OjB1mkeJFsFWYvuFIiBNhw7TfM_Us9R3TCmVLsAzlwBtQW8DqiurO9_uGXwQK3aRCO7gzatyPQ";
 
 //    String token = jwtTokenUtil.generateToken(user);
-    String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4NjY4MDYzMCwiZXhwIjoxNTg2Njk4NjMwfQ.laMZ1U8mDn53ig9AG4sw23XKMasthIqCd0YDnfV9K9GTICGprAdthhhYj0RZqmMjb09iGd5-OsznQRudUJBmKw";
 
     /**
     * @Description: 测试获取全部会议是否成功

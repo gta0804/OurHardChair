@@ -1,5 +1,7 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.ConferenceIDAndUserIDRequest;
+import fudan.se.lab2.controller.request.ConferenceIDRequest;
 import fudan.se.lab2.service.ContributionService;
 import fudan.se.lab2.service.MyRelatedConferenceService;
 import org.slf4j.Logger;
@@ -33,10 +35,10 @@ public class ResultController {
 
     @CrossOrigin("*")
     @PostMapping("/releaseReviewResult")
-    public ResponseEntity<HashMap<String, Object>> releaseReviewResult(HttpServletRequest httpServletRequest,@RequestParam("conference_id") Long conferenceID) {
+    public ResponseEntity<HashMap<String, Object>> releaseReviewResult(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDRequest conferenceIDRequest) {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
-        String result = myRelatedConferenceService.releaseReviewResult(conferenceID);
+        String result = myRelatedConferenceService.releaseReviewResult(conferenceIDRequest.getConference_id());
         hashMap.put("token",token);
         hashMap.put("message",result);
         return ResponseEntity.ok(hashMap);
@@ -44,9 +46,9 @@ public class ResultController {
 
     @CrossOrigin("*")
     @PostMapping("/viewReviewResult")
-    public ResponseEntity<HashMap<String, Object>> viewReviewResult(HttpServletRequest httpServletRequest,@RequestParam("conference_id") Long conferenceID,@RequestParam("userId") Long userId) {
+    public ResponseEntity<HashMap<String, Object>> viewReviewResult(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDAndUserIDRequest conferenceIDAndUserIDRequest) {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        HashMap<String,Object> hashMap = contributionService.viewReviewResult(conferenceID,userId);
+        HashMap<String,Object> hashMap = contributionService.viewReviewResult(conferenceIDAndUserIDRequest.getConference_id(),conferenceIDAndUserIDRequest.getUserId());
         hashMap.put("token",token);
         return ResponseEntity.ok(hashMap);
     }

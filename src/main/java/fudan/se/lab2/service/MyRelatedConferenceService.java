@@ -117,6 +117,7 @@ public class MyRelatedConferenceService {
                 }
                 showSubmissionResponse.setTopics(topics);
                 showSubmissionResponse.setWriters(article.getWriters());
+                showSubmissionResponse.setArticleID(article.getId());
                 responses.add(showSubmissionResponse);
             }
         }

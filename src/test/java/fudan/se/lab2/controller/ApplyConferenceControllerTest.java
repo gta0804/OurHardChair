@@ -2,6 +2,10 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
+import fudan.se.lab2.domain.Authority;
+import fudan.se.lab2.domain.User;
+import fudan.se.lab2.repository.UserRepository;
+import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,8 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootTest
 class ApplyConferenceControllerTest {
@@ -21,8 +27,19 @@ class ApplyConferenceControllerTest {
     MyRelatedConferenceController myRelatedConferenceController;
 
     @Autowired
+    UserRepository userRepository;
+    @Autowired
      ApplyConferenceController applyConferenceController;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
+    Set<Authority> hashset = new HashSet<>();
+
+    public ApplyConferenceControllerTest(String token) {
+        this.token = token;
+    }
+
+//    String token = jwtTokenUtil.generateToken(user);
     String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4NjY4MDYzMCwiZXhwIjoxNTg2Njk4NjMwfQ.laMZ1U8mDn53ig9AG4sw23XKMasthIqCd0YDnfV9K9GTICGprAdthhhYj0RZqmMjb09iGd5-OsznQRudUJBmKw";
 
     /**

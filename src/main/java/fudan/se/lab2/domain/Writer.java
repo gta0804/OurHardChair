@@ -88,4 +88,9 @@ public class Writer {
         return writer.getWriterName().equals(this.getWriterName())&&
                 writer.getEmail().equals(this.getEmail());
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

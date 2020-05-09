@@ -14,8 +14,17 @@ public class ShowSubmissionResponse {
     private Long status;
     private Set<String> topics;
     private List<Writer> writers;
+    private Long articleID;
 
-    public ShowSubmissionResponse(String conferenceName,String filename,String title,String articleAbstract,Long status){
+    public Long getArticleID() {
+        return articleID;
+    }
+
+    public void setArticleID(Long articleID) {
+        this.articleID = articleID;
+    }
+
+    public ShowSubmissionResponse(String conferenceName, String filename, String title, String articleAbstract, Long status){
         this.conferenceName=conferenceName;
         this.filename=filename;
         this.title=title;

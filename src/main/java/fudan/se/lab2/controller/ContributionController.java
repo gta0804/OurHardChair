@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.repository.ArticleRepository;
@@ -75,7 +76,7 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conferenceID") Long conferenceID)throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID)throws IOException {
         logger.debug("Try to upload...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
@@ -96,7 +97,6 @@ public class ContributionController {
                     // 设置存放图片文件的路径
                     //获取到了就传到对应参数的文件夹，获取不到就unknownConferenceID
                     StringBuilder sb = new StringBuilder("/workplace/upload/");
-
                     if (null == conferenceID) {
                         sb.append("unknownConferenceID/");
                     }else {
@@ -105,6 +105,7 @@ public class ContributionController {
                     }
                     sb.append(fileName);
                     path = sb.toString();
+            System.out.println(path);
                     mkdirAndFile(path);
                     File dest = new File(path);
                     file.transferTo(dest);
@@ -115,7 +116,7 @@ public class ContributionController {
     }
     @CrossOrigin(origins = "*")
     @PostMapping("/update")
-    public ResponseEntity<HashMap<String, Object>> update(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conferenceID") Long conferenceID,@RequestParam("articleId") Long articleId)throws IOException {
+    public ResponseEntity<HashMap<String, Object>> update(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID,@RequestParam("articleId") Long articleId)throws IOException {
         logger.debug("Try to update...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);

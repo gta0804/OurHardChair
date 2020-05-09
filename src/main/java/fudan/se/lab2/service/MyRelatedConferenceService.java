@@ -63,7 +63,7 @@ public class MyRelatedConferenceService {
         List<Conference> conferences = new ArrayList<>();
         List<PCMember> myRelated = pcMemberRepository.findAllByUserId(id);
         for (PCMember pcMember : myRelated) {
-            Conference conference=conferenceRepository.findById(pcMember.getConferenceId()).orElse(null);
+            Conference conference = conferenceRepository.findById(pcMember.getConferenceId()).orElse(null);
             if(conference==null){
                 return null;
             }
@@ -167,15 +167,14 @@ public class MyRelatedConferenceService {
         return responses;
     }
 
-    public String releaseReviewResult(long conference_id,long userId){
+    public String releaseReviewResult(long conference_id){
         Conference conference = conferenceRepository.findById(conference_id).orElse(null);
-        if (conference.getChairId() == (userId)){
-            conference.setReviewStatus(Math.max(conference.getReviewStatus(),4));
+        if(null != conference) {
+            conference.setReviewStatus(Math.max(conference.getReviewStatus(), 4));
+            conferenceRepository.save(conference);
             return "开启成功";
-        }
-        else{
+        }else {
             return "开启失败";
-
         }
     }
 

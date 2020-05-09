@@ -126,6 +126,7 @@ public class ContributionService {
                     if (article1.getConferenceID().equals(reviewArticleRequest.getConference_id()) && article1.getTitle().equals(article.getTitle())){
                         //已经审稿
                         articleForPCMemberResponse.setStatus(1);
+                        break;
                     }else{
                         articleForPCMemberResponse.setStatus(0);
                     }
@@ -218,8 +219,9 @@ public class ContributionService {
         }
         PCMember pcMember = pcMemberRepository.findByUserIdAndConferenceId(submitReviewResultRequest.getUserId(),submitReviewResultRequest.getConference_id());
         Set<Article> articles = pcMember.getArticlesHaveReviewed();
-        articles.add(article);
-        pcMember.setArticlesHaveReviewed(articles);
+        Set<Article> articlesToUpdate = new HashSet<>(articles);
+        articlesToUpdate.add(article);
+        pcMember.setArticlesHaveReviewed(articlesToUpdate);
         pcMemberRepository.save(pcMember);
 
         article.setHowManyPeopleHaveReviewed(article.getHowManyPeopleHaveReviewed()+1);

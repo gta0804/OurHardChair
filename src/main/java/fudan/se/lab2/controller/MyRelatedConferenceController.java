@@ -95,6 +95,7 @@ public class MyRelatedConferenceController {
         List<Conference> conferences = myRelatedConferenceService.showAllConferenceForPCMember();
         if(conferences==null){
             map.put("message","获取所有我审稿的会议申请失败");
+            map.put("token",token);
             return ResponseEntity.ok(map);
         }
         else{

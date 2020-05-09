@@ -32,24 +32,21 @@ class AuthControllerTest {
     @Test
     void register() {
         RegisterRequest registerRequest = new RegisterRequest();
-        registerRequest.setFullName("admin");
+        registerRequest.setFullName("guotaian");
         registerRequest.setAuthorities(null);
         registerRequest.setCountry("China");
         registerRequest.setEmail("123@qq.com");
         registerRequest.setInstitution("FD");
         registerRequest.setPassword("123456");
-        registerRequest.setUsername("admin");
+        registerRequest.setUsername("testA");
         ResponseEntity<HashMap<String,Object>> responseEntity = authController.register(registerRequest);
-        Assert.isTrue(responseEntity.getBody().get("message").equals("注册失败，已有该用户"));
-        registerRequest.setUsername((new Date()).toString());
-        ResponseEntity<HashMap<String,Object>> responseEntity1 = authController.register(registerRequest);
-        Assert.isTrue(responseEntity1.getBody().get("email").equals("123@qq.com"));
+        Assert.isTrue(responseEntity.getBody().get("message").equals("success"));
     }
 
     @Test
     void login() {
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("admin");
+        loginRequest.setUsername("testA");
         loginRequest.setPassword("123");
         Assert.isTrue(authController.login(loginRequest).getBody().get("message").equals("密码错误"));
         loginRequest.setUsername((new Date()).toString()+ Math.random());

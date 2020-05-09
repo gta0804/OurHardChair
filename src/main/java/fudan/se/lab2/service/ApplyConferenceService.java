@@ -6,6 +6,7 @@ import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -34,7 +35,10 @@ public class ApplyConferenceService {
         this.messageRepository=messageRepository;
     }
 
-    public Conference applyMeeting(ApplyMeetingRequest request, Long id){
+    public Conference applyMeeting(ApplyMeetingRequest request){
+        String userName= SecurityContextHolder.getContext().getAuthentication().getName();
+        User user=userRepository.findByUsername(userName);
+        Long id=user.getId();
         if(null!=conferenceRepository.findByFullName(request.getFullName())){
             System.out.println("会议全称重复");
             return null;

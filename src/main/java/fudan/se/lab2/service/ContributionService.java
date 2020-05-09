@@ -6,7 +6,6 @@ import fudan.se.lab2.controller.response.ArticleForPCMemberResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 

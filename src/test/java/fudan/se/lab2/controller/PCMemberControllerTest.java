@@ -11,7 +11,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 public class PCMemberControllerTest {
     @Autowired
     PCMemberController pcMemberController;
-    String token="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4NjY4MDYzMCwiZXhwIjoxNTg2Njk4NjMwfQ.laMZ1U8mDn53ig9AG4sw23XKMasthIqCd0YDnfV9K9GTICGprAdthhhYj0RZqmMjb09iGd5-OsznQRudUJBmKw";
+    String token="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU4ODk5OTk0NiwiZXhwIjoxNTg5MDE3OTQ2fQ.5lwt5mWjuFX-OjB1mkeJFsFWYvuFIiBNhw7TfM_Us9R3TCmVLsAzlwBtQW8DqiurO9_uGXwQK3aRCO7gzatyPQ";
     private MockHttpServletRequest request;
 
     @Autowired

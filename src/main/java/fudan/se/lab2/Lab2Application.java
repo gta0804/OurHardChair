@@ -1,9 +1,12 @@
 package fudan.se.lab2;
 
 import fudan.se.lab2.domain.Authority;
+import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.AuthorityRepository;
+import fudan.se.lab2.repository.ConferenceRepository;
 import fudan.se.lab2.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +32,8 @@ public class Lab2Application {
     public static void main(String[] args) {
         SpringApplication.run(Lab2Application.class, args);
     }
-
+    @Autowired
+    ConferenceRepository conferenceRepository;
     /**
      * This is a function to create some basic entities when the application starts.
      * Now we are using a In-Memory database, so you need it.
@@ -40,6 +44,8 @@ public class Lab2Application {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
+                Conference conference = conferenceRepository.findByFullName("nfush");
+                conference.setIsOpenSubmission(2);
                 // Create authorities if not exist.
                 Authority adminAuthority = getOrCreateAuthority("admin","administrator", authorityRepository);
                 Authority userAuthority = getOrCreateAuthority("superuser","user",authorityRepository);
@@ -72,6 +78,7 @@ public class Lab2Application {
                     );
                     userRepository.save(superUser);
                 }
+
             }
 
             private Authority getOrCreateAuthority(String username,String authorityText, AuthorityRepository authorityRepository) {

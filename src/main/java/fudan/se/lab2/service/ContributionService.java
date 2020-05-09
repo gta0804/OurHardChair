@@ -127,6 +127,7 @@ public class ContributionService {
                     if (article1.getConferenceID().equals(reviewArticleRequest.getConference_id()) && article1.getTitle().equals(article.getTitle())){
                         //已经审稿
                         articleForPCMemberResponse.setStatus(1);
+                        break;
                     }else{
                         articleForPCMemberResponse.setStatus(0);
                     }

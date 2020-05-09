@@ -1,5 +1,7 @@
 package fudan.se.lab2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -10,12 +12,15 @@ public class PCMember {
     private Long id;
     private Long userId;
     private Long  conferenceId;
+    
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Topic> topics=new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(cascade=CascadeType.ALL)
     private Set<Article> articles;
 
+    @JsonIgnore
     @ManyToMany(cascade=CascadeType.ALL)
     private Set<Article> articlesHaveReviewed;
 

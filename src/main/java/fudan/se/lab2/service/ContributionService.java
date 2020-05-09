@@ -260,4 +260,14 @@ public class ContributionService {
         return hashMap;
     }
 
+    public int findFile(Long conferenceID,String title){
+        Article article = articleRepository.findByTitleAndConferenceID(title,conferenceID);
+        if (null != article){
+            //重复上传了
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
 }

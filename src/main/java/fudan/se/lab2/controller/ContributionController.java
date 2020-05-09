@@ -78,7 +78,7 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID)throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID,@RequestParam("title") String title)throws IOException {
         logger.debug("Try to upload...");
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
@@ -87,35 +87,40 @@ public class ContributionController {
             map.put("message", "上传失败");
             return ResponseEntity.ok(map);
         }
-        else {
-            String fileName = file.getOriginalFilename();
-            String path = null;
-            String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf('.') + 1) : null;
+        else if (contributionService.findFile(conferenceID,title) == 1){
+            map.put("message", "重复了");
+            return ResponseEntity.ok(map);
+        }
+        else{
+                String fileName = file.getOriginalFilename();
+                String path = null;
+                String type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf('.') + 1) : null;
 //            if (type != null) {
 //                if ("PDF".equals(type.toUpperCase())) {
-                    // 项目在容器中实际发布运行的根路径
-                    String realPath = request.getSession().getServletContext().getRealPath("/");
-                    // 自定义的文件名称
-                    // 设置存放图片文件的路径
-                    //获取到了就传到对应参数的文件夹，获取不到就unknownConferenceID
-                    StringBuilder sb = new StringBuilder("/workplace/upload/");
-                    if (null == conferenceID) {
-                        sb.append("unknownConferenceID/");
-                    }else {
-                        sb.append(conferenceID);
-                        sb.append("/");
-                    }
-                    sb.append(fileName);
-                    path = sb.toString();
-            System.out.println(path);
-                    mkdirAndFile(path);
-                    File dest = new File(path);
-                    file.transferTo(dest);
-                    map.put("message", "上传成功");
-                    map.put("存放路径", fileName);
-                    return ResponseEntity.ok(map);
+                // 项目在容器中实际发布运行的根路径
+                String realPath = request.getSession().getServletContext().getRealPath("/");
+                // 自定义的文件名称
+                // 设置存放图片文件的路径
+                //获取到了就传到对应参数的文件夹，获取不到就unknownConferenceID
+                StringBuilder sb = new StringBuilder("/workplace/upload/");
+                if (null == conferenceID) {
+                    sb.append("unknownConferenceID/");
+                }else {
+                    sb.append(conferenceID);
+                    sb.append("/");
+                }
+                sb.append(fileName);
+                path = sb.toString();
+                System.out.println(path);
+                mkdirAndFile(path);
+                File dest = new File(path);
+                file.transferTo(dest);
+                map.put("message", "上传成功");
+                map.put("存放路径", fileName);
+                return ResponseEntity.ok(map);
+            }
         }
-    }
+
     @CrossOrigin(origins = "*")
     @PostMapping("/update")
     public ResponseEntity<HashMap<String, Object>> update(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID,@RequestParam("articleId") Long articleId)throws IOException {

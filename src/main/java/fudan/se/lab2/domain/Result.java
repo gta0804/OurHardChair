@@ -19,7 +19,7 @@ public class Result {
 
     private Long conferenceID;
     private Long articleID;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Evaluation> evaluations;
 

@@ -177,6 +177,10 @@ public class MyRelatedConferenceService {
                     return "开启失败，有稿件未审完";
                 };
             }
+            for(Article article:articles){
+                article.setStatus((long)2);
+                articleRepository.save(article);
+            }
             conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 4));
             conferenceRepository.save(conference);
             return "开启成功";

@@ -12,7 +12,7 @@ public class PCMember {
     private Long id;
     private Long userId;
     private Long  conferenceId;
-    
+
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Topic> topics=new HashSet<>();
 

@@ -7,7 +7,6 @@ import fudan.se.lab2.controller.response.ResultResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -244,6 +243,10 @@ public class ContributionService {
         HashMap<String,Object> hashMap = new HashMap<>();
         Set<ResultResponse> resultResponses = new HashSet<>();
         List<Article> articles = articleRepository.findByContributorIDAndConferenceID(userId,conference_id);
+        if(articles==null){
+            hashMap.put("message","error");
+            return hashMap;
+        }
         for (Article article : articles) {
             Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),article.getConferenceID());
             ResultResponse resultResponse = new ResultResponse(article,result);

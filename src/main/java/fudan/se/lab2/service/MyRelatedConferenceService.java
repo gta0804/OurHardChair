@@ -196,8 +196,8 @@ public class MyRelatedConferenceService {
         if(pcMembersForConference.size()<2){
             return "PCMember数量少于2个，您不能开启投稿";
         }
-        if(conference.getIsOpenSubmission()==3){
-            return "审稿已经开启";
+        if(conference.getIsOpenSubmission()!=2){
+            return "会议状态不符";
         }
         conference.setIsOpenSubmission(3);
         conferenceRepository.save(conference);
@@ -259,7 +259,7 @@ public class MyRelatedConferenceService {
                     feasiblePCMembers.add(pcMember);
                 }
             }
-            int pcMemberSelectedIndex=Math.abs((new Random().nextInt()))%feasiblePCMembers.size();
+            int pcMemberSelectedIndex=(new Random().nextInt())%feasiblePCMembers.size();
             PCMember matchingPCMember=feasiblePCMembers.get(pcMemberSelectedIndex);
             saveAllocation(matchingPCMember,article);
             temp.remove(matchingPCMember);

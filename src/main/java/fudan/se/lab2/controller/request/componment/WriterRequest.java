@@ -17,7 +17,7 @@ public class WriterRequest {
     private String country;
 
     @Autowired
-    private WriterRequest(){
+    public WriterRequest(){
 
     }
 

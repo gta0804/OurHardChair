@@ -51,7 +51,7 @@ public class ApplyConferenceController {
         String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
-        Conference conference = applyConferenceService.applyMeeting(request,id);
+        Conference conference = applyConferenceService.applyMeeting(request);
         updateService.update(logger);
         if (null == conference){
             map.put("message","会议申请失败，已有该会议");

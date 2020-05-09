@@ -29,30 +29,30 @@ public class MyRelatedConferenceControllerTest {
 
     private MockHttpServletRequest request;
 
-    @Test
-    void openManuscriptReview(){
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("admin");
-        loginRequest.setPassword("password");
-        String token=(String)authController.login(loginRequest).getBody().get("token");
-        request = new MockHttpServletRequest();
-        request.setCharacterEncoding("UTF-8");
-        request.addHeader("Authorization","Bearer " + token);
-        Date date=new Date();
-        Conference temp=conferenceRepository.findByFullName(date.toString());
-        Assert.isNull(temp);
-        Conference conference=new Conference((long)1,"shortName",date.toString(),"holdingPlace",new Date().toString(),new Date().toString(),new Date().toString(),2);
-        conference.setReviewStatus(2);
-        conferenceRepository.save(conference);
-        OpenManuscriptReviewRequest openManuscriptReviewRequest=new OpenManuscriptReviewRequest();
-        openManuscriptReviewRequest.setConference_id(conference.getId());
-        openManuscriptReviewRequest.setAllocationStrategy(2);
-
-        String message=(String)myRelatedConferenceController.openManuscriptReview(request,openManuscriptReviewRequest).getBody().get("message");
-        Assert.isTrue(message.equals("PCMember数量少于2个，您不能开启投稿"));
-        conferenceRepository.delete(conference);
-
-    }
+//    @Test
+//    void openManuscriptReview(){
+//        LoginRequest loginRequest = new LoginRequest();
+//        loginRequest.setUsername("admin");
+//        loginRequest.setPassword("password");
+//        String token=(String)authController.login(loginRequest).getBody().get("token");
+//        request = new MockHttpServletRequest();
+//        request.setCharacterEncoding("UTF-8");
+//        request.addHeader("Authorization","Bearer " + token);
+//        Date date=new Date();
+//        Conference temp=conferenceRepository.findByFullName(date.toString());
+//        Assert.isNull(temp);
+//        Conference conference=new Conference((long)1,"shortName",date.toString(),"holdingPlace",new Date().toString(),new Date().toString(),new Date().toString(),2);
+//        conference.setReviewStatus(2);
+//        conferenceRepository.save(conference);
+//        OpenManuscriptReviewRequest openManuscriptReviewRequest=new OpenManuscriptReviewRequest();
+//        openManuscriptReviewRequest.setConference_id(conference.getId());
+//        openManuscriptReviewRequest.setAllocationStrategy(2);
+//
+//        String message=(String)myRelatedConferenceController.openManuscriptReview(request,openManuscriptReviewRequest).getBody().get("message");
+//        Assert.isTrue(message.equals("PCMember数量少于2个，您不能开启投稿"));
+//        conferenceRepository.delete(conference);
+//
+//    }
 
 
 }

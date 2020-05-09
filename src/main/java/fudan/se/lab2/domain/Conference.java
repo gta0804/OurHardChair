@@ -27,7 +27,7 @@ public class Conference {
 
     public Conference(){}
 
-    public Conference(Long chairId, String abbreviation, String fullName, String holdingPlace, String holdingTime, String submissionDeadline, String reviewReleaseDate, Integer isOpenSubmission){
+    public Conference(Long chairId, String abbreviation, String fullName, String holdingPlace, String holdingTime, String submissionDeadline, String reviewReleaseDate){
         this.chairId=chairId;
         this.abbreviation=abbreviation;
         this.fullName=fullName;
@@ -35,14 +35,15 @@ public class Conference {
         this.holdingTime=holdingTime;
         this.submissionDeadline=submissionDeadline;
         this.reviewReleaseDate=reviewReleaseDate;
-        this.isOpenSubmission =isOpenSubmission;
+        this.isOpenSubmission = 1;//1-5
         //1：审核通过，但尚未开启投稿
         //2：开始投稿
         //3：截稿，开始发布submissionDeadline
         //4：评审结果发布reviewReleaseDate
         //5：会议开始holdingTime
         //记录会议审核状态
-        this.reviewStatus=1;
+        this.reviewStatus = 2;//1刚提交和2通过了3是没通过
+
     }
 
     public Long getId() {

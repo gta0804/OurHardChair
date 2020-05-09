@@ -43,7 +43,7 @@ public class ApplyConferenceService {
             System.out.println("会议全称重复");
             return null;
         }
-        Conference conference=new Conference(id,request.getAbbreviation(),request.getFullName(),request.getHoldingPlace(),request.getHoldingTime(),request.getSubmissionDeadline(),request.getReviewReleaseDate(),1);
+        Conference conference = new Conference(id,request.getAbbreviation(),request.getFullName(),request.getHoldingPlace(),request.getHoldingTime(),request.getSubmissionDeadline(),request.getReviewReleaseDate());
         Set<Topic> topics = new HashSet<>();
         for (String topicName : request.getTopics()) {
             Topic topic=topicRepository.findByTopic(topicName);
@@ -113,6 +113,7 @@ public class ApplyConferenceService {
         for(Conference conference:temp){
             conferences.add(conference);
         }
+
     }
 
 }

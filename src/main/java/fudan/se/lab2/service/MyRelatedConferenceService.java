@@ -125,14 +125,7 @@ public class MyRelatedConferenceService {
     }
 
     public List<Conference>  showAllConference(){
-        List<Conference> conferences2 =  conferenceRepository.findAllByReviewStatus(2);
-        List<Conference> conferences3 =  conferenceRepository.findAllByReviewStatus(3);
-        List<Conference> conferences4 =  conferenceRepository.findAllByReviewStatus(4);
-        List<Conference> conferences5 =  conferenceRepository.findAllByReviewStatus(5);
-        List<Conference> conferences = new ArrayList<>(conferences2);
-        conferences.addAll(conferences3);
-        conferences.addAll(conferences4);
-        conferences.addAll(conferences5);
+        List<Conference> conferences =  conferenceRepository.findAllByReviewStatus(2);
         return conferences;
     }
 
@@ -177,7 +170,7 @@ public class MyRelatedConferenceService {
     public String releaseReviewResult(Long conference_id){
         Conference conference = conferenceRepository.findById(conference_id).orElse(null);
         if(null != conference) {
-            conference.setReviewStatus(Math.max(conference.getReviewStatus(), 4));
+            conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 4));
             conferenceRepository.save(conference);
             return "开启成功";
         }else {

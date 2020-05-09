@@ -9,4 +9,6 @@ public interface ConferenceRepository extends CrudRepository<Conference,Long> {
     Conference findByFullName(String fullName);
     List<Conference> findAllByChairId(Long chairId);
     List<Conference> findAllByReviewStatus(Integer reviewStatus);
+    List<Conference> findAllByIsOpenSubmission(Integer isopen);
+
 }

@@ -33,7 +33,7 @@ public class ResultController {
 
     @CrossOrigin("*")
     @PostMapping("/releaseReviewResult")
-    public ResponseEntity<HashMap<String, Object>> releaseReviewResult(@RequestParam("conference_id") Long conference_id,@RequestParam("userId") Long userId,HttpServletRequest httpServletRequest) {
+    public ResponseEntity<HashMap<String, Object>> releaseReviewResult(@RequestParam("conference_id") Long conference_id,HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
         String result = myRelatedConferenceService.releaseReviewResult(conference_id);

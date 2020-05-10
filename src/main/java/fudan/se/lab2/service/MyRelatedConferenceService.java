@@ -204,7 +204,7 @@ public class MyRelatedConferenceService {
         }
 
         if(pcMembersForConference.size()<2){
-            return "PCMember数量少于2个，您不能开启投稿";
+            return "PCMember数量少于3个，您不能开启投稿";
         }
         if(conference.getIsOpenSubmission()!=2){
             return "会议状态不符";

@@ -1,5 +1,7 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.ConferenceIDAndUserIDRequest;
+import fudan.se.lab2.controller.request.ConferenceIDRequest;
 import fudan.se.lab2.controller.request.LoginRequest;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,12 @@ public class ResultControllerTest {
         request = new MockHttpServletRequest();
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization","Bearer " + token);
-        //String message=(String)resultController.viewReviewResult(request,(long)1).getBody().get("message");
-        //Assert.isTrue(message.equals("请求成功"));
+        ConferenceIDAndUserIDRequest conferenceIDAndUserIDRequest=new ConferenceIDAndUserIDRequest();
+        conferenceIDAndUserIDRequest.setConference_id((long)1);
+        conferenceIDAndUserIDRequest.setUserId((long)1);
+        ConferenceIDRequest conferenceIDRequest=new ConferenceIDRequest();
+        conferenceIDRequest.setConference_id((long)1);
+        String message=(String)resultController.releaseReviewResult(request,conferenceIDRequest).getBody().get("message");
+        Assert.isTrue(message.equals("开启失败"));
     }
 }

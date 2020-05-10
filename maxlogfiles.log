@@ -5,3 +5,66 @@
 2020-05-10 11:55:47.185 DEBUG 4160 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
 2020-05-10 11:55:47.206 DEBUG 4160 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
 2020-05-10 11:55:47.217 DEBUG 4160 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:40:46.500 DEBUG 10580 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@258d79be
+2020-05-10 13:40:56.158  WARN 10580 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:40:57.777 DEBUG 10580 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:40:57.914 DEBUG 10580 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:40:58.011 DEBUG 10580 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:40:58.040 DEBUG 10580 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:41:02.779 DEBUG 10580 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@258d79be, started on Sun May 10 13:40:46 CST 2020
+2020-05-10 13:41:16.139 DEBUG 1180 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@282cb7c7
+2020-05-10 13:41:24.172  WARN 1180 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:41:26.120 DEBUG 1180 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:41:26.348 DEBUG 1180 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:41:26.467 DEBUG 1180 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:41:26.503 DEBUG 1180 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:41:30.614 DEBUG 1180 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@282cb7c7, started on Sun May 10 13:41:16 CST 2020
+2020-05-10 13:42:33.456 DEBUG 948 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@5a9f4771
+2020-05-10 13:42:41.665  WARN 948 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:42:43.159 DEBUG 948 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:42:43.304 DEBUG 948 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:42:43.395 DEBUG 948 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:42:43.420 DEBUG 948 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:42:46.002 DEBUG 948 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@5a9f4771, started on Sun May 10 13:42:33 CST 2020
+2020-05-10 13:43:16.831 DEBUG 14420 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4f3bbf68
+2020-05-10 13:43:25.045  WARN 14420 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:43:26.782 DEBUG 14420 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:43:26.942 DEBUG 14420 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:43:27.044 DEBUG 14420 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:43:27.073 DEBUG 14420 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:43:29.334 DEBUG 14420 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@4f3bbf68, started on Sun May 10 13:43:16 CST 2020
+2020-05-10 13:46:43.445 DEBUG 10400 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@282cb7c7
+2020-05-10 13:46:51.656  WARN 10400 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:46:53.474 DEBUG 10400 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:46:53.639 DEBUG 10400 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:46:53.743 DEBUG 10400 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:46:53.782 DEBUG 10400 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:46:56.468 DEBUG 10400 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@282cb7c7, started on Sun May 10 13:46:43 CST 2020
+2020-05-10 13:47:19.950 DEBUG 2796 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@6057aebb
+2020-05-10 13:47:28.019  WARN 2796 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:47:29.637 DEBUG 2796 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:47:29.799 DEBUG 2796 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:47:29.888 DEBUG 2796 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:47:29.923 DEBUG 2796 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:47:32.732 DEBUG 2796 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@6057aebb, started on Sun May 10 13:47:19 CST 2020
+2020-05-10 13:47:56.688 DEBUG 100 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1339e7aa
+2020-05-10 13:48:04.693  WARN 100 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:48:06.306 DEBUG 100 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:48:06.453 DEBUG 100 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:48:06.550 DEBUG 100 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:48:06.584 DEBUG 100 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:48:09.155 DEBUG 100 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1339e7aa, started on Sun May 10 13:47:56 CST 2020
+2020-05-10 13:49:55.051 DEBUG 12836 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1339e7aa
+2020-05-10 13:50:04.614  WARN 12836 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:50:06.199 DEBUG 12836 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:50:06.327 DEBUG 12836 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:50:06.424 DEBUG 12836 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:50:06.451 DEBUG 12836 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:50:08.972 DEBUG 12836 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1339e7aa, started on Sun May 10 13:49:55 CST 2020
+2020-05-10 13:53:01.336 DEBUG 16760 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@1339e7aa
+2020-05-10 13:53:09.063  WARN 16760 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-10 13:53:10.586 DEBUG 16760 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-10 13:53:10.746 DEBUG 16760 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 32 mappings in 'requestMappingHandlerMapping'
+2020-05-10 13:53:10.844 DEBUG 16760 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-10 13:53:10.871 DEBUG 16760 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-10 13:53:12.946 DEBUG 16760 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1339e7aa, started on Sun May 10 13:53:01 CST 2020

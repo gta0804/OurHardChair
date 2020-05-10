@@ -175,7 +175,7 @@ public class MyRelatedConferenceService {
             for (Article article : articles) {
                 if (!article.getHowManyPeopleHaveReviewed().equals(3)){
                     return "开启失败，有稿件未审完";
-                };
+                }
             }
             for(Article article:articles){
                 article.setStatus((long)2);

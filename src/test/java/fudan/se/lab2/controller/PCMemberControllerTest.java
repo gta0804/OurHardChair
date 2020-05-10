@@ -28,28 +28,28 @@ public class PCMemberControllerTest {
     @Autowired
     private AuthController authController;
 
-    @Test
-   void search(){
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("admin");
-        loginRequest.setPassword("password");
-        String token=(String)authController.login(loginRequest).getBody().get("token");
-        request = new MockHttpServletRequest();
-        request.setCharacterEncoding("UTF-8");
-        request.addHeader("Authorization","Bearer " + token);
-        Date date=new Date();
-        Conference conference =new Conference((long)1,date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1);
-       conferenceRepository.save(conference);
-       request = new MockHttpServletRequest();
-       request.setCharacterEncoding("UTF-8");
-       request.addHeader("Authorization", token);
-       SearchUserRequest searchUserRequest=new SearchUserRequest();
-        searchUserRequest.setFull_name(date.toString());
-       searchUserRequest.setSearch_key("tyghinjk");
-      SearchResponse searchResponse=new SearchResponse(date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1);
-      Assert.isTrue(searchResponse.getStatus()==1);
-       ShowSubmissionResponse showSubmissionResponse=new ShowSubmissionResponse(date.toString(),date.toString(),date.toString(),date.toString(),(long)1);
-      Assert.isTrue(showSubmissionResponse.getStatus()==(long)1);
-   }
+//    @Test
+//   void search(){
+//        LoginRequest loginRequest = new LoginRequest();
+//        loginRequest.setUsername("admin");
+//        loginRequest.setPassword("password");
+//        String token=(String)authController.login(loginRequest).getBody().get("token");
+//        request = new MockHttpServletRequest();
+//        request.setCharacterEncoding("UTF-8");
+//        request.addHeader("Authorization","Bearer " + token);
+//        Date date=new Date();
+//        Conference conference =new Conference((long)1,date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1);
+//       conferenceRepository.save(conference);
+//       request = new MockHttpServletRequest();
+//       request.setCharacterEncoding("UTF-8");
+//       request.addHeader("Authorization", token);
+//       SearchUserRequest searchUserRequest=new SearchUserRequest();
+//        searchUserRequest.setFull_name(date.toString());
+//       searchUserRequest.setSearch_key("tyghinjk");
+//      SearchResponse searchResponse=new SearchResponse(date.toString(),date.toString(),date.toString(),date.toString(),date.toString(),1);
+//      Assert.isTrue(searchResponse.getStatus()==1);
+//       ShowSubmissionResponse showSubmissionResponse=new ShowSubmissionResponse(date.toString(),date.toString(),date.toString(),date.toString(),(long)1);
+//      Assert.isTrue(showSubmissionResponse.getStatus()==(long)1);
+//   }
 
 }

@@ -78,17 +78,17 @@ public class ContributionController {
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/upload")
-    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID,@RequestParam("title") String title)throws IOException {
+    public ResponseEntity<HashMap<String, Object>> upload(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID,@RequestParam("title") String title) throws IOException, InterruptedException {
         logger.debug("Try to upload...");
+        Thread.sleep(500);
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
-        map.put("token", token);
         if (null == file ||file.isEmpty()){
-            map.put("message", "上传失败");
+            map.put("message", "上传失败，文件为空");
             return ResponseEntity.ok(map);
         }
-        else if (contributionService.findFile(conferenceID,title) == 1){
-            map.put("message", "重复了");
+        else if (contributionService.findFile(conferenceID,title) == 0){
+            map.put("message", "重复投稿");
             return ResponseEntity.ok(map);
         }
         else{
@@ -117,7 +117,8 @@ public class ContributionController {
                 file.transferTo(dest);
                 map.put("message", "上传成功");
                 map.put("存放路径", fileName);
-                return ResponseEntity.ok(map);
+            map.put("token", token);
+            return ResponseEntity.ok(map);
             }
         }
 

@@ -261,9 +261,10 @@ public class ContributionService {
     }
 
     public int findFile(Long conferenceID,String title){
+        //此时已投稿成功
         Article article = articleRepository.findByTitleAndConferenceID(title,conferenceID);
         if (null != article){
-            //重复上传了
+            //上传成功了
             return 1;
         }else{
             return 0;

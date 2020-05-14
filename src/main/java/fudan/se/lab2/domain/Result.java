@@ -19,7 +19,7 @@ public class Result {
 
     private Long conferenceID;
     private Long articleID;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Evaluation> evaluations;
 
     public Result(){}

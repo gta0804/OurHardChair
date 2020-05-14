@@ -27,13 +27,13 @@ public class Article {
 
     private String articleAbstract;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     private List<Writer> writers = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Topic> topics=new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<PCMember> pcMembers=new HashSet<>();
     //0暂时无法发布 1已经可以发布 2主席已经发布
     private Long status;

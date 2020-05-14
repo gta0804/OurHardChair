@@ -23,7 +23,7 @@ public class Authority implements GrantedAuthority {
     @Column(unique = true)
     private String authority;
 
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "authorities")
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "authorities")
     @JsonIgnore
     private Set<User> users;
 

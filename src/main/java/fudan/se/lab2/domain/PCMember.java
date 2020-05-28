@@ -13,15 +13,15 @@ public class PCMember {
     private Long userId;
     private Long  conferenceId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Topic> topics=new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Article> articles;
 
     @JsonIgnore
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Article> articlesHaveReviewed;
 
     public PCMember() {

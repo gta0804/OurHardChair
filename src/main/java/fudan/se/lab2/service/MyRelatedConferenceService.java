@@ -16,23 +16,24 @@ import java.util.*;
 
 @Service
 public class MyRelatedConferenceService {
-    @Autowired
     private ConferenceRepository conferenceRepository;
 
-    @Autowired
     private PCMemberRepository pcMemberRepository;
 
-    @Autowired
     private AuthorRepository authorRepository;
 
-    @Autowired
     private ArticleRepository articleRepository;
 
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private TopicRepository topicRepository;
+    public MyRelatedConferenceService(ConferenceRepository conferenceRepository,PCMemberRepository pcMemberRepository,AuthorRepository authorRepository,ArticleRepository articleRepository,UserRepository userRepository){
+        this.conferenceRepository=conferenceRepository;
+        this.pcMemberRepository=pcMemberRepository;
+        this.authorRepository=authorRepository;
+        this.articleRepository=articleRepository;
+        this.userRepository=userRepository;
+    }
 
     public List<ConferenceForChairResponse> showAllConferenceForChair(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -125,8 +126,7 @@ public class MyRelatedConferenceService {
     }
 
     public List<Conference>  showAllConference(){
-        List<Conference> conferences =  conferenceRepository.findAllByReviewStatus(2);
-        return conferences;
+        return conferenceRepository.findAllByReviewStatus(2);
     }
 
     private String getChairName(Long id){
@@ -209,73 +209,108 @@ public class MyRelatedConferenceService {
         if(conference.getIsOpenSubmission()!=2){
             return "会议状态不符";
         }
-        conference.setIsOpenSubmission(3);
-        conferenceRepository.save(conference);
 
         List<Article> articles=articleRepository.findByConferenceID(conferenceId);
+        HashMap<Article,List<PCMember>> results=new HashMap<>();
         if(request.getAllocationStrategy()==1){
             for(Article article:articles){
-                allocateBasedOnTopics(article,pcMembersForConference);
+               if(!allocateBasedOnTopics(article,pcMembersForConference,results)){
+                   return"邀请的PCMember不符合条件导致无法分配";
+               }
             }
         }
         else{
             for(Article article:articles) {
-                allocateAll(article, request);
+               if(!allocateAll(article, request,results)){
+                   return"邀请的PCMember不符合条件导致无法分配";
+               }
             }
         }
+        save(results,articles);
+        conference.setIsOpenSubmission(3);
+        conferenceRepository.save(conference);
         return "开启投稿成功";
     }
 
-    private void allocateBasedOnTopics(Article article,List<PCMember> pCMembers){
+    private boolean allocateBasedOnTopics(Article article,List<PCMember> pCMembers,HashMap<Article,List<PCMember>> results){
         List<PCMember> matchingPCMembers=new LinkedList<>();
+        Iterator<PCMember> pcMemberIterator=pCMembers.iterator();
+        while(pcMemberIterator.hasNext()){
+            PCMember temp=pcMemberIterator.next();
+            if(isNotFit(article,temp)){
+                pcMemberIterator.remove();
+            }
+        }
+        if(pCMembers.size()<3){
+            return false;
+        }
 
         for(PCMember pcMember:pCMembers){
             if(isMatch(article,pcMember)){
                 matchingPCMembers.add(pcMember);
             }
         }
-        if(matchingPCMembers.size()<3){
-            int[] random=getRandomNumbers(pCMembers.size(),3);
-            saveAllocations(random,pCMembers,article);
 
+        if(matchingPCMembers.size()<3){
+            int[] random=getRandomNumbers(pCMembers.size());
+            for(int index:random){
+                saveAllocation(pCMembers.get(index),article,results);
+            }
         }
         else if(matchingPCMembers.size()==3){
             for(PCMember matchingPCMember:matchingPCMembers){
-                saveAllocation(matchingPCMember,article);
+                saveAllocation(matchingPCMember,article,results);
             }
         }
         else{
-            int[] random=getRandomNumbers(matchingPCMembers.size(),3);
-            saveAllocations(random,matchingPCMembers,article);
+            int[] random=getRandomNumbers(matchingPCMembers.size());
+            for(int index:random){
+                saveAllocation(matchingPCMembers.get(index),article,results);
+            }
         }
+        return true;
 
     }
 
-    private void allocateAll(Article article,OpenManuscriptReviewRequest request){
-        List<PCMember> pCMembers=pcMemberRepository.findAllByConferenceId(request.getConference_id());
-        List<PCMember> temp=new LinkedList<>(pCMembers);
-        int minimumNumber=0;
+    private boolean allocateAll(Article article,OpenManuscriptReviewRequest request,HashMap<Article,List<PCMember>> results) {
+        List<PCMember> pCMembers = pcMemberRepository.findAllByConferenceId(request.getConference_id());
+        List<PCMember> temp = new LinkedList<>(pCMembers);
+        int minimumNumber = 0;
 
-        for(int i=0;i<3;i++){
-            for(PCMember pcMember:pCMembers){
-                minimumNumber=pCMembers.get(0).getArticles().size();
-                if(pcMember.getArticles().size()<minimumNumber){
-                    minimumNumber=pcMember.getArticles().size();
+        for (int i = 0; i < 3; i++) {
+            for (PCMember pcMember : pCMembers) {
+                minimumNumber = pCMembers.get(0).getArticles().size();
+                if (pcMember.getArticles().size() < minimumNumber) {
+                    minimumNumber = pcMember.getArticles().size();
                 }
             }
-            List<PCMember> feasiblePCMembers=new LinkedList<>();
-            for(PCMember pcMember:temp){
-                if(pcMember.getArticles().size()<=minimumNumber){
+            List<PCMember> feasiblePCMembers = new LinkedList<>();
+            for (PCMember pcMember : temp) {
+                if (pcMember.getArticles().size() <= minimumNumber) {
                     feasiblePCMembers.add(pcMember);
                 }
             }
-            int pcMemberSelectedIndex=(new Random().nextInt(Integer.MAX_VALUE))%feasiblePCMembers.size();
-            PCMember matchingPCMember=feasiblePCMembers.get(pcMemberSelectedIndex);
-            saveAllocation(matchingPCMember,article);
+
+            for(Iterator<PCMember> pcMemberIterator=feasiblePCMembers.iterator();pcMemberIterator.hasNext();){
+                PCMember feasiblePCMember=pcMemberIterator.next();
+                if(isNotFit(article,feasiblePCMember)){
+                    pcMemberIterator.remove();
+                }
+            }
+            if(feasiblePCMembers.size()<1){
+                return false;
+            }
+            int pcMemberSelectedIndex = (new Random().nextInt(Integer.MAX_VALUE)) % feasiblePCMembers.size();
+            PCMember matchingPCMember = feasiblePCMembers.get(pcMemberSelectedIndex);
+            saveAllocation(matchingPCMember, article,results);
             temp.remove(matchingPCMember);
         }
+        return true;
     }
 
+    /*
+    判断稿件topic与PCMEMBER负责topic是否相符
+     */
     private boolean isMatch(Article article,PCMember pcMember){
         Set<Topic> topicsForArticles=article.getTopics();
         Set<Topic> topicsForPCMember=pcMember.getTopics();
@@ -288,38 +323,57 @@ public class MyRelatedConferenceService {
         }
         return false;
     }
+    /*
+    判断稿件是否可以被该PCMember审阅
+     */
 
-    private void saveAllocation(PCMember pcMember,Article article){
-        Set<Article> articles=pcMember.getArticles();
-        Set<PCMember> articlePCMembers=article.getPcMembers();
-        articlePCMembers.add(pcMember);
-        articles.add(article);
-        article.setPcMembers(articlePCMembers);
-        pcMember.setArticles(articles);
-        articleRepository.save(article);
+    private boolean isNotFit(Article article, PCMember pcMember){
+        if(article.getContributorID().equals(pcMember.getUserId())){
+            return true;
+        }
+        User user=userRepository.findById(pcMember.getUserId()).orElse(null);
+        if(user==null){
+            return true;
+        }
+        List<Writer> writers=article.getWriters();
+        for(Writer writer:writers){
+            if(writer.getWriterName().equals(user.getFullName())&&writer.getEmail().equals(user.getEmail())){
+                return true;
+            }
+        }
+        return false;
     }
 
-    private void saveAllocations(int[] random,List<PCMember> pcMembers,Article article){
-        for(int i=0;i<random.length;i++){
-            PCMember pcMember=pcMembers.get(random[i]);
-            Set<Article> articles=pcMember.getArticles();
-            Set<PCMember> articlePCMembers=article.getPcMembers();
-            articles.add(article);
-            articlePCMembers.add(pcMember);
-            pcMember.setArticles(articles);
-            article.setPcMembers(articlePCMembers);
-            articleRepository.save(article);
+    private void saveAllocation(PCMember pcMember,Article article,HashMap<Article,List<PCMember>> results){
+        List<PCMember> pcMembers=results.containsKey(article)?results.get(article):new LinkedList<>();
+        pcMembers.add(pcMember);
+        results.put(article,pcMembers);
+    }
+
+    private void save(HashMap<Article,List<PCMember>> results,List<Article> articles){
+        for(Article article:articles){
+            List<PCMember> pcMembers=results.get(article);
+            if(pcMembers!=null){
+                for(PCMember pcMember:pcMembers){
+                    Set<Article> articleForPCMembers=pcMember.getArticles();
+                    articleForPCMembers.add(article);
+                    pcMember.setArticles(articleForPCMembers);
+                }
+                pcMemberRepository.saveAll(pcMembers);
+            }
         }
     }
 
-    private static int[] getRandomNumbers(int max,int n){
+
+
+    private static int[] getRandomNumbers(int max){
         //初始化给定范围的待选数组
         int[] source = new int[max];
         for (int i = 0; i < source.length; i++){
             source[i] = i;
         }
 
-        int[] result = new int[n];
+        int[] result = new int[3];
         SecureRandom rd=new SecureRandom();
         int index ;
         int len=source.length;
@@ -333,7 +387,4 @@ public class MyRelatedConferenceService {
         }
         return result;
     }
-
-
-
 }

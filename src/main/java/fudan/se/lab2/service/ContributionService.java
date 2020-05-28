@@ -21,8 +21,6 @@ import java.util.*;
 @Service
 public class ContributionService {
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private ArticleRepository articleRepository;
 
     @Autowired
@@ -31,8 +29,6 @@ public class ContributionService {
     @Autowired
     private PCMemberRepository pcMemberRepository;
 
-    @Autowired
-    private ConferenceRepository conferenceRepository;
 
     @Autowired
     private TopicRepository topicRepository;

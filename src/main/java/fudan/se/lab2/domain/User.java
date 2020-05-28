@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String institution;
     private String country;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
 

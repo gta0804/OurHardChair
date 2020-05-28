@@ -22,7 +22,7 @@ public class Writer {
     private String institution;
     private String country;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Article> articles=new HashSet<>();
 
     public Writer(){

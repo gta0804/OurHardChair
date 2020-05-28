@@ -22,22 +22,21 @@ import java.util.HashSet;
  */
 @Service
 public class AuthService {
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
+
     private AuthorityRepository authorityRepository;
-    @Autowired
+
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository) {
+    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository,PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.passwordEncoder=passwordEncoder;
     }
 
 
     public User register(@RequestBody RegisterRequest request) {
-        // TODO: Implement the function.
         //用户名重复的情况
         if (null != userRepository.findByUsername(request.getUsername())){
             System.out.println("用户名重复");

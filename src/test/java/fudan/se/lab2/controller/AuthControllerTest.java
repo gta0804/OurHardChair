@@ -51,7 +51,7 @@ class AuthControllerTest {
     @Test
     void login() {
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("testA");
+        loginRequest.setUsername("admin");
         loginRequest.setPassword("123");
         Assert.isTrue(authController.login(loginRequest).getBody().get("message").equals("密码错误"));
         loginRequest.setUsername((new Date()).toString()+ Math.random());

@@ -175,7 +175,7 @@ public class MyRelatedConferenceService {
             for (Article article : articles) {
                 if (!article.getHowManyPeopleHaveReviewed().equals(3)){
                     return "开启失败，有稿件未审完";
-                };
+                }
             }
             for(Article article:articles){
                 article.setStatus((long)2);
@@ -203,8 +203,8 @@ public class MyRelatedConferenceService {
             return "服务器错误";
         }
 
-        if(pcMembersForConference.size()<2){
-            return "PCMember数量少于2个，您不能开启投稿";
+        if(pcMembersForConference.size()<3){
+            return "邀请的PCMember数量少于2个，您不能开启审稿";
         }
         if(conference.getIsOpenSubmission()!=2){
             return "会议状态不符";

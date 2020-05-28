@@ -234,12 +234,48 @@ public class ContributionService {
     }
 
     /**
-    * @Description: 作为作者，查看自己投稿所获得的评价
-    * @Param: [conference_id, userId]
-    * @return: java.util.HashMap<java.lang.String,java.lang.Object>
+    * @Description: 更改评价
+    * @Param: [submitReviewResultRequest]
+    * @return: java.lang.String
     * @Author: Shen Zhengyu
-    * @Date: 2020/5/7
+    * @Date: 2020/5/28
     */
+    public String modifyReviewResult(SubmitReviewResultRequest submitReviewResultRequest) {
+        Article article = articleRepository.findById(submitReviewResultRequest.getArticleId()).orElse(null);
+        if (article == null){
+            return "NOT FOUND";
+        }
+        Result result = resultRepository.findByArticleIDAndConferenceID(submitReviewResultRequest.getArticleId(),submitReviewResultRequest.getConference_id());
+        HashSet<Evaluation> evaluationSet = (HashSet<Evaluation>) result.getEvaluations();
+        Evaluation evaluationToModify = null;
+        for (Evaluation evaluation : evaluationSet) {
+            if (evaluation.getPCMemberID().equals(submitReviewResultRequest.getUserId())){
+                evaluationToModify = evaluation;
+                break;
+            }
+        }
+        if (null == evaluationToModify) {
+            return "fail";
+        }else if(evaluationToModify.getTimesCanBeModified() == 0){
+            return "已无修改机会";
+        }else {
+            evaluationToModify.setComment(submitReviewResultRequest.getComment());
+            evaluationToModify.setConfidence(submitReviewResultRequest.getConfidence());
+            evaluationToModify.setScore(submitReviewResultRequest.getScore());
+            evaluationToModify.setTimesCanBeModified(0);
+            return "修改成功";
+        }
+
+    }
+
+
+        /**
+        * @Description: 作为作者，查看自己投稿所获得的评价
+        * @Param: [conference_id, userId]
+        * @return: java.util.HashMap<java.lang.String,java.lang.Object>
+        * @Author: Shen Zhengyu
+        * @Date: 2020/5/7
+        */
     public HashMap<String,Object> viewReviewResult(@RequestParam("conference_id") Long conference_id,@RequestParam("userId") Long userId) {
         //一个作者可能参与了多个会议，投了多次稿件
         //首先获得所有它参与过的投稿

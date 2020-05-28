@@ -28,8 +28,8 @@ import java.util.HashMap;
 @CrossOrigin
 @RestController
 public class ContributionController {
-
     Logger logger = LoggerFactory.getLogger(ContributionController.class);
+
 
     @Autowired
     ContributionService contributionService;
@@ -201,6 +201,28 @@ public class ContributionController {
         answer.put("message",message);
         return ResponseEntity.ok(answer);
     }
+
+    /**
+    * @Description: 修改评审结果
+    * @Param: [request, submitReviewResultRequest]
+    * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/28
+    */
+    @CrossOrigin(origins = "*")
+    @PostMapping("/modifyReviewResult")
+    public ResponseEntity<HashMap<String, Object>> modifyReviewResult(HttpServletRequest request, @RequestBody SubmitReviewResultRequest submitReviewResultRequest){
+        logger.debug("Try to modify review result...");
+        HashMap<String, Object> answer = new HashMap<>();
+        String token = request.getHeader("Authorization").substring(7);
+        String message = contributionService.modifyReviewResult(submitReviewResultRequest);
+        answer.put("token",token);
+        answer.put("message",message);
+        return ResponseEntity.ok(answer);
+    }
+
+
+
     @CrossOrigin(origins = "*")
     @PostMapping("/modifyContribution")
     public ResponseEntity<HashMap<String, Object>> modifyContribution(HttpServletRequest request, @RequestBody ModifyContributionRequest modifyContributionRequest) throws IOException {

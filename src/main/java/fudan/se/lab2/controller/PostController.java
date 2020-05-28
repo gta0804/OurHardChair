@@ -39,6 +39,13 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    /**
+    * @Description: 查看所有与个人有关的帖子（自己有权限查看）
+    * @Param: [httpServletRequest, userID]
+    * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/28
+    */
     @CrossOrigin("*")
     @PostMapping("/browseAllPosts")
     public ResponseEntity<HashMap<String,Object>> browseAllPosts(HttpServletRequest httpServletRequest,@RequestParam(name = "userID") Long userID){
@@ -61,6 +68,13 @@ public class PostController {
         }
     }
 
+    /**
+    * @Description: 查看某一文章对应的帖子（bijection）
+    * @Param: [httpServletRequest, articleID]
+    * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/28
+    */
     @CrossOrigin("*")
     @PostMapping("/browsePostOnArticle")
     public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID){
@@ -83,6 +97,13 @@ public class PostController {
         }
     }
 
+    /**
+    * @Description: 针对某一个文章发起讨论
+    * @Param: [httpServletRequest, articleID, ownerID, words]
+    * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/28
+    */
     @CrossOrigin("*")
     @PostMapping("/postOnArticle")
     public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words){
@@ -110,6 +131,14 @@ public class PostController {
         }
     }
 
+
+    /**
+    * @Description: 针对某一个主题帖进行回帖
+    * @Param: [httpServletRequest, postID, ownerID, words, floorNumber]
+    * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/28
+    */
     @CrossOrigin("*")
     @PostMapping("/replyPost")
     public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words,@RequestParam(name = "floorNumber") Long floorNumber){
@@ -117,10 +146,35 @@ public class PostController {
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         Reply reply = postService.replyPost(postID,ownerID,words,floorNumber);
-            map.put("message","回帖成功");
+        String message = null == reply?"提交失败":"提交成功";
+        map.put("message",message);
             map.put("token",token);
             map.put("reply",reply);
             return ResponseEntity.ok(map);
+
+    }
+
+    /**
+    * @Description: author对评审结果的质疑进行解释
+    * @Param: [httpServletRequest, postID, authorID, words, articleID]
+    * @return: org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String,java.lang.Object>>
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/28
+    */
+
+    @CrossOrigin("*")
+    @PostMapping("/submitRebuttal")
+    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "authorID") Long authorID,@RequestParam(name = "words") String words,@RequestParam(name = "articleID") Long articleID){
+        logger.debug(authorID + "submitRebuttal on " + articleID);
+        HashMap<String,Object> map = new HashMap<>();
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+
+        Reply reply = postService.submitRebuttal(articleID,words,authorID);
+        String message = null == reply?"提交失败":"提交成功";
+        map.put("message",message);
+        map.put("token",token);
+        map.put("reply",reply);
+        return ResponseEntity.ok(map);
 
     }
 

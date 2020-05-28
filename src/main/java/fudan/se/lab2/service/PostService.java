@@ -73,6 +73,17 @@ public class PostService {
         postRepository.save(post);
         return reply;
     }
+    public Reply submitRebuttal(Long articleID,String words,Long authorID){
+        Reply reply = new Reply(authorID,words);
+        reply.setReplyToFloorNumber((long)(-1));
+        replyRepository.save(reply);
 
+        Post post = postRepository.findByArticleID(articleID);
+        reply.setReplyToFloorNumber((long)(post.getReplyNumber() + 2));
+        post.getReplyList().add(reply);
+        post.setReplyNumber(post.getReplyNumber()+1);
+        postRepository.save(post);
+        return reply;
+    }
 
 }

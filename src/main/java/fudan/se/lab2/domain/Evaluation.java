@@ -22,12 +22,14 @@ public class Evaluation {
     private Integer score;
     private String comment;
     private Integer confidence;
+    private Integer timesCanBeModified;
     public Evaluation(){}
     public Evaluation(Long PCMemberID, Integer score, String comment, Integer confidence) {
         this.PCMemberID = PCMemberID;
         this.score = score;
         this.comment = comment;
         this.confidence = confidence;
+        this.timesCanBeModified = 1;
     }
 
     public Long getId() {
@@ -68,5 +70,13 @@ public class Evaluation {
 
     public void setConfidence(Integer confidence) {
         this.confidence = confidence;
+    }
+
+    public Integer getTimesCanBeModified() {
+        return timesCanBeModified;
+    }
+
+    public void setTimesCanBeModified(Integer timesCanBeModified) {
+        this.timesCanBeModified = timesCanBeModified;
     }
 }

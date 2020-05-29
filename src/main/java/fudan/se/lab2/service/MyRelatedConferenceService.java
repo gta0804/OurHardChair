@@ -26,6 +26,11 @@ public class MyRelatedConferenceService {
 
     private UserRepository userRepository;
 
+    private EvaluationModifyRequestRepository evaluationModifyRequestRepository;
+
+    private ResultRepository resultRepository;
+
+    private EvaluationRepository evaluationRepository;
     @Autowired
     public MyRelatedConferenceService(ConferenceRepository conferenceRepository,PCMemberRepository pcMemberRepository,AuthorRepository authorRepository,ArticleRepository articleRepository,UserRepository userRepository){
         this.conferenceRepository=conferenceRepository;
@@ -186,6 +191,58 @@ public class MyRelatedConferenceService {
             return "开启成功";
         }else {
             return "开启失败";
+        }
+    }
+
+    public String releaseReviewResultAgain(Long conference_id){
+        Conference conference = conferenceRepository.findById(conference_id).orElse(null);
+
+        if(null != conference) {
+            List<Article> articles = articleRepository.findByConferenceID(conference.getId());
+            for (Article article : articles) {
+                if (!article.getHowManyPeopleHaveReviewed().equals(3)){
+                    return "开启失败，有稿件未审完";
+                }
+            }
+            for(Article article:articles){
+                article.setStatus((long)2);
+                articleRepository.save(article);
+            }
+            conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 4));
+            conferenceRepository.save(conference);
+            updateEvaluation(conference_id);
+            return "开启成功";
+        }else {
+            return "开启失败";
+        }
+    }
+    /**
+    * @Description: 更新一个会议的每篇文章的审阅结果
+    * @Param: [conference_id]
+    * @return: void
+    * @Author: Shen Zhengyu
+    * @Date: 2020/5/29
+    */
+    private void updateEvaluation(Long conference_id){
+        HashSet<EvaluationModifyRequest> evaluationModifyRequests = (HashSet<EvaluationModifyRequest>) evaluationModifyRequestRepository.findAllByConferenceID(conference_id);
+        for (EvaluationModifyRequest evaluationModifyRequest : evaluationModifyRequests) {
+            Result result = resultRepository.findByArticleIDAndConferenceID(evaluationModifyRequest.getArticleID(),evaluationModifyRequest.getConferenceID());
+            HashSet<Evaluation> evaluationSet = (HashSet<Evaluation>) result.getEvaluations();
+            Evaluation evaluationToModify = null;
+            for (Evaluation evaluation : evaluationSet) {
+                if (evaluation.getPCMemberID().equals(evaluationModifyRequest.getPCMemberID())){
+                    evaluationToModify = evaluation;
+                    break;
+                }
+            }
+            if(null != evaluationToModify) {
+                evaluationToModify.setComment(evaluationModifyRequest.getComment());
+                evaluationToModify.setConfidence(evaluationModifyRequest.getConfidence());
+                evaluationToModify.setScore(evaluationModifyRequest.getScore());
+                evaluationRepository.save(evaluationToModify);
+                resultRepository.save(result);
+                evaluationModifyRequestRepository.delete(evaluationModifyRequest);
+            }
         }
     }
 

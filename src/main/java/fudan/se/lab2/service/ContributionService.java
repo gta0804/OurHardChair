@@ -42,6 +42,8 @@ public class ContributionService {
     @Autowired
     private WriterRepository writerRepository;
 
+    @Autowired
+    private EvaluationModifyRequestRepository evaluationModifyRequestRepository;
     public HashMap<String,Object> contribute(ContributionRequest contributionRequest){
        Article article = articleRepository.findByTitleAndConferenceID(contributionRequest.getTitle(),contributionRequest.getConference_id());
         HashMap<String,Object> hashMap = new HashMap<>();
@@ -255,10 +257,16 @@ public class ContributionService {
         }else if(evaluationToModify.getTimesCanBeModified() == 0){
             return "已无修改机会";
         }else {
-            evaluationToModify.setComment(submitReviewResultRequest.getComment());
-            evaluationToModify.setConfidence(submitReviewResultRequest.getConfidence());
-            evaluationToModify.setScore(submitReviewResultRequest.getScore());
+            EvaluationModifyRequest evaluationModifyRequest = new EvaluationModifyRequest(evaluationToModify);
+            evaluationModifyRequest.setComment(submitReviewResultRequest.getComment());
+            evaluationModifyRequest.setConfidence(submitReviewResultRequest.getConfidence());
+            evaluationModifyRequest.setScore(submitReviewResultRequest.getScore());
+            evaluationModifyRequest.setArticleID(result.getArticleID());
+            evaluationModifyRequest.setConferenceID(result.getConferenceID());
             evaluationToModify.setTimesCanBeModified(0);
+            evaluationRepository.save(evaluationToModify);
+            resultRepository.save(result);
+            evaluationModifyRequestRepository.save(evaluationModifyRequest);
             return "修改成功";
         }
 

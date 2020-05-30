@@ -233,6 +233,17 @@ public class ContributionController {
         return ResponseEntity.ok(message);
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping("/findArticle/{articleID}")
+    public ResponseEntity<HashMap<String, Object>> findArticle(HttpServletRequest request, @PathVariable(name = "articleID") Long articleID) {
+        logger.debug("Try to find Article");
+        String token = request.getHeader("Authorization").substring(7);
+        HashMap<String,Object> message = new HashMap<>();
+        message.put("article",contributionService.findArticle(articleID));
+        message.put("token",token);
+        message.put("message","查找成功");
+        return ResponseEntity.ok(message);
+    }
 
         public void mkdirAndFile(String path) {
         //变量不需赋初始值，赋值后永远不会读取变量，在下一个变量读取之前，该值总是被另一个赋值覆盖

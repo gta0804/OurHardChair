@@ -300,6 +300,11 @@ public class ContributionService {
         return hashMap;
     }
 
+    public Article findArticle(Long articleID){
+        Article article = articleRepository.findById(articleID).orElse(null);
+        return article;
+    }
+
     public int findFile(Long conferenceID,String title){
         //此时已投稿成功
         Article article = articleRepository.findByTitleAndConferenceID(title,conferenceID);

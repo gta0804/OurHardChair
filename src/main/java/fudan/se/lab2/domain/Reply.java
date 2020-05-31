@@ -20,7 +20,7 @@ public class Reply {
 
     //回复者的ID
     private Long ownerID;
-
+    private String ownerFullName;
     //帖子的内容
     private String words;
 
@@ -66,5 +66,13 @@ public class Reply {
 
     public void setReplyToFloorNumber(Long replyToFloorNumber) {
         this.replyToFloorNumber = replyToFloorNumber;
+    }
+
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
     }
 }

@@ -21,10 +21,10 @@ public class Post {
 
     //楼主的id
     private Long ownerID;
-
+    private String ownerFullName;
     //针对哪篇文章
     private Long articleID;
-
+    private String articleTitle;
     private Long replyNumber;
     //言论内容
     private String words;
@@ -105,5 +105,21 @@ public class Post {
 
     public void setPeopleRelated(Set<PCMember> peopleRelated) {
         this.peopleRelated = peopleRelated;
+    }
+
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 }

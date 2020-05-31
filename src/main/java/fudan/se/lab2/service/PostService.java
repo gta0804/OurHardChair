@@ -1,11 +1,13 @@
 package fudan.se.lab2.service;
 
+import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.domain.PCMember;
 import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
 import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.PostRepository;
 import fudan.se.lab2.repository.ReplyRepository;
+import fudan.se.lab2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class PostService {
     private ReplyRepository replyRepository;
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Post> browseAllPosts(Long userID){
         ArrayList<Post> posts = (ArrayList<Post>)postRepository.findAll();
@@ -54,6 +58,8 @@ public class PostService {
         }
         Post post = new Post(ownerID, articleID, words);
         post.setPeopleRelated(articleRepository.findById(articleID).orElse(null).getPcMembers());
+        post.setArticleTitle(articleRepository.findById(articleID).orElse(null).getTitle());
+        post.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
         postRepository.save(post);
         if (null == postRepository.findByArticleID(articleID)) {
             return (long) (-1);
@@ -65,6 +71,7 @@ public class PostService {
     public Reply replyPost(Long postID,Long ownerID,String words,Long floorNumber){
         Reply reply = new Reply(ownerID,words);
         reply.setReplyToFloorNumber(floorNumber);
+        reply.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
         replyRepository.save(reply);
         Post post = postRepository.findById(postID).orElse(null);
         reply.setReplyToFloorNumber((long)(post.getReplyNumber() + 2));
@@ -76,6 +83,7 @@ public class PostService {
     public Reply submitRebuttal(Long articleID,String words,Long authorID){
         Reply reply = new Reply(authorID,words);
         reply.setReplyToFloorNumber((long)(-1));
+        reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
         replyRepository.save(reply);
 
         Post post = postRepository.findByArticleID(articleID);

@@ -39,8 +39,9 @@ public class Conference {
         //1：审核通过，但尚未开启投稿
         //2：开始投稿
         //3：截稿，开始发布submissionDeadline
-        //4：评审结果发布reviewReleaseDate
-        //5：会议开始holdingTime
+        //4：评审结果已第一次发布reviewReleaseDate
+        //5：评审结果已第二次发布
+        //6：会议开始holdingTime
         //记录会议审核状态
         this.reviewStatus = 1;//1刚提交和2通过了3是没通过
 

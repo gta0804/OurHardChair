@@ -36,6 +36,7 @@ public class Post {
     @OneToMany(cascade=CascadeType.ALL)
     private List<Reply>  replyList;
 
+
     public Post() {
     }
 
@@ -45,6 +46,7 @@ public class Post {
         this.replyList = new ArrayList<>();
         this.words = words;
         this.replyNumber = (long)0;
+
     }
 
     public Long getId() {
@@ -122,4 +124,6 @@ public class Post {
     public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
     }
+
+
 }

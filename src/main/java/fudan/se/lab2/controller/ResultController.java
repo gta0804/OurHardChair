@@ -45,6 +45,16 @@ public class ResultController {
     }
 
     @CrossOrigin("*")
+    @PostMapping("/releaseFinalReviewResult")
+    public ResponseEntity<HashMap<String, Object>> releaseFinalReviewResult(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDRequest conferenceIDRequest) {
+        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> hashMap = new HashMap<>();
+        String result = myRelatedConferenceService.releaseFinalReviewResult(conferenceIDRequest.getConference_id());
+        hashMap.put("token",token);
+        hashMap.put("message",result);
+        return ResponseEntity.ok(hashMap);
+    }
+    @CrossOrigin("*")
     @PostMapping("/viewReviewResult")
     public ResponseEntity<HashMap<String, Object>> viewReviewResult(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDAndUserIDRequest conferenceIDAndUserIDRequest) {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -53,14 +63,5 @@ public class ResultController {
         return ResponseEntity.ok(hashMap);
     }
 
-    @CrossOrigin("*")
-    @PostMapping("/releaseReviewResultAgain")
-    public ResponseEntity<HashMap<String, Object>> releaseReviewResultAgain(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDRequest conferenceIDRequest) {
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
-        HashMap<String,Object> hashMap = new HashMap<>();
-        String result = myRelatedConferenceService.releaseReviewResultAgain(conferenceIDRequest.getConference_id());
-        hashMap.put("token",token);
-        hashMap.put("message",result);
-        return ResponseEntity.ok(hashMap);
-    }
+
     }

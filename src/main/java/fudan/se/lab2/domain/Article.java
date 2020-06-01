@@ -27,6 +27,9 @@ public class Article {
 
     private String articleAbstract;
 
+    //-1代表未被录用，0代表还未判定，1代表被录用了
+    //在发布结果的时候，进行判定
+    private Integer isAccepted;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     private List<Writer> writers = new ArrayList<>();
 
@@ -35,10 +38,17 @@ public class Article {
 
     @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<PCMember> pcMembers=new HashSet<>();
-    //0暂时无法发布 1已经可以发布 2主席已经发布
+    //0暂时无法发布 1已经可以发布 2主席已经第一次发布 3主席已经第二次发布
     private Long status;
 
-    private Integer howManyPeopleHaveReviewed;
+    //-1代表rebuttal还未被讨论，初始值为0代表不需要被讨论，1代表rebuttal已经被讨论了，可以被发布
+    // 当这篇文章被新建讨论或帖子被回复时，为其+1，>=0才可发布，有人提交rebuttal时置为-1
+    private Integer isDiscussed;
+
+    //初始为0，设置为3，当每个PCMember确认/修改了评审结果，为其-1，每位PCMember共有一次修改审阅的机会
+    private Integer numberToBeConfirmed;
+
+    private Integer HowManyPeopleHaveReviewed;
     public Article() {
     }
 
@@ -58,7 +68,9 @@ public class Article {
         this.articleAbstract = articleAbstract;
         this.status = (long)0;
         this.writers = writers;
-        this.howManyPeopleHaveReviewed = 0;
+        this.isDiscussed = 0;
+        this.numberToBeConfirmed = 0;
+        this.isAccepted = 0;
     }
 
     public Long getStatus() {
@@ -141,11 +153,40 @@ public class Article {
         this.pcMembers = pcMembers;
     }
 
+
+    public Integer getIsAccepted() {
+        return isAccepted;
+    }
+
+    public void setIsAccepted(Integer isAccepted) {
+        this.isAccepted = isAccepted;
+    }
+
+    public Integer getIsDiscussed() {
+        return isDiscussed;
+    }
+
+    public void setIsDiscussed(Integer isDiscussed) {
+        this.isDiscussed = isDiscussed;
+    }
+
+    public Integer getNumberToBeConfirmed() {
+        return numberToBeConfirmed;
+    }
+
+    public void setNumberToBeConfirmed(Integer numberToBeConfirmed) {
+        this.numberToBeConfirmed = numberToBeConfirmed;
+    }
+
+    public boolean canBeReleased(){
+        return ((isDiscussed >= 0) && (numberToBeConfirmed == 0));
+    }
+
     public Integer getHowManyPeopleHaveReviewed() {
-        return howManyPeopleHaveReviewed;
+        return HowManyPeopleHaveReviewed;
     }
 
     public void setHowManyPeopleHaveReviewed(Integer howManyPeopleHaveReviewed) {
-        this.howManyPeopleHaveReviewed = howManyPeopleHaveReviewed;
+        HowManyPeopleHaveReviewed = howManyPeopleHaveReviewed;
     }
 }

@@ -257,6 +257,7 @@ public class ContributionService {
         }else if(evaluationToModify.getTimesCanBeModified() == 0){
             return "已无修改机会";
         }else {
+            article.setNumberToBeConfirmed(article.getNumberToBeConfirmed()-1);
             EvaluationModifyRequest evaluationModifyRequest = new EvaluationModifyRequest(evaluationToModify);
             evaluationModifyRequest.setComment(submitReviewResultRequest.getComment());
             evaluationModifyRequest.setConfidence(submitReviewResultRequest.getConfidence());
@@ -264,12 +265,39 @@ public class ContributionService {
             evaluationModifyRequest.setArticleID(result.getArticleID());
             evaluationModifyRequest.setConferenceID(result.getConferenceID());
             evaluationToModify.setTimesCanBeModified(0);
+            articleRepository.save(article);
             evaluationRepository.save(evaluationToModify);
             resultRepository.save(result);
             evaluationModifyRequestRepository.save(evaluationModifyRequest);
             return "修改成功";
         }
 
+    }
+
+    public String confirmReviewResult(Long userId,Long articleID, Long conference_id){
+        Article article = articleRepository.findById(articleID).orElse(null);
+        if (article == null){
+            return "NOT FOUND";
+        }
+        Result result = resultRepository.findByArticleIDAndConferenceID(articleID,conference_id);
+        HashSet<Evaluation> evaluationSet = (HashSet<Evaluation>) result.getEvaluations();
+        Evaluation evaluationToModify = null;
+        for (Evaluation evaluation : evaluationSet) {
+            if (evaluation.getPCMemberID().equals(userId)){
+                evaluationToModify = evaluation;
+                break;
+            }
+        }
+        if (evaluationToModify.getTimesCanBeModified() >0) {
+            evaluationToModify.setTimesCanBeModified(0);
+            article.setNumberToBeConfirmed(article.getNumberToBeConfirmed() - 1);
+            evaluationRepository.save(evaluationToModify);
+            articleRepository.save(article);
+            resultRepository.save(result);
+            return "确认成功";
+        }else{
+            return "已确认过";
+        }
     }
 
 

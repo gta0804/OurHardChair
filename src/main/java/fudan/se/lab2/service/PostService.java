@@ -57,13 +57,16 @@ public class PostService {
             return (long)(-255);
         }
         Post post = new Post(ownerID, articleID, words);
-        post.setPeopleRelated(articleRepository.findById(articleID).orElse(null).getPcMembers());
-        post.setArticleTitle(articleRepository.findById(articleID).orElse(null).getTitle());
+        Article article = articleRepository.findById(articleID).orElse(null);
+        post.setPeopleRelated(article.getPcMembers());
+        post.setArticleTitle(article.getTitle());
         post.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
         postRepository.save(post);
         if (null == postRepository.findByArticleID(articleID)) {
             return (long) (-1);
         } else {
+            article.setIsDiscussed(article.getIsDiscussed() + 1);
+            articleRepository.save(article);
             return postRepository.findByArticleID(articleID).getId();
         }
     }
@@ -78,9 +81,20 @@ public class PostService {
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);
         postRepository.save(post);
+        Article article = articleRepository.findById(post.getArticleID()).orElse(null);
+        if (article != null) {
+            article.setIsDiscussed(article.getIsDiscussed() + 1);
+        }
         return reply;
     }
+
+    //先检查能否rebuttal
+    //再将文章设置为必须被讨论
     public Reply submitRebuttal(Long articleID,String words,Long authorID){
+        Article article = articleRepository.findById(articleID).orElse(null);
+        if (article.getIsAccepted() != -1){
+            return null;
+        }
         Reply reply = new Reply(authorID,words);
         reply.setReplyToFloorNumber((long)(-1));
         reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
@@ -91,6 +105,10 @@ public class PostService {
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);
         postRepository.save(post);
+
+        article.setNumberToBeConfirmed(article.getHowManyPeopleHaveReviewed());
+        article.setIsDiscussed(-1);
+        articleRepository.save(article);
         return reply;
     }
 

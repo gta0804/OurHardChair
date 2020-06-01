@@ -221,7 +221,17 @@ public class ContributionController {
         return ResponseEntity.ok(answer);
     }
 
-
+    @CrossOrigin(origins = "*")
+    @PostMapping("/confirmReviewResult")
+    public ResponseEntity<HashMap<String, Object>> confirmReviewResult(HttpServletRequest request, @RequestParam("userId") Long userId,@RequestParam("articleID") Long articleID,@RequestParam("conference_id") Long conference_id){
+        logger.debug("Try to confirm review result...");
+        HashMap<String, Object> answer = new HashMap<>();
+        String token = request.getHeader("Authorization").substring(7);
+        String message = contributionService.confirmReviewResult(userId,articleID,conference_id);
+        answer.put("token",token);
+        answer.put("message",message);
+        return ResponseEntity.ok(answer);
+    }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/modifyContribution")

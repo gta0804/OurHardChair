@@ -79,4 +79,8 @@ public class Evaluation {
     public void setTimesCanBeModified(Integer timesCanBeModified) {
         this.timesCanBeModified = timesCanBeModified;
     }
+
+    public boolean canBeModified(){
+        return timesCanBeModified > 0;
+    }
 }

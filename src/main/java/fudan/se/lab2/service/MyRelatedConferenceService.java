@@ -271,28 +271,36 @@ public class MyRelatedConferenceService {
         if (pcMembersForConference.size() < 3) {
             return "邀请的PCMember数量少于2个，您不能开启审稿";
         }
-        if (conference.getIsOpenSubmission() != 2) {
-            return "会议状态不符";
-        }
         List<Article> articles = articleRepository.findByConferenceID(conferenceId);
         HashMap<Article, List<PCMember>> results = new HashMap<>();
-        if (request.getAllocationStrategy() == 1) {
+        String allocateResult=allocateManuscripts(request.getAllocationStrategy(),articles,pcMembersForConference,results);
+        if(allocateResult.equals("稿件分配成功")){
+            save(results, articles);
+            conference.setIsOpenSubmission(3);
+            conferenceRepository.save(conference);
+        }
+        return allocateResult;
+    }
+    
+    private String allocateManuscripts(Integer strategy,List<Article> articles,List<PCMember> pcMembers,HashMap<Article, List<PCMember>> results) {
+        if (strategy == null||(strategy!=1&&strategy!=2)) {
+            return "请求错误";
+        }
+        if (strategy == 1) {
             for (Article article : articles) {
-                if (!allocateBasedOnTopics(article, pcMembersForConference, results)) {
-                    return "邀请的PCMember不符合条件导致无法分配";
-                }
-            }
-        } else {
-            for (Article article : articles) {
-                if (!allocateAll(article, request, results)) {
+                if (!allocateBasedOnTopics(article, pcMembers, results)) {
                     return "邀请的PCMember不符合条件导致无法分配";
                 }
             }
         }
-        save(results, articles);
-        conference.setIsOpenSubmission(3);
-        conferenceRepository.save(conference);
-        return "开启投稿成功";
+        else {
+            for (Article article : articles) {
+                if (!allocateAll(article, pcMembers, results)) {
+                    return "邀请的PCMember不符合条件导致无法分配";
+                }
+            }
+        }
+        return "稿件分配成功";
     }
 
     private boolean allocateBasedOnTopics(Article article, List<PCMember> pCMembers, HashMap<Article, List<PCMember>> results) {
@@ -326,8 +334,7 @@ public class MyRelatedConferenceService {
         return true;
     }
 
-    private boolean allocateAll(Article article, OpenManuscriptReviewRequest request, HashMap<Article, List<PCMember>> results) {
-        List<PCMember> pCMembers = pcMemberRepository.findAllByConferenceId(request.getConference_id());
+    private boolean allocateAll(Article article, List<PCMember> pCMembers, HashMap<Article, List<PCMember>> results) {
         List<PCMember> temp = new LinkedList<>(pCMembers);
         int minimumNumber = 0;
 

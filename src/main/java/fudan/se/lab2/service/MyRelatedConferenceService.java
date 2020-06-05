@@ -7,6 +7,7 @@ import fudan.se.lab2.controller.response.ConferenceForChairResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
+import javassist.bytecode.LineNumberAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -185,10 +186,6 @@ public class MyRelatedConferenceService {
             }
             for (Article article : articles) {
                 article.setStatus((long) 2);
-//                HashSet<PCMember> pcMembers = (HashSet<PCMember>) article.getPcMembers();
-//                for (PCMember pcMember : pcMembers) {
-//                    evaluationRepository.findByPCMemberID(pcMember.getId());
-//                }
                 Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference_id);
                 HashSet<Evaluation> evaluations = (HashSet<Evaluation>) result.getEvaluations();
                 article.setIsAccepted(1);
@@ -203,9 +200,9 @@ public class MyRelatedConferenceService {
             conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 4));
             conferenceRepository.save(conference);
             return "开启成功";
-        } else {
-            return "开启失败";
         }
+        return "开启失败";
+
     }
 
     public String releaseFinalReviewResult(Long conference_id) {
@@ -225,9 +222,9 @@ public class MyRelatedConferenceService {
             conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 5));
             conferenceRepository.save(conference);
             return "开启成功";
-        } else {
-            return "开启失败";
         }
+        return "开启失败";
+
     }
 
 
@@ -267,21 +264,16 @@ public class MyRelatedConferenceService {
             return "请求错误";
         }
         Conference conference = conferenceRepository.findById(conferenceId).orElse(null);
-        if (conference == null) {
-            return "服务器错误";
-        }
         List<PCMember> pcMembersForConference = pcMemberRepository.findAllByConferenceId(conferenceId);
-        if (pcMembersForConference == null) {
+        if (conference == null||pcMembersForConference == null) {
             return "服务器错误";
         }
-
         if (pcMembersForConference.size() < 3) {
             return "邀请的PCMember数量少于2个，您不能开启审稿";
         }
         if (conference.getIsOpenSubmission() != 2) {
             return "会议状态不符";
         }
-
         List<Article> articles = articleRepository.findByConferenceID(conferenceId);
         HashMap<Article, List<PCMember>> results = new HashMap<>();
         if (request.getAllocationStrategy() == 1) {
@@ -324,21 +316,14 @@ public class MyRelatedConferenceService {
 
         if (matchingPCMembers.size() < 3) {
             int[] random = getRandomNumbers(pCMembers.size());
-            for (int index : random) {
-                saveAllocation(pCMembers.get(index), article, results);
-            }
+            saveAllocations(random,pCMembers,article,results);
         } else if (matchingPCMembers.size() == 3) {
-            for (PCMember matchingPCMember : matchingPCMembers) {
-                saveAllocation(matchingPCMember, article, results);
-            }
+            saveAllocations(matchingPCMembers,article,results);
         } else {
             int[] random = getRandomNumbers(matchingPCMembers.size());
-            for (int index : random) {
-                saveAllocation(matchingPCMembers.get(index), article, results);
-            }
+            saveAllocations(random,matchingPCMembers,article,results);
         }
         return true;
-
     }
 
     private boolean allocateAll(Article article, OpenManuscriptReviewRequest request, HashMap<Article, List<PCMember>> results) {
@@ -347,19 +332,13 @@ public class MyRelatedConferenceService {
         int minimumNumber = 0;
 
         for (int i = 0; i < 3; i++) {
-            for (PCMember pcMember : pCMembers) {
-                minimumNumber = pCMembers.get(0).getArticles().size();
-                if (pcMember.getArticles().size() < minimumNumber) {
-                    minimumNumber = pcMember.getArticles().size();
-                }
-            }
+            minimumNumber=getMinimumNumber(pCMembers);
             List<PCMember> feasiblePCMembers = new LinkedList<>();
             for (PCMember pcMember : temp) {
                 if (pcMember.getArticles().size() <= minimumNumber) {
                     feasiblePCMembers.add(pcMember);
                 }
             }
-
             for (Iterator<PCMember> pcMemberIterator = feasiblePCMembers.iterator(); pcMemberIterator.hasNext(); ) {
                 PCMember feasiblePCMember = pcMemberIterator.next();
                 if (isNotFit(article, feasiblePCMember)) {
@@ -414,10 +393,25 @@ public class MyRelatedConferenceService {
     }
 
     private void saveAllocation(PCMember pcMember, Article article, HashMap<Article, List<PCMember>> results) {
-        List<PCMember> pcMembers = results.containsKey(article) ? results.get(article) : new LinkedList<>();
-        pcMembers.add(pcMember);
-        results.put(article, pcMembers);
+        List<PCMember> pcMemberSaved = results.containsKey(article) ? results.get(article) : new LinkedList<>();
+        pcMemberSaved.add(pcMember);
+        results.put(article, pcMemberSaved);
     }
+
+    private void saveAllocations(List<PCMember> pcMembers,Article article,HashMap<Article,List<PCMember>> results){
+        List<PCMember> pcMemberSaved=results.containsKey(article)?results.get(article):new LinkedList<>();
+        pcMemberSaved.addAll(pcMembers);
+        results.put(article,pcMemberSaved);
+    }
+
+    private void saveAllocations(int[] random,List<PCMember> pcMembers,Article article,HashMap<Article,List<PCMember>> results){
+        List<PCMember> pcMemberSaved=results.containsKey(article)?results.get(article):new LinkedList<>();
+        for(int index:random){
+            pcMemberSaved.add(pcMembers.get(index));
+        }
+        results.put(article,pcMemberSaved);
+    }
+
 
     private void save(HashMap<Article, List<PCMember>> results, List<Article> articles) {
         for (Article article : articles) {
@@ -430,6 +424,10 @@ public class MyRelatedConferenceService {
                 }
                 pcMemberRepository.saveAll(pcMembers);
             }
+            Set<PCMember> pcMemberForArticle=article.getPcMembers();
+            pcMemberForArticle.addAll(pcMembers);
+            article.setPcMembers(pcMemberForArticle);
+            articleRepository.save(article);
         }
     }
 
@@ -455,4 +453,17 @@ public class MyRelatedConferenceService {
         }
         return result;
     }
+
+    private int getMinimumNumber(List<PCMember> pCMembers){
+        int minimumNumber=0;
+        for (PCMember pcMember : pCMembers) {
+            minimumNumber = pCMembers.get(0).getArticles().size();
+            if (pcMember.getArticles().size() < minimumNumber) {
+                minimumNumber = pcMember.getArticles().size();
+            }
+        }
+        return minimumNumber;
+    }
 }
+
+

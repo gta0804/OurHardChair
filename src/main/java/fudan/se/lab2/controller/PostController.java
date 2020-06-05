@@ -85,14 +85,14 @@ public class PostController {
         if(post == null){
             map.put("message","暂无帖子");
             map.put("token",token);
-            map.put("postList",null);
+            map.put("post",null);
             return ResponseEntity.ok(map);
 
         }
         else{
             map.put("message","请求成功");
             map.put("token",token);
-            map.put("postList",post);
+            map.put("post",post);
             return ResponseEntity.ok(map);
         }
     }

@@ -7,7 +7,6 @@ import fudan.se.lab2.controller.response.ConferenceForChairResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
-import javassist.bytecode.LineNumberAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -281,7 +280,7 @@ public class MyRelatedConferenceService {
         }
         return allocateResult;
     }
-    
+
     private String allocateManuscripts(Integer strategy,List<Article> articles,List<PCMember> pcMembers,HashMap<Article, List<PCMember>> results) {
         if (strategy == null||(strategy!=1&&strategy!=2)) {
             return "请求错误";
@@ -360,7 +359,8 @@ public class MyRelatedConferenceService {
             saveAllocation(matchingPCMember, article, results);
             temp.remove(matchingPCMember);
         }
-        return true;
+        
+        return getMinimumNumber(pCMembers)+1>=getMinimumNumber(pCMembers);
     }
 
     /*
@@ -471,6 +471,14 @@ public class MyRelatedConferenceService {
         }
         return minimumNumber;
     }
+
+    private int getMaximumNumber(List<PCMember> pcMembers){
+        int maximumNumber=0;
+        for(PCMember pcMember:pcMembers){
+            if(pcMember.getArticles().size()>maximumNumber){
+                maximumNumber=pcMember.getArticles().size();
+            }
+        }
+        return maximumNumber;
+    }
 }
-
-

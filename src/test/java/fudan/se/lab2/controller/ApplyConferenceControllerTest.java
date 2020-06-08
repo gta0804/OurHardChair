@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.HashMap;
 
-@SpringBootTest(classes= Lab2Application.class)
+@SpringBootTest
 class ApplyConferenceControllerTest {
 
     private MockHttpServletRequest request;
@@ -76,26 +76,26 @@ class ApplyConferenceControllerTest {
 
         String token;
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("admin");
-        loginRequest.setPassword("password");
+        loginRequest.setUsername("testA");
+        loginRequest.setPassword("123456");
         token=(String)authController.login(loginRequest).getBody().get("token");
-        Date date = new Date();
         request = new MockHttpServletRequest();
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization","Bearer "+token);
         ApplyMeetingRequest applyMeetingRequest = new ApplyMeetingRequest();
-        applyMeetingRequest.setFullName(date.toString());
-        applyMeetingRequest.setHoldingTime((date).toString());
-        applyMeetingRequest.setSubmissionDeadline((date).toString());
-        applyMeetingRequest.setAbbreviation((date).toString());
+        applyMeetingRequest.setFullName("testMeeting1");
+        applyMeetingRequest.setHoldingTime("2020-6-13 23:00");
+        applyMeetingRequest.setSubmissionDeadline("2020-6-13 23:00");
+        applyMeetingRequest.setAbbreviation("tA");
         applyMeetingRequest.setHoldingPlace("Shanghai");
         Set<String> topics=new HashSet<>();
-        topics.add(new Date().toString());
+        topics.add("自然语言处理");
+        topics.add("机器学习");
         applyMeetingRequest.setTopics(topics);
         ResponseEntity<HashMap<String, Object>> responseEntity1 = applyConferenceController.applyMeeting(request,applyMeetingRequest);
-        Assert.isTrue(responseEntity1.getBody().get("message").equals("会议申请失败，已有该会议")||responseEntity1.getBody().get("message").equals("success"));
-        Conference conference=conferenceRepository.findByFullName(date.toString());
-        conferenceRepository.delete(conference);
+        Assert.isTrue(responseEntity1.getBody().get("message").equals("success"));
+        ResponseEntity<HashMap<String, Object>> responseEntity2 = applyConferenceController.applyMeeting(request,applyMeetingRequest);
+        Assert.isTrue(responseEntity2.getBody().get("message").equals("会议申请失败，已有该会议"));
     }
 
     /**
@@ -116,7 +116,7 @@ class ApplyConferenceControllerTest {
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization","Bear "+token);
         ResponseEntity<HashMap<String, Object>> responseEntity = applyConferenceController.reviewConference(request);
-        Assert.isTrue(responseEntity.getBody().get("message").equals("拉取待审核会议失败") || responseEntity.getBody().get("message").equals("拉取待审核会议成功") );
+        Assert.isTrue( responseEntity.getBody().get("message").equals("拉取待审核会议成功") );
 
     }
 
@@ -130,7 +130,6 @@ class ApplyConferenceControllerTest {
     @Test
     void approveConference() {
         String token;
-        Date date = new Date();
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("admin");
         loginRequest.setPassword("password");
@@ -139,9 +138,9 @@ class ApplyConferenceControllerTest {
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization","Bear "+token);
         ReviewConferenceRequest approveConferenceRequest = new ReviewConferenceRequest();;
-        approveConferenceRequest.setFullName(date.toString() + "231231231");
+        approveConferenceRequest.setFullName("testMeeting1");
         ResponseEntity<HashMap<String, Object>> responseEntity1 = applyConferenceController.approveConference(approveConferenceRequest,request);
-        Assert.isTrue(responseEntity1.getBody().get("message").equals("批准会议申请失败，会议表找不到该会议"));
+        Assert.isTrue(responseEntity1.getBody().get("message").equals("批准会议成功"));
     }
 
     /**
@@ -155,25 +154,25 @@ class ApplyConferenceControllerTest {
     void disapproveConference() {
         String token;
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("admin");
-        loginRequest.setPassword("password");
+        loginRequest.setUsername("testA");
+        loginRequest.setPassword("123456");
         token=(String)authController.login(loginRequest).getBody().get("token");
         Date date = new Date();
         request = new MockHttpServletRequest();
         request.setCharacterEncoding("UTF-8");
         request.addHeader("Authorization","Bearer "+ token);
         ApplyMeetingRequest applyMeetingRequest = new ApplyMeetingRequest();
-        applyMeetingRequest.setFullName((date).toString());
+        applyMeetingRequest.setFullName("rejectedConference");
         applyMeetingRequest.setHoldingTime((date).toString());
         applyMeetingRequest.setSubmissionDeadline((date).toString());
         applyMeetingRequest.setAbbreviation((date).toString());
         applyMeetingRequest.setHoldingPlace("Shanghai");
         Set<String> topics=new HashSet<>();
-        topics.add(new Date().toString());
+        topics.add("自然语言处理");
         applyMeetingRequest.setTopics(topics);
         applyConferenceController.applyMeeting(request,applyMeetingRequest);
         ReviewConferenceRequest disapproveConferenceRequest = new ReviewConferenceRequest();
-        disapproveConferenceRequest.setFullName(date.toString());
+        disapproveConferenceRequest.setFullName("rejectedConference");
         ResponseEntity<HashMap<String, Object>> responseEntity = applyConferenceController.disapproveConference(disapproveConferenceRequest,request);
         Assert.isTrue(responseEntity.getBody().get("message").equals("驳回会议申请成功"));
         disapproveConferenceRequest.setFullName((new Date()).toString() + "231231231");

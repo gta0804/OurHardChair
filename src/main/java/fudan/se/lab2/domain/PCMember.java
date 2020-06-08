@@ -13,11 +13,11 @@ public class PCMember {
     private Long userId;
     private Long  conferenceId;
 
-    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade ={CascadeType.MERGE})
     private Set<Topic> topics=new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade ={CascadeType.MERGE})
     private Set<Article> articles;
 
     @JsonIgnore

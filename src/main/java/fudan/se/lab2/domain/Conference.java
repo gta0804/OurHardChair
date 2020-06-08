@@ -22,7 +22,7 @@ public class Conference {
     private String reviewReleaseDate;
     private Integer isOpenSubmission;
     private Integer reviewStatus;
-    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade ={CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<Topic> topics=new HashSet<>();
 
     public Conference(){}

@@ -80,7 +80,6 @@ public class AuthController {
             final Authentication authentication = authenticationManager.authenticate(userToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtTokenUtil.generateToken(user);
-
             map.put("token", token);
             System.out.println("注册成功，发放token" + jwtTokenUtil.generateToken(user));
         map.put("message","success");

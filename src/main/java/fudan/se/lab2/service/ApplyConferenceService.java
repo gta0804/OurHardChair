@@ -47,8 +47,13 @@ public class ApplyConferenceService {
         Set<Topic> topics = new HashSet<>();
         for (String topicName : request.getTopics()) {
             Topic topic=topicRepository.findByTopic(topicName);
+            if(topic!=null){
+                System.out.println("测试时topicName是: "+topicName);
+            }
             if(topic==null){
                 topic=new Topic(topicName);
+                topicRepository.save(topic);
+                topic=topicRepository.findByTopic(topicName);
             }
             topics.add(topic);
         }
@@ -110,9 +115,7 @@ public class ApplyConferenceService {
 
     public void  reviewConference(List<Conference> conferences){
         List<Conference> temp=conferenceRepository.findAllByReviewStatus(1);
-        for(Conference conference:temp){
-            conferences.add(conference);
-        }
+        conferences.addAll(temp);
 
     }
 

@@ -30,13 +30,13 @@ public class Article {
     //-1代表未被录用，0代表还未判定，1代表被录用了
     //在发布结果的时候，进行判定
     private Integer isAccepted;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
     private List<Writer> writers = new ArrayList<>();
 
-    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade ={CascadeType.MERGE})
     private Set<Topic> topics=new HashSet<>();
 
-    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade ={CascadeType.MERGE})
     private Set<PCMember> pcMembers=new HashSet<>();
     //0暂时无法发布 1已经可以发布 2主席已经第一次发布 3主席已经第二次发布
     private Long status;

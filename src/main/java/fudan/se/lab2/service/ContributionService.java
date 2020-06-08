@@ -62,11 +62,11 @@ public class ContributionService {
         for(WriterRequest writerRequest:contributionRequest.getWriters()){
             Writer writer=writerRepository.findByWriterNameAndEmail(writerRequest.getWriterName(),writerRequest.getEmail());
             if(writer==null){
-                writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
+                Writer temp=new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry());
+                writerRepository.save(temp);
+                writer=temp;
             }
-            else{
                 writers.add(writer);
-            }
         }
         for(int i=0;i<writers.size();i++){
             for(int j=i+1;j<writers.size();j++){
@@ -89,7 +89,6 @@ public class ContributionService {
         }
         article.setTopics(topics);
         articleRepository.save(article);
-
         Contributor contributor = new Contributor(contributionRequest.getContributorID(),contributionRequest.getConference_id());
         authorRepository.save(contributor);
         hashMap.put("message","投稿成功");
@@ -172,13 +171,15 @@ public class ContributionService {
         for(WriterRequest writerRequest:modifyContributionRequest.getWriters()){
             Writer writer=writerRepository.findByWriterNameAndEmail(writerRequest.getWriterName(),writerRequest.getEmail());
             if(writer==null){
-                writers.add(new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry()));
+                Writer temp=new Writer(writerRequest.getWriterName(),writerRequest.getEmail(),writerRequest.getInstitution(),writerRequest.getCountry());
+                writerRepository.save(temp);
+                writer=temp;
             }
             else{
                 writer.setInstitution(writerRequest.getInstitution());
                 writer.setCountry(writerRequest.getCountry());
-                writers.add(writer);
             }
+            writers.add(writer);
         }
         article.setWriters(writers);
         articleRepository.save(article);

@@ -40,17 +40,14 @@ public class Lab2Application {
      * You can change it as you like.
      */
     @Bean
-    public CommandLineRunner dataLoader(UserRepository userRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+    public CommandLineRunner dataLoader(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
                 // Create authorities if not exist.
-                Authority adminAuthority = getOrCreateAuthority("admin","administrator", authorityRepository);
-                Authority userAuthority = getOrCreateAuthority("superuser","user",authorityRepository);
                 // Create an admin if not exists.
                 if (userRepository.findByUsername("admin") == null) {
                     HashSet<Authority> set = new HashSet<>();
-                    set.add(adminAuthority);
                     User admin = new User(
                             "admin",
                             passwordEncoder.encode("password"),
@@ -62,30 +59,7 @@ public class Lab2Application {
                     );
                     userRepository.save(admin);
                 }
-                if (userRepository.findByUsername("superuser") == null) {
-                    HashSet<Authority> set = new HashSet<>();
-                    set.add(userAuthority);
-                    User superUser = new User(
-                            "superuser",
-                            passwordEncoder.encode("password"),
-                            "superuser",
-                            "superuser@fudan.edu.cn",
-                            "Fudan University",
-                            "China",
-                            set
-                    );
-                    userRepository.save(superUser);
-                }
 
-            }
-
-            private Authority getOrCreateAuthority(String username,String authorityText, AuthorityRepository authorityRepository) {
-                Authority authority = authorityRepository.findByAuthority(authorityText);
-                if (authority == null) {
-                    authority = new Authority(username,authorityText);
-                    authorityRepository.save(authority);
-                }
-                return authority;
             }
         };
     }

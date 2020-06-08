@@ -43,9 +43,9 @@ class AuthControllerTest {
         registerRequest.setEmail("123@qq.com");
         registerRequest.setInstitution("FD");
         registerRequest.setPassword("123456");
-        registerRequest.setUsername("iylnijbggjhvjhg");
+        registerRequest.setUsername("testA");
         ResponseEntity<HashMap<String,Object>> responseEntity = authController.register(registerRequest);
-        Assert.isTrue(responseEntity.getBody().get("message").equals("success")||responseEntity.getBody().get("message").equals("注册失败，已有该用户"));
+        Assert.isTrue(responseEntity.getBody().get("message").equals("success"));
     }
 
     @Test

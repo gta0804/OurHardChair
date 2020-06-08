@@ -23,15 +23,11 @@ import java.util.HashSet;
 @Service
 public class AuthService {
     private UserRepository userRepository;
-
-    private AuthorityRepository authorityRepository;
-
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository,PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository,PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.authorityRepository = authorityRepository;
         this.passwordEncoder=passwordEncoder;
     }
 
@@ -45,20 +41,9 @@ public class AuthService {
         System.out.println("注册成功！");
         String password = passwordEncoder.encode(request.getPassword());
         HashSet<Authority> set = new HashSet<>();
-        Authority authority = getOrCreateAuthority(request.getUsername(),"user",authorityRepository);
-        set.add(authority);
         User user = new User(request.getUsername(),password,request.getFullName(),request.getEmail(),request.getInstitution(),request.getCountry(),set);
         userRepository.save(user);
         return user;
-
-    }
-    private Authority getOrCreateAuthority(String username,String authorityText, AuthorityRepository authorityRepository) {
-        Authority authority = authorityRepository.findByAuthority(authorityText);
-        if (authority == null) {
-            authority = new Authority(username,authorityText);
-            authorityRepository.save(authority);
-        }
-        return authority;
     }
 
 
@@ -76,28 +61,6 @@ public class AuthService {
 //        }
 //        return null;
 //    }
-
-    public String login(String username, String password) {
-        // TODO: Implement the function.
-        Iterable<User> users = userRepository.findAll();
-
-        for (User user : users) {
-            if (user.getUsername().equals(username) && passwordEncoder.matches(password,user.getPassword())){
-                return "success";
-            }
-        }
-            return "fail";
-    }
-
-    public User getUserByUsername(String username) {
-        Iterable<User> users = userRepository.findAll();
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
 
 
 }

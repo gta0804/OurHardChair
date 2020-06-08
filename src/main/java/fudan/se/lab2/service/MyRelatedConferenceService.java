@@ -359,7 +359,7 @@ public class MyRelatedConferenceService {
             saveAllocation(matchingPCMember, article, results);
             temp.remove(matchingPCMember);
         }
-        
+
         return getMinimumNumber(pCMembers)+1>=getMinimumNumber(pCMembers);
     }
 

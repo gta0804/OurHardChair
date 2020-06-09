@@ -1,8 +1,10 @@
 package fudan.se.lab2;
 
+import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.domain.Authority;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.domain.User;
+import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.AuthorityRepository;
 import fudan.se.lab2.repository.ConferenceRepository;
 import fudan.se.lab2.repository.UserRepository;
@@ -34,6 +36,8 @@ public class Lab2Application {
     }
     @Autowired
     ConferenceRepository conferenceRepository;
+    @Autowired
+    ArticleRepository articleRepository;
     /**
      * This is a function to create some basic entities when the application starts.
      * Now we are using a In-Memory database, so you need it.
@@ -58,6 +62,9 @@ public class Lab2Application {
                             set
                     );
                     userRepository.save(admin);
+                }
+                for (Article article : articleRepository.findAll()) {
+                    article.setCanPost(1);
                 }
 
             }

@@ -28,7 +28,7 @@ import java.util.HashMap;
  * @author: Shen Zhengyu
  * @create: 2020-05-28 16:09
  **/
-@CrossOrigin()
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @RestController
 public class PostController {
     Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -55,7 +55,7 @@ public class PostController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*",allowCredentials = "true", allowedHeaders = "*")
     @PostMapping("/browseAllPosts")
     public ResponseEntity<HashMap<String,Object>> browseAllPosts(HttpServletRequest httpServletRequest,@RequestParam(name = "userID") Long userID){
         logger.debug("browseAllPosts");
@@ -84,7 +84,7 @@ public class PostController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*",allowCredentials = "true", allowedHeaders = "*")
     @PostMapping("/browsePostOnArticle")
     public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID){
         logger.debug("browsePostOnArticle:" + articleID);
@@ -173,7 +173,7 @@ public class PostController {
     * @Date: 2020/5/28
     */
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*",allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(value = "/submitRebuttal",method = RequestMethod.POST)
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestParam(name = "authorID") Long authorID, @RequestParam(name = "words") String words, @RequestParam(name = "articleID") Long articleID){
         logger.debug(authorID + "submitRebuttal on " + articleID);

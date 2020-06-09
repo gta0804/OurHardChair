@@ -61,11 +61,13 @@ public class PostService {
         post.setPeopleRelated(article.getPcMembers());
         post.setArticleTitle(article.getTitle());
         post.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
+
         postRepository.save(post);
         if (null == postRepository.findByArticleID(articleID)) {
             return (long) (-1);
         } else {
             article.setIsDiscussed(article.getIsDiscussed() + 1);
+            article.setCanPost(-1);
             articleRepository.save(article);
             return postRepository.findByArticleID(articleID).getId();
         }

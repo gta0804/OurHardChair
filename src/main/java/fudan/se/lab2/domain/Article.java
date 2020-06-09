@@ -49,6 +49,8 @@ public class Article {
     private Integer numberToBeConfirmed;
 
     private Integer HowManyPeopleHaveReviewed;
+
+    private Integer canPost;
     public Article() {
     }
 
@@ -72,6 +74,7 @@ public class Article {
         this.numberToBeConfirmed = 0;
         this.isAccepted = 0;
         this.HowManyPeopleHaveReviewed=0;
+        this.canPost = 1;
     }
 
     public Long getStatus() {
@@ -189,5 +192,13 @@ public class Article {
 
     public void setHowManyPeopleHaveReviewed(Integer howManyPeopleHaveReviewed) {
         HowManyPeopleHaveReviewed = howManyPeopleHaveReviewed;
+    }
+
+    public Integer getCanPost() {
+        return canPost;
+    }
+
+    public void setCanPost(Integer canPost) {
+        this.canPost = canPost;
     }
 }

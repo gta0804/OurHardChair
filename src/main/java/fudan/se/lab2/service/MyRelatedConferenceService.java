@@ -7,6 +7,7 @@ import fudan.se.lab2.controller.response.ConferenceForChairResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
 import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.*;
+import javassist.bytecode.LineNumberAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -271,17 +272,17 @@ public class MyRelatedConferenceService {
             return "邀请的PCMember数量少于2个，您不能开启审稿";
         }
         List<Article> articles = articleRepository.findByConferenceID(conferenceId);
-        HashMap<Article, List<PCMember>> results = new HashMap<>();
+        HashMap<PCMember, List<Article>> results = new HashMap<>();
         String allocateResult=allocateManuscripts(request.getAllocationStrategy(),articles,pcMembersForConference,results);
         if(allocateResult.equals("稿件分配成功")){
-            save(results, articles);
+            save(results, pcMembersForConference);
             conference.setIsOpenSubmission(3);
             conferenceRepository.save(conference);
         }
         return allocateResult;
     }
 
-    private String allocateManuscripts(Integer strategy,List<Article> articles,List<PCMember> pcMembers,HashMap<Article, List<PCMember>> results) {
+    private String allocateManuscripts(Integer strategy,List<Article> articles,List<PCMember> pcMembers,HashMap<PCMember, List<Article>> results) {
         if (strategy == null||(strategy!=1&&strategy!=2)) {
             return "请求错误";
         }
@@ -302,7 +303,7 @@ public class MyRelatedConferenceService {
         return "稿件分配成功";
     }
 
-    private boolean allocateBasedOnTopics(Article article, List<PCMember> pCMembers, HashMap<Article, List<PCMember>> results) {
+    private boolean allocateBasedOnTopics(Article article, List<PCMember> pCMembers, HashMap<PCMember, List<Article>> results) {
         List<PCMember> matchingPCMembers = new LinkedList<>();
         Iterator<PCMember> pcMemberIterator = pCMembers.iterator();
         while (pcMemberIterator.hasNext()) {
@@ -333,12 +334,12 @@ public class MyRelatedConferenceService {
         return true;
     }
 
-    private boolean allocateAll(Article article, List<PCMember> pCMembers, HashMap<Article, List<PCMember>> results) {
+    private boolean allocateAll(Article article, List<PCMember> pCMembers, HashMap<PCMember, List<Article>> results) {
         List<PCMember> temp = new LinkedList<>(pCMembers);
         int minimumNumber = 0;
 
         for (int i = 0; i < 3; i++) {
-            minimumNumber=getMinimumNumber(pCMembers);
+            minimumNumber=getMinimumNumber(pCMembers,results);
             List<PCMember> feasiblePCMembers = new LinkedList<>();
             for (PCMember pcMember : temp) {
                 if (pcMember.getArticles().size() <= minimumNumber) {
@@ -360,7 +361,7 @@ public class MyRelatedConferenceService {
             temp.remove(matchingPCMember);
         }
 
-        return getMinimumNumber(pCMembers)+1>=getMinimumNumber(pCMembers);
+        return true;
     }
 
     /*
@@ -399,42 +400,45 @@ public class MyRelatedConferenceService {
         return false;
     }
 
-    private void saveAllocation(PCMember pcMember, Article article, HashMap<Article, List<PCMember>> results) {
-        List<PCMember> pcMemberSaved = results.containsKey(article) ? results.get(article) : new LinkedList<>();
-        pcMemberSaved.add(pcMember);
-        results.put(article, pcMemberSaved);
+    private void saveAllocation(PCMember pcMember, Article article, HashMap<PCMember, List<Article>> results) {
+        List<Article> articleSaved = results.containsKey(pcMember) ? results.get(pcMember) : new LinkedList<>();
+        articleSaved.add(article);
+        results.put(pcMember, articleSaved);
     }
 
-    private void saveAllocations(List<PCMember> pcMembers,Article article,HashMap<Article,List<PCMember>> results){
-        List<PCMember> pcMemberSaved=results.containsKey(article)?results.get(article):new LinkedList<>();
-        pcMemberSaved.addAll(pcMembers);
-        results.put(article,pcMemberSaved);
-    }
-
-    private void saveAllocations(int[] random,List<PCMember> pcMembers,Article article,HashMap<Article,List<PCMember>> results){
-        List<PCMember> pcMemberSaved=results.containsKey(article)?results.get(article):new LinkedList<>();
-        for(int index:random){
-            pcMemberSaved.add(pcMembers.get(index));
+    private void saveAllocations(List<PCMember> pcMembers,Article article,HashMap<PCMember,List<Article>> results){
+        for(PCMember pcMember:pcMembers){
+            List<Article> articleSaved=results.containsKey(pcMember)?results.get(pcMember):new LinkedList<>();
+            articleSaved.add(article);
+            results.put(pcMember,articleSaved);
         }
-        results.put(article,pcMemberSaved);
+
+    }
+
+    private void saveAllocations(int[] random,List<PCMember> pcMembers,Article article,HashMap<PCMember,List<Article>> results){
+        for(int index:random){
+            List<Article> articleSaved=results.containsKey(pcMembers.get(index))?results.get(pcMembers.get(index)):new LinkedList<>();
+            articleSaved.add(article);
+            results.put(pcMembers.get(index),articleSaved);
+        }
     }
 
 
-    private void save(HashMap<Article, List<PCMember>> results, List<Article> articles) {
-        for (Article article : articles) {
-            List<PCMember> pcMembers = results.get(article);
-            if (pcMembers != null) {
-                for (PCMember pcMember : pcMembers) {
-                    Set<Article> articleForPCMembers = pcMember.getArticles();
-                    articleForPCMembers.add(article);
-                    pcMember.setArticles(articleForPCMembers);
+    private void save(HashMap<PCMember, List<Article>> results, List<PCMember> pcMembers) {
+        for (PCMember pcMember : pcMembers) {
+            List<Article> articles = results.get(pcMember);
+            if (articles != null) {
+                Set<Article> articleForPCMembers=pcMember.getArticles();
+                articleForPCMembers.addAll(articles);
+                pcMember.setArticles(articleForPCMembers);
+                pcMemberRepository.save(pcMember);
+                for(Article article:articles){
+                    Set<PCMember> pcMemberForArticles=article.getPcMembers();
+                    pcMemberForArticles.add(pcMember);
+                    article.setPcMembers(pcMemberForArticles);
                 }
-                pcMemberRepository.saveAll(pcMembers);
+                articleRepository.saveAll(articles);
             }
-            Set<PCMember> pcMemberForArticle=article.getPcMembers();
-            pcMemberForArticle.addAll(pcMembers);
-            article.setPcMembers(pcMemberForArticle);
-            articleRepository.save(article);
         }
     }
 
@@ -460,24 +464,17 @@ public class MyRelatedConferenceService {
         return result;
     }
 
-    private int getMinimumNumber(List<PCMember> pCMembers){
-        int minimumNumber=0;
+    private int getMinimumNumber(List<PCMember> pCMembers,HashMap<PCMember,List<Article>> results){
+        int minimumNumber=Integer.MAX_VALUE;
         for (PCMember pcMember : pCMembers) {
-            minimumNumber = pCMembers.get(0).getArticles().size();
-            if (pcMember.getArticles().size() < minimumNumber) {
-                minimumNumber = pcMember.getArticles().size();
+            int allocatedNumber=0;
+            if(results.get(pcMember)!=null){
+                allocatedNumber=results.get(pcMember).size();
+            }
+            if(allocatedNumber<minimumNumber){
+                minimumNumber=allocatedNumber;
             }
         }
         return minimumNumber;
-    }
-
-    private int getMaximumNumber(List<PCMember> pcMembers){
-        int maximumNumber=0;
-        for(PCMember pcMember:pcMembers){
-            if(pcMember.getArticles().size()>maximumNumber){
-                maximumNumber=pcMember.getArticles().size();
-            }
-        }
-        return maximumNumber;
     }
 }

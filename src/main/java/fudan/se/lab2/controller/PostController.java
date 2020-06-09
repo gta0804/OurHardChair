@@ -181,7 +181,9 @@ public class PostController {
         map.put("message",message);
         map.put("token",token);
         map.put("reply",reply);
+        response.setCharacterEncoding("UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET,POST");
         response.setHeader("Cache-Control","no-cache");
         return ResponseEntity.ok(map);
 

@@ -15,12 +15,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * @author LBW
  */
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -58,14 +61,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
-        super.configure(http);
-        http.headers().frameOptions().disable();
-                http.authorizeRequests().anyRequest().permitAll();
-        http.headers().disable();
-        http
-                .headers()
-                .frameOptions().sameOrigin()
-                .httpStrictTransportSecurity().disable();
+//        super.configure(http);
+                http
+                        .authorizeRequests()
+                        .anyRequest()
+                        .permitAll()
+                        .and()
+                        .headers()
+                        .frameOptions()
+                        .disable()
+                        .and()
+                        .headers()
+                        .frameOptions()
+                        .sameOrigin()
+                        .httpStrictTransportSecurity()
+                        .disable()
+                        .and()
+                        .csrf().disable()
+                        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .and()
+                        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.cors().configurationSource(corsConfigurationSource());
+
+
+
 //        http.authorizeRequests()
 //                .antMatchers("/user").hasAnyRole("administrator","user")//个人首页只允许拥有MENBER,SUPER_ADMIN角色的用户访问
 //                .antMatchers("/admin").hasAnyAuthority("administrator")
@@ -84,17 +103,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .rememberMe();
 //
         // We dont't need CSRF for this project.
-        http.csrf().disable()
-
                 // Make sure we use stateless session; session won't be used to store user's state.
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
 //      Here we use JWT(Json Web Token) to authenticate the user.
 //      You need to write your code in the class 'JwtRequestFilter' to make it works.
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
 
+    }
+    private CorsConfigurationSource corsConfigurationSource() {
+        CorsConfigurationSource source = (CorsConfigurationSource) new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*"); // 同源配置，*表示任何请求都视为同源，若需指定ip和端口可以改为如“localhost：8080”，多个以“，”分隔；
+        corsConfiguration.addAllowedHeader("*");// header，允许哪些header，本案中使用的是token，此处可将*替换为token；
+        corsConfiguration.addAllowedMethod("*"); // 允许的请求方法，PSOT、GET等
+        ((UrlBasedCorsConfigurationSource) source).registerCorsConfiguration("/**", corsConfiguration); // 配置允许跨域访问的url
+        return source;
+    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Hint: Now you can view h2-console page at `http://IP-Address:<port>/h2-console` without authentication.

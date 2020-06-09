@@ -17,17 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * @program: lab2
- * @description: 讨论相关功能
- * @author: Shen Zhengyu
- * @create: 2020-05-28 16:09
- **/
-
 @CrossOrigin(origins = "*",allowCredentials = "true")
 @RestController
 public class PostController {
-
+    @Autowired
+    private PostService postService;
     @Autowired
     private PostRepository postRepository;
     @Autowired
@@ -35,8 +29,7 @@ public class PostController {
     @Autowired
     private ReplyRepository replyRepository;
 
-    @Autowired
-    private PostService postService;
+
     Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
@@ -168,7 +161,7 @@ public class PostController {
     */
 
     @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping(value = "/Rebuttal")
+    @PostMapping("/submitRebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
         HashMap<String,Object> map = new HashMap<>();

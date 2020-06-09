@@ -63,9 +63,6 @@ public class Lab2Application {
                     );
                     userRepository.save(admin);
                 }
-                for (Article article : articleRepository.findAll()) {
-                    article.setCanPost(1);
-                }
 
             }
         };

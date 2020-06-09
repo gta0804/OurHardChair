@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -38,10 +39,6 @@ public class PostController {
 
     @Autowired
     private PostService postService;
-    @Autowired
-    public PostController(PostService postService){
-        this.postService = postService;
-    }
 
     @Autowired
     public PostController() {
@@ -149,7 +146,7 @@ public class PostController {
     */
     @CrossOrigin(origins = "*")
     @PostMapping("/replyPost")
-    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words,@RequestParam(name = "floorNumber") Long floorNumber){
+    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words,@RequestParam(name = "floorNumber") Long floorNumber,HttpServletResponse response){
         logger.debug("replyPost");
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -158,6 +155,8 @@ public class PostController {
         map.put("message",message);
             map.put("token",token);
             map.put("reply",reply);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Cache-Control","no-cache");
             return ResponseEntity.ok(map);
 
     }
@@ -172,7 +171,7 @@ public class PostController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/submitRebuttal")
-    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest,@RequestParam(name = "authorID") Long authorID,@RequestParam(name = "words") String words,@RequestParam(name = "articleID") Long articleID){
+    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestParam(name = "authorID") Long authorID, @RequestParam(name = "words") String words, @RequestParam(name = "articleID") Long articleID, HttpServletResponse response){
         logger.debug(authorID + "submitRebuttal on " + articleID);
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -182,6 +181,8 @@ public class PostController {
         map.put("message",message);
         map.put("token",token);
         map.put("reply",reply);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Cache-Control","no-cache");
         return ResponseEntity.ok(map);
 
     }

@@ -168,7 +168,7 @@ public class PostController {
     */
 
     @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping(value = "/submitRebuttal")
+    @PostMapping(value = "/Rebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
         HashMap<String,Object> map = new HashMap<>();

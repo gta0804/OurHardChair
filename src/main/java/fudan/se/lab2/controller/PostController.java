@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.SubmitRebuttalRequest;
 import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
 import fudan.se.lab2.repository.PostRepository;
@@ -175,12 +176,12 @@ public class PostController {
 
     @CrossOrigin(origins = "*",allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(value = "/submitRebuttal",method = RequestMethod.POST)
-    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestParam(name = "authorID") Long authorID, @RequestParam(name = "words") String words, @RequestParam(name = "articleID") Long articleID){
-        logger.debug(authorID + "submitRebuttal on " + articleID);
+    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest){
+        logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
 
-        Reply reply = postService.submitRebuttal(articleID,words,authorID);
+        Reply reply = postService.submitRebuttal(submitRebuttalRequest.getArticleID(),submitRebuttalRequest.getWords(),submitRebuttalRequest.getAuthorID());
         String message = null == reply?"提交失败":"提交成功";
         map.put("message",message);
         map.put("token",token);

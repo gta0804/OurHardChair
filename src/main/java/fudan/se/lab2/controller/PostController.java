@@ -162,7 +162,7 @@ public class PostController {
     * @Date: 2020/5/28
     */
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "http://114.116.112.8")
     @PostMapping("/submitRebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest,@RequestParam(name = "authorID") Long authorID,@RequestParam(name = "words") String words,@RequestParam(name = "articleID") Long articleID){
         logger.debug(authorID + "submitRebuttal on " + articleID);

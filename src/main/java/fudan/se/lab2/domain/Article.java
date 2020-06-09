@@ -71,6 +71,7 @@ public class Article {
         this.isDiscussed = 0;
         this.numberToBeConfirmed = 0;
         this.isAccepted = 0;
+        this.HowManyPeopleHaveReviewed=0;
     }
 
     public Long getStatus() {

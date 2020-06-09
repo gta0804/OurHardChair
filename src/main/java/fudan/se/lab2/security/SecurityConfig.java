@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
-                http.authorizeRequests().anyRequest().permitAll();
+                http.authorizeRequests().anyRequest().permitAll().and().headers().frameOptions().disable();
 
 //        http.authorizeRequests()
 //                .antMatchers("/user").hasAnyRole("administrator","user")//个人首页只允许拥有MENBER,SUPER_ADMIN角色的用户访问

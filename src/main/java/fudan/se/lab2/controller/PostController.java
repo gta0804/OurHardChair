@@ -4,6 +4,7 @@ import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
 import fudan.se.lab2.repository.PostRepository;
 import fudan.se.lab2.repository.ReplyRepository;
+import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,8 @@ public class PostController {
 
     @Autowired
     private PostRepository postRepository;
-
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private ReplyRepository replyRepository;
 
@@ -42,7 +44,8 @@ public class PostController {
     private PostService postService;
 
     @Autowired
-    public PostController() {
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
     /**
@@ -170,9 +173,8 @@ public class PostController {
     * @Date: 2020/5/28
     */
 
-    @CrossOrigin
+    @CrossOrigin(origins = "*")
     @PostMapping("/submitRebuttal")
-    @ResponseBody
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestParam(name = "authorID") Long authorID, @RequestParam(name = "words") String words, @RequestParam(name = "articleID") Long articleID, HttpServletResponse response){
         logger.debug(authorID + "submitRebuttal on " + articleID);
         HashMap<String,Object> map = new HashMap<>();

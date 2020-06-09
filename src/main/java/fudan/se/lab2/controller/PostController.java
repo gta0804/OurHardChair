@@ -160,8 +160,8 @@ public class PostController {
     * @Date: 2020/5/28
     */
 
-    @CrossOrigin(origins = "*",allowCredentials = "true",methods = {RequestMethod.POST})
-    @PostMapping("/submitRebuttal")
+    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @PostMapping(value = "/submitRebuttal",produces = "application/json")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
         HashMap<String,Object> map = new HashMap<>();

@@ -58,8 +58,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
-                http.authorizeRequests().anyRequest().permitAll().and().headers().frameOptions().disable();
-
+        super.configure(http);
+        http.headers().frameOptions().disable();
+                http.authorizeRequests().anyRequest().permitAll();
+        http
+                .headers()
+                .frameOptions().sameOrigin()
+                .httpStrictTransportSecurity().disable();
 //        http.authorizeRequests()
 //                .antMatchers("/user").hasAnyRole("administrator","user")//个人首页只允许拥有MENBER,SUPER_ADMIN角色的用户访问
 //                .antMatchers("/admin").hasAnyAuthority("administrator")
@@ -79,8 +84,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
         // We dont't need CSRF for this project.
         http.csrf().disable()
+
                 // Make sure we use stateless session; session won't be used to store user's state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        
 //      Here we use JWT(Json Web Token) to authenticate the user.
 //      You need to write your code in the class 'JwtRequestFilter' to make it works.
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

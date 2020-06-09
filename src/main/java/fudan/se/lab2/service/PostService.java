@@ -94,7 +94,7 @@ public class PostService {
     //再将文章设置为必须被讨论
     public Reply submitRebuttal(Long articleID,String words,Long authorID){
         Article article = articleRepository.findById(articleID).orElse(null);
-        if (article.getIsAccepted() != -1){
+        if (article.getIsAccepted() != -1 || article.getTimesLeftForRebuttal() <= 0){
             return null;
         }
         Reply reply = new Reply(authorID,words);
@@ -107,7 +107,7 @@ public class PostService {
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);
         postRepository.save(post);
-
+        article.setTimesLeftForRebuttal(0);
         article.setNumberToBeConfirmed(article.getHowManyPeopleHaveReviewed());
         article.setIsDiscussed(-1);
         articleRepository.save(article);

@@ -45,6 +45,8 @@ public class Article {
     // 当这篇文章被新建讨论或帖子被回复时，为其+1，>=0才可发布，有人提交rebuttal时置为-1
     private Integer isDiscussed;
 
+    private Integer timesLeftForRebuttal;
+
     //初始为0，设置为3，当每个PCMember确认/修改了评审结果，为其-1，每位PCMember共有一次修改审阅的机会
     private Integer numberToBeConfirmed;
 
@@ -75,6 +77,15 @@ public class Article {
         this.isAccepted = 0;
         this.HowManyPeopleHaveReviewed=0;
         this.canPost = 1;
+        this.timesLeftForRebuttal = 1;
+    }
+
+    public Integer getTimesLeftForRebuttal() {
+        return timesLeftForRebuttal;
+    }
+
+    public void setTimesLeftForRebuttal(Integer timesLeftForRebuttal) {
+        this.timesLeftForRebuttal = timesLeftForRebuttal;
     }
 
     public Long getStatus() {

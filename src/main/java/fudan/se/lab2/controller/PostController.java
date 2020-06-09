@@ -25,7 +25,7 @@ import java.util.HashMap;
  * @author: Shen Zhengyu
  * @create: 2020-05-28 16:09
  **/
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 @RestController
 public class PostController {
     Logger logger = LoggerFactory.getLogger(PostController.class);

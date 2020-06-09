@@ -21,7 +21,7 @@ public class CorsConfig {
                 //TODO: If you encounter some Cross-Domain problems（跨域问题）, Maybe you can do something here.
                 System.out.println("----------------------");
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost","http://114.116.112.8/")
+                        .allowedOrigins("*")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true)

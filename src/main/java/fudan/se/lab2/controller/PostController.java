@@ -1,8 +1,5 @@
 package fudan.se.lab2.controller;
 
-import fudan.se.lab2.controller.request.ApplyMeetingRequest;
-import fudan.se.lab2.controller.request.InvitePCMemberRequest;
-import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
 import fudan.se.lab2.repository.PostRepository;
@@ -11,6 +8,10 @@ import fudan.se.lab2.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -169,8 +170,9 @@ public class PostController {
     * @Date: 2020/5/28
     */
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin
     @PostMapping("/submitRebuttal")
+    @ResponseBody
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestParam(name = "authorID") Long authorID, @RequestParam(name = "words") String words, @RequestParam(name = "articleID") Long articleID, HttpServletResponse response){
         logger.debug(authorID + "submitRebuttal on " + articleID);
         HashMap<String,Object> map = new HashMap<>();

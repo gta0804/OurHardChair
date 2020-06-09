@@ -164,7 +164,7 @@ public class PostController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/submitRebuttal")
-    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "authorID") Long authorID,@RequestParam(name = "words") String words,@RequestParam(name = "articleID") Long articleID){
+    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest,@RequestParam(name = "authorID") Long authorID,@RequestParam(name = "words") String words,@RequestParam(name = "articleID") Long articleID){
         logger.debug(authorID + "submitRebuttal on " + articleID);
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);

@@ -184,3 +184,29 @@ java.lang.NullPointerException: null
 2020-06-09 16:52:46.669 DEBUG 11104 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : No match for [application/json, text/plain, */*], supported: []
 2020-06-09 16:52:46.670  WARN 11104 --- [http-nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Long parameter 'userID' is not present]
 2020-06-09 16:52:46.671 DEBUG 11104 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2020-06-09 16:55:45.881 DEBUG 11104 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/mailCenter", parameters={}
+2020-06-09 16:55:45.883 DEBUG 11104 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MessageController#openMailCenter(HttpServletRequest)
+2020-06-09 16:55:45.885 DEBUG 11104 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/browseAllPosts", parameters={}
+2020-06-09 16:55:45.886 DEBUG 11104 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.PostController#browseAllPosts(HttpServletRequest, Long)
+2020-06-09 16:55:45.889 DEBUG 11104 --- [http-nio-8080-exec-10] .w.s.m.m.a.ServletInvocableHandlerMethod : Could not resolve parameter [1] in public org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String, java.lang.Object>> fudan.se.lab2.controller.PostController.browseAllPosts(javax.servlet.http.HttpServletRequest,java.lang.Long): Required Long parameter 'userID' is not present
+2020-06-09 16:55:45.890 DEBUG 11104 --- [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler fudan.se.lab2.exception.ControllerAdvisor#handleException(Exception, WebRequest)
+2020-06-09 16:55:45.890 DEBUG 11104 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : No match for [application/json, text/plain, */*], supported: []
+2020-06-09 16:55:45.891  WARN 11104 --- [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Long parameter 'userID' is not present]
+2020-06-09 16:55:45.891 DEBUG 11104 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2020-06-09 16:55:45.904 DEBUG 11104 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-09 16:55:45.905 DEBUG 11104 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{messages=[fudan.se.lab2.controller.response.AllMessageResponse@24da0319, fudan.se.lab2.controller.r (truncated)...]
+2020-06-09 16:55:45.909 DEBUG 11104 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-09 16:56:26.280 DEBUG 11104 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForPCMember", parameters={}
+2020-06-09 16:56:26.283 DEBUG 11104 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForPCMember(HttpServletRequest)
+2020-06-09 16:56:26.319 DEBUG 11104 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-09 16:56:26.321 DEBUG 11104 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.controller.response.AllConferenceResponse@5533c081, fudan.se.lab2.controlle (truncated)...]
+2020-06-09 16:56:26.327 DEBUG 11104 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-09 16:56:37.269 DEBUG 11104 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/browseAllPosts", parameters={}
+2020-06-09 16:56:37.271 DEBUG 11104 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.PostController#browseAllPosts(HttpServletRequest, Long)
+2020-06-09 16:56:37.274 DEBUG 11104 --- [http-nio-8080-exec-2] .w.s.m.m.a.ServletInvocableHandlerMethod : Could not resolve parameter [1] in public org.springframework.http.ResponseEntity<java.util.HashMap<java.lang.String, java.lang.Object>> fudan.se.lab2.controller.PostController.browseAllPosts(javax.servlet.http.HttpServletRequest,java.lang.Long): Required Long parameter 'userID' is not present
+2020-06-09 16:56:37.275 DEBUG 11104 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler fudan.se.lab2.exception.ControllerAdvisor#handleException(Exception, WebRequest)
+2020-06-09 16:56:37.276 DEBUG 11104 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : No match for [application/json, text/plain, */*], supported: []
+2020-06-09 16:56:37.276  WARN 11104 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Long parameter 'userID' is not present]
+2020-06-09 16:56:37.277 DEBUG 11104 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2020-06-09 20:24:15.794  WARN 11104 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h49m44s631ms11µs800ns).
+2020-06-09 20:52:56.502  WARN 11104 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m10s635ms32µs).

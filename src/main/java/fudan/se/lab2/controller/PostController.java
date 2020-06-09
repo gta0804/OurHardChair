@@ -25,7 +25,7 @@ import java.util.HashMap;
  * @author: Shen Zhengyu
  * @create: 2020-05-28 16:09
  **/
-@CrossOrigin(origins = "*")
+@CrossOrigin()
 @RestController
 public class PostController {
     Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -38,6 +38,14 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    public PostController(PostService postService){
+        this.postService = postService;
+    }
+
+    @Autowired
+    public PostController() {
+    }
 
     /**
     * @Description: 查看所有与个人有关的帖子（自己有权限查看）
@@ -162,7 +170,7 @@ public class PostController {
     * @Date: 2020/5/28
     */
 
-    @CrossOrigin(origins = "http://114.116.112.8")
+    @CrossOrigin(origins = "*")
     @PostMapping("/submitRebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest,@RequestParam(name = "authorID") Long authorID,@RequestParam(name = "words") String words,@RequestParam(name = "articleID") Long articleID){
         logger.debug(authorID + "submitRebuttal on " + articleID);

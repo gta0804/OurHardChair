@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author LBW
  */
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(http);
         http.headers().frameOptions().disable();
                 http.authorizeRequests().anyRequest().permitAll();
+        http.headers().disable();
         http
                 .headers()
                 .frameOptions().sameOrigin()
@@ -88,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Make sure we use stateless session; session won't be used to store user's state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        
+
 //      Here we use JWT(Json Web Token) to authenticate the user.
 //      You need to write your code in the class 'JwtRequestFilter' to make it works.
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

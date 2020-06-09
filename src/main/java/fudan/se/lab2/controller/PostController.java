@@ -174,8 +174,8 @@ public class PostController {
     */
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/submitRebuttal")
-    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestParam(name = "authorID") Long authorID, @RequestParam(name = "words") String words, @RequestParam(name = "articleID") Long articleID, HttpServletResponse response){
+    @RequestMapping(value = "/submitRebuttal",method = RequestMethod.POST)
+    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestParam(name = "authorID") Long authorID, @RequestParam(name = "words") String words, @RequestParam(name = "articleID") Long articleID){
         logger.debug(authorID + "submitRebuttal on " + articleID);
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -185,10 +185,6 @@ public class PostController {
         map.put("message",message);
         map.put("token",token);
         map.put("reply",reply);
-        response.setCharacterEncoding("UTF-8");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET,POST");
-        response.setHeader("Cache-Control","no-cache");
         return ResponseEntity.ok(map);
 
     }

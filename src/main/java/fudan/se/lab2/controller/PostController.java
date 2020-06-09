@@ -25,7 +25,7 @@ import java.util.HashMap;
  * @author: Shen Zhengyu
  * @create: 2020-05-28 16:09
  **/
-@CrossOrigin
+@CrossOrigin()
 @Controller
 public class PostController {
     Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -46,7 +46,7 @@ public class PostController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/browseAllPosts")
     public ResponseEntity<HashMap<String,Object>> browseAllPosts(HttpServletRequest httpServletRequest,@RequestParam(name = "userID") Long userID){
         logger.debug("browseAllPosts");
@@ -75,7 +75,7 @@ public class PostController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/browsePostOnArticle")
     public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID){
         logger.debug("browsePostOnArticle:" + articleID);
@@ -104,7 +104,7 @@ public class PostController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/postOnArticle")
     public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words){
         logger.debug("Post:" +ownerID + "on" + articleID);
@@ -139,7 +139,7 @@ public class PostController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/replyPost")
     public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words,@RequestParam(name = "floorNumber") Long floorNumber){
         logger.debug("replyPost");
@@ -162,7 +162,7 @@ public class PostController {
     * @Date: 2020/5/28
     */
 
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/submitRebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "authorID") Long authorID,@RequestParam(name = "words") String words,@RequestParam(name = "articleID") Long articleID){
         logger.debug(authorID + "submitRebuttal on " + articleID);

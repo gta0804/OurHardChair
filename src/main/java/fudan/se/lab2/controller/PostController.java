@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -162,7 +163,7 @@ public class PostController {
 
     @CrossOrigin(origins = "*",allowCredentials = "true")
     @PostMapping(value = "/submitRebuttal")
-    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest){
+    public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest, HttpServletResponse response){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -172,6 +173,7 @@ public class PostController {
         map.put("message",message);
         map.put("token",token);
         map.put("reply",reply);
+        response.setHeader("Content-type", "application/json");
         return ResponseEntity.ok(map);
 
     }

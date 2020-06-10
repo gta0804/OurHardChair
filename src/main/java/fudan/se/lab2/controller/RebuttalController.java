@@ -163,7 +163,7 @@ public class RebuttalController {
     */
 
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping(value = "/submitRebuttal",produces="application/json;charset=UTF-8")
+    @PostMapping(value = "submitRebuttal",produces="application/json;charset=UTF-8")
     @ResponseBody
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest, HttpServletResponse response){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());

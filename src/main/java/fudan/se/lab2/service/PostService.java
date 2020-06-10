@@ -47,7 +47,8 @@ public class PostService {
         Post post = new Post(ownerID, articleID, words);
         Article article = articleRepository.findById(articleID).orElse(null);
         post.setArticleTitle(article.getTitle());
-        post.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
+        String ownerFullName = userRepository.findById(ownerID).orElse(null) == null ? "系统":userRepository.findById(ownerID).orElse(null).getFullName();
+        post.setOwnerFullName(ownerFullName);
 
         postRepository.save(post);
         if (null == postRepository.findByArticleID(articleID)) {
@@ -90,7 +91,7 @@ public class PostService {
 
         Post post = postRepository.findByArticleID(articleID);
         if(null == post){
-            Long id = postOnArticle(articleID,(long)1001,"由于作者提交了Rebuttal，管理员1001自动发起讨论");
+            Long id = postOnArticle(articleID,(long)1001,"由于作者提交了Rebuttal，系统自动发起讨论");
             article.setIsDiscussed(-1);
             post = postRepository.findById(id).orElse(null);
         }

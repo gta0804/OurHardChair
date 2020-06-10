@@ -34,11 +34,19 @@ public class RebuttalController {
 
     Logger logger = LoggerFactory.getLogger(RebuttalController.class);
 
+
     @Autowired
     public RebuttalController(PostService postService) {
         this.postService = postService;
     }
 
+
+    @PostMapping("/rebutall/test")
+    public ResponseEntity<HashMap<String,Object>> testt(){
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("message","success");
+        return ResponseEntity.ok(map);
+    }
     /**
     * @Description: 查看所有与个人有关的帖子（自己有权限查看）
     * @Param: [httpServletRequest, userID]

@@ -383,3 +383,5 @@ Caused by: java.lang.IllegalStateException: Can't configure anyRequest after its
 2020-06-10 10:32:25.397 DEBUG 18168 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 42 mappings in 'requestMappingHandlerMapping'
 2020-06-10 10:32:25.415 DEBUG 18168 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
 2020-06-10 10:32:25.423 DEBUG 18168 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-10 11:12:10.484 DEBUG 18868 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-06-10 11:12:10.486  INFO 18868 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3004 ms

@@ -1,13 +1,7 @@
 package fudan.se.lab2;
 
-import fudan.se.lab2.domain.Article;
-import fudan.se.lab2.domain.Authority;
-import fudan.se.lab2.domain.Conference;
-import fudan.se.lab2.domain.User;
-import fudan.se.lab2.repository.ArticleRepository;
-import fudan.se.lab2.repository.AuthorityRepository;
-import fudan.se.lab2.repository.ConferenceRepository;
-import fudan.se.lab2.repository.UserRepository;
+import fudan.se.lab2.domain.*;
+import fudan.se.lab2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -38,13 +33,15 @@ public class Lab2Application {
     ConferenceRepository conferenceRepository;
     @Autowired
     ArticleRepository articleRepository;
+    @Autowired
+    PostRepository postRepository;
     /**
      * This is a function to create some basic entities when the application starts.
      * Now we are using a In-Memory database, so you need it.
      * You can change it as you like.
      */
     @Bean
-    public CommandLineRunner dataLoader(UserRepository userRepository,PasswordEncoder passwordEncoder) {
+    public CommandLineRunner dataLoader(UserRepository userRepository,PostRepository postRepository,PasswordEncoder passwordEncoder) {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
@@ -63,7 +60,13 @@ public class Lab2Application {
                     );
                     userRepository.save(admin);
                 }
+                for (Post post : postRepository.findAll()) {
+                    if(null == post.getReplyList()) {
+                        post.setReplyList(new ArrayList<>());
+                    }
+                }
             }
+
         };
     }
     @Bean

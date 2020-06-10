@@ -43,6 +43,7 @@ public class Post {
         this.replyList = new ArrayList<>();
         this.words = words;
         this.replyNumber = (long)0;
+        this.replyList = new ArrayList<>();
 
     }
 

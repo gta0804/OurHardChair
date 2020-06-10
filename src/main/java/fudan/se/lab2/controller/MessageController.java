@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-//@CrossOrigin()
+@CrossOrigin()
 @Controller
 public class MessageController {
     private Logger logger = LoggerFactory.getLogger(MessageController.class);
@@ -30,7 +30,7 @@ public class MessageController {
         this.messageService=messageService;
     }
 
-//    @CrossOrigin("*")
+    @CrossOrigin("*")
     @PostMapping("/mailCenter")
     public ResponseEntity<HashMap<String,Object>> openMailCenter(HttpServletRequest httpServletRequest){
         logger.debug("gettingAllMessages");
@@ -43,7 +43,7 @@ public class MessageController {
         return ResponseEntity.ok(map);
     }
 
-//    @CrossOrigin("*")
+    @CrossOrigin("*")
     @PostMapping("/markRead")
     public ResponseEntity<HashMap<String,Object>> markRead(@RequestBody MarkMessageRequest request,HttpServletRequest httpServletRequest){
         logger.debug("markingMessages "+request.toString());

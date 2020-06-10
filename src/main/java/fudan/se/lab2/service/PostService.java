@@ -87,15 +87,15 @@ public class PostService {
         Reply reply = new Reply(authorID,words);
         reply.setReplyToFloorNumber((long)(-1));
         reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
-        replyRepository.save(reply);
 
         Post post = postRepository.findByArticleID(articleID);
         if(null == post){
-            Long id = postOnArticle(articleID,authorID,words);
-            article.setIsDiscussed(-2);
+            Long id = postOnArticle(articleID,(long)1001,"由于作者提交了Rebuttal，管理员1001自动发起讨论");
+            article.setIsDiscussed(-1);
             post = postRepository.findById(id).orElse(null);
         }
         reply.setReplyToFloorNumber(post.getReplyNumber() + 2);
+        replyRepository.save(reply);
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);
         postRepository.save(post);

@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 //@CrossOrigin(origins = "*",allowCredentials = "true")
 @Controller
-public class PostController {
+public class RebuttalController {
     @Autowired
     private PostService postService;
     @Autowired
@@ -32,10 +32,10 @@ public class PostController {
     private ReplyRepository replyRepository;
 
 
-    Logger logger = LoggerFactory.getLogger(PostController.class);
+    Logger logger = LoggerFactory.getLogger(RebuttalController.class);
 
     @Autowired
-    public PostController(PostService postService) {
+    public RebuttalController(PostService postService) {
         this.postService = postService;
     }
 

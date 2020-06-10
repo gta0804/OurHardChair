@@ -44,7 +44,7 @@ public class Lab2Application {
      * You can change it as you like.
      */
     @Bean
-    public CommandLineRunner dataLoader(UserRepository userRepository, ArticleRepository articleRepository,PasswordEncoder passwordEncoder) {
+    public CommandLineRunner dataLoader(UserRepository userRepository,PasswordEncoder passwordEncoder) {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
@@ -63,11 +63,6 @@ public class Lab2Application {
                     );
                     userRepository.save(admin);
                 }
-                for (Article article : articleRepository.findAll()) {
-                    article.setCanPost(1);
-                    articleRepository.save(article);
-                }
-
             }
         };
     }

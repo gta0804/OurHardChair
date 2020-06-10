@@ -352,6 +352,7 @@ public class MyRelatedConferenceService {
                     pcMemberIterator.remove();
                 }
             }
+
             if (feasiblePCMembers.size() < 1) {
                 return false;
             }

@@ -29,7 +29,6 @@ public class Post {
     //言论内容
     private String words;
 
-    @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     private List<Reply>  replyList;
 

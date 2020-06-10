@@ -84,6 +84,7 @@ public class RebuttalController {
                 post.setReplyList(new ArrayList<>());
             }
             map.put("post",post);
+
             return ResponseEntity.ok(map);
         }
     }

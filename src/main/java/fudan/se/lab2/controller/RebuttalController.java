@@ -80,6 +80,9 @@ public class RebuttalController {
         else{
             map.put("message","请求成功");
             map.put("token",token);
+            if(null == post.getReplyList()){
+                post.setReplyList(new ArrayList<>());
+            }
             map.put("post",post);
             return ResponseEntity.ok(map);
         }

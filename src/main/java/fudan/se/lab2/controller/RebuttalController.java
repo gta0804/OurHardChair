@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//@CrossOrigin(origins = "*",allowCredentials = "true")
-@Controller
+@CrossOrigin(origins = "*",allowCredentials = "true")
+@RestController
 public class RebuttalController {
     @Autowired
     private PostService postService;
@@ -34,11 +34,19 @@ public class RebuttalController {
 
     Logger logger = LoggerFactory.getLogger(RebuttalController.class);
 
+
     @Autowired
     public RebuttalController(PostService postService) {
         this.postService = postService;
     }
 
+
+    @PostMapping("/rebutall/test")
+    public ResponseEntity<HashMap<String,Object>> testt(){
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("message","success");
+        return ResponseEntity.ok(map);
+    }
     /**
     * @Description: 查看所有与个人有关的帖子（自己有权限查看）
     * @Param: [httpServletRequest, userID]
@@ -162,9 +170,8 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping(value = "/submitRebuttal",produces="application/json;charset=UTF-8")
-    @ResponseBody
+    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @PostMapping(value = "/submitRebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest, HttpServletResponse response){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
         HashMap<String,Object> map = new HashMap<>();

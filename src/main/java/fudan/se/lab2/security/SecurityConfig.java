@@ -65,29 +65,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
-        super.configure(http);
-        http
-                        .authorizeRequests()
-                        .anyRequest()
-                        .permitAll()
-                        .and()
-                        .headers()
-                        .frameOptions()
-                        .disable()
-                        .and()
-                        .csrf().disable()
-                        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        .and()
-                        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        http.cors().configurationSource(corsConfigurationSource());
-        http.headers().contentTypeOptions().disable();
-        http.headers().frameOptions().disable();
-        http.headers().addHeaderWriter(new XFrameOptionsHeaderWriter(
-                new WhiteListedAllowFromStrategy(
-                        Arrays.asList("http://114.116.112.8", "http://localhost"
-                                ))));
+        http.authorizeRequests()
+                .anyRequest().permitAll()
+                .and()
+                .headers().frameOptions().disable()
+                .and()
+                .logout().logoutSuccessUrl("/login")
+                .permitAll()
+                .and()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-        super.configure(http);
+
 
 //        http.authorizeRequests()
 //                .antMatchers("/user").hasAnyRole("administrator","user")//个人首页只允许拥有MENBER,SUPER_ADMIN角色的用户访问
@@ -114,15 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //      You need to write your code in the class 'JwtRequestFilter' to make it works.
 
     }
-    private CorsConfigurationSource corsConfigurationSource() {
-        CorsConfigurationSource source = (CorsConfigurationSource) new UrlBasedCorsConfigurationSource();
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*"); // 同源配置，*表示任何请求都视为同源，若需指定ip和端口可以改为如“localhost：8080”，多个以“，”分隔；
-        corsConfiguration.addAllowedHeader("*");// header，允许哪些header，本案中使用的是token，此处可将*替换为token；
-        corsConfiguration.addAllowedMethod("*"); // 允许的请求方法，PSOT、GET等
-        ((UrlBasedCorsConfigurationSource) source).registerCorsConfiguration("/**", corsConfiguration); // 配置允许跨域访问的url
-        return source;
-    }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Hint: Now you can view h2-console page at `http://IP-Address:<port>/h2-console` without authentication.

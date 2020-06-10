@@ -15,9 +15,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 /**
  * @author LBW
@@ -62,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: you need to configure your http security. Remember to read the JavaDoc carefully.
         super.configure(http);
-                http
+        http
                         .authorizeRequests()
                         .anyRequest()
                         .permitAll()
@@ -77,7 +81,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         http.cors().configurationSource(corsConfigurationSource());
         http.headers().contentTypeOptions().disable();
+        http.headers().frameOptions().disable();
+        http.headers().addHeaderWriter(new XFrameOptionsHeaderWriter(
+                new WhiteListedAllowFromStrategy(
+                        Arrays.asList("http://114.116.112.8", "http://localhost"
+                                ))));
 
+        super.configure(http);
 
 //        http.authorizeRequests()
 //                .antMatchers("/user").hasAnyRole("administrator","user")//个人首页只允许拥有MENBER,SUPER_ADMIN角色的用户访问

@@ -174,6 +174,7 @@ public class PostController {
         map.put("token",token);
         map.put("reply",reply);
         response.setHeader("X-Frame-Options", "SAMEORIGIN");
+        response.setHeader("Content-type", "application/json");
         return ResponseEntity.ok(map);
 
     }

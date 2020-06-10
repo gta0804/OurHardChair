@@ -34,12 +34,15 @@ public class MyRelatedConferenceService {
     private EvaluationRepository evaluationRepository;
 
     @Autowired
-    public MyRelatedConferenceService(ConferenceRepository conferenceRepository, PCMemberRepository pcMemberRepository, AuthorRepository authorRepository, ArticleRepository articleRepository, UserRepository userRepository) {
+    public MyRelatedConferenceService(ConferenceRepository conferenceRepository, PCMemberRepository pcMemberRepository, AuthorRepository authorRepository, ArticleRepository articleRepository, UserRepository userRepository,EvaluationModifyRequestRepository evaluationModifyRequestRepository,ResultRepository resultRepository,EvaluationRepository evaluationRepository) {
         this.conferenceRepository = conferenceRepository;
         this.pcMemberRepository = pcMemberRepository;
         this.authorRepository = authorRepository;
         this.articleRepository = articleRepository;
         this.userRepository = userRepository;
+        this.evaluationModifyRequestRepository=evaluationModifyRequestRepository;
+        this.resultRepository=resultRepository;
+        this.evaluationRepository=evaluationRepository;
     }
 
     public List<ConferenceForChairResponse> showAllConferenceForChair() {
@@ -185,7 +188,9 @@ public class MyRelatedConferenceService {
                 }
             }
             for (Article article : articles) {
-                article.setStatus((long) 2);
+                article.setStatus((long)2);
+                System.out.println("in test, articleName is " +article.getId());
+                System.out.println("in test, conferenceName is " +conference_id);
                 Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference_id);
                 HashSet<Evaluation> evaluations = (HashSet<Evaluation>) result.getEvaluations();
                 article.setIsAccepted(1);

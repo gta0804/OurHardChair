@@ -28,9 +28,6 @@ public class Post {
     private Long replyNumber;
     //言论内容
     private String words;
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL)
-    private Set<PCMember> peopleRelated;
 
     @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
@@ -101,13 +98,7 @@ public class Post {
         this.replyNumber = replyNumber;
     }
 
-    public Set<PCMember> getPeopleRelated() {
-        return peopleRelated;
-    }
 
-    public void setPeopleRelated(Set<PCMember> peopleRelated) {
-        this.peopleRelated = peopleRelated;
-    }
 
     public String getOwnerFullName() {
         return ownerFullName;

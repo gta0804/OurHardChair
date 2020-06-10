@@ -55,26 +55,6 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping("/browseAllPosts")
-    public ResponseEntity<HashMap<String,Object>> browseAllPosts(HttpServletRequest httpServletRequest, @RequestParam(name = "userID") Long userID){
-        logger.debug("browseAllPosts");
-        HashMap<String,Object> map=new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
-        ArrayList<Post> posts = (ArrayList<Post>) postService.browseAllPosts(userID);
-        if(posts == null){
-            map.put("message","暂无帖子");
-            map.put("token",token);
-            map.put("postList",null);
-            return ResponseEntity.ok(map);
-
-        }
-        else{
-            map.put("message","请求成功");
-            map.put("token",token);
-            map.put("postList",posts);
-            return ResponseEntity.ok(map);
-        }
-    }
 
     /**
     * @Description: 查看某一文章对应的帖子（bijection）

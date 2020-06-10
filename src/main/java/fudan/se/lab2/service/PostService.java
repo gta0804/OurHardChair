@@ -33,20 +33,7 @@ public class PostService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Post> browseAllPosts(Long userID){
-        ArrayList<Post> posts = (ArrayList<Post>)postRepository.findAll();
-        ArrayList<Post> postsRelated = new ArrayList<>();
-        a:for (Post post : posts) {
-            Set<PCMember> pcMemberSet = post.getPeopleRelated();
-            for (PCMember pcMember : pcMemberSet) {
-                if (pcMember.getUserId().equals(userID)){
-                    postsRelated.add(post);
-                    continue a;
-                }
-            }
-        }
-        return postsRelated;
-    }
+
 
     public Post browsePostsOnArticle(Long articleID){
         return postRepository.findByArticleID(articleID);
@@ -58,7 +45,6 @@ public class PostService {
         }
         Post post = new Post(ownerID, articleID, words);
         Article article = articleRepository.findById(articleID).orElse(null);
-        post.setPeopleRelated(article.getPcMembers());
         post.setArticleTitle(article.getTitle());
         post.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
 

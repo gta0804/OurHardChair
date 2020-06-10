@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//@CrossOrigin(origins = "*",allowCredentials = "true")
+@CrossOrigin(origins = "*",allowCredentials = "true")
 @Controller
 public class RebuttalController {
     @Autowired
@@ -162,7 +162,7 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @CrossOrigin(origins = "*",allowCredentials = "true")
     @PostMapping(value = "submitRebuttal",produces="application/json;charset=UTF-8")
     @ResponseBody
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest, HttpServletResponse response){

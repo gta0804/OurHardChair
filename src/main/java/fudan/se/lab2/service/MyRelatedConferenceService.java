@@ -192,7 +192,7 @@ public class MyRelatedConferenceService {
                 System.out.println("in test, articleName is " +article.getId());
                 System.out.println("in test, conferenceName is " +conference_id);
                 Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference_id);
-                HashSet<Evaluation> evaluations = (HashSet<Evaluation>) result.getEvaluations();
+                Set<Evaluation> evaluations = result.getEvaluations();
                 article.setIsAccepted(1);
                 for (Evaluation evaluation : evaluations) {
                     if (evaluation.getScore() <= -1){

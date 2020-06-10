@@ -3,6 +3,7 @@ package fudan.se.lab2.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ public class Result {
     private Long conferenceID;
     private Long articleID;
     @OneToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Evaluation> evaluations;
+    private Set<Evaluation> evaluations=new HashSet<>();
 
     public Result(){}
     public Result(Long conferenceID, Long articleID, Set<Evaluation> evaluations) {

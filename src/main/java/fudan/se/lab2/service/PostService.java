@@ -101,8 +101,11 @@ public class PostService {
         reply.setReplyToFloorNumber((long)(-1));
         reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
         replyRepository.save(reply);
-        postOnArticle(articleID,authorID,words);
+
         Post post = postRepository.findByArticleID(articleID);
+        if(null == post){
+            postOnArticle(articleID,authorID,words);
+        }
         reply.setReplyToFloorNumber(post.getReplyNumber() + 2);
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);

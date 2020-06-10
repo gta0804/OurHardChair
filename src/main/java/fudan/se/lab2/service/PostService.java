@@ -35,6 +35,7 @@ public class PostService {
 
 
 
+
     public Post browsePostsOnArticle(Long articleID){
         return postRepository.findByArticleID(articleID);
     }
@@ -91,6 +92,7 @@ public class PostService {
         Post post = postRepository.findByArticleID(articleID);
         if(null == post){
             Long id = postOnArticle(articleID,authorID,words);
+            article.setIsDiscussed(-2);
             post = postRepository.findById(id).orElse(null);
         }
         reply.setReplyToFloorNumber(post.getReplyNumber() + 2);

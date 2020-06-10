@@ -174,9 +174,8 @@ public class PostController {
         map.put("message",message);
         map.put("token",token);
         map.put("reply",reply);
+        response.setContentType("application/json;charset=UTF-8");
         response.setHeader("X-Frame-Options", "SAMEORIGIN");
-        response.addHeader("Content-Type", "application/json;charset=UTF-8");
-        response.setHeader("Content-Type", "application/json;charset=UTF-8");
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Allow-Credentials","true");

@@ -90,7 +90,8 @@ public class PostService {
 
         Post post = postRepository.findByArticleID(articleID);
         if(null == post){
-            postOnArticle(articleID,authorID,words);
+            Long id = postOnArticle(articleID,authorID,words);
+            post = postRepository.findById(id).orElse(null);
         }
         reply.setReplyToFloorNumber(post.getReplyNumber() + 2);
         post.getReplyList().add(reply);

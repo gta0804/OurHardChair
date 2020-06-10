@@ -2,13 +2,10 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
-import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.domain.Conference;
-import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.ApplyConferenceService;
-import fudan.se.lab2.service.UpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +26,6 @@ public class ApplyConferenceController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-            private UpdateService updateService;
     Logger logger = LoggerFactory.getLogger(ApplyConferenceController.class);
 
     @Autowired
@@ -52,7 +47,6 @@ public class ApplyConferenceController {
         logger.debug("ApplyMeetingForm: " + request.toString());
         HashMap<String,Object> map = new HashMap();
         Conference conference = applyConferenceService.applyMeeting(request);
-        updateService.update(logger);
         if (null == conference){
             map.put("message","会议申请失败，已有该会议");
             return ResponseEntity.ok(map);
@@ -79,8 +73,6 @@ public class ApplyConferenceController {
         List<Conference> conferences=new LinkedList<>();
         applyConferenceService.reviewConference(conferences);
         String token= httpServletRequest.getHeader("Authorization").substring(7);
-        updateService.update(logger);
-
         if(null==conferences){
             map.put("message","拉取待审核会议失败");
         }

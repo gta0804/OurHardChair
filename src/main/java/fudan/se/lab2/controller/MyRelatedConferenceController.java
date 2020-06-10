@@ -11,7 +11,6 @@ import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.ApplyConferenceService;
 import fudan.se.lab2.service.MyRelatedConferenceService;
-import fudan.se.lab2.service.UpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +37,7 @@ public class MyRelatedConferenceController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UpdateService updateService;
+
 
     Logger logger = LoggerFactory.getLogger(MyRelatedConferenceController.class);
     @Autowired
@@ -65,7 +63,6 @@ public class MyRelatedConferenceController {
         map.put("message","获取所有会议申请成功");
         map.put("token",token);
         map.put("meetings",responseConferences);
-        updateService.update(logger);
         return ResponseEntity.ok(map);
     }
 

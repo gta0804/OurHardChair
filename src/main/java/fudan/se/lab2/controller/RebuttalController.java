@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @CrossOrigin(origins = "*",allowCredentials = "true")
-@Controller
+@RestController
 public class RebuttalController {
     @Autowired
     private PostService postService;

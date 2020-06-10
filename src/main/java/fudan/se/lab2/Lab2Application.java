@@ -28,7 +28,6 @@ import java.util.HashSet;
  * @author LBW
  */
 @SpringBootApplication
-@EnableScheduling //开启定时任务
 public class Lab2Application {
 
     public static void main(String[] args) {

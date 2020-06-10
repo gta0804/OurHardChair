@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 //@CrossOrigin(origins = "*",allowCredentials = "true")
-@RestController
+@Controller
 public class PostController {
     @Autowired
     private PostService postService;

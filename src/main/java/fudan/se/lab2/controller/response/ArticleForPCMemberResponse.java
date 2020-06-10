@@ -16,7 +16,7 @@ public class ArticleForPCMemberResponse {
     private String articleAbstract;
     private List<Writer> writers;
     private Integer status;
-
+    private Integer canPost;
     public ArticleForPCMemberResponse(){}
     public ArticleForPCMemberResponse(String title, String articleAbstract, List<Writer> writers, Integer status) {
         this.title = title;
@@ -63,5 +63,13 @@ public class ArticleForPCMemberResponse {
 
     public void setArticleId(Long articleId) {
         this.articleId = articleId;
+    }
+
+    public Integer getCanPost() {
+        return canPost;
+    }
+
+    public void setCanPost(Integer canPost) {
+        this.canPost = canPost;
     }
 }

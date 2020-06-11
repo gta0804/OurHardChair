@@ -35,6 +35,7 @@ public class PostService {
 
 
 
+
     public Post browsePostsOnArticle(Long articleID){
         return postRepository.findByArticleID(articleID);
     }
@@ -46,7 +47,8 @@ public class PostService {
         Post post = new Post(ownerID, articleID, words);
         Article article = articleRepository.findById(articleID).orElse(null);
         post.setArticleTitle(article.getTitle());
-        post.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
+        String ownerFullName = userRepository.findById(ownerID).orElse(null) == null ? "系统":userRepository.findById(ownerID).orElse(null).getFullName();
+        post.setOwnerFullName(ownerFullName);
 
         postRepository.save(post);
         if (null == postRepository.findByArticleID(articleID)) {
@@ -60,12 +62,11 @@ public class PostService {
     }
 
     public Reply replyPost(Long postID,Long ownerID,String words,Long floorNumber){
-        Reply reply = new Reply(ownerID,words);
+        Post post = postRepository.findById(postID).orElse(null);
+        Reply reply = new Reply(ownerID,words,(long)(post.getReplyNumber() + 2));
         reply.setReplyToFloorNumber(floorNumber);
         reply.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
         replyRepository.save(reply);
-        Post post = postRepository.findById(postID).orElse(null);
-        reply.setReplyToFloorNumber((long)(post.getReplyNumber() + 2));
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);
         postRepository.save(post);
@@ -83,17 +84,19 @@ public class PostService {
         if (article.getIsAccepted() != -1 || article.getTimesLeftForRebuttal() <= 0){
             return null;
         }
-        Reply reply = new Reply(authorID,words);
-        reply.setReplyToFloorNumber((long)(-1));
-        reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
-        replyRepository.save(reply);
-
         Post post = postRepository.findByArticleID(articleID);
+
+
         if(null == post){
-            Long id = postOnArticle(articleID,authorID,words);
+            Long id = postOnArticle(articleID,(long)1001,"由于作者提交了Rebuttal，系统自动发起讨论");
+            article.setIsDiscussed(-1);
             post = postRepository.findById(id).orElse(null);
         }
+        Reply reply = new Reply(authorID,words,(long)(post.getReplyNumber() + 2));
+        reply.setReplyToFloorNumber((long)(-1));
+        reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
         reply.setReplyToFloorNumber(post.getReplyNumber() + 2);
+        replyRepository.save(reply);
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);
         postRepository.save(post);

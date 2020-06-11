@@ -131,6 +131,7 @@ public class ContributionService {
                 }
                 articleForPCMemberResponse.setArticleId(article.getId());
                 articleForPCMemberResponse.setTitle(article.getTitle());
+                articleForPCMemberResponse.setCanPost(article.getCanPost());
                 articleForPCMemberResponses.add(articleForPCMemberResponse);
             }
             hashMap.put("articles",articleForPCMemberResponses);

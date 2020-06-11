@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.ReplyPostRequest;
 import fudan.se.lab2.controller.request.SubmitRebuttalRequest;
 import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
@@ -64,8 +65,8 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping("/browsePostOnArticle")
-    public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID){
+    @RequestMapping("/browsePostOnArticle/{articleID}")
+    public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID){
         logger.debug("browsePostOnArticle:" + articleID);
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -80,7 +81,11 @@ public class RebuttalController {
         else{
             map.put("message","请求成功");
             map.put("token",token);
+            if(null == post.getReplyList()){
+                post.setReplyList(new ArrayList<>());
+            }
             map.put("post",post);
+
             return ResponseEntity.ok(map);
         }
     }
@@ -93,8 +98,8 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping("/postOnArticle")
-    public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words){
+    @PostMapping("/postOnArticle/{articleID}/{ownerID}/{words}")
+    public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID,@PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "words") String words){
         logger.debug("Post:" +ownerID + "on" + articleID);
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
@@ -128,11 +133,16 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping("/replyPost")
-    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest httpServletRequest,@RequestParam(name = "postID") Long postID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words,@RequestParam(name = "floorNumber") Long floorNumber){
+    @PostMapping("/replyPost/{postID}/{ownerID}/{floorNumber}/{words}")
+    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, @PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "floorNumber") Long floorNumber,@PathVariable(name = "words") String words){
         logger.debug("replyPost");
         HashMap<String,Object> map = new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = request.getHeader("Authorization").substring(7);
+        System.out.println(ownerID);
+        System.out.println(floorNumber);
+        System.out.println(words);
+        System.out.println(postID);
+
         Reply reply = postService.replyPost(postID,ownerID,words,floorNumber);
         String message = null == reply?"提交失败":"提交成功";
         map.put("message",message);

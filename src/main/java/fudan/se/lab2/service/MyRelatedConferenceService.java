@@ -129,6 +129,9 @@ public class MyRelatedConferenceService {
 
     public boolean openSubmission(String full_name) {
         Conference conference = conferenceRepository.findByFullName(full_name);
+        if(conference==null||conference.getIsOpenSubmission()!=1){
+            return false;
+        }
         conference.setIsOpenSubmission(2);
         conferenceRepository.save(conference);
         return true;

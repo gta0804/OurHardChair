@@ -1866,3 +1866,6 @@ java.lang.NullPointerException: null
 2020-06-11 16:04:41.482 DEBUG 6500 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
 2020-06-11 16:04:41.516 DEBUG 6500 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
 2020-06-11 16:04:46.624 DEBUG 6500 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@7164ca4c, started on Thu Jun 11 16:04:31 CST 2020
+2020-06-11 16:18:51.730  WARN 23536 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=3m25s495ms640µs800ns).
+2020-06-11 16:43:56.233  WARN 23536 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=12m4s446ms613µs600ns).
+2020-06-11 16:57:48.790  WARN 23536 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1m52s535ms776µs).

@@ -265,10 +265,10 @@ public class MyRelatedConferenceService {
      * @Date: 2020/5/29
      */
     private void updateEvaluation(Long conference_id) {
-        HashSet<EvaluationModifyRequest> evaluationModifyRequests = (HashSet<EvaluationModifyRequest>) evaluationModifyRequestRepository.findAllByConferenceID(conference_id);
+        HashSet<EvaluationModifyRequest> evaluationModifyRequests = new HashSet<>(evaluationModifyRequestRepository.findAllByConferenceID(conference_id));
         for (EvaluationModifyRequest evaluationModifyRequest : evaluationModifyRequests) {
             Result result = resultRepository.findByArticleIDAndConferenceID(evaluationModifyRequest.getArticleID(), evaluationModifyRequest.getConferenceID());
-            HashSet<Evaluation> evaluationSet = (HashSet<Evaluation>) result.getEvaluations();
+            HashSet<Evaluation> evaluationSet = new HashSet<>(result.getEvaluations());
             Evaluation evaluationToModify = null;
             for (Evaluation evaluation : evaluationSet) {
                 if (evaluation.getPCMemberID().equals(evaluationModifyRequest.getPCMemberID())) {

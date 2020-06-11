@@ -133,7 +133,7 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping("/replyPost/{postID}?{ownerID}?{floorNumber}?{words}")
+    @PostMapping("/replyPost/{postID}/{ownerID}/{floorNumber}/{words}")
     public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, @PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "floorNumber") Long floorNumber,@PathVariable(name = "words") String words){
         logger.debug("replyPost");
         HashMap<String,Object> map = new HashMap<>();

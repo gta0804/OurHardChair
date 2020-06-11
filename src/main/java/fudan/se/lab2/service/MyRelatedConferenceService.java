@@ -103,6 +103,30 @@ public class MyRelatedConferenceService {
         return conferences;
     }
 
+    public List<Article> getAllArticles(Long conferenceID){
+        if(conferenceID==null){
+            return null;
+        }
+        return articleRepository.findByConferenceID(conferenceID);
+    }
+
+    public List<Article> getAllArticlesAccepted(Long conferenceID){
+        if(conferenceID==null){
+            return null;
+        }
+        return articleRepository.findByConferenceIDAndIsAccepted(conferenceID,1);
+    }
+
+    public boolean isChair(Long conferenceID){
+        String userName=SecurityContextHolder.getContext().getAuthentication().getName();
+        User user=userRepository.findByUsername(userName);
+        Conference conference=conferenceRepository.findById(conferenceID).orElse(null);
+        if(conference==null||user==null){
+            return false;
+        }
+        return conference.getChairId().equals(user.getId());
+    }
+
     public boolean openSubmission(String full_name) {
         Conference conference = conferenceRepository.findByFullName(full_name);
         conference.setIsOpenSubmission(2);

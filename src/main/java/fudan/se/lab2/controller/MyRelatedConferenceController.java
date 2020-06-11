@@ -1,11 +1,13 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.AllPapersForConferenceRequest;
 import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.OpenSubmissionRequest;
 import fudan.se.lab2.controller.request.ShowSubmissionRequest;
 import fudan.se.lab2.controller.response.AllConferenceResponse;
 import fudan.se.lab2.controller.response.ConferenceForChairResponse;
 import fudan.se.lab2.controller.response.ShowSubmissionResponse;
+import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
@@ -167,6 +169,47 @@ public class MyRelatedConferenceController {
         map.put("message",message);
         return ResponseEntity.ok(map);
 
+    }
+    @CrossOrigin("*")
+    @PostMapping("/showAllArticlesForChair")
+    public ResponseEntity<HashMap<String,Object>> showAllArticlesForChair(HttpServletRequest httpServletRequest, @RequestBody AllPapersForConferenceRequest request){
+        logger.debug("showAllArticlesForChair"+request.toString());
+        String token=httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> map=new HashMap<>();
+        if(myRelatedConferenceService.isChair(request.getConference_id())){
+            map.put("message","你没有权限访问该页面");
+            return ResponseEntity.ok(map);
+        }
+        List<Article> allArticles=myRelatedConferenceService.getAllArticles(request.getConference_id());
+        if(allArticles==null){
+            map.put("message","请求错误");
+            return ResponseEntity.ok(map);
+        }
+        map.put("message","success");
+        map.put("token",token);
+        map.put("allArticles",allArticles);
+        return ResponseEntity.ok(map);
+    }
+
+    @CrossOrigin("*")
+    @PostMapping("/showAcceptedArticlesForChair")
+    public ResponseEntity<HashMap<String,Object>> showAcceptedArticlesForChair(HttpServletRequest httpServletRequest, @RequestBody AllPapersForConferenceRequest request){
+        logger.debug("showAllArticlesForChair"+request.toString());
+        String token=httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> map=new HashMap<>();
+        if(myRelatedConferenceService.isChair(request.getConference_id())){
+            map.put("message","您不是chair,没有权限访问该页面");
+            return ResponseEntity.ok(map);
+        }
+        List<Article> acceptedArticles=myRelatedConferenceService.getAllArticlesAccepted(request.getConference_id());
+        if(acceptedArticles==null){
+            map.put("message","请求错误");
+            return ResponseEntity.ok(map);
+        }
+        map.put("token",token);
+        map.put("message","success");
+        map.put("acceptedArticles",acceptedArticles);
+        return ResponseEntity.ok(map);
     }
 
 

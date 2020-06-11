@@ -24,16 +24,16 @@ public class Reply {
     //帖子的内容
     private String words;
 
-
+    private Long floorNumber;
     private Long replyToFloorNumber;
     public Reply() {
     }
 
-    public Reply(Long ownerID,String words) {
+    public Reply(Long ownerID,String words,Long floorNumber) {
         this.ownerID = ownerID;
         this.words = words;
         this.replyToFloorNumber = (long)(-1);
-
+        this.floorNumber = floorNumber;
     }
 
     public Long getId() {
@@ -74,5 +74,13 @@ public class Reply {
 
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    public Long getFloorNumber() {
+        return floorNumber;
+    }
+
+    public void setFloorNumber(Long floorNumber) {
+        this.floorNumber = floorNumber;
     }
 }

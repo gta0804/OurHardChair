@@ -67,15 +67,9 @@ public class AuthController {
             System.out.println("注册失败，已有该用户");
             return ResponseEntity.ok(map);
         }
-        UserDetails userForBase = jwtUserDetailsService.loadUserByUsername(request.getUsername());
         HashSet<Authority> set = new HashSet<>();
 
-        set.add(authorityRepository.findByAuthority("user"));
-        System.out.println(set);
-        for (Authority authority : set) {
-            System.out.println(authority.getUsername());
-            System.out.println(authority.getAuthority());
-        }
+        set.add(new Authority());
             UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(), set);
             final Authentication authentication = authenticationManager.authenticate(userToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);

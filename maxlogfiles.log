@@ -1411,7 +1411,7 @@ java.lang.NullPointerException: null
 2020-06-11 13:33:50.240 DEBUG 28224 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{resultResponses=[fudan.se.lab2.controller.response.ResultResponse@23560df3], message=请求成功, token=ey (truncated)...]
 2020-06-11 13:33:50.255 DEBUG 28224 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2020-06-11 13:34:14.142 DEBUG 28224 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/submitRebuttal", parameters={}
-2020-06-11 13:34:14.143 DEBUG 28224 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.RebuttalController#submitRebuttal(HttpServletRequest, SubmitRebuttalRequest, HttpServletResponse)
+2020-06-11 13:34:14.143 DEBUG 28224 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.RebuttalController#submitRebuttal(HttpServletRequest, SubmitRebuttalRequest, HttpServletResponse)
 2020-06-11 13:34:14.147 DEBUG 28224 --- [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.SubmitRebuttalRequest@37a793a]
 2020-06-11 13:34:14.196 DEBUG 28224 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-06-11 13:34:14.197 DEBUG 28224 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{message=提交成功, reply=fudan.se.lab2.domain.Reply@4bfa5e9b, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN (truncated)...]
@@ -1466,7 +1466,7 @@ java.lang.NullPointerException: null
 2020-06-11 13:36:12.032 DEBUG 28224 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{topics=[fudan.se.lab2.domain.Topic@7004afe0], message=请求成功, articles=[fudan.se.lab2.controller.resp (truncated)...]
 2020-06-11 13:36:12.035 DEBUG 28224 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2020-06-11 13:36:19.211 DEBUG 28224 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/browsePostOnArticle/602", parameters={}
-2020-06-11 13:36:19.214 DEBUG 28224 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
+2020-06-11 13:36:19.214 DEBUG 28224 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
 2020-06-11 13:36:19.229 DEBUG 28224 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-06-11 13:36:19.229 DEBUG 28224 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{post=fudan.se.lab2.domain.Post@55139d65, message=请求成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0R (truncated)...]
 2020-06-11 13:36:19.241 DEBUG 28224 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
@@ -1482,7 +1482,7 @@ java.lang.NullPointerException: null
 2020-06-11 13:36:55.005 DEBUG 28224 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/browsePostOnArticle/602", parameters={}
 2020-06-11 13:36:55.005 DEBUG 28224 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/mailCenter", parameters={}
 2020-06-11 13:36:55.006 DEBUG 28224 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MessageController#openMailCenter(HttpServletRequest)
-2020-06-11 13:36:55.006 DEBUG 28224 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
+2020-06-11 13:36:55.006 DEBUG 28224 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
 2020-06-11 13:36:55.009 DEBUG 28224 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-06-11 13:36:55.009 DEBUG 28224 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-06-11 13:36:55.010 DEBUG 28224 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{messages=[], token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0RCIsImlhdCI6MTU5MTg1MzY3MywiZXhwIjoxNTkxODc (truncated)...]
@@ -1513,7 +1513,7 @@ java.lang.NullPointerException: null
 2020-06-11 13:37:22.030 DEBUG 28224 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{topics=[fudan.se.lab2.domain.Topic@2a17eed2, fudan.se.lab2.domain.Topic@27e6b1d9], message=请求成功, ar (truncated)...]
 2020-06-11 13:37:22.036 DEBUG 28224 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2020-06-11 13:37:25.683 DEBUG 28224 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/browsePostOnArticle/602", parameters={}
-2020-06-11 13:37:25.684 DEBUG 28224 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
+2020-06-11 13:37:25.684 DEBUG 28224 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
 2020-06-11 13:37:25.685 DEBUG 28224 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-06-11 13:37:25.686 DEBUG 28224 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{post=fudan.se.lab2.domain.Post@6a9925bf, message=请求成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0Q (truncated)...]
 2020-06-11 13:37:25.688 DEBUG 28224 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
@@ -1646,7 +1646,7 @@ java.lang.NullPointerException: null
 2020-06-11 13:40:46.103 DEBUG 28224 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Jun 11 13:40:46 CST 2020, status=404, error=Not Found, message=No message available,  (truncated)...]
 2020-06-11 13:40:46.106 DEBUG 28224 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
 2020-06-11 13:41:36.487 DEBUG 28224 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/browsePostOnArticle/602", parameters={}
-2020-06-11 13:41:36.489 DEBUG 28224 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
+2020-06-11 13:41:36.489 DEBUG 28224 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
 2020-06-11 13:41:36.495 DEBUG 28224 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-06-11 13:41:36.495 DEBUG 28224 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{post=fudan.se.lab2.domain.Post@59cb428d, message=请求成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0Q (truncated)...]
 2020-06-11 13:41:36.500 DEBUG 28224 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
@@ -1662,7 +1662,7 @@ java.lang.NullPointerException: null
 2020-06-11 13:42:07.094 DEBUG 28224 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/browsePostOnArticle/602", parameters={}
 2020-06-11 13:42:07.095 DEBUG 28224 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/mailCenter", parameters={}
 2020-06-11 13:42:07.096 DEBUG 28224 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MessageController#openMailCenter(HttpServletRequest)
-2020-06-11 13:42:07.096 DEBUG 28224 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
+2020-06-11 13:42:07.096 DEBUG 28224 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.RebuttalController#browsePostOnArticle(HttpServletRequest, Long)
 2020-06-11 13:42:07.098 DEBUG 28224 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-06-11 13:42:07.099 DEBUG 28224 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{post=fudan.se.lab2.domain.Post@1368dd0f, message=请求成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0Q (truncated)...]
 2020-06-11 13:42:07.101 DEBUG 28224 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

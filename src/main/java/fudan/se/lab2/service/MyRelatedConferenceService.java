@@ -240,7 +240,7 @@ public class MyRelatedConferenceService {
             List<Article> articles = articleRepository.findByConferenceID(conference.getId());
             for (Article article : articles) {
                 if (!article.canBeReleased()) {
-                    return "暂时还不能发布";
+                    return "暂时还不能发布，有人未确认或对于author的rebuttal还没有进行讨论";
                 }
             }
             for (Article article : articles) {

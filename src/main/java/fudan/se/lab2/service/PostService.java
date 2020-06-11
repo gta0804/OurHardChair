@@ -1,9 +1,6 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.domain.Article;
-import fudan.se.lab2.domain.PCMember;
-import fudan.se.lab2.domain.Post;
-import fudan.se.lab2.domain.Reply;
+import fudan.se.lab2.domain.*;
 import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.PostRepository;
 import fudan.se.lab2.repository.ReplyRepository;
@@ -23,18 +20,18 @@ import java.util.Set;
  **/
 @Service
 public class PostService {
-    @Autowired
     private PostRepository postRepository;
-
-    @Autowired
     private ReplyRepository replyRepository;
-    @Autowired
     private ArticleRepository articleRepository;
-    @Autowired
     private UserRepository userRepository;
 
-
-
+    @Autowired
+    public PostService(PostRepository postRepository,ReplyRepository replyRepository,ArticleRepository articleRepository,UserRepository userRepository){
+        this.postRepository=postRepository;
+        this.replyRepository=replyRepository;
+        this.articleRepository=articleRepository;
+        this.userRepository=userRepository;
+    }
 
     public Post browsePostsOnArticle(Long articleID){
         return postRepository.findByArticleID(articleID);
@@ -46,8 +43,15 @@ public class PostService {
         }
         Post post = new Post(ownerID, articleID, words);
         Article article = articleRepository.findById(articleID).orElse(null);
+        if(article==null){
+            return (long)(-1);
+        }
         post.setArticleTitle(article.getTitle());
-        String ownerFullName = userRepository.findById(ownerID).orElse(null) == null ? "系统":userRepository.findById(ownerID).orElse(null).getFullName();
+        User user=userRepository.findById(ownerID).orElse(null);
+        if(user==null){
+            return (long)(-1);
+        }
+        String ownerFullName = userRepository.findById(ownerID).orElse(null) == null ? "系统":user.getFullName();
         post.setOwnerFullName(ownerFullName);
 
         postRepository.save(post);
@@ -63,13 +67,10 @@ public class PostService {
 
     public Reply replyPost(Long postID,Long ownerID,String words,Long floorNumber){
         Post post = postRepository.findById(postID).orElse(null);
-        Reply reply = new Reply(ownerID,words,(long)(post.getReplyNumber() + 2));
-        reply.setReplyToFloorNumber(floorNumber);
-        reply.setOwnerFullName(userRepository.findById(ownerID).orElse(null).getFullName());
-        replyRepository.save(reply);
-        post.getReplyList().add(reply);
-        post.setReplyNumber(post.getReplyNumber()+1);
-        postRepository.save(post);
+        if(post==null){
+            return null;
+        }
+        Reply reply = saveReply(words, ownerID, post, floorNumber);
         Article article = articleRepository.findById(post.getArticleID()).orElse(null);
         if (article != null) {
             article.setIsDiscussed(article.getIsDiscussed() + 1);
@@ -82,6 +83,9 @@ public class PostService {
     //再将文章设置为必须被讨论
     public Reply submitRebuttal(Long articleID,String words,Long authorID){
         Article article = articleRepository.findById(articleID).orElse(null);
+        if(article==null){
+            return null;
+        }
         if (article.getIsAccepted() != -1 || article.getTimesLeftForRebuttal() <= 0){
             return null;
         }
@@ -93,17 +97,29 @@ public class PostService {
             article.setIsDiscussed(-1);
             post = postRepository.findById(id).orElse(null);
         }
-        Reply reply = new Reply(authorID,words,(long)(post.getReplyNumber() + 2));
-        reply.setReplyToFloorNumber((long)(-1));
-        reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
-        replyRepository.save(reply);
-        post.getReplyList().add(reply);
-        post.setReplyNumber(post.getReplyNumber()+1);
-        postRepository.save(post);
+        if(post==null){
+            return null;
+        }
+        Reply reply = saveReply(words, authorID, post, (long) (-1));
         article.setTimesLeftForRebuttal(0);
         article.setNumberToBeConfirmed(article.getHowManyPeopleHaveReviewed());
         article.setIsDiscussed(-1);
         articleRepository.save(article);
+        return reply;
+    }
+
+    private Reply saveReply(String words, Long authorID, Post post, long l) {
+        Reply reply = new Reply(authorID, words, (post.getReplyNumber() + 2));
+        reply.setReplyToFloorNumber(l);
+        User user=userRepository.findById(authorID).orElse(null);
+        if(user==null){
+            return null;
+        }
+        reply.setOwnerFullName(user.getFullName());
+        replyRepository.save(reply);
+        post.getReplyList().add(reply);
+        post.setReplyNumber(post.getReplyNumber() + 1);
+        postRepository.save(post);
         return reply;
     }
 

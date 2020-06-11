@@ -40,6 +40,9 @@ public class PCMemberService {
             }
             Long chairId=conferenceRepository.findByFullName(request.getFullName()).getChairId();
             User chair=userRepository.findById(chairId).orElse(null);
+            if(chair==null){
+                return "数据错误";
+            }
             Message messageToSave=new Message
                     (chair.getUsername(),userName,request.getFullName(),"用户"+chair.getUsername()+"发来一个加入"+request.getFullName()+"的申请",REQUEST,1);
             messageList.add(messageToSave);
@@ -138,6 +141,7 @@ public class PCMemberService {
         }
         for(User user:users){
             if(isAdminOrUser(request.getFull_Name(),user.getUsername())){
+
             }
             else if(isPCMember(request.getFull_Name(),user.getUsername())){
                 responses.add(new SearchResponse(
@@ -170,7 +174,7 @@ public class PCMemberService {
         return responses;
     }
 
-    public boolean isAdminOrUser(String conferenceName,String username) {
+    private boolean isAdminOrUser(String conferenceName,String username) {
         if (username.equals("admin")) {
             return true;
         }
@@ -182,14 +186,14 @@ public class PCMemberService {
         return username.equals(user.getUsername());
     }
 
-    public boolean isPCMember(String conferenceName,String username){
+    private boolean isPCMember(String conferenceName,String username){
         User user=userRepository.findByUsername(username);
         Conference conference=conferenceRepository.findByFullName(conferenceName);
         PCMember pcMember=pcMemberRepository.findByUserIdAndConferenceId(user.getId(),conference.getId());
         return pcMember!=null;
     }
 
-    public boolean isHandled(String conferenceName,String username){
+    private boolean isHandled(String conferenceName,String username){
         Message message=messageRepository.
                 findAllByReceiverNameAndRelatedConferenceNameAndMessageCategoryAndIsRead
                         (

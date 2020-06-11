@@ -98,8 +98,8 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping("/postOnArticle")
-    public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@RequestParam(name = "articleID") Long articleID,@RequestParam(name = "ownerID") Long ownerID,@RequestParam(name = "words") String words){
+    @PostMapping("/postOnArticle/{articleID}/{ownerID}/{words}")
+    public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID,@PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "words") String words){
         logger.debug("Post:" +ownerID + "on" + articleID);
         HashMap<String,Object> map = new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);

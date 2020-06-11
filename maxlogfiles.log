@@ -1708,3 +1708,161 @@ java.lang.NullPointerException: null
 2020-06-11 13:42:27.244  WARN 28224 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-06-11 13:42:27.244  WARN 28224 --- [http-nio-8080-exec-10] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
 2020-06-11 13:42:32.076  WARN 28224 --- [http-nio-8080-exec-5] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-06-11 15:39:15.381 DEBUG 124 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-06-11 15:39:15.388  INFO 124 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5081 ms
+2020-06-11 15:39:26.314  WARN 124 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 15:39:27.366 DEBUG 124 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 15:39:27.549 DEBUG 124 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 15:39:27.655 DEBUG 124 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 15:39:27.681 DEBUG 124 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 15:55:12.531 DEBUG 17900 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a
+2020-06-11 15:55:21.884  WARN 17900 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 15:55:23.582 DEBUG 17900 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 15:55:23.747 DEBUG 17900 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 15:55:23.854 DEBUG 17900 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 15:55:23.883 DEBUG 17900 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 15:55:27.171 DEBUG 17900 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a, started on Thu Jun 11 15:55:12 CST 2020
+2020-06-11 15:56:52.317 DEBUG 28188 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a
+2020-06-11 15:57:00.266  WARN 28188 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 15:57:01.851 DEBUG 28188 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 15:57:01.997 DEBUG 28188 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 15:57:02.098 DEBUG 28188 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 15:57:02.128 DEBUG 28188 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 15:57:04.750 DEBUG 28188 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a, started on Thu Jun 11 15:56:52 CST 2020
+2020-06-11 15:57:56.600 DEBUG 10976 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a
+2020-06-11 15:58:03.997  WARN 10976 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 15:58:05.593 DEBUG 10976 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 15:58:05.757 DEBUG 10976 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 15:58:05.856 DEBUG 10976 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 15:58:05.889 DEBUG 10976 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 15:58:08.843 DEBUG 10976 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a, started on Thu Jun 11 15:57:56 CST 2020
+2020-06-11 16:00:24.364 DEBUG 11516 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a
+2020-06-11 16:00:33.397  WARN 11516 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 16:00:35.124 DEBUG 11516 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 16:00:35.288 DEBUG 11516 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 16:00:35.375 DEBUG 11516 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 16:00:35.402 DEBUG 11516 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 16:00:38.401 DEBUG 11516 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@63eef88a, started on Thu Jun 11 16:00:24 CST 2020
+2020-06-11 16:01:27.343 DEBUG 23536 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-06-11 16:01:27.348  INFO 23536 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3683 ms
+2020-06-11 16:01:30.714  WARN 23536 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 16:01:31.276 DEBUG 23536 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 16:01:31.365 DEBUG 23536 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 16:01:31.401 DEBUG 23536 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 16:01:31.415 DEBUG 23536 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 16:02:15.616  INFO 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-06-11 16:02:15.618 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-06-11 16:02:15.631 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-06-11 16:02:15.632  INFO 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
+2020-06-11 16:02:15.658  WARN 23536 --- [http-nio-8080-exec-1] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-06-11 16:02:15.662 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/register", parameters={}
+2020-06-11 16:02:15.669 DEBUG 23536 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#register(RegisterRequest)
+2020-06-11 16:02:15.855 DEBUG 23536 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.RegisterRequest@6d18e39a]
+2020-06-11 16:02:17.954 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:17.956 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{institution=fudan, country=China, fullName=guo, id=2, message=success, email=ab@edu.cn, token=eyJhb (truncated)...]
+2020-06-11 16:02:17.977 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:02:18.358 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/mailCenter", parameters={}
+2020-06-11 16:02:18.360 DEBUG 23536 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MessageController#openMailCenter(HttpServletRequest)
+2020-06-11 16:02:18.374 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:18.374 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{messages=[], token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QSIsImlhdCI6MTU5MTg2MjUzNiwiZXhwIjoxNTkxODg (truncated)...]
+2020-06-11 16:02:18.386 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:02:27.370 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/AllConferences", parameters={}
+2020-06-11 16:02:27.372 DEBUG 23536 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConference(HttpServletRequest)
+2020-06-11 16:02:27.394 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:27.395 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[], message=获取所有会议申请成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QSIsImlhdCI6MTU5MTg2MjU (truncated)...]
+2020-06-11 16:02:27.405 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:02:28.972 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForChair", parameters={}
+2020-06-11 16:02:28.973 DEBUG 23536 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForChair(HttpServletRequest)
+2020-06-11 16:02:28.984 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:28.985 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[], message=获取所有我主持的会议申请成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QSIsImlhdCI6MTU5MTg (truncated)...]
+2020-06-11 16:02:28.988 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:02:30.790 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForPCMember", parameters={}
+2020-06-11 16:02:30.792 DEBUG 23536 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForPCMember(HttpServletRequest)
+2020-06-11 16:02:30.815 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:30.817 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[], message=获取所有我审稿的会议申请成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QSIsImlhdCI6MTU5MTg (truncated)...]
+2020-06-11 16:02:30.823 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:02:32.184 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForAuthor", parameters={}
+2020-06-11 16:02:32.186 DEBUG 23536 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForAuthor(HttpServletRequest)
+2020-06-11 16:02:32.208 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:32.209 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[], message=获取所有我投稿的会议申请成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QSIsImlhdCI6MTU5MTg (truncated)...]
+2020-06-11 16:02:32.218 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:02:56.223 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/ApplyConference", parameters={}
+2020-06-11 16:02:56.225 DEBUG 23536 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.ApplyConferenceController#applyMeeting(HttpServletRequest, ApplyMeetingRequest)
+2020-06-11 16:02:56.238 DEBUG 23536 --- [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.ApplyMeetingRequest@1332df23]
+2020-06-11 16:02:56.332 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:56.333 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{full_name=cA, holdingPlace=cc, reviewReleaseDate=2020-06-27 00:00:00, user id=2, short_name=confere (truncated)...]
+2020-06-11 16:02:56.344 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:02:56.454 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForChair", parameters={}
+2020-06-11 16:02:56.455 DEBUG 23536 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForChair(HttpServletRequest)
+2020-06-11 16:02:56.483 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:02:56.484 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.controller.response.AllConferenceResponse@4aa6b9e9], message=获取所有我主持的会议申请成功 (truncated)...]
+2020-06-11 16:02:56.513 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:09.581  WARN 23536 --- [http-nio-8080-exec-9] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-06-11 16:03:09.582 DEBUG 23536 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/login", parameters={}
+2020-06-11 16:03:09.583 DEBUG 23536 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#login(LoginRequest)
+2020-06-11 16:03:09.587 DEBUG 23536 --- [http-nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.LoginRequest@2418fda4]
+2020-06-11 16:03:10.058 DEBUG 23536 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:10.058 DEBUG 23536 --- [http-nio-8080-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{institution=Fudan University, country=China, fullName=libowen, id=1, message=success, email=libowen (truncated)...]
+2020-06-11 16:03:10.061 DEBUG 23536 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:10.184 DEBUG 23536 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/mailCenter", parameters={}
+2020-06-11 16:03:10.185 DEBUG 23536 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MessageController#openMailCenter(HttpServletRequest)
+2020-06-11 16:03:10.197 DEBUG 23536 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:10.197 DEBUG 23536 --- [http-nio-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{messages=[], token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU5MTg2MjU5MCwiZXhwIjoxNTkxODg (truncated)...]
+2020-06-11 16:03:10.200 DEBUG 23536 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:12.665 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/ReviewConference", parameters={}
+2020-06-11 16:03:12.668 DEBUG 23536 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.ApplyConferenceController#reviewConference(HttpServletRequest)
+2020-06-11 16:03:12.684 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:12.687 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.domain.Conference@56630671], message=拉取待审核会议成功, token=eyJhbGciOiJIUzUxMiJ9. (truncated)...]
+2020-06-11 16:03:12.722 DEBUG 23536 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:13.848 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/ApproveConference", parameters={}
+2020-06-11 16:03:13.850 DEBUG 23536 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.ApplyConferenceController#approveConference(ReviewConferenceRequest, HttpServletRequest)
+2020-06-11 16:03:13.852 DEBUG 23536 --- [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.ReviewConferenceRequest@1c924279]
+2020-06-11 16:03:13.905 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:13.906 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{message=批准会议成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU5MTg2MjU5MCwiZXhwIjoxNTkx (truncated)...]
+2020-06-11 16:03:13.909 DEBUG 23536 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:25.394  WARN 23536 --- [http-nio-8080-exec-3] f.se.lab2.security.jwt.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2020-06-11 16:03:25.395 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/login", parameters={}
+2020-06-11 16:03:25.395 DEBUG 23536 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.AuthController#login(LoginRequest)
+2020-06-11 16:03:25.397 DEBUG 23536 --- [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [fudan.se.lab2.controller.request.LoginRequest@2f35e46a]
+2020-06-11 16:03:25.841 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:25.842 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{institution=fudan, country=China, fullName=guo, id=2, message=success, email=ab@edu.cn, token=eyJhb (truncated)...]
+2020-06-11 16:03:25.844 DEBUG 23536 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:25.943 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/mailCenter", parameters={}
+2020-06-11 16:03:25.943 DEBUG 23536 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MessageController#openMailCenter(HttpServletRequest)
+2020-06-11 16:03:25.952 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:25.952 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{messages=[fudan.se.lab2.controller.response.AllMessageResponse@1fcc8de0], token=eyJhbGciOiJIUzUxMiJ (truncated)...]
+2020-06-11 16:03:25.959 DEBUG 23536 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:29.927 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForPCMember", parameters={}
+2020-06-11 16:03:29.928 DEBUG 23536 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForPCMember(HttpServletRequest)
+2020-06-11 16:03:29.949 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:29.951 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.controller.response.AllConferenceResponse@654de307], message=获取所有我审稿的会议申请成功 (truncated)...]
+2020-06-11 16:03:29.955 DEBUG 23536 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:32.006 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForChair", parameters={}
+2020-06-11 16:03:32.008 DEBUG 23536 --- [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForChair(HttpServletRequest)
+2020-06-11 16:03:32.019 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:32.019 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.controller.response.AllConferenceResponse@1bd309b2], message=获取所有我主持的会议申请成功 (truncated)...]
+2020-06-11 16:03:32.023 DEBUG 23536 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:34.163 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/ConferenceForAuthor", parameters={}
+2020-06-11 16:03:34.165 DEBUG 23536 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConferenceForAuthor(HttpServletRequest)
+2020-06-11 16:03:34.176 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:34.177 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[], message=获取所有我投稿的会议申请成功, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QSIsImlhdCI6MTU5MTg (truncated)...]
+2020-06-11 16:03:34.183 DEBUG 23536 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:03:35.383 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/AllConferences", parameters={}
+2020-06-11 16:03:35.384 DEBUG 23536 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to fudan.se.lab2.controller.MyRelatedConferenceController#showAllConference(HttpServletRequest)
+2020-06-11 16:03:35.393 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-06-11 16:03:35.394 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{meetings=[fudan.se.lab2.controller.response.AllConferenceResponse@72d8a453], message=获取所有会议申请成功, to (truncated)...]
+2020-06-11 16:03:35.400 DEBUG 23536 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2020-06-11 16:04:25.997 DEBUG 23536 --- [restartedMain] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-06-11 16:04:25.998  INFO 23536 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 998 ms
+2020-06-11 16:04:27.775  WARN 23536 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 16:04:28.143 DEBUG 23536 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 16:04:28.169 DEBUG 23536 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 16:04:28.538 DEBUG 23536 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 16:04:28.557 DEBUG 23536 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 16:04:31.208 DEBUG 6500 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@7164ca4c
+2020-06-11 16:04:39.226  WARN 6500 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-06-11 16:04:41.177 DEBUG 6500 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-06-11 16:04:41.339 DEBUG 6500 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 44 mappings in 'requestMappingHandlerMapping'
+2020-06-11 16:04:41.482 DEBUG 6500 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-06-11 16:04:41.516 DEBUG 6500 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-06-11 16:04:46.624 DEBUG 6500 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@7164ca4c, started on Thu Jun 11 16:04:31 CST 2020

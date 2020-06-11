@@ -246,7 +246,7 @@ public class ContributionService {
             return "NOT FOUND";
         }
         Result result = resultRepository.findByArticleIDAndConferenceID(submitReviewResultRequest.getArticleId(),submitReviewResultRequest.getConference_id());
-        HashSet<Evaluation> evaluationSet = (HashSet<Evaluation>) result.getEvaluations();
+        Set<Evaluation> evaluationSet = result.getEvaluations();
         Evaluation evaluationToModify = null;
         for (Evaluation evaluation : evaluationSet) {
             if (evaluation.getPCMemberID().equals(submitReviewResultRequest.getUserId())){

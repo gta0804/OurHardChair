@@ -73,6 +73,7 @@ public class PostService {
         Article article = articleRepository.findById(post.getArticleID()).orElse(null);
         if (article != null) {
             article.setIsDiscussed(article.getIsDiscussed() + 1);
+            articleRepository.save(article);
         }
         return reply;
     }

@@ -1,4 +1,4 @@
-package fudan.se.lab2;
+package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.SubmitRebuttalRequest;
 import fudan.se.lab2.domain.Post;

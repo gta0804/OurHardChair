@@ -95,7 +95,6 @@ public class PostService {
         Reply reply = new Reply(authorID,words,(long)(post.getReplyNumber() + 2));
         reply.setReplyToFloorNumber((long)(-1));
         reply.setOwnerFullName(userRepository.findById(authorID).orElse(null).getFullName());
-        reply.setReplyToFloorNumber(post.getReplyNumber() + 2);
         replyRepository.save(reply);
         post.getReplyList().add(reply);
         post.setReplyNumber(post.getReplyNumber()+1);

@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.controller.request.ReplyPostRequest;
 import fudan.se.lab2.controller.request.SubmitRebuttalRequest;
 import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
@@ -133,11 +134,11 @@ public class RebuttalController {
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
     @PostMapping("/replyPost/{postID}")
-    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request,@PathVariable(name = "postID") Long postID){
+    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, ReplyPostRequest replyPostRequest){
         logger.debug("replyPost");
         HashMap<String,Object> map = new HashMap<>();
         String token = request.getHeader("Authorization").substring(7);
-        Reply reply = postService.replyPost(postID,Long.parseLong(request.getParameter("ownerID")),request.getParameter("words"),Long.parseLong(request.getParameter("floorNumber")));
+        Reply reply = postService.replyPost(postID,replyPostRequest.getOwnerID(),replyPostRequest.getWords(),replyPostRequest.getFloorNumber());
         String message = null == reply?"提交失败":"提交成功";
         map.put("message",message);
             map.put("token",token);

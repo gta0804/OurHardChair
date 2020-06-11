@@ -24,7 +24,6 @@ public class ModifyContributionRequest {
 
     private String articleAbstract;
 
-
     private List<WriterRequest> writers;
 
     private Set<String> topics;

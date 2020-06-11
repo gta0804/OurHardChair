@@ -50,25 +50,21 @@ public class MyRelatedConferenceControllerTest {
    @Test
   void openManuscriptReview(){
        LoginRequest loginRequest = new LoginRequest();
-       loginRequest.setUsername("admin");
-       loginRequest.setPassword("password");
+       loginRequest.setUsername("testA");
+       loginRequest.setPassword("123456");
        String token=(String)authController.login(loginRequest).getBody().get("token");
        request = new MockHttpServletRequest();
        request.setCharacterEncoding("UTF-8");
        request.addHeader("Authorization","Bearer " + token);
-       Date date=new Date();
-       Conference conference=conferenceRepository.findByFullName(date.toString());
+       Conference conference=conferenceRepository.findByFullName("testMeeting1");
        if(conference==null){
-           conference=new Conference((long)1,"shortName",date.toString(),"holdingPlace",new Date().toString(),new Date().toString(),new Date().toString());
-           conference.setReviewStatus(2);
-           conferenceRepository.save(conference);
+           return;
        }
        OpenManuscriptReviewRequest openManuscriptReviewRequest=new OpenManuscriptReviewRequest();
        openManuscriptReviewRequest.setConference_id(conference.getId());
        openManuscriptReviewRequest.setAllocationStrategy(2);
        String message=(String)myRelatedConferenceController.openManuscriptReview(request,openManuscriptReviewRequest).getBody().get("message");
-       Assert.isTrue(message.equals("PCMember数量少于2个，您不能开启投稿"));
-       conferenceRepository.delete(conference);
+       Assert.isTrue(message.equals("邀请的PCMember不符合条件导致无法分配"));
 
     }
 

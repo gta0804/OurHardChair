@@ -133,12 +133,17 @@ public class RebuttalController {
     * @Date: 2020/5/28
     */
 //    @CrossOrigin(origins = "*",allowCredentials = "true")
-    @PostMapping("/replyPost/{postID}")
-    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, ReplyPostRequest replyPostRequest){
+    @PostMapping("/replyPost/{postID}?{ownerID}?{floorNumber}?{words}")
+    public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, @PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "floorNumber") Long floorNumber,@PathVariable(name = "words") String words){
         logger.debug("replyPost");
         HashMap<String,Object> map = new HashMap<>();
         String token = request.getHeader("Authorization").substring(7);
-        Reply reply = postService.replyPost(postID,replyPostRequest.getOwnerID(),replyPostRequest.getWords(),replyPostRequest.getFloorNumber());
+        System.out.println(ownerID);
+        System.out.println(floorNumber);
+        System.out.println(words);
+        System.out.println(postID);
+
+        Reply reply = postService.replyPost(postID,ownerID,words,floorNumber);
         String message = null == reply?"提交失败":"提交成功";
         map.put("message",message);
             map.put("token",token);

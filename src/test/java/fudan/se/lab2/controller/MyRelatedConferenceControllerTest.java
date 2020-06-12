@@ -1,6 +1,7 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.Lab2Application;
+import fudan.se.lab2.controller.request.AllPapersForConferenceRequest;
 import fudan.se.lab2.controller.request.LoginRequest;
 import fudan.se.lab2.controller.request.OpenManuscriptReviewRequest;
 import fudan.se.lab2.controller.request.OpenSubmissionRequest;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
-
-import java.util.Date;
 import java.util.HashMap;
 
 @SpringBootTest(classes= Lab2Application.class)
@@ -65,8 +64,44 @@ public class MyRelatedConferenceControllerTest {
        openManuscriptReviewRequest.setAllocationStrategy(2);
        String message=(String)myRelatedConferenceController.openManuscriptReview(request,openManuscriptReviewRequest).getBody().get("message");
        Assert.isTrue(message.equals("邀请的PCMember不符合条件导致无法分配"));
-
     }
 
+    @Test
+    void showAcceptedArticles(){
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("testA");
+        loginRequest.setPassword("123456");
+        String token=(String)authController.login(loginRequest).getBody().get("token");
+        request = new MockHttpServletRequest();
+        request.setCharacterEncoding("UTF-8");
+        request.addHeader("Authorization","Bearer " + token);
+        Conference conference=conferenceRepository.findByFullName("testMeeting1");
+        if(conference==null){
+            return;
+        }
+        AllPapersForConferenceRequest allPapersForConferenceRequest=new AllPapersForConferenceRequest();
+        allPapersForConferenceRequest.setConference_id(conference.getId());
+        String message=(String)myRelatedConferenceController.showAcceptedArticlesForChair(request,allPapersForConferenceRequest).getBody().get("message");
+        Assert.isTrue(message.equals("success"));
+    }
+
+    @Test
+    void showAllArticles(){
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("testA");
+        loginRequest.setPassword("123456");
+        String token=(String)authController.login(loginRequest).getBody().get("token");
+        request = new MockHttpServletRequest();
+        request.setCharacterEncoding("UTF-8");
+        request.addHeader("Authorization","Bearer " + token);
+        Conference conference=conferenceRepository.findByFullName("testMeeting1");
+        if(conference==null){
+            return;
+        }
+        AllPapersForConferenceRequest allPapersForConferenceRequest=new AllPapersForConferenceRequest();
+        allPapersForConferenceRequest.setConference_id(conference.getId());
+        String message=(String)myRelatedConferenceController.showAllArticlesForChair(request,allPapersForConferenceRequest).getBody().get("message");
+        Assert.isTrue(message.equals("success"));
+    }
 
 }

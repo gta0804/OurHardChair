@@ -323,6 +323,7 @@ public class MyRelatedConferenceService {
             conference.setIsOpenSubmission(3);
             conferenceRepository.save(conference);
         }
+        System.out.println("结果是: "+allocateResult);
         return allocateResult;
     }
 
@@ -486,6 +487,7 @@ public class MyRelatedConferenceService {
             }
         }
     }
+
 
 
     private static int[] getRandomNumbers(int max) {

@@ -202,13 +202,14 @@ public class ContributionService {
         Article article = articleRepository.findById(submitReviewResultRequest.getArticleId()).orElse(null);
         if (article == null){
             return "NOT FOUND";
-        }
+        }        //总评价
+        Result result = resultRepository.findByArticleIDAndConferenceID(submitReviewResultRequest.getArticleId(),submitReviewResultRequest.getConference_id());
         Evaluation evaluation = new Evaluation(submitReviewResultRequest.getUserId(),submitReviewResultRequest.getScore(),submitReviewResultRequest.getComment(),submitReviewResultRequest.getConfidence());
+        if(isDuplicatedReview(result,evaluation)){
+            return "请不要重复审稿";
+        }
         evaluationRepository.save(evaluation);
 
-
-        //总评价
-        Result result = resultRepository.findByArticleIDAndConferenceID(submitReviewResultRequest.getArticleId(),submitReviewResultRequest.getConference_id());
         if(null == result){
             Set<Evaluation> evaluations = new HashSet<>();
             evaluations.add(evaluation);
@@ -231,6 +232,19 @@ public class ContributionService {
         }
         articleRepository.save(article);
         return"successful contribution";
+    }
+
+    private boolean isDuplicatedReview(Result result,Evaluation evaluation){
+        if(result==null){
+            return false;
+        }
+        Set<Evaluation> evaluationList=result.getEvaluations();
+        for(Evaluation temp:evaluationList){
+            if(temp.getPCMemberID().equals(evaluation.getPCMemberID())){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

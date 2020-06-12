@@ -60,7 +60,7 @@ class ContributionControllerTest {
         Long conferenceID=conference.getId();
         Long userID=user.getId();
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("testC");
+        loginRequest.setUsername("testD");
         loginRequest.setPassword("123456");
         String token=(String)authController.login(loginRequest).getBody().get("token");
         request = new MockHttpServletRequest();
@@ -94,7 +94,7 @@ class ContributionControllerTest {
         }
         Long conferenceID=conference.getId();
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("testC");
+        loginRequest.setUsername("testD");
         loginRequest.setPassword("123456");
         String token=(String)authController.login(loginRequest).getBody().get("token");
         request = new MockHttpServletRequest();
@@ -107,7 +107,7 @@ class ContributionControllerTest {
         modifyContributionRequest.setConference_id(conferenceID);
         WriterRequest writerRequest=new WriterRequest();
         writerRequest.setCountry("China");
-        writerRequest.setEmail("18302010041@fudan.edu.cn");
+        writerRequest.setEmail("18302010047@fudan.edu.cn");
         writerRequest.setInstitution("fudan university");
         writerRequest.setWriterName("guotaian");
         List<WriterRequest> writerRequests=new LinkedList<>();

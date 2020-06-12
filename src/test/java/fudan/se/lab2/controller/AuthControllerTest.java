@@ -65,7 +65,6 @@ class AuthControllerTest {
     @Test
     void welcome() {
         Map<String,String> map = (Map<String,String>)authController.welcome().getBody();
-
         Assert.isTrue(map.get("message").equals("Welcome to 2020 Software Engineering Lab2. "));
 
     }

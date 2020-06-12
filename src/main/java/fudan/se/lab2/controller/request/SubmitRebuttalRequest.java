@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
  **/
 @Controller
 public class SubmitRebuttalRequest {
-    Long authorID;
-    Long articleID;
-    String words;
+    private Long authorID;
+    private Long articleID;
+    private String words;
 
     public SubmitRebuttalRequest(Long authorID, Long articleID, String words) {
         this.authorID = authorID;

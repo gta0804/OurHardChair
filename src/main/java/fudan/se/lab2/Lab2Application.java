@@ -50,38 +50,38 @@ public class Lab2Application {
             public void run(String... args) throws Exception {
                 // Create authorities if not exist.
                 // Create an admin if not exists.
-//                if (userRepository.findByUsername("admin") == null) {
-//                    HashSet<Authority> set = new HashSet<>();
-//                    User admin = new User(
-//                            "admin",
-//                            passwordEncoder.encode("password"),
-//                            "libowen",
-//                            "libowen@fudan.edu.cn",
-//                            "Fudan University",
-//                            "China",
-//                            set
-//                    );
-//                    userRepository.save(admin);
-//                }
+                if (userRepository.findByUsername("admin") == null) {
+                    HashSet<Authority> set = new HashSet<>();
+                    User admin = new User(
+                            "admin",
+                            passwordEncoder.encode("password"),
+                            "libowen",
+                            "libowen@fudan.edu.cn",
+                            "Fudan University",
+                            "China",
+                            set
+                    );
+                    userRepository.save(admin);
+                }
 //                for (Post post : postRepository.findAll()) {
 //                    if(null == post.getReplyList()) {
 //                        post.setReplyList(new ArrayList<>());
 //                    }
 //                }
-                for (Conference conference : conferenceRepository.findAll()) {
-                    ArrayList<Article> articles = new ArrayList<>(articleRepository.findByConferenceID(conference.getId()));
-                    arti:for (Article article : articles) {
-                        Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference.getId());
-                        ArrayList<Evaluation>  evaluations = new ArrayList<>(result.getEvaluations());
-                        article.setIsAccepted(1);
-                        for (Evaluation evaluation : evaluations) {
-                            if (evaluation.getScore() <= -1){
-                                article.setIsAccepted(-1);
-                                continue arti;
-                            }
-                        }
-                    }
-                }
+//                for (Conference conference : conferenceRepository.findAll()) {
+//                    ArrayList<Article> articles = new ArrayList<>(articleRepository.findByConferenceID(conference.getId()));
+//                    arti:for (Article article : articles) {
+//                        Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference.getId());
+//                        ArrayList<Evaluation>  evaluations = new ArrayList<>(result.getEvaluations());
+//                        article.setIsAccepted(1);
+//                        for (Evaluation evaluation : evaluations) {
+//                            if (evaluation.getScore() <= -1){
+//                                article.setIsAccepted(-1);
+//                                continue arti;
+//                            }
+//                        }
+//                    }
+//                }
 
             }
 

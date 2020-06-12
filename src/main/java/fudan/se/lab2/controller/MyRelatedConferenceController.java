@@ -176,7 +176,7 @@ public class MyRelatedConferenceController {
         logger.debug("showAllArticlesForChair"+request.toString());
         String token=httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> map=new HashMap<>();
-        if(myRelatedConferenceService.isChair(request.getConference_id())){
+        if(!myRelatedConferenceService.isChair(request.getConference_id())){
             map.put("message","你没有权限访问该页面");
             return ResponseEntity.ok(map);
         }
@@ -197,7 +197,7 @@ public class MyRelatedConferenceController {
         logger.debug("showAllArticlesForChair"+request.toString());
         String token=httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> map=new HashMap<>();
-        if(myRelatedConferenceService.isChair(request.getConference_id())){
+        if(!myRelatedConferenceService.isChair(request.getConference_id())){
             map.put("message","您不是chair,没有权限访问该页面");
             return ResponseEntity.ok(map);
         }

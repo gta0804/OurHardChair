@@ -102,7 +102,7 @@ public class PostService {
         }
         Reply reply = saveReply(words, authorID, post, (long) (-1));
         article.setTimesLeftForRebuttal(0);
-        article.setNumberToBeConfirmed(article.getHowManyPeopleHaveReviewed());
+        article.setNumberToBeConfirmed(article.getNumberToBeConfirmed() + article.getHowManyPeopleHaveReviewed());
         article.setIsDiscussed(-1);
         articleRepository.save(article);
         return reply;

@@ -194,7 +194,7 @@ public class Article {
     }
 
     public boolean canBeReleased(){
-        return ((isDiscussed >= 0) && (numberToBeConfirmed == 0));
+        return ((isDiscussed >= 0) && (numberToBeConfirmed <= 0));
     }
 
     public Integer getHowManyPeopleHaveReviewed() {

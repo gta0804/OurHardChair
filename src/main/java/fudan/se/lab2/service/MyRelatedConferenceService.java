@@ -288,6 +288,18 @@ public class MyRelatedConferenceService {
                 evaluationModifyRequestRepository.delete(evaluationModifyRequest);
             }
         }
+        ArrayList<Article> articles = new ArrayList<>(articleRepository.findByConferenceID(conference_id));
+        arti:for (Article article : articles) {
+            Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference_id);
+            HashSet<Evaluation>  evaluations = new HashSet<>(result.getEvaluations());
+            article.setIsAccepted(1);
+            for (Evaluation evaluation : evaluations) {
+                if (evaluation.getScore() <= -1){
+                    article.setIsAccepted(-1);
+                    continue arti;
+                }
+            }
+        }
     }
 
     public String openManuscriptReview(OpenManuscriptReviewRequest request) {

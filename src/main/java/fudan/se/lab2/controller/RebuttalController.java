@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 @CrossOrigin(origins = "*",allowCredentials = "true")
 @RestController
+@RequestMapping(value = "/api")
 public class RebuttalController {
     @Autowired
     private PostService postService;
@@ -62,7 +63,7 @@ public class RebuttalController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @CrossOrigin(origins = "*")
     @RequestMapping("/browsePostOnArticle/{articleID}")
     public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID){
         logger.debug("browsePostOnArticle:" + articleID);
@@ -95,7 +96,7 @@ public class RebuttalController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @CrossOrigin(origins = "*")
     @PostMapping("/postOnArticle/{articleID}/{ownerID}/{words}")
     public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID,@PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "words") String words){
         logger.debug("Post:" +ownerID + "on" + articleID);
@@ -130,7 +131,7 @@ public class RebuttalController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @CrossOrigin(origins = "*")
     @PostMapping("/replyPost/{postID}/{ownerID}/{floorNumber}/{words}")
     public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, @PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "floorNumber") Long floorNumber,@PathVariable(name = "words") String words){
         logger.debug("replyPost");

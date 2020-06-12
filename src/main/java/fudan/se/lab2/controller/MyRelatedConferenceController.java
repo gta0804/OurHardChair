@@ -197,10 +197,10 @@ public class MyRelatedConferenceController {
         logger.debug("showAllArticlesForChair"+request.toString());
         String token=httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> map=new HashMap<>();
-        if(!myRelatedConferenceService.isChair(request.getConference_id())){
-            map.put("message","您不是chair,没有权限访问该页面");
-            return ResponseEntity.ok(map);
-        }
+//        if(!myRelatedConferenceService.isChair(request.getConference_id())){
+//            map.put("message","您不是chair,没有权限访问该页面");
+//            return ResponseEntity.ok(map);
+//        }
         List<Article> acceptedArticles=myRelatedConferenceService.getAllArticlesAccepted(request.getConference_id());
         if(acceptedArticles==null){
             map.put("message","请求错误");

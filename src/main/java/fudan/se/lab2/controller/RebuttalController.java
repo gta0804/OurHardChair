@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.config.CorsConfig;
 import fudan.se.lab2.controller.request.SubmitRebuttalRequest;
 import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author 86460
+ */
 @CrossOrigin(origins = "*",allowCredentials = "true")
 @RestController
 public class RebuttalController {
@@ -30,6 +34,8 @@ public class RebuttalController {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Autowired
+            private CorsConfig corsConfig;
 
     Logger logger = LoggerFactory.getLogger(RebuttalController.class);
 
@@ -62,7 +68,7 @@ public class RebuttalController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @CrossOrigin(origins = "*")
     @RequestMapping("/browsePostOnArticle/{articleID}")
     public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID){
         logger.debug("browsePostOnArticle:" + articleID);
@@ -95,7 +101,7 @@ public class RebuttalController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @CrossOrigin(origins = "*")
     @PostMapping("/postOnArticle/{articleID}/{ownerID}/{words}")
     public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID,@PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "words") String words){
         logger.debug("Post:" +ownerID + "on" + articleID);
@@ -130,7 +136,7 @@ public class RebuttalController {
     * @Author: Shen Zhengyu
     * @Date: 2020/5/28
     */
-//    @CrossOrigin(origins = "*",allowCredentials = "true")
+    @CrossOrigin(origins = "*")
     @PostMapping("/replyPost/{postID}/{ownerID}/{floorNumber}/{words}")
     public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, @PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "floorNumber") Long floorNumber,@PathVariable(name = "words") String words){
         logger.debug("replyPost");

@@ -97,9 +97,6 @@ public class PostService {
             article.setIsDiscussed(-1);
             post = postRepository.findById(id).orElse(null);
         }
-        if(post==null){
-            return null;
-        }
         Reply reply = saveReply(words, authorID, post, (long) (-1));
         article.setTimesLeftForRebuttal(0);
         article.setNumberToBeConfirmed(article.getNumberToBeConfirmed() + article.getHowManyPeopleHaveReviewed());

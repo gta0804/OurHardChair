@@ -62,6 +62,7 @@ public class MyRelatedConferenceService {
                 }
             }
             conferenceForChairResponse.setCanRelease(flag);
+            conferenceForChairResponse.set
             conferenceForChairResponses.add(conferenceForChairResponse);
         }
         return conferenceForChairResponses;

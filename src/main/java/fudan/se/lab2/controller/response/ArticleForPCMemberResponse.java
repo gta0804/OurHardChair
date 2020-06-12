@@ -23,6 +23,7 @@ public class ArticleForPCMemberResponse {
         this.articleAbstract = articleAbstract;
         this.writers = writers;
         this.status = status;
+        this.canPost = 1;
     }
 
     public String getTitle() {

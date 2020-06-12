@@ -1,5 +1,6 @@
 package fudan.se.lab2.controller;
 
+import fudan.se.lab2.config.CorsConfig;
 import fudan.se.lab2.controller.request.SubmitRebuttalRequest;
 import fudan.se.lab2.domain.Post;
 import fudan.se.lab2.domain.Reply;
@@ -18,9 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author 86460
+ */
 @CrossOrigin(origins = "*",allowCredentials = "true")
 @RestController
-@RequestMapping(value = "/api")
 public class RebuttalController {
     @Autowired
     private PostService postService;
@@ -31,6 +34,8 @@ public class RebuttalController {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Autowired
+            private CorsConfig corsConfig;
 
     Logger logger = LoggerFactory.getLogger(RebuttalController.class);
 

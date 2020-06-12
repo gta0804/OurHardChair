@@ -291,7 +291,7 @@ public class MyRelatedConferenceService {
         ArrayList<Article> articles = new ArrayList<>(articleRepository.findByConferenceID(conference_id));
         arti:for (Article article : articles) {
             Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference_id);
-            HashSet<Evaluation>  evaluations = new HashSet<>(result.getEvaluations());
+            ArrayList<Evaluation>  evaluations = new ArrayList<>(result.getEvaluations());
             article.setIsAccepted(1);
             for (Evaluation evaluation : evaluations) {
                 if (evaluation.getScore() <= -1){

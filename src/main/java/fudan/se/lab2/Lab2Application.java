@@ -35,6 +35,9 @@ public class Lab2Application {
     ArticleRepository articleRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    ResultRepository resultRepository;
+
     /**
      * This is a function to create some basic entities when the application starts.
      * Now we are using a In-Memory database, so you need it.
@@ -65,6 +68,21 @@ public class Lab2Application {
                         post.setReplyList(new ArrayList<>());
                     }
                 }
+                for (Conference conference : conferenceRepository.findAll()) {
+                    ArrayList<Article> articles = new ArrayList<>(articleRepository.findByConferenceID(conference.getId()));
+                    arti:for (Article article : articles) {
+                        Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference.getId());
+                        HashSet<Evaluation>  evaluations = new HashSet<>(result.getEvaluations());
+                        article.setIsAccepted(1);
+                        for (Evaluation evaluation : evaluations) {
+                            if (evaluation.getScore() <= -1){
+                                article.setIsAccepted(-1);
+                                continue arti;
+                            }
+                        }
+                    }
+                }
+
             }
 
         };

@@ -50,24 +50,24 @@ public class Lab2Application {
             public void run(String... args) throws Exception {
                 // Create authorities if not exist.
                 // Create an admin if not exists.
-                if (userRepository.findByUsername("admin") == null) {
-                    HashSet<Authority> set = new HashSet<>();
-                    User admin = new User(
-                            "admin",
-                            passwordEncoder.encode("password"),
-                            "libowen",
-                            "libowen@fudan.edu.cn",
-                            "Fudan University",
-                            "China",
-                            set
-                    );
-                    userRepository.save(admin);
-                }
-                for (Post post : postRepository.findAll()) {
-                    if(null == post.getReplyList()) {
-                        post.setReplyList(new ArrayList<>());
-                    }
-                }
+//                if (userRepository.findByUsername("admin") == null) {
+//                    HashSet<Authority> set = new HashSet<>();
+//                    User admin = new User(
+//                            "admin",
+//                            passwordEncoder.encode("password"),
+//                            "libowen",
+//                            "libowen@fudan.edu.cn",
+//                            "Fudan University",
+//                            "China",
+//                            set
+//                    );
+//                    userRepository.save(admin);
+//                }
+//                for (Post post : postRepository.findAll()) {
+//                    if(null == post.getReplyList()) {
+//                        post.setReplyList(new ArrayList<>());
+//                    }
+//                }
                 for (Conference conference : conferenceRepository.findAll()) {
                     ArrayList<Article> articles = new ArrayList<>(articleRepository.findByConferenceID(conference.getId()));
                     arti:for (Article article : articles) {

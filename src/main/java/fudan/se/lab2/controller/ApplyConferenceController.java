@@ -33,26 +33,22 @@ public class ApplyConferenceController {
         this.applyConferenceService=applyConferenceService;
     }
 
-
-
-    /*
-    receive meeting application from frontend
- */
+    String messageStr = "message";
+    String auth = "Authorization";
+    String errorStr = "error";
     @CrossOrigin(origins = "*")
     @RequestMapping("/ApplyConference")
     public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, @RequestBody ApplyMeetingRequest request){
-        String token= httpServletRequest.getHeader("Authorization").substring(7);
-        Long id= userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getId();
-        String chairName = userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).getUsername();
+        String token= httpServletRequest.getHeader(auth).substring(7);
         logger.debug("ApplyMeetingForm: " + request.toString());
-        HashMap<String,Object> map = new HashMap();
+        HashMap<String,Object> map = new HashMap<String,Object> ();
         Conference conference = applyConferenceService.applyMeeting(request);
         if (null == conference){
-            map.put("message","会议申请失败，已有该会议");
+            map.put(messageStr,"会议申请失败，已有该会议");
             return ResponseEntity.ok(map);
         }else {
             map.put("token",token);
-            map.put("message","success");
+            map.put(messageStr,"success");
             map.put("user id",conference.getChairId());
             map.put("short_name",conference.getAbbreviation());
             map.put("full_name",conference.getFullName());
@@ -72,8 +68,8 @@ public class ApplyConferenceController {
         HashMap<String,Object> map=new HashMap<>();
         List<Conference> conferences=new LinkedList<>();
         applyConferenceService.reviewConference(conferences);
-        String token= httpServletRequest.getHeader("Authorization").substring(7);
-            map.put("message","拉取待审核会议成功");
+        String token= httpServletRequest.getHeader(auth).substring(7);
+            map.put(messageStr,"拉取待审核会议成功");
             map.put("meetings",conferences);
             map.put("token",token);
 
@@ -86,17 +82,17 @@ public class ApplyConferenceController {
     @CrossOrigin(origins = "*")
     @PostMapping("/ApproveConference")
     public ResponseEntity<HashMap<String,Object>> approveConference(@RequestBody ReviewConferenceRequest request, HttpServletRequest httpServletRequest){ ;
-        String token= httpServletRequest.getHeader("Authorization").substring(7);
+        String token= httpServletRequest.getHeader(auth).substring(7);
         logger.debug("approve conference"+request.toString());
         HashMap<String,Object> map = new HashMap<>();
         System.out.println("request: "+request.getFullName());
         Conference conference = applyConferenceService.approveConference(request);
         if(null == conference){
-            map.put("message","批准会议申请失败，会议表找不到该会议");
+            map.put(messageStr,"批准会议申请失败，会议表找不到该会议");
         }
         else{
             map.put("token",token);
-            map.put("message","批准会议成功");
+            map.put(messageStr,"批准会议成功");
         }
         return ResponseEntity.ok(map);
     }
@@ -110,13 +106,13 @@ public class ApplyConferenceController {
         logger.debug("disapprove conference"+request.toString());
         HashMap<String,Object> map=new HashMap<>();
         String message = applyConferenceService.disapproveConference(request);
-        String token= httpServletRequest.getHeader("Authorization").substring(7);
-        if(message.equals("error")){
+        String token= httpServletRequest.getHeader(auth).substring(7);
+        if(errorStr.equals(message)){
             map.put("token",token);
-            map.put("message","驳回会议申请失败");
+            map.put(messageStr,"驳回会议申请失败");
         }
         else{
-            map.put("message","驳回会议申请成功");
+            map.put(messageStr,"驳回会议申请成功");
             map.put("token",token);
         }
         return ResponseEntity.ok(map);

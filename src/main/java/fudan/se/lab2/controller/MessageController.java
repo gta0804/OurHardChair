@@ -28,6 +28,8 @@ public class MessageController {
         this.messageService=messageService;
     }
 
+    String messageStr = "message";
+
     @CrossOrigin("*")
     @PostMapping("/mailCenter")
     public ResponseEntity<HashMap<String,Object>> openMailCenter(HttpServletRequest httpServletRequest){
@@ -35,7 +37,7 @@ public class MessageController {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         String userName=jwtTokenUtil.getUsernameFromToken(token);
         List<AllMessageResponse> messages=messageService.getAllMessage(userName);
-        HashMap<String,Object> map=new HashMap<>();
+        HashMap<String,Object> map=new HashMap<String,Object>();
         map.put("token",token);
         map.put("messages",messages);
         return ResponseEntity.ok(map);
@@ -46,13 +48,13 @@ public class MessageController {
     public ResponseEntity<HashMap<String,Object>> markRead(@RequestBody MarkMessageRequest request,HttpServletRequest httpServletRequest){
         logger.debug("markingMessages "+request.toString());
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        HashMap<String,Object> map=new HashMap<>();
+        HashMap<String,Object> map=new HashMap<String,Object>();
         boolean mark=messageService.markRead(request);
-        if(mark==false){
-            map.put("message","标记失败");
+        if(!mark){
+            map.put(messageStr,"标记失败");
             return ResponseEntity.ok(map);
         }
-        map.put("message","success");
+        map.put(messageStr,"success");
         map.put("token",token);
         return ResponseEntity.ok(map);
     }

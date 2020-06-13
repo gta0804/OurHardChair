@@ -47,6 +47,8 @@ public class ContributionController {
         this.contributionService = contributionService;
     }
 
+    String messageStr = "message";
+
     /**
      * @Description: 接收投稿请求
      * @Param: [httpServletRequest, contributionRequest]
@@ -61,7 +63,7 @@ public class ContributionController {
         HashMap<String, Object> map;
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         map = contributionService.contribute(contributionRequest);
-        if (!map.get("message").equals("重复投稿")){
+        if (!"重复投稿".equals(map.get(messageStr))){
             map.put("token",token);
         }
         return ResponseEntity.ok(map);
@@ -81,16 +83,16 @@ public class ContributionController {
         HashMap<String, Object> map = new HashMap();
         String token = request.getHeader("Authorization").substring(7);
         if (null == file ||file.isEmpty()){
-            map.put("message", "上传失败，文件为空");
+            map.put(messageStr, "上传失败，文件为空");
             return ResponseEntity.ok(map);
         }
         else if (contributionService.findFile(conferenceID,title) == 0){
-            map.put("message", "重复投稿");
+            map.put(messageStr, "重复投稿");
             return ResponseEntity.ok(map);
         }
         else{
             String fileName = saveFile(file, conferenceID);
-            map.put("message", "上传成功");
+            map.put(messageStr, "上传成功");
             map.put("存放路径", fileName);
             map.put("token", token);
             return ResponseEntity.ok(map);
@@ -124,7 +126,7 @@ public class ContributionController {
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
         if (null == file ||file.isEmpty()){
-            map.put("message", "上传失败");
+            map.put(messageStr, "上传失败");
             return ResponseEntity.ok(map);
         }
         else {
@@ -133,7 +135,7 @@ public class ContributionController {
             if (null != article) {
                 article.setFilename(fileName);
                 articleRepository.save(article);
-                map.put("message", "重新上传成功");
+                map.put(messageStr, "重新上传成功");
                 map.put("存放路径", fileName);
             }
             return ResponseEntity.ok(map);
@@ -170,7 +172,7 @@ public class ContributionController {
         String token = request.getHeader("Authorization").substring(7);
         String message = contributionService.submitReviewResult(submitReviewResultRequest);
         answer.put("token",token);
-        answer.put("message",message);
+        answer.put(messageStr,message);
         return ResponseEntity.ok(answer);
     }
 
@@ -189,7 +191,7 @@ public class ContributionController {
         String token = request.getHeader("Authorization").substring(7);
         String message = contributionService.modifyReviewResult(submitReviewResultRequest);
         answer.put("token",token);
-        answer.put("message",message);
+        answer.put(messageStr,message);
         return ResponseEntity.ok(answer);
     }
 
@@ -201,7 +203,7 @@ public class ContributionController {
         String token = request.getHeader("Authorization").substring(7);
         String message = contributionService.confirmReviewResult(userId,articleID,conference_id);
         answer.put("token",token);
-        answer.put("message",message);
+        answer.put(messageStr,message);
         return ResponseEntity.ok(answer);
     }
 
@@ -223,7 +225,7 @@ public class ContributionController {
         HashMap<String,Object> message = new HashMap<>();
         message.put("article",contributionService.findArticle(articleID));
         message.put("token",token);
-        message.put("message","查找成功");
+        message.put(messageStr,"查找成功");
         return ResponseEntity.ok(message);
     }
 

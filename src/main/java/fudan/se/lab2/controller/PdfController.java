@@ -28,13 +28,13 @@ public class PdfController {
     @Autowired
     ArticleRepository articleRepository;
 
+
+
     @RequestMapping(value = "/preview/{conferenceID}/{title}", method = RequestMethod.GET)
     public void pdfStreamHandler(@PathVariable("conferenceID") Long conferenceID,@PathVariable("title") String title, HttpServletRequest request, HttpServletResponse response) {
         //PDF文件地址
         String fileName = articleRepository.findByTitleAndConferenceID(title,conferenceID).getFilename();
         logger.info("文件名:" + fileName);
-                //"src/main/resources/pdf/2002260.pdf"
-//        File file = new File("/workplace/upload/" +fileName);
         StringBuilder sb = new StringBuilder("/workplace/upload/");
         if (null == conferenceID){
             sb.append("unknownConferenceID/");
@@ -51,7 +51,6 @@ public class PdfController {
             try {
                 input= new FileInputStream(file);
                 data = new byte[input.available()];
-                int btes = input.read(data);
                 response.getOutputStream().write(data);
             } catch (Exception e) {
                 System.out.println("pdf文件处理异常：" + e);

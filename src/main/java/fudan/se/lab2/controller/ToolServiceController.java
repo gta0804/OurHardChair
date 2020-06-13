@@ -28,26 +28,26 @@ public class ToolServiceController {
     @Autowired
     UserRepository userRepository;
 
+    String tokenStr = "token";
     @CrossOrigin("*")
     @RequestMapping("/findUser/{userID}")
     public ResponseEntity<HashMap<String,Object>> findUser(HttpServletRequest httpServletRequest,@PathVariable(name = "userID") Long userID){
         logger.debug("Find user " + userID);
-        HashMap<String,Object> map = new HashMap<>();
+        HashMap<String,Object> map = new HashMap<String,Object>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         User user = userRepository.findById(userID).orElse(null);
         if(null == user){
             map.put("message","查不到该用户");
-            map.put("token",token);
+            map.put(tokenStr,token);
             map.put("user",null);
-            return ResponseEntity.ok(map);
 
         }
         else{
             map.put("message","请求成功");
-            map.put("token",token);
+            map.put(tokenStr,token);
             map.put("user",user);
-            return ResponseEntity.ok(map);
         }
+        return ResponseEntity.ok(map);
     }
 
 

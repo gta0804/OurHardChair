@@ -23,7 +23,6 @@ import java.util.HashMap;
 @CrossOrigin()
 @RestController
 public class ResultController {
-    Logger logger = LoggerFactory.getLogger(ResultController.class);
 
     @Autowired
     MyRelatedConferenceService myRelatedConferenceService;
@@ -31,39 +30,42 @@ public class ResultController {
     @Autowired
     ContributionService contributionService;
 
-
+    String tokenStr = "token";
+    String messageStr = "message";
+    String auth = "Authorization";
+    String openSuc = "开启成功";
     @CrossOrigin("*")
     @PostMapping("/releaseReviewResult")
     public ResponseEntity<HashMap<String, Object>> releaseReviewResult(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDRequest conferenceIDRequest) {
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
         String result = myRelatedConferenceService.releaseReviewResult(conferenceIDRequest.getConference_id());
-        if(result.equals("开启成功")){
-            hashMap.put("token",token);
+        if(result.equals(openSuc)){
+            hashMap.put(tokenStr,token);
         }
-        hashMap.put("message",result);
+        hashMap.put(messageStr,result);
         return ResponseEntity.ok(hashMap);
     }
 
     @CrossOrigin("*")
     @PostMapping("/releaseFinalReviewResult")
     public ResponseEntity<HashMap<String, Object>> releaseFinalReviewResult(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDRequest conferenceIDRequest) {
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
         String result = myRelatedConferenceService.releaseFinalReviewResult(conferenceIDRequest.getConference_id());
 
-        if(result.equals("开启成功")){
-            hashMap.put("token",token);
+        if(result.equals(openSuc)){
+            hashMap.put(tokenStr,token);
         }
-        hashMap.put("message",result);
+        hashMap.put(messageStr,result);
         return ResponseEntity.ok(hashMap);
     }
     @CrossOrigin("*")
     @PostMapping("/viewReviewResult")
     public ResponseEntity<HashMap<String, Object>> viewReviewResult(HttpServletRequest httpServletRequest, @RequestBody ConferenceIDAndUserIDRequest conferenceIDAndUserIDRequest) {
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         HashMap<String,Object> hashMap = contributionService.viewReviewResult(conferenceIDAndUserIDRequest.getConference_id(),conferenceIDAndUserIDRequest.getUserId());
-        hashMap.put("token",token);
+        hashMap.put(tokenStr,token);
         return ResponseEntity.ok(hashMap);
     }
 

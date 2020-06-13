@@ -58,25 +58,7 @@ public class Lab2Application {
                     );
                     userRepository.save(admin);
                 }
-//                for (Post post : postRepository.findAll()) {
-//                    if(null == post.getReplyList()) {
-//                        post.setReplyList(new ArrayList<>());
-//                    }
-//                }
-//                for (Conference conference : conferenceRepository.findAll()) {
-//                    ArrayList<Article> articles = new ArrayList<>(articleRepository.findByConferenceID(conference.getId()));
-//                    arti:for (Article article : articles) {
-//                        Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference.getId());
-//                        ArrayList<Evaluation>  evaluations = new ArrayList<>(result.getEvaluations());
-//                        article.setIsAccepted(1);
-//                        for (Evaluation evaluation : evaluations) {
-//                            if (evaluation.getScore() <= -1){
-//                                article.setIsAccepted(-1);
-//                                continue arti;
-//                            }
-//                        }
-//                    }
-//                }
+
 
             }
 

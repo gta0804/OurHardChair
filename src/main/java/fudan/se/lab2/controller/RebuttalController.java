@@ -27,31 +27,20 @@ import java.util.HashMap;
 public class RebuttalController {
     @Autowired
     private PostService postService;
-    @Autowired
-    private PostRepository postRepository;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private ReplyRepository replyRepository;
-
-    @Autowired
-            private CorsConfig corsConfig;
 
     Logger logger = LoggerFactory.getLogger(RebuttalController.class);
 
 
     @Autowired
-    public RebuttalController(PostService postService) {
-        this.postService = postService;
+    public RebuttalController() {
     }
 
+    String tokenStr = "token";
+    String messageStr = "message";
+    String auth = "Authorization";
+    String error = "error";
+    String successMes = "success";
 
-    @PostMapping("/rebutall/test")
-    public ResponseEntity<HashMap<String,Object>> testt(){
-        HashMap<String,Object> map=new HashMap<>();
-        map.put("message","success");
-        return ResponseEntity.ok(map);
-    }
     /**
     * @Description: 查看所有与个人有关的帖子（自己有权限查看）
     * @Param: [httpServletRequest, userID]
@@ -73,18 +62,18 @@ public class RebuttalController {
     public ResponseEntity<HashMap<String,Object>> browsePostOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID){
         logger.debug("browsePostOnArticle:" + articleID);
         HashMap<String,Object> map = new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         Post post = postService.browsePostsOnArticle(articleID);
         if(post == null){
-            map.put("message","暂无帖子");
-            map.put("token",token);
+            map.put(messageStr,"暂无帖子");
+            map.put(tokenStr,token);
             map.put("post",null);
             return ResponseEntity.ok(map);
 
         }
         else{
-            map.put("message","请求成功");
-            map.put("token",token);
+            map.put(messageStr,"请求成功");
+            map.put(tokenStr,token);
             if(null == post.getReplyList()){
                 post.setReplyList(new ArrayList<>());
             }
@@ -106,23 +95,23 @@ public class RebuttalController {
     public ResponseEntity<HashMap<String,Object>> postOnArticle(HttpServletRequest httpServletRequest,@PathVariable(name = "articleID") Long articleID,@PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "words") String words){
         logger.debug("Post:" +ownerID + "on" + articleID);
         HashMap<String,Object> map = new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         Long postID = postService.postOnArticle(articleID,ownerID,words);
         if(postID == (long)(-1)){
-            map.put("message","发送失败");
-            map.put("token",token);
+            map.put(messageStr,"发送失败");
+            map.put(tokenStr,token);
             map.put("postID",postID);
             return ResponseEntity.ok(map);
 
         }else if (postID == (long)(-255)){
-            map.put("message","重复发送");
-            map.put("token",token);
+            map.put(messageStr,"重复发送");
+            map.put(tokenStr,token);
             map.put("postID",postID);
             return ResponseEntity.ok(map);
         }
         else{
-            map.put("message","发送成功");
-            map.put("token",token);
+            map.put(messageStr,"发送成功");
+            map.put(tokenStr,token);
             map.put("postID",postID);
             return ResponseEntity.ok(map);
         }
@@ -141,7 +130,7 @@ public class RebuttalController {
     public ResponseEntity<HashMap<String,Object>> replyPost(HttpServletRequest request, @PathVariable(name = "postID") Long postID, @PathVariable(name = "ownerID") Long ownerID,@PathVariable(name = "floorNumber") Long floorNumber,@PathVariable(name = "words") String words){
         logger.debug("replyPost");
         HashMap<String,Object> map = new HashMap<>();
-        String token = request.getHeader("Authorization").substring(7);
+        String token = request.getHeader(auth).substring(7);
         System.out.println(ownerID);
         System.out.println(floorNumber);
         System.out.println(words);
@@ -149,8 +138,8 @@ public class RebuttalController {
 
         Reply reply = postService.replyPost(postID,ownerID,words,floorNumber);
         String message = null == reply?"提交失败":"提交成功";
-        map.put("message",message);
-            map.put("token",token);
+        map.put(message,message);
+            map.put(tokenStr,token);
             map.put("reply",reply);
             return ResponseEntity.ok(map);
 
@@ -168,19 +157,15 @@ public class RebuttalController {
     @PostMapping(value = "/submitRebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest, HttpServletResponse response){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
-        HashMap<String,Object> map = new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        String token = httpServletRequest.getHeader(auth).substring(7);
 
         Reply reply = postService.submitRebuttal(submitRebuttalRequest.getArticleID(),submitRebuttalRequest.getWords(),submitRebuttalRequest.getAuthorID());
         String message = null == reply?"提交失败":"提交成功";
-        map.put("message",message);
-        map.put("token",token);
+        map.put(messageStr,message);
+        map.put(tokenStr,token);
         map.put("reply",reply);
         response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("X-Frame-Options", "SAMEORIGIN");
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Access-Control-Allow-Credentials","true");
         return ResponseEntity.ok(map);
 
     }

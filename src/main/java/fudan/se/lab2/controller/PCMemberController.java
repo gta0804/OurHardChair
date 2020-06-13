@@ -22,29 +22,36 @@ import java.util.*;
 @CrossOrigin
 @Controller
 public class PCMemberController {
-    private Logger logger = LoggerFactory.getLogger(PCMemberController.class);
+
+    Logger logger = LoggerFactory.getLogger(PCMemberController.class);
+
+    @Autowired
     private PCMemberService pcMemberService;
     @Autowired
-    public PCMemberController(PCMemberService pcMemberService){
-        this.pcMemberService=pcMemberService;
+    public PCMemberController(){
+
     }
 
+    String tokenStr = "token";
+    String messageStr = "message";
+    String auth = "Authorization";
+    String error = "error";
+    String successMes = "success";
     @CrossOrigin("*")
     @PostMapping("/invitePCMember")
     public ResponseEntity<HashMap<String,Object>> invitePCMember(@RequestBody InvitePCMemberRequest request, HttpServletRequest httpServletRequest){
         logger.debug("inviting PCMember "+request.toString());
         HashMap<String,Object> map=new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         String result=pcMemberService.invitePCNumber(request);
-        if(result.equals("success")){
-            map.put("message",result);
-            map.put("token",token);
-            return ResponseEntity.ok(map);
+        if(successMes.equals(result)){
+            map.put(messageStr,result);
+            map.put(tokenStr,token);
         }
         else{
-            map.put("message","error");
-            return ResponseEntity.ok(map);
+            map.put(messageStr,error);
         }
+        return ResponseEntity.ok(map);
     }
 
     @CrossOrigin("*")
@@ -52,17 +59,16 @@ public class PCMemberController {
     public ResponseEntity<HashMap<String,Object>> approvePCMember(@RequestBody ApprovePCMemberInvitationRequest request, HttpServletRequest httpServletRequest){
         logger.debug("approve PCMember "+request.toString());
         HashMap<String,Object> map=new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         boolean result=pcMemberService.approvePCNumberInvitation(request);
         if(!result){
-            map.put("message","error");
-            return ResponseEntity.ok(map);
+            map.put(messageStr,error);
         }
         else{
-            map.put("message","success");
-            map.put("token",token);
-            return ResponseEntity.ok(map);
+            map.put(messageStr,"success");
+            map.put(tokenStr,token);
         }
+        return ResponseEntity.ok(map);
     }
 
 
@@ -71,18 +77,17 @@ public class PCMemberController {
     public ResponseEntity<HashMap<String,Object>> disapprovePCMember(@RequestBody DisapprovePCMemberInvitationRequest request, HttpServletRequest httpServletRequest){
         logger.debug("disapprove PCMember "+request.toString());
         HashMap<String,Object> map=new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         boolean result=pcMemberService.disapprovePCNumberInvitation(request);
         if(result){
-            map.put("message","success");
-            map.put("token",token);
-            return ResponseEntity.ok(map);
+            map.put(messageStr,"success");
+            map.put(tokenStr,token);
 
         }
         else{
-            map.put("message","error");
-            return ResponseEntity.ok(map);
+            map.put(messageStr,error);
         }
+        return ResponseEntity.ok(map);
     }
 
     @CrossOrigin("*")
@@ -90,18 +95,17 @@ public class PCMemberController {
     public ResponseEntity<HashMap<String,Object>>search(@RequestBody SearchUserRequest request,HttpServletRequest httpServletRequest){
         logger.debug("searching people"+request.toString());
         HashMap<String,Object> map=new HashMap<>();
-        String token = httpServletRequest.getHeader("Authorization").substring(7);
+        String token = httpServletRequest.getHeader(auth).substring(7);
         List<SearchResponse> responses=pcMemberService.search(request);
         if(responses==null){
-            map.put("message","error");
-            return ResponseEntity.ok(map);
+            map.put(messageStr,error);
         }
         else{
-            map.put("message","success");
-            map.put("token",token);
+            map.put(messageStr,"success");
+            map.put(tokenStr,token);
             map.put("users",responses);
-            return ResponseEntity.ok(map);
         }
+        return ResponseEntity.ok(map);
 
     }
 }

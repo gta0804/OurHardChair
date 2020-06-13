@@ -1,6 +1,5 @@
 package fudan.se.lab2.controller;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.repository.ArticleRepository;

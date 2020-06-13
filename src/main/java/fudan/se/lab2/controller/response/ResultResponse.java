@@ -2,7 +2,6 @@ package fudan.se.lab2.controller.response;
 
 import fudan.se.lab2.domain.Article;
 import fudan.se.lab2.domain.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @program: lab2

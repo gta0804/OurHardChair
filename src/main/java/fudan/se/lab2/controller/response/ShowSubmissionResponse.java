@@ -1,6 +1,4 @@
 package fudan.se.lab2.controller.response;
-
-import fudan.se.lab2.domain.Topic;
 import fudan.se.lab2.domain.Writer;
 
 import java.util.List;

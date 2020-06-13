@@ -283,7 +283,7 @@ public class ContributionService {
         }
         Result result = resultRepository.findByArticleIDAndConferenceID(articleID,conference_id);
         HashSet<Evaluation> evaluationSet = new HashSet<>(result.getEvaluations());
-        Evaluation evaluationToModify = null;
+        Evaluation evaluationToModify = new Evaluation();
         for (Evaluation evaluation : evaluationSet) {
             if (evaluation.getPCMemberID().equals(userId)){
                 evaluationToModify = evaluation;

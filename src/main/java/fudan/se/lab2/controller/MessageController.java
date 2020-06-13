@@ -2,8 +2,6 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.MarkMessageRequest;
 import fudan.se.lab2.controller.response.AllMessageResponse;
-import fudan.se.lab2.domain.Message;
-import fudan.se.lab2.repository.UserRepository;
 import fudan.se.lab2.security.jwt.JwtTokenUtil;
 import fudan.se.lab2.service.MessageService;
 import org.slf4j.Logger;

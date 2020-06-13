@@ -1,7 +1,5 @@
 package fudan.se.lab2.domain;
 
-import fudan.se.lab2.controller.request.componment.WriterRequest;
-
 import javax.persistence.*;
 import java.util.*;
 

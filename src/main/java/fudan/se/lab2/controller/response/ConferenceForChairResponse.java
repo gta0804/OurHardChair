@@ -1,9 +1,7 @@
 package fudan.se.lab2.controller.response;
 
 import fudan.se.lab2.domain.Conference;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 
 /**
  * @program: lab2

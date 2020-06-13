@@ -1,16 +1,15 @@
 package fudan.se.lab2.service;
 
-import fudan.se.lab2.domain.*;
+import fudan.se.lab2.domain.Article;
+import fudan.se.lab2.domain.Post;
+import fudan.se.lab2.domain.Reply;
+import fudan.se.lab2.domain.User;
 import fudan.se.lab2.repository.ArticleRepository;
 import fudan.se.lab2.repository.PostRepository;
 import fudan.se.lab2.repository.ReplyRepository;
 import fudan.se.lab2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @program: lab2

@@ -1,7 +1,4 @@
 package fudan.se.lab2.controller.response;
-
-import fudan.se.lab2.domain.Topic;
-
 import java.util.*;
 
 public class AllConferenceResponse {

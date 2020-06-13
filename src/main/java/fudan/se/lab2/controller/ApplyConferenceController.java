@@ -73,14 +73,10 @@ public class ApplyConferenceController {
         List<Conference> conferences=new LinkedList<>();
         applyConferenceService.reviewConference(conferences);
         String token= httpServletRequest.getHeader("Authorization").substring(7);
-        if(null==conferences){
-            map.put("message","拉取待审核会议失败");
-        }
-        else{
             map.put("message","拉取待审核会议成功");
             map.put("meetings",conferences);
             map.put("token",token);
-        }
+
         return ResponseEntity.ok(map);
 
     }

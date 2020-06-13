@@ -104,4 +104,17 @@ public class MyRelatedConferenceControllerTest {
         Assert.isTrue(message.equals("success"));
     }
 
+    @Test
+    void showAllConferenceForChair(){
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("testA");
+        loginRequest.setPassword("123456");
+        String token=(String)authController.login(loginRequest).getBody().get("token");
+        request = new MockHttpServletRequest();
+        request.setCharacterEncoding("UTF-8");
+        request.addHeader("Authorization","Bearer " + token);
+        String message=(String)myRelatedConferenceController.showAllConferenceForChair(request).getBody().get("message");
+        Assert.isTrue(message.equals("获取所有我主持的会议申请成功"));
+    }
+
 }

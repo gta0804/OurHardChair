@@ -2,19 +2,13 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.controller.response.SearchResponse;
-import fudan.se.lab2.controller.response.ShowSubmissionResponse;
-import fudan.se.lab2.domain.Conference;
 import fudan.se.lab2.repository.ConferenceRepository;
 import io.jsonwebtoken.lang.Assert;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;

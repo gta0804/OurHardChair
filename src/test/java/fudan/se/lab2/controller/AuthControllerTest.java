@@ -3,20 +3,14 @@ package fudan.se.lab2.controller;
 import fudan.se.lab2.Lab2Application;
 import fudan.se.lab2.controller.request.LoginRequest;
 import fudan.se.lab2.controller.request.RegisterRequest;
-import fudan.se.lab2.domain.User;
-import fudan.se.lab2.repository.UserRepository;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes= Lab2Application.class)
 class AuthControllerTest {
@@ -31,8 +25,6 @@ class AuthControllerTest {
     @Autowired
     AuthController authController;
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Test
     void register() {
@@ -62,11 +54,5 @@ class AuthControllerTest {
 
     }
 
-    @Test
-    void welcome() {
-        Map<String,String> map = (Map<String,String>)authController.welcome().getBody();
-        Assert.isTrue(map.get("message").equals("Welcome to 2020 Software Engineering Lab2. "));
-
-    }
 
 }

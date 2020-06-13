@@ -1,12 +1,8 @@
 package fudan.se.lab2.controller;
 
-import fudan.se.lab2.Lab2Application;
 import fudan.se.lab2.controller.request.ApplyMeetingRequest;
 import fudan.se.lab2.controller.request.LoginRequest;
 import fudan.se.lab2.controller.request.ReviewConferenceRequest;
-import fudan.se.lab2.domain.Conference;
-import fudan.se.lab2.domain.Topic;
-import fudan.se.lab2.repository.ConferenceRepository;
 import fudan.se.lab2.repository.TopicRepository;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
@@ -31,14 +27,9 @@ class ApplyConferenceControllerTest {
     @Autowired
      ApplyConferenceController applyConferenceController;
 
-    @Autowired
-    private ConferenceRepository conferenceRepository;
 
     @Autowired
      AuthController authController;
-
-    @Autowired
-    private TopicRepository topicRepository;
 
 
     /**

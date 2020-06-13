@@ -192,3 +192,5 @@ Caused by: org.hibernate.AnnotationException: Use of @OneToMany or @ManyToMany t
 2020-06-13 21:17:15.885 DEBUG 22248 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
 2020-06-13 21:17:15.911 DEBUG 22248 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
 2020-06-13 21:17:18.264 DEBUG 22248 --- [SpringContextShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@53251a66, started on Sat Jun 13 21:17:04 CST 2020
+2020-06-13 22:17:22.802  WARN 15748 --- [HikariPool-7 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Thread starvation or clock leap detected (housekeeper delta=12m7s772ms240µs100ns).
+2020-06-13 22:35:00.950  WARN 15748 --- [HikariPool-7 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Thread starvation or clock leap detected (housekeeper delta=2m8s105ms763µs300ns).

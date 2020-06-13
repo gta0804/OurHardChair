@@ -2,7 +2,6 @@ package fudan.se.lab2.controller;
 
 import fudan.se.lab2.controller.request.*;
 import fudan.se.lab2.controller.response.SearchResponse;
-import fudan.se.lab2.repository.ConferenceRepository;
 import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ public class PCMemberControllerTest {
     PCMemberController pcMemberController;
     private MockHttpServletRequest request;
 
-    @Autowired
-    private ConferenceRepository conferenceRepository;
 
     @Autowired
     private AuthController authController;

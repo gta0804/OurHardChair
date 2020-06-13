@@ -52,7 +52,7 @@ public class AuthController {
     @RequestMapping("/register")
     public ResponseEntity<HashMap<String,Object>> register(@RequestBody RegisterRequest request) {
         logger.debug("RegistrationForm: " + request.toString());
-        HashMap<String,Object> map = new HashMap<String,Object>();
+        HashMap<String,Object> map = new HashMap();
         User user = authService.register(request);
         if (null == user){
             map.put(messageStr,"注册失败，已有该用户");

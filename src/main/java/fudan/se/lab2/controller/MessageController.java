@@ -37,7 +37,7 @@ public class MessageController {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         String userName=jwtTokenUtil.getUsernameFromToken(token);
         List<AllMessageResponse> messages=messageService.getAllMessage(userName);
-        HashMap<String,Object> map=new HashMap<String,Object>();
+        HashMap<String,Object> map=new HashMap();
         map.put("token",token);
         map.put("messages",messages);
         return ResponseEntity.ok(map);
@@ -48,7 +48,7 @@ public class MessageController {
     public ResponseEntity<HashMap<String,Object>> markRead(@RequestBody MarkMessageRequest request,HttpServletRequest httpServletRequest){
         logger.debug("markingMessages "+request.toString());
         String token = httpServletRequest.getHeader("Authorization").substring(7);
-        HashMap<String,Object> map=new HashMap<String,Object>();
+        HashMap<String,Object> map=new HashMap();
         boolean mark=messageService.markRead(request);
         if(!mark){
             map.put(messageStr,"标记失败");

@@ -157,7 +157,7 @@ public class RebuttalController {
     @PostMapping(value = "/submitRebuttal")
     public ResponseEntity<HashMap<String,Object>> submitRebuttal(HttpServletRequest httpServletRequest, @RequestBody SubmitRebuttalRequest submitRebuttalRequest, HttpServletResponse response){
         logger.debug(submitRebuttalRequest.getAuthorID() + "submitRebuttal on " + submitRebuttalRequest.getArticleID());
-        HashMap<String,Object> map = new HashMap<String,Object>();
+        HashMap<String,Object> map = new HashMap();
         String token = httpServletRequest.getHeader(auth).substring(7);
 
         Reply reply = postService.submitRebuttal(submitRebuttalRequest.getArticleID(),submitRebuttalRequest.getWords(),submitRebuttalRequest.getAuthorID());

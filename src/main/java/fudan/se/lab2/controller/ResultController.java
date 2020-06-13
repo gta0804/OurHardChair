@@ -4,8 +4,6 @@ import fudan.se.lab2.controller.request.ConferenceIDAndUserIDRequest;
 import fudan.se.lab2.controller.request.ConferenceIDRequest;
 import fudan.se.lab2.service.ContributionService;
 import fudan.se.lab2.service.MyRelatedConferenceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

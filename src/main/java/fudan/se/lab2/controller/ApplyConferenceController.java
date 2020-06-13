@@ -21,34 +21,27 @@ public class ApplyConferenceController {
     @Autowired
     private ApplyConferenceService applyConferenceService;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private UserRepository userRepository;
-
     Logger logger = LoggerFactory.getLogger(ApplyConferenceController.class);
 
-    @Autowired
-    public ApplyConferenceController(ApplyConferenceService applyConferenceService){
-        this.applyConferenceService=applyConferenceService;
-    }
+
 
     String messageStr = "message";
     String auth = "Authorization";
     String errorStr = "error";
+    String succStr = "success";
     @CrossOrigin(origins = "*")
     @RequestMapping("/ApplyConference")
     public ResponseEntity<HashMap<String,Object>> applyMeeting(HttpServletRequest httpServletRequest, @RequestBody ApplyMeetingRequest request){
         String token= httpServletRequest.getHeader(auth).substring(7);
         logger.debug("ApplyMeetingForm: " + request.toString());
-        HashMap<String,Object> map = new HashMap<String,Object> ();
+        HashMap<String,Object> map = new HashMap();
         Conference conference = applyConferenceService.applyMeeting(request);
         if (null == conference){
             map.put(messageStr,"会议申请失败，已有该会议");
             return ResponseEntity.ok(map);
         }else {
             map.put("token",token);
-            map.put(messageStr,"success");
+            map.put(messageStr,succStr);
             map.put("user id",conference.getChairId());
             map.put("short_name",conference.getAbbreviation());
             map.put("full_name",conference.getFullName());

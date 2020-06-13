@@ -33,7 +33,7 @@ public class ToolServiceController {
     @RequestMapping("/findUser/{userID}")
     public ResponseEntity<HashMap<String,Object>> findUser(HttpServletRequest httpServletRequest,@PathVariable(name = "userID") Long userID){
         logger.debug("Find user " + userID);
-        HashMap<String,Object> map = new HashMap<String,Object>();
+        HashMap<String,Object> map = new HashMap();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         User user = userRepository.findById(userID).orElse(null);
         if(null == user){

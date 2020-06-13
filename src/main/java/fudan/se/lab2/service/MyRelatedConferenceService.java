@@ -381,7 +381,7 @@ public class MyRelatedConferenceService {
 
     private boolean allocateAll(Article article, List<PCMember> pCMembers, HashMap<PCMember, List<Article>> results) {
         List<PCMember> temp = new LinkedList<>(pCMembers);
-        int minimumNumber = 0;
+        int minimumNumber ;
 
         for (int i = 0; i < 3; i++) {
             minimumNumber=getMinimumNumber(pCMembers,results);

@@ -47,8 +47,6 @@ public class AuthController {
     private UserRepository userRepository;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-            private AuthorityRepository authorityRepository;
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired

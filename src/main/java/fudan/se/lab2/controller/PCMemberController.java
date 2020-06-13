@@ -25,8 +25,6 @@ public class PCMemberController {
     private Logger logger = LoggerFactory.getLogger(PCMemberController.class);
     private PCMemberService pcMemberService;
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
     public PCMemberController(PCMemberService pcMemberService){
         this.pcMemberService=pcMemberService;
     }
@@ -75,13 +73,14 @@ public class PCMemberController {
         HashMap<String,Object> map=new HashMap<>();
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         boolean result=pcMemberService.disapprovePCNumberInvitation(request);
-        if(!result){
-            map.put("message","error");
-            return ResponseEntity.ok(map);
-        }
-        else{
+        if(result){
             map.put("message","success");
             map.put("token",token);
+            return ResponseEntity.ok(map);
+
+        }
+        else{
+            map.put("message","error");
             return ResponseEntity.ok(map);
         }
     }

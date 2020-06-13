@@ -89,33 +89,38 @@ public class ContributionController {
             return ResponseEntity.ok(map);
         }
         else{
-                String fileName = file.getOriginalFilename();
-                String path;
-                StringBuilder sb = new StringBuilder("/workplace/upload/");
-                if (null == conferenceID) {
-                    sb.append("unknownConferenceID/");
-                }else {
-                    sb.append(conferenceID);
-                    sb.append("/");
-                }
-                sb.append(fileName);
-                path = sb.toString();
-                System.out.println(path);
-                mkdirAndFile(path);
-                File dest = new File(path);
-                file.transferTo(dest);
-                map.put("message", "上传成功");
-                map.put("存放路径", fileName);
+            String fileName = saveFile(file, conferenceID);
+            map.put("message", "上传成功");
+            map.put("存放路径", fileName);
             map.put("token", token);
             return ResponseEntity.ok(map);
             }
         }
 
+    private String saveFile( MultipartFile file, Long conferenceID) throws IOException {
+        String fileName = file.getOriginalFilename();
+        String path;
+        StringBuilder sb = new StringBuilder("/workplace/upload/");
+        if (null == conferenceID) {
+            sb.append("unknownConferenceID/");
+        }else {
+            sb.append(conferenceID);
+            sb.append("/");
+        }
+        sb.append(fileName);
+        path = sb.toString();
+        System.out.println(path);
+        mkdirAndFile(path);
+        File dest = new File(path);
+        file.transferTo(dest);
+        return fileName;
+    }
+
     @CrossOrigin(origins = "*")
     @PostMapping("/update")
     public ResponseEntity<HashMap<String, Object>> update(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("conference_id") Long conferenceID,@RequestParam("articleId") Long articleId)throws IOException {
         logger.debug("Try to update...");
-        HashMap<String, Object> map = new HashMap();
+        HashMap<String, Object> map = new HashMap<>();
         String token = request.getHeader("Authorization").substring(7);
         map.put("token", token);
         if (null == file ||file.isEmpty()){
@@ -123,20 +128,7 @@ public class ContributionController {
             return ResponseEntity.ok(map);
         }
         else {
-            String fileName = file.getOriginalFilename();
-            String path ;
-            StringBuilder sb = new StringBuilder("/workplace/upload/");
-            if (null == conferenceID) {
-                sb.append("unknownConferenceID/");
-            }else {
-                sb.append(conferenceID);
-                sb.append("/");
-            }
-            sb.append(fileName);
-            path = sb.toString();
-            mkdirAndFile(path);
-            File dest = new File(path);
-            file.transferTo(dest);
+            String fileName=saveFile(file,conferenceID);
             Article article = articleRepository.findById(articleId).orElse(null);
             if (null != article) {
                 article.setFilename(fileName);

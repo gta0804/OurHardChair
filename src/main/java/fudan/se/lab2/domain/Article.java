@@ -34,7 +34,7 @@ public class Article {
     @ManyToMany(cascade ={CascadeType.MERGE})
     private Set<Topic> topics=new HashSet<>();
 
-    @ManyToMany(cascade ={CascadeType.MERGE})
+    @ManyToMany(cascade ={CascadeType.MERGE},fetch = FetchType.EAGER)
     private Set<PCMember> pcMembers=new HashSet<>();
     //0暂时无法发布 1已经可以发布 2主席已经第一次发布 3主席已经第二次发布
     private Long status;

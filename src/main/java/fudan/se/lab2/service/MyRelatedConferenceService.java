@@ -322,6 +322,7 @@ public class MyRelatedConferenceService {
             conference.setIsOpenSubmission(3);
             conferenceRepository.save(conference);
         }
+        System.out.println("结果是: "+allocateResult);
         return allocateResult;
     }
 
@@ -379,7 +380,7 @@ public class MyRelatedConferenceService {
 
     private boolean allocateAll(Article article, List<PCMember> pCMembers, HashMap<PCMember, List<Article>> results) {
         List<PCMember> temp = new LinkedList<>(pCMembers);
-        int minimumNumber = 0;
+        int minimumNumber ;
 
         for (int i = 0; i < 3; i++) {
             minimumNumber=getMinimumNumber(pCMembers,results);
@@ -485,6 +486,7 @@ public class MyRelatedConferenceService {
             }
         }
     }
+
 
 
     private static int[] getRandomNumbers(int max) {

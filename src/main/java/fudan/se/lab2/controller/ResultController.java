@@ -39,7 +39,9 @@ public class ResultController {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
         String result = myRelatedConferenceService.releaseReviewResult(conferenceIDRequest.getConference_id());
-        hashMap.put("token",token);
+        if(result.equals("开启成功")){
+            hashMap.put("token",token);
+        }
         hashMap.put("message",result);
         return ResponseEntity.ok(hashMap);
     }
@@ -50,7 +52,10 @@ public class ResultController {
         String token = httpServletRequest.getHeader("Authorization").substring(7);
         HashMap<String,Object> hashMap = new HashMap<>();
         String result = myRelatedConferenceService.releaseFinalReviewResult(conferenceIDRequest.getConference_id());
-        hashMap.put("token",token);
+
+        if(result.equals("开启成功")){
+            hashMap.put("token",token);
+        }
         hashMap.put("message",result);
         return ResponseEntity.ok(hashMap);
     }

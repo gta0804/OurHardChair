@@ -1,7 +1,7 @@
 package fudan.se.lab2.controller;
 
 import fudan.se.lab2.repository.ArticleRepository;
-
+import org.hibernate.annotations.Parameter;	
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +51,7 @@ public class PdfController {
             try {
                 input= new FileInputStream(file);
                 data = new byte[input.available()];
+                int btes = input.read(data);
                 response.getOutputStream().write(data);
             } catch (Exception e) {
                 System.out.println("pdf文件处理异常：" + e);

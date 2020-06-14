@@ -42,7 +42,7 @@ public class PostService {
         }
         Post post = new Post(ownerID, articleID, words);
         Article article = articleRepository.findById(articleID).orElse(null);
-        if(article==null){
+        if(article == null){
             return (long)(-1);
         }
         post.setArticleTitle(article.getTitle());

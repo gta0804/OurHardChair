@@ -45,6 +45,7 @@ public class MyRelatedConferenceController {
     String auth = "Authorization";
     String successMes = "开启投稿成功";
     String tokenStr = "token";
+    private final String allocationSuccessMes="稿件分配成功";
     /**
      * @Description: 直接展示所有会议，只需要token即可
      * @Param: [httpServletRequest]
@@ -161,7 +162,7 @@ public class MyRelatedConferenceController {
         String token = httpServletRequest.getHeader(auth).substring(7);
         HashMap<String,Object> map=new HashMap<>();
         String message=myRelatedConferenceService.openManuscriptReview(request);
-        if(successMes.equals(message)){
+        if(allocationSuccessMes.equals(message)){
             map.put(tokenStr,token);
         }
         map.put(messageStr,message);

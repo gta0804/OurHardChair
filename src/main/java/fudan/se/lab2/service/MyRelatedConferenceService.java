@@ -215,8 +215,6 @@ public class MyRelatedConferenceService {
             }
             for (Article article : articles) {
                 article.setStatus((long)2);
-                System.out.println("in test, articleName is " +article.getId());
-                System.out.println("in test, conferenceName is " +conference_id);
                 Result result = resultRepository.findByArticleIDAndConferenceID(article.getId(),conference_id);
                 Set<Evaluation> evaluations = result.getEvaluations();
                 article.setIsAccepted(1);
@@ -228,6 +226,7 @@ public class MyRelatedConferenceService {
                 }
                 articleRepository.save(article);
             }
+            updateEvaluation(conference_id);
             conference.setIsOpenSubmission(Math.max(conference.getIsOpenSubmission(), 4));
             conferenceRepository.save(conference);
             return "开启成功";
